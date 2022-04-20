@@ -79,7 +79,7 @@ func-coverage: sanitize-coverage
 
 # Send coveralls data.
 goveralls: sanitize-coverage
-	goveralls -coverprofile=test/reports/final.cov -service=circle-ci -repotoken=1r7TP3L2xhnSiOOutstLIB306z67K120W
+	goveralls -coverprofile=test/reports/final.cov -service=circle-ci -repotoken=olTSDvp12KTgHu7qToW20hgb2kdIwNAY1
 
 # Generate proto
 generate-proto:
