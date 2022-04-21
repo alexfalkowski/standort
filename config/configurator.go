@@ -3,7 +3,7 @@ package config
 import (
 	"github.com/alexfalkowski/go-service/config"
 	"github.com/alexfalkowski/standort/health"
-	"github.com/alexfalkowski/standort/ip"
+	"github.com/alexfalkowski/standort/location/ip"
 )
 
 // NewConfigurator for config.
@@ -18,5 +18,5 @@ func healthConfig(cfg config.Configurator) *health.Config {
 }
 
 func ipConfig(cfg config.Configurator) *ip.Config {
-	return &cfg.(*Config).IP
+	return &cfg.(*Config).Location.IP
 }

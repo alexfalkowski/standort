@@ -7,7 +7,7 @@ import (
 
 	"github.com/alexfalkowski/go-service/meta"
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
-	"github.com/alexfalkowski/standort/continent"
+	"github.com/alexfalkowski/standort/location/continent"
 	"github.com/ip2location/ip2location-go/v9"
 	"github.com/pariz/gountries"
 	"google.golang.org/grpc/codes"

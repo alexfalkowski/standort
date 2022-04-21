@@ -1,8 +1,9 @@
 health:
   duration: 1s
   timeout: 1s
-ip:
-  path: ../assets/ip2location.bin
+location:
+  ip:
+    path: ../assets/ip2location.bin
 trace:
   opentracing:
     jaeger:
