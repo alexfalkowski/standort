@@ -4,16 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"net"
 
 	"github.com/alexfalkowski/standort/location/continent"
+	"github.com/alexfalkowski/standort/location/ip"
 	"github.com/ip2location/ip2location-go/v9"
 	"github.com/pariz/gountries"
 )
 
 var (
-	// ErrInvalidIP for location.
-	ErrInvalidIP = errors.New("invalid ip address")
 
 	// ErrNotFound for location.
 	ErrNotFound = errors.New("not found")
@@ -31,19 +29,19 @@ func New(db *ip2location.DB, query *gountries.Query) *Location {
 }
 
 // GetByIP a country and continent, otherwise error.
-func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, error) {
-	if net.ParseIP(ip) == nil {
-		return "", "", fmt.Errorf("%s: %w", ip, ErrInvalidIP)
+func (l *Location) GetByIP(ctx context.Context, ipa string) (string, string, error) {
+	if err := ip.IsValid(ipa); err != nil {
+		return "", "", fmt.Errorf("%s: %w", ipa, err)
 	}
 
-	rec, err := l.db.Get_all(ip)
+	rec, err := l.db.Get_all(ipa)
 	if err != nil {
-		return "", "", fmt.Errorf("%s: %w", ip, ErrNotFound)
+		return "", "", fmt.Errorf("%s: %w", ipa, ErrNotFound)
 	}
 
 	country, err := l.query.FindCountryByName(rec.Country_long)
 	if err != nil {
-		return "", "", fmt.Errorf("%s: %w", ip, ErrNotFound)
+		return "", "", fmt.Errorf("%s: %w", ipa, ErrNotFound)
 	}
 
 	return country.Codes.Alpha2, continent.Codes[country.Continent], nil

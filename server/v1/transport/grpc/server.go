@@ -6,6 +6,7 @@ import (
 
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
 	"github.com/alexfalkowski/standort/location"
+	"github.com/alexfalkowski/standort/location/ip"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -22,7 +23,7 @@ func (s *Server) GetLocationByIP(ctx context.Context, req *v1.GetLocationByIPReq
 
 	country, continent, err := s.location.GetByIP(ctx, req.Ip)
 	if err != nil {
-		if errors.Is(err, location.ErrInvalidIP) {
+		if errors.Is(err, ip.ErrInvalid) {
 			return resp, status.Error(codes.InvalidArgument, err.Error())
 		}
 
