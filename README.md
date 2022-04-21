@@ -11,6 +11,10 @@ The service allows you to get the location by IP address using the awesome [ip2l
 
 We have checked in the free version of [ip2location.bin](assets/ip2location.bin)
 
+## Countries/Continents
+
+The service allows you to get the location based on [latitude/longitude](https://www.latlong.net/) using the power of [free maps](https://geojson-maps.ash.ms/).
+
 ## Development
 
 If you would like to contribute, here is how you can get started.
