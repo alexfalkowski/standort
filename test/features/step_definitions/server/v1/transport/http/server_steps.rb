@@ -7,7 +7,7 @@ When('I request a location by IP address with HTTP:') do |table|
     user_agent: Standort.server_config['transport']['grpc']['user_agent']
   }
 
-  @response = Standort.server_http.get_config(rows['ip'], headers)
+  @response = Standort.server_http.get_config(rows['ip'].strip, headers)
 end
 
 Then('I should receive a valid location by IP adress with HTTP:') do |table|

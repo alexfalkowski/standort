@@ -7,9 +7,8 @@ import (
 	sgrpc "github.com/alexfalkowski/go-service/transport/grpc"
 	shttp "github.com/alexfalkowski/go-service/transport/http"
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
-	"github.com/ip2location/ip2location-go/v9"
+	"github.com/alexfalkowski/standort/location"
 	"github.com/opentracing/opentracing-go"
-	"github.com/pariz/gountries"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -24,12 +23,12 @@ type RegisterParams struct {
 	GRPCConfig *sgrpc.Config
 	Logger     *zap.Logger
 	Tracer     opentracing.Tracer
-	DB         *ip2location.DB
+	Location   *location.Location
 }
 
 // Register server.
 func Register(lc fx.Lifecycle, params RegisterParams) {
-	server := NewServer(params.DB)
+	server := NewServer(params.Location)
 
 	v1.RegisterServiceServer(params.GRPCServer, server)
 
@@ -51,6 +50,6 @@ func Register(lc fx.Lifecycle, params RegisterParams) {
 }
 
 // NewServer for gRPC.
-func NewServer(db *ip2location.DB) v1.ServiceServer {
-	return &Server{db: db, query: gountries.New()}
+func NewServer(location *location.Location) v1.ServiceServer {
+	return &Server{location: location}
 }

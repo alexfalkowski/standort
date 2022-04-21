@@ -29,6 +29,10 @@ Please make sure that you have the following installed:
 - [Ruby](.ruby-version)
 - Golang
 
+### Style
+
+This project favours the [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md)
+
 ### Setup
 
 The get yourself setup, please run the following:

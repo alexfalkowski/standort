@@ -8,7 +8,7 @@ When('I request a location by IP address with gRPC:') do |table|
     'ua' => Standort.server_config['transport']['grpc']['user_agent']
   }
 
-  request = Standort::V1::GetLocationByIPRequest.new(ip: rows['ip'])
+  request = Standort::V1::GetLocationByIPRequest.new(ip: rows['ip'].strip)
   @response = Standort.server_grpc.get_location_by_ip(request, { metadata: metadata })
 rescue StandardError => e
   @response = e
