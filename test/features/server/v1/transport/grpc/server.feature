@@ -26,6 +26,7 @@ Feature: Server
       | test   |
       | <test> |
       | 154.6  |
+      |        |
 
   Scenario Outline: Get location by a not found IP address.
     When I request a location by IP address with gRPC:
