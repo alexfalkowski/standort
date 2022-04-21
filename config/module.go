@@ -12,5 +12,6 @@ var (
 		config.UnmarshalModule,
 		config.ConfigModule,
 		fx.Provide(healthConfig),
+		fx.Provide(ipConfig),
 	)
 )

@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/alexfalkowski/go-health v1.10.2
 	github.com/alexfalkowski/go-service v1.53.0
+	github.com/ip2location/ip2location-go/v9 v9.2.0
 	go.uber.org/fx v1.17.1
 )
 
