@@ -2,25 +2,15 @@ package ip
 
 import (
 	"context"
-	"errors"
 	"net"
 
 	"github.com/ip2location/ip2location-go/v9"
 	"go.uber.org/fx"
 )
 
-var (
-	// ErrInvalid for ip.
-	ErrInvalid = errors.New("invalid ip")
-)
-
 // IsValid ip address.
-func IsValid(ip string) error {
-	if net.ParseIP(ip) == nil {
-		return ErrInvalid
-	}
-
-	return nil
+func IsValid(ip string) bool {
+	return net.ParseIP(ip) != nil
 }
 
 // NewDB for ip.

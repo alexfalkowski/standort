@@ -13,6 +13,8 @@ import (
 )
 
 var (
+	// ErrInvalid for location.
+	ErrInvalid = errors.New("invalid")
 
 	// ErrNotFound for location.
 	ErrNotFound = errors.New("not found")
@@ -31,8 +33,8 @@ func New(db *ip2location.DB, query *gountries.Query) *Location {
 
 // GetByIP a country and continent, otherwise error.
 func (l *Location) GetByIP(ctx context.Context, ipa string) (string, string, error) {
-	if err := ip.IsValid(ipa); err != nil {
-		return "", "", fmt.Errorf("%s: %w", ipa, err)
+	if !ip.IsValid(ipa) {
+		return "", "", fmt.Errorf("%s: %w", ipa, ErrInvalid)
 	}
 
 	rec, _ := l.db.Get_all(ipa)
