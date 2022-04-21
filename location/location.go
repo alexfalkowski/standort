@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/standort/location/continent"
 	"github.com/alexfalkowski/standort/location/ip"
 	"github.com/ip2location/ip2location-go/v9"
@@ -36,11 +37,15 @@ func (l *Location) GetByIP(ctx context.Context, ipa string) (string, string, err
 
 	rec, err := l.db.Get_all(ipa)
 	if err != nil {
+		meta.WithAttribute(ctx, "ip.error", err.Error())
+
 		return "", "", fmt.Errorf("%s: %w", ipa, ErrNotFound)
 	}
 
 	country, err := l.query.FindCountryByName(rec.Country_long)
 	if err != nil {
+		meta.WithAttribute(ctx, "ip.error", err.Error())
+
 		return "", "", fmt.Errorf("%s: %w", ipa, ErrNotFound)
 	}
 
