@@ -35,12 +35,7 @@ func (l *Location) GetByIP(ctx context.Context, ipa string) (string, string, err
 		return "", "", fmt.Errorf("%s: %w", ipa, err)
 	}
 
-	rec, err := l.db.Get_all(ipa)
-	if err != nil {
-		meta.WithAttribute(ctx, "ip.error", err.Error())
-
-		return "", "", fmt.Errorf("%s: %w", ipa, ErrNotFound)
-	}
+	rec, _ := l.db.Get_all(ipa)
 
 	country, err := l.query.FindCountryByName(rec.Country_long)
 	if err != nil {
