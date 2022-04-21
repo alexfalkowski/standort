@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package standort.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/alexfalkowski/standort/api/standort/v1";
+option ruby_package = "Standort::V1";
+
+// Location of the response.
+message Location {
+  string country = 1;
+  string continent = 2;
+}
+
+// GetLocationByIPRequest for an IP address.
+message GetLocationByIPRequest {
+  string ip = 1;
+}
+
+// GetLocationByIPResponse for an IP address.
+message GetLocationByIPResponse {
+  Location location = 1;
+}
+
+// Service allows to get locations by different filters.
+service Service {
+  // GetLocationByIP for an IP address.
+  rpc GetLocationByIP(GetLocationByIPRequest) returns (GetLocationByIPResponse) {
+    option (google.api.http) = {
+      get: "/v1/location/ip/{ip}"
+    };
+  }
+}
