@@ -15,6 +15,6 @@ indent_size = 8
 indent_style = tab
 indent_size = 4
 
-[*.{rb,feature,yml}]
+[*.{rb,feature,yml,proto}]
 indent_style = space
 indent_size = 2

@@ -1,5 +1,5 @@
 lint:
-	buf lint || true
+	buf lint
 
 format:
 	buf format -w
