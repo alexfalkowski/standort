@@ -18,5 +18,5 @@ RUN mkdir -p assets && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /app/standort /standort
-COPY --from=build /app/assets/ip2location.bin /assets/ip2location.bin
+COPY --from=build /app/assets /assets
 ENTRYPOINT ["/standort"]
