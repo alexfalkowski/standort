@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/alexfalkowski/standort/compare/v1.3.1...v1.3.2) (2022-04-22)
+
+
+### Bug Fixes
+
+* **assets:** remove the usage of lfs ([#7](https://github.com/alexfalkowski/standort/issues/7)) ([1371ac1](https://github.com/alexfalkowski/standort/commit/1371ac145ade1867fb03ac917e3b88daa2d3b979))
+
 ### [1.3.1](https://github.com/alexfalkowski/standort/compare/v1.3.0...v1.3.1) (2022-04-21)
 
 ## [1.3.0](https://github.com/alexfalkowski/standort/compare/v1.2.1...v1.3.0) (2022-04-21)
