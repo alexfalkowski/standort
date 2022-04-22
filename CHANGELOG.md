@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/alexfalkowski/standort/compare/v1.3.4...v1.4.0) (2022-04-22)
+
+
+### Features
+
+* **server:** find location by lat and lng ([#10](https://github.com/alexfalkowski/standort/issues/10)) ([8a5b54b](https://github.com/alexfalkowski/standort/commit/8a5b54bb9ef7ff1044ac59875fca89a3688e3fe4))
+
 ### [1.3.4](https://github.com/alexfalkowski/standort/compare/v1.3.3...v1.3.4) (2022-04-22)
 
 ### [1.3.3](https://github.com/alexfalkowski/standort/compare/v1.3.2...v1.3.3) (2022-04-22)
