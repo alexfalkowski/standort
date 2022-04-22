@@ -11,4 +11,4 @@ update-all:
 	buf mod update
 
 breaking:
-	# buf breaking --against 'https://github.com/alexfalkowski/standort.git#branch=master,subdir=api'
+	buf breaking --against 'https://github.com/alexfalkowski/standort.git#branch=master,subdir=api'
