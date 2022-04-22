@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/alexfalkowski/standort/compare/v1.4.0...v1.4.1) (2022-04-22)
+
+
+### Bug Fixes
+
+* **docker:** copy all assets ([#11](https://github.com/alexfalkowski/standort/issues/11)) ([d321eb8](https://github.com/alexfalkowski/standort/commit/d321eb84111b2f5985f45ed51217903310698f78))
+
 ## [1.4.0](https://github.com/alexfalkowski/standort/compare/v1.3.4...v1.4.0) (2022-04-22)
 
 
