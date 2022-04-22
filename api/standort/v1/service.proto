@@ -23,12 +23,30 @@ message GetLocationByIPResponse {
   Location location = 1;
 }
 
+// GetLocationByLatLngRequest for a latitude and longitude.
+message GetLocationByLatLngRequest {
+  double lat = 1;
+  double lng = 2;
+}
+
+// GetLocationByLatLngResponse for a latitude and longitude.
+message GetLocationByLatLngResponse {
+  Location location = 1;
+}
+
 // Service allows to get locations by different filters.
 service Service {
   // GetLocationByIP for an IP address.
   rpc GetLocationByIP(GetLocationByIPRequest) returns (GetLocationByIPResponse) {
     option (google.api.http) = {
       get: "/v1/location/ip/{ip}"
+    };
+  }
+
+  // GetLocationByLatLng for a latitude and longitude.
+  rpc GetLocationByLatLng(GetLocationByLatLngRequest) returns (GetLocationByLatLngResponse) {
+    option (google.api.http) = {
+      get: "/v1/location/lat/{lat}/lng/{lng}"
     };
   }
 }

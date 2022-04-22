@@ -17,6 +17,13 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "standort.v1.GetLocationByIPResponse" do
       optional :location, :message, 1, "standort.v1.Location", json_name: "location"
     end
+    add_message "standort.v1.GetLocationByLatLngRequest" do
+      optional :lat, :double, 1, json_name: "lat"
+      optional :lng, :double, 2, json_name: "lng"
+    end
+    add_message "standort.v1.GetLocationByLatLngResponse" do
+      optional :location, :message, 1, "standort.v1.Location", json_name: "location"
+    end
   end
 end
 
@@ -25,5 +32,7 @@ module Standort
     Location = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v1.Location").msgclass
     GetLocationByIPRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v1.GetLocationByIPRequest").msgclass
     GetLocationByIPResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v1.GetLocationByIPResponse").msgclass
+    GetLocationByLatLngRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v1.GetLocationByLatLngRequest").msgclass
+    GetLocationByLatLngResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v1.GetLocationByLatLngResponse").msgclass
   end
 end

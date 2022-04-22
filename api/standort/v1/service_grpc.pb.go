@@ -24,6 +24,8 @@ const _ = grpc.SupportPackageIsVersion7
 type ServiceClient interface {
 	// GetLocationByIP for an IP address.
 	GetLocationByIP(ctx context.Context, in *GetLocationByIPRequest, opts ...grpc.CallOption) (*GetLocationByIPResponse, error)
+	// GetLocationByLatLng for a latitude and longitude.
+	GetLocationByLatLng(ctx context.Context, in *GetLocationByLatLngRequest, opts ...grpc.CallOption) (*GetLocationByLatLngResponse, error)
 }
 
 type serviceClient struct {
@@ -43,12 +45,23 @@ func (c *serviceClient) GetLocationByIP(ctx context.Context, in *GetLocationByIP
 	return out, nil
 }
 
+func (c *serviceClient) GetLocationByLatLng(ctx context.Context, in *GetLocationByLatLngRequest, opts ...grpc.CallOption) (*GetLocationByLatLngResponse, error) {
+	out := new(GetLocationByLatLngResponse)
+	err := c.cc.Invoke(ctx, "/standort.v1.Service/GetLocationByLatLng", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceServer is the server API for Service service.
 // All implementations must embed UnimplementedServiceServer
 // for forward compatibility
 type ServiceServer interface {
 	// GetLocationByIP for an IP address.
 	GetLocationByIP(context.Context, *GetLocationByIPRequest) (*GetLocationByIPResponse, error)
+	// GetLocationByLatLng for a latitude and longitude.
+	GetLocationByLatLng(context.Context, *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error)
 	mustEmbedUnimplementedServiceServer()
 }
 
@@ -58,6 +71,9 @@ type UnimplementedServiceServer struct {
 
 func (UnimplementedServiceServer) GetLocationByIP(context.Context, *GetLocationByIPRequest) (*GetLocationByIPResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLocationByIP not implemented")
+}
+func (UnimplementedServiceServer) GetLocationByLatLng(context.Context, *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLocationByLatLng not implemented")
 }
 func (UnimplementedServiceServer) mustEmbedUnimplementedServiceServer() {}
 
@@ -90,6 +106,24 @@ func _Service_GetLocationByIP_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Service_GetLocationByLatLng_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLocationByLatLngRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServer).GetLocationByLatLng(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/standort.v1.Service/GetLocationByLatLng",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServer).GetLocationByLatLng(ctx, req.(*GetLocationByLatLngRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Service_ServiceDesc is the grpc.ServiceDesc for Service service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -100,6 +134,10 @@ var Service_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLocationByIP",
 			Handler:    _Service_GetLocationByIP_Handler,
+		},
+		{
+			MethodName: "GetLocationByLatLng",
+			Handler:    _Service_GetLocationByLatLng_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
