@@ -1,0 +1,80 @@
+package orb
+
+import (
+	"io"
+	"os"
+
+	"github.com/alexfalkowski/standort/location/continent"
+	"github.com/paulmach/orb/geojson"
+	"github.com/tidwall/rtree"
+)
+
+// NewRTree for orb.
+func NewRTree(cfg *continent.Config) (*rtree.RTree, error) {
+	paths := []string{cfg.AfricaPath, cfg.AntarcticaPath, cfg.AsiaPath, cfg.EuropePath, cfg.NorthAmericaPath, cfg.OceaniaPath, cfg.SouthAmericaPath}
+	tree := &rtree.RTree{}
+
+	for _, path := range paths {
+		if err := populateTree(tree, path); err != nil {
+			return nil, err
+		}
+	}
+
+	return tree, nil
+}
+
+// SearchTree for a lat and lng.
+func SearchTree(tree *rtree.RTree, lat, lng float64) *Node {
+	var (
+		found bool
+		data  *Node
+	)
+
+	tree.Search([2]float64{lng, lat}, [2]float64{lng, lat}, func(min, max [2]float64, d interface{}) bool {
+		data = d.(*Node)
+
+		if data.IsPointInGeometry(lat, lng) {
+			found = true
+
+			return false
+		}
+
+		return true
+	})
+
+	if !found {
+		return nil
+	}
+
+	return data
+}
+
+func populateTree(tree *rtree.RTree, path string) error {
+	reader, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+
+	data, err := io.ReadAll(reader)
+	if err != nil {
+		return err
+	}
+
+	fc, err := geojson.UnmarshalFeatureCollection(data)
+	if err != nil {
+		return err
+	}
+
+	for _, f := range fc.Features {
+		bound := f.Geometry.Bound()
+		data := &Node{
+			Country:   f.Properties["iso_a2"].(string),
+			Continent: f.Properties["continent"].(string),
+			Geometry:  f.Geometry,
+		}
+
+		tree.Insert(bound.Min, bound.Max, data)
+	}
+
+	return nil
+}

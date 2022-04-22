@@ -13,5 +13,6 @@ var (
 		config.ConfigModule,
 		fx.Provide(healthConfig),
 		fx.Provide(ipConfig),
+		fx.Provide(continentConfig),
 	)
 )

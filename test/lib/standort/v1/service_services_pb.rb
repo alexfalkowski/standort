@@ -18,6 +18,8 @@ module Standort
 
         # GetLocationByIP for an IP address.
         rpc :GetLocationByIP, ::Standort::V1::GetLocationByIPRequest, ::Standort::V1::GetLocationByIPResponse
+        # GetLocationByLatLng for a latitude and longitude.
+        rpc :GetLocationByLatLng, ::Standort::V1::GetLocationByLatLngRequest, ::Standort::V1::GetLocationByLatLngResponse
       end
 
       Stub = Service.rpc_stub_class

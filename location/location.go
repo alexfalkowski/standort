@@ -8,8 +8,10 @@ import (
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/standort/location/continent"
 	"github.com/alexfalkowski/standort/location/ip"
+	"github.com/alexfalkowski/standort/location/orb"
 	"github.com/ip2location/ip2location-go/v9"
 	"github.com/pariz/gountries"
+	"github.com/tidwall/rtree"
 )
 
 var (
@@ -24,11 +26,12 @@ var (
 type Location struct {
 	db    *ip2location.DB
 	query *gountries.Query
+	tree  *rtree.RTree
 }
 
 // New location.
-func New(db *ip2location.DB, query *gountries.Query) *Location {
-	return &Location{db: db, query: query}
+func New(db *ip2location.DB, query *gountries.Query, tree *rtree.RTree) *Location {
+	return &Location{db: db, query: query, tree: tree}
 }
 
 // GetByIP a country and continent, otherwise error.
@@ -47,4 +50,22 @@ func (l *Location) GetByIP(ctx context.Context, ipa string) (string, string, err
 	}
 
 	return country.Codes.Alpha2, continent.Codes[country.Continent], nil
+}
+
+// GetByLatLng a country and continent, otherwise error.
+func (l *Location) GetByLatLng(ctx context.Context, lat, lng float64) (string, string, error) {
+	if lat > 90 || lat < -90 {
+		return "", "", fmt.Errorf("%f/%f: %w", lat, lng, ErrInvalid)
+	}
+
+	if lng > 180 || lng < -180 {
+		return "", "", fmt.Errorf("%f/%f: %w", lat, lng, ErrInvalid)
+	}
+
+	data := orb.SearchTree(l.tree, lat, lng)
+	if data == nil {
+		return "", "", fmt.Errorf("%f/%f: %w", lat, lng, ErrNotFound)
+	}
+
+	return data.Country, continent.Codes[data.Continent], nil
 }

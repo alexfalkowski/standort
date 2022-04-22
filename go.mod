@@ -9,6 +9,8 @@ require (
 	github.com/ip2location/ip2location-go/v9 v9.2.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pariz/gountries v0.1.5
+	github.com/paulmach/orb v0.5.0
+	github.com/tidwall/rtree v1.4.1
 	go.uber.org/fx v1.17.1
 	go.uber.org/zap v1.21.0
 	google.golang.org/genproto v0.0.0-20220421151946-72621c1f0bd3
@@ -59,6 +61,7 @@ require (
 	github.com/sony/gobreaker v0.5.0 // indirect
 	github.com/spf13/cobra v1.4.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/tidwall/geoindex v1.5.0 // indirect
 	github.com/tinylib/msgp v1.1.6 // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
