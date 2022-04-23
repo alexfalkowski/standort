@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/alexfalkowski/standort/compare/v1.4.2...v1.4.3) (2022-04-23)
+
+
+### Bug Fixes
+
+* **docker:** add ca-certificate ([#13](https://github.com/alexfalkowski/standort/issues/13)) ([0453544](https://github.com/alexfalkowski/standort/commit/04535442e5f00bd449b89c295be927e70284a79e))
+
 ### [1.4.2](https://github.com/alexfalkowski/standort/compare/v1.4.1...v1.4.2) (2022-04-22)
 
 ### [1.4.1](https://github.com/alexfalkowski/standort/compare/v1.4.0...v1.4.1) (2022-04-22)
