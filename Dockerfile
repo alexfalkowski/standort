@@ -12,9 +12,10 @@ FROM debian:bullseye-slim
 
 WORKDIR /
 
-RUN mkdir -p assets && \
-    apt-get update && \
-    apt-get -y upgrade && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y upgrade && \
+    apt-get install -y --no-install-recommends \
+    ca-certificates && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /app/standort /standort
