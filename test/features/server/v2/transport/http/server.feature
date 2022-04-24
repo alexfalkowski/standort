@@ -89,11 +89,15 @@ Feature: Server
       | method | latitude | longitude |
       | params | 91       | 10        |
       | params | 10       | 181       |
+      | params | test     | 180       |
+      | params | 10       | test      |
 
     Examples: With headers
       | method  | latitude | longitude |
       | headers | 91       | 10        |
       | headers | 10       | 181       |
+      | headers | test     | 180       |
+      | headers | 10       | test      |
 
   Scenario Outline: Get location by a not found latitude and longitude.
     When I request a location with HTTP:
