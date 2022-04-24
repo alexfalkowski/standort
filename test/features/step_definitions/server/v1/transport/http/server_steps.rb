@@ -7,7 +7,7 @@ When('I request a location by IP address with HTTP:') do |table|
     user_agent: Standort.server_config['transport']['grpc']['user_agent']
   }
 
-  @response = Standort.server_http.get_location_by_ip(rows['ip'].strip, headers)
+  @response = Standort::V1.server_http.get_location_by_ip(rows['ip'].strip, headers)
 end
 
 When('I request a location by latitude and longitude with HTTP:') do |table|
@@ -17,7 +17,7 @@ When('I request a location by latitude and longitude with HTTP:') do |table|
     user_agent: Standort.server_config['transport']['grpc']['user_agent']
   }
 
-  @response = Standort.server_http.get_location_by_lat_lng(rows['latitude'], rows['longitude'], headers)
+  @response = Standort::V1.server_http.get_location_by_lat_lng(rows['latitude'], rows['longitude'], headers)
 end
 
 Then('I should receive a valid location by IP adress with HTTP:') do |table|

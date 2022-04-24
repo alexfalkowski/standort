@@ -1,4 +1,3 @@
-@manual
 Feature: Server
 
   Server allows users to get locations by different means.

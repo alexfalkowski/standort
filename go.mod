@@ -3,6 +3,7 @@ module github.com/alexfalkowski/standort
 go 1.18
 
 require (
+	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/alexfalkowski/go-health v1.10.2
 	github.com/alexfalkowski/go-service v1.55.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0

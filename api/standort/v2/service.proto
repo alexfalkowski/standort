@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package standort.v2;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/alexfalkowski/standort/api/standort/v2";
+option ruby_package = "Standort::V2";
+
+// Location of the response.
+message Location {
+  enum Type {
+    TYPE_IP_UNSPECIFIED = 0;
+    TYPE_GEO = 1;
+  }
+
+  Type type = 1;
+  string country = 2;
+  string continent = 3;
+}
+
+// Point for the request.
+message Point {
+  double lat = 1;
+  double lng = 2;
+}
+
+// GetLocationRequest for getting the location.
+message GetLocationRequest {
+  string ip = 1;
+  Point point = 2;
+}
+
+// GetLocationResponse for getting the location.
+message GetLocationResponse {
+  repeated Location locations = 1;
+}
+
+// Service allows to get location via multiple methods.
+service Service {
+  // GetLocation via multiple methods.
+  rpc GetLocation(GetLocationRequest) returns (GetLocationResponse) {
+    option (google.api.http) = {
+      get: "/v2/location"
+    };
+  }
+}
