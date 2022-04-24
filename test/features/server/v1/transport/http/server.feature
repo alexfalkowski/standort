@@ -1,4 +1,3 @@
-@manual
 Feature: Server
 
   Server allows users to get locations by different means.
@@ -29,16 +28,6 @@ Feature: Server
       | <test> |
       | 154.6  |
       |        |
-
-  Scenario Outline: Get location by a not found IP address.
-    When I request a location by IP address with HTTP:
-      | ip | <ip> |
-    Then I should receive a not found response with HTTP
-    And the process 'server' should consume less than '40mb' of memory
-
-    Examples:
-      | ip      |
-      | 0.0.0.0 |
 
   Scenario Outline: Get location by a not found IP address.
     When I request a location by IP address with HTTP:

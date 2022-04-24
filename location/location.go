@@ -26,11 +26,11 @@ var (
 type Location struct {
 	db    *ip2location.DB
 	query *gountries.Query
-	tree  *rtree.RTree
+	tree  *rtree.Generic[*orb.Node]
 }
 
 // New location.
-func New(db *ip2location.DB, query *gountries.Query, tree *rtree.RTree) *Location {
+func New(db *ip2location.DB, query *gountries.Query, tree *rtree.Generic[*orb.Node]) *Location {
 	return &Location{db: db, query: query, tree: tree}
 }
 

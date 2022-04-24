@@ -9,6 +9,7 @@ import (
 	"github.com/alexfalkowski/standort/location"
 	"github.com/alexfalkowski/standort/server/health"
 	v1 "github.com/alexfalkowski/standort/server/v1"
+	v2 "github.com/alexfalkowski/standort/server/v2"
 	"go.uber.org/fx"
 )
 
@@ -18,5 +19,5 @@ var ServerOptions = []fx.Option{
 	logger.ZapModule, metrics.PrometheusModule,
 	transport.HTTPServerModule, transport.GRPCServerModule,
 	trace.JaegerOpenTracingModule,
-	location.Module, v1.Module,
+	location.Module, v1.Module, v2.Module,
 }

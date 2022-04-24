@@ -31,10 +31,7 @@ func (s *Server) GetLocationByIP(ctx context.Context, req *v1.GetLocationByIPReq
 		}
 	}
 
-	resp.Location = &v1.Location{
-		Country:   country,
-		Continent: continent,
-	}
+	resp.Location = &v1.Location{Country: country, Continent: continent}
 
 	return resp, nil
 }
@@ -54,10 +51,7 @@ func (s *Server) GetLocationByLatLng(ctx context.Context, req *v1.GetLocationByL
 		}
 	}
 
-	resp.Location = &v1.Location{
-		Country:   country,
-		Continent: continent,
-	}
+	resp.Location = &v1.Location{Country: country, Continent: continent}
 
 	return resp, nil
 }
