@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/alexfalkowski/standort/compare/v1.4.3...v1.5.0) (2022-04-24)
+
+
+### Features
+
+* **server:** create v2 of api ([#14](https://github.com/alexfalkowski/standort/issues/14)) ([c731bc9](https://github.com/alexfalkowski/standort/commit/c731bc992962fbf75dcee1094f6963d44dc3b3ff))
+
 ### [1.4.3](https://github.com/alexfalkowski/standort/compare/v1.4.2...v1.4.3) (2022-04-23)
 
 
