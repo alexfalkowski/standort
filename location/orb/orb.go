@@ -10,9 +10,9 @@ import (
 )
 
 // NewRTree for orb.
-func NewRTree(cfg *continent.Config) (*rtree.RTree, error) {
+func NewRTree(cfg *continent.Config) (*rtree.Generic[*Node], error) {
 	paths := []string{cfg.AfricaPath, cfg.AntarcticaPath, cfg.AsiaPath, cfg.EuropePath, cfg.NorthAmericaPath, cfg.OceaniaPath, cfg.SouthAmericaPath}
-	tree := &rtree.RTree{}
+	tree := &rtree.Generic[*Node]{}
 
 	for _, path := range paths {
 		if err := populateTree(tree, path); err != nil {
@@ -24,14 +24,14 @@ func NewRTree(cfg *continent.Config) (*rtree.RTree, error) {
 }
 
 // SearchTree for a lat and lng.
-func SearchTree(tree *rtree.RTree, lat, lng float64) *Node {
+func SearchTree(tree *rtree.Generic[*Node], lat, lng float64) *Node {
 	var (
 		found bool
 		data  *Node
 	)
 
-	tree.Search([2]float64{lng, lat}, [2]float64{lng, lat}, func(min, max [2]float64, d interface{}) bool {
-		data = d.(*Node)
+	tree.Search([2]float64{lng, lat}, [2]float64{lng, lat}, func(min, max [2]float64, d *Node) bool {
+		data = d
 
 		if data.IsPointInGeometry(lat, lng) {
 			found = true
@@ -49,7 +49,7 @@ func SearchTree(tree *rtree.RTree, lat, lng float64) *Node {
 	return data
 }
 
-func populateTree(tree *rtree.RTree, path string) error {
+func populateTree(tree *rtree.Generic[*Node], path string) error {
 	reader, err := os.Open(path)
 	if err != nil {
 		return err
