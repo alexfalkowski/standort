@@ -15,6 +15,14 @@ We have checked in the free version of [ip2location.bin](assets/ip2location.bin)
 
 The service allows you to get the location based on [latitude/longitude](https://www.latlong.net/) using the power of [free maps](https://geojson-maps.ash.ms/).
 
+## Versions
+
+The service contains 2 versions of the API. These are as follows:
+- V1 - has separate endpoints for IP and countries.
+- V2 - combines both into one endpoint and uses the following headers:
+  - For IP address we will use [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For) header.
+  - For geo location we would use [Geolocation](http://tools.ietf.org/html/draft-thomson-geopriv-http-geolocation-00) header. The format is described as the [geo URI](https://www.rfc-editor.org/rfc/rfc5870).
+
 ## Development
 
 If you would like to contribute, here is how you can get started.
