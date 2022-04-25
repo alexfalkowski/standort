@@ -29,7 +29,7 @@ Feature: Server
     When I request a location with HTTP:
       | ip     | <ip>     |
       | method | <method> |
-    Then I should receive a bad response with HTTP
+    Then I should receive an empty response with HTTP
     And the process 'server' should consume less than '40mb' of memory
 
     Examples: With parameters
@@ -48,7 +48,7 @@ Feature: Server
     When I request a location with HTTP:
       | ip     | <ip>     |
       | method | <method> |
-    Then I should receive a not found response with HTTP
+    Then I should receive an empty response with HTTP
     And the process 'server' should consume less than '40mb' of memory
 
     Examples:
@@ -84,28 +84,25 @@ Feature: Server
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive a bad response with HTTP
+    Then I should receive an empty response with HTTP
+    And the process 'server' should consume less than '40mb' of memory
 
     Examples: With parameters
       | method | latitude | longitude |
       | params | 91       | 10        |
       | params | 10       | 181       |
-      | params | test     | 180       |
-      | params | 10       | test      |
 
     Examples: With headers
       | method  | latitude | longitude |
       | headers | 91       | 10        |
       | headers | 10       | 181       |
-      | headers | test     | 180       |
-      | headers | 10       | test      |
 
   Scenario Outline: Get location by a not found latitude and longitude.
     When I request a location with HTTP:
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive a not found response with HTTP
+    Then I should receive an empty response with HTTP
     And the process 'server' should consume less than '40mb' of memory
 
     Examples:

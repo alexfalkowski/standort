@@ -29,7 +29,7 @@ Feature: Server
     When I request a location with gRPC:
       | ip     | <ip>     |
       | method | <method> |
-    Then I should receive a bad response with gRPC
+    Then I should receive an empty response with gRPC
     And the process 'server' should consume less than '40mb' of memory
 
     Examples: With parameters
@@ -48,7 +48,7 @@ Feature: Server
     When I request a location with gRPC:
       | ip     | <ip>     |
       | method | <method> |
-    Then I should receive a not found response with gRPC
+    Then I should receive an empty response with gRPC
     And the process 'server' should consume less than '40mb' of memory
 
     Examples:
@@ -84,7 +84,8 @@ Feature: Server
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive a bad response with gRPC
+    Then I should receive an empty response with gRPC
+    And the process 'server' should consume less than '40mb' of memory
 
     Examples: With parameters
       | method | latitude | longitude |
@@ -101,7 +102,7 @@ Feature: Server
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive a not found response with gRPC
+    Then I should receive an empty response with gRPC
     And the process 'server' should consume less than '40mb' of memory
 
     Examples:
