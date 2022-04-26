@@ -14,16 +14,16 @@ Feature: Server
     And the process 'server' should consume less than '40mb' of memory
 
     Examples: With parameters
-      | method | ip             | country | continent | type                |
-      | params | 95.91.246.242  | DE      | EU        | TYPE_IP_UNSPECIFIED |
-      | params | 45.128.199.236 | NL      | EU        | TYPE_IP_UNSPECIFIED |
-      | params | 154.6.22.65    | US      | NA        | TYPE_IP_UNSPECIFIED |
+      | method | ip             | country | continent | type    |
+      | params | 95.91.246.242  | DE      | EU        | TYPE_IP |
+      | params | 45.128.199.236 | NL      | EU        | TYPE_IP |
+      | params | 154.6.22.65    | US      | NA        | TYPE_IP |
 
     Examples: With metadata
-      | method   | ip             | country | continent | type                |
-      | metadata | 95.91.246.242  | DE      | EU        | TYPE_IP_UNSPECIFIED |
-      | metadata | 45.128.199.236 | NL      | EU        | TYPE_IP_UNSPECIFIED |
-      | metadata | 154.6.22.65    | US      | NA        | TYPE_IP_UNSPECIFIED |
+      | method   | ip             | country | continent | type    |
+      | metadata | 95.91.246.242  | DE      | EU        | TYPE_IP |
+      | metadata | 45.128.199.236 | NL      | EU        | TYPE_IP |
+      | metadata | 154.6.22.65    | US      | NA        | TYPE_IP |
 
   Scenario Outline: Get location by an bad IP address.
     When I request a location with gRPC:
