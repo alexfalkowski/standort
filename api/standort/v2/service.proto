@@ -10,8 +10,9 @@ option ruby_package = "Standort::V2";
 // Location of the response.
 message Location {
   enum Type {
-    TYPE_IP_UNSPECIFIED = 0;
-    TYPE_GEO = 1;
+    TYPE_UNSPECIFIED = 0;
+    TYPE_IP = 1;
+    TYPE_GEO = 2;
   }
 
   Type type = 1;

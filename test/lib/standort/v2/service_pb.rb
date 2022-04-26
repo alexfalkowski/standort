@@ -13,8 +13,9 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :continent, :string, 3, json_name: "continent"
     end
     add_enum "standort.v2.Location.Type" do
-      value :TYPE_IP_UNSPECIFIED, 0
-      value :TYPE_GEO, 1
+      value :TYPE_UNSPECIFIED, 0
+      value :TYPE_IP, 1
+      value :TYPE_GEO, 2
     end
     add_message "standort.v2.Point" do
       optional :lat, :double, 1, json_name: "lat"
