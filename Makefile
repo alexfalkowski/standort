@@ -132,6 +132,13 @@ dep: go-dep ruby-dep
 # Update all deps.
 dep-update-all: go-dep-update-all go-dep ruby-dep-update-all ruby-dep proto-update-all
 
+# Run go security checks.
+go-sec:
+	gosec -exclude-dir=test -exclude=G104 ./...
+
+# Run security checks.
+sec: go-sec
+
 # Prepare assets.
 assets:
 	tools/assets
