@@ -5,7 +5,7 @@ go 1.18
 require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/alexfalkowski/go-health v1.10.2
-	github.com/alexfalkowski/go-service v1.58.0
+	github.com/alexfalkowski/go-service v1.59.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
 	github.com/ip2location/ip2location-go/v9 v9.2.0
 	github.com/pariz/gountries v0.1.5
@@ -13,7 +13,7 @@ require (
 	github.com/tidwall/rtree v1.4.2
 	go.uber.org/fx v1.17.1
 	go.uber.org/zap v1.21.0
-	google.golang.org/genproto v0.0.0-20220422154200-b37d22cd5731
+	google.golang.org/genproto v0.0.0-20220426171045-31bebdecfb46
 	google.golang.org/grpc v1.46.0
 	google.golang.org/protobuf v1.28.0
 )
@@ -49,7 +49,7 @@ require (
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
 	github.com/jackc/pgtype v1.11.0 // indirect
 	github.com/jackc/pgx/v4 v4.16.0 // indirect
-	github.com/klauspost/compress v1.15.1 // indirect
+	github.com/klauspost/compress v1.15.2 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/nsqio/go-nsq v1.1.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
