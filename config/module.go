@@ -11,6 +11,7 @@ var (
 		fx.Provide(NewConfigurator),
 		config.UnmarshalModule,
 		config.ConfigModule,
+		config.WatchModule,
 		fx.Provide(healthConfig),
 		fx.Provide(ipConfig),
 		fx.Provide(continentConfig),

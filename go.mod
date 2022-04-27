@@ -5,7 +5,7 @@ go 1.18
 require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/alexfalkowski/go-health v1.10.2
-	github.com/alexfalkowski/go-service v1.59.0
+	github.com/alexfalkowski/go-service v1.61.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
 	github.com/ip2location/ip2location-go/v9 v9.2.0
 	github.com/pariz/gountries v0.1.5
@@ -32,6 +32,7 @@ require (
 	github.com/dlmiddlecote/sqlstats v1.0.2 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/form3tech-oss/jwt-go v3.2.5+incompatible // indirect
+	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-redis/cache/v8 v8.4.3 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/golang/glog v1.0.0 // indirect
