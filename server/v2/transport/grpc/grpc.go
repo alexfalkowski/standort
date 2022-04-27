@@ -7,6 +7,7 @@ import (
 	sgrpc "github.com/alexfalkowski/go-service/transport/grpc"
 	"github.com/alexfalkowski/go-service/transport/grpc/trace/opentracing"
 	shttp "github.com/alexfalkowski/go-service/transport/http"
+	"github.com/alexfalkowski/go-service/version"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	"github.com/alexfalkowski/standort/location"
 	"go.uber.org/fx"
@@ -24,6 +25,7 @@ type RegisterParams struct {
 	Logger     *zap.Logger
 	Tracer     opentracing.Tracer
 	Location   *location.Location
+	Version    version.Version
 }
 
 // Register server.
@@ -39,6 +41,7 @@ func Register(lc fx.Lifecycle, params RegisterParams) {
 			conn, _ = sgrpc.NewClient(ctx, fmt.Sprintf("127.0.0.1:%s", params.GRPCConfig.Port),
 				sgrpc.WithClientConfig(params.GRPCConfig), sgrpc.WithClientLogger(params.Logger),
 				sgrpc.WithClientTracer(params.Tracer), sgrpc.WithClientDialOption(grpc.WithBlock()),
+				sgrpc.WithClientVersion(params.Version),
 			)
 
 			return v2.RegisterServiceHandler(ctx, params.HTTPServer.Mux, conn)
