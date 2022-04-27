@@ -5,10 +5,10 @@ import (
 	"fmt"
 
 	sgrpc "github.com/alexfalkowski/go-service/transport/grpc"
+	"github.com/alexfalkowski/go-service/transport/grpc/trace/opentracing"
 	shttp "github.com/alexfalkowski/go-service/transport/http"
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
 	"github.com/alexfalkowski/standort/location"
-	"github.com/opentracing/opentracing-go"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"

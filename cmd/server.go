@@ -17,7 +17,8 @@ import (
 var ServerOptions = []fx.Option{
 	fx.NopLogger, config.Module, health.Module,
 	logger.ZapModule, metrics.PrometheusModule,
-	transport.HTTPServerModule, transport.GRPCServerModule,
+	transport.GRPCServerModule, transport.GRPCJaegerModule,
+	transport.HTTPServerModule, transport.HTTPJaegerModule,
 	trace.JaegerOpenTracingModule,
 	location.Module, v1.Module, v2.Module,
 }

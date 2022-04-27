@@ -139,3 +139,11 @@ assets:
 # Release to docker hub.
 docker:
 	tools/docker
+
+# Start the environment
+start:
+	tools/env start
+
+# Stop the environment
+stop:
+	tools/env stop
