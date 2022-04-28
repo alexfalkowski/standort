@@ -96,6 +96,8 @@ Feature: Server
       | method   | latitude | longitude |
       | metadata | 91       | 10        |
       | metadata | 10       | 181       |
+      | metadata | test     | 180       |
+      | metadata | 90       | test      |
 
   Scenario Outline: Get location by a not found latitude and longitude.
     When I request a location with gRPC:

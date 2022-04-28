@@ -96,6 +96,8 @@ Feature: Server
       | method  | latitude | longitude |
       | headers | 91       | 10        |
       | headers | 10       | 181       |
+      | headers | test     | 180       |
+      | headers | 90       | test      |
 
   Scenario Outline: Get location by a not found latitude and longitude.
     When I request a location with HTTP:
