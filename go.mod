@@ -5,7 +5,7 @@ go 1.18
 require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/alexfalkowski/go-health v1.10.2
-	github.com/alexfalkowski/go-service v1.61.0
+	github.com/alexfalkowski/go-service v1.62.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
 	github.com/ip2location/ip2location-go/v9 v9.2.0
 	github.com/pariz/gountries v0.1.5
