@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/alexfalkowski/konfig
+name: buf.build/alexfalkowski/standort
 deps:
   - buf.build/googleapis/googleapis
 breaking:
