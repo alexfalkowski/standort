@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.16](https://github.com/alexfalkowski/standort/compare/v2.0.15...v2.0.16) (2022-04-28)
+
+
+### Bug Fixes
+
+* **api:** rename buf name to standort ([#32](https://github.com/alexfalkowski/standort/issues/32)) ([f230456](https://github.com/alexfalkowski/standort/commit/f230456d09186d5605b4c370409f767de78394b5))
+
 ### [2.0.15](https://github.com/alexfalkowski/standort/compare/v2.0.14...v2.0.15) (2022-04-28)
 
 ### [2.0.14](https://github.com/alexfalkowski/standort/compare/v2.0.13...v2.0.14) (2022-04-28)
