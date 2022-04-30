@@ -31,10 +31,6 @@ Then('I should receive a valid location by IP adress with HTTP:') do |table|
   expect(location['continent']).to eq(rows['continent'])
 end
 
-Then('I should receive a bad response with HTTP') do
-  expect(@response.code).to eq(400)
-end
-
 Then('I should receive a not found response with HTTP') do
   expect(@response.code).to eq(404)
 end

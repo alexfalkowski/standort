@@ -35,10 +35,6 @@ Then('I should receive a valid location by IP adress with gRPC:') do |table|
   expect(@response.location.continent).to eq(rows['continent'])
 end
 
-Then('I should receive a bad response with gRPC') do
-  expect(@response).to be_a(GRPC::InvalidArgument)
-end
-
 Then('I should receive a not found response with gRPC') do
   expect(@response).to be_a(GRPC::NotFound)
 end

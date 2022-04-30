@@ -45,17 +45,6 @@ Feature: Server
       | 52.377956 | 4.897070   | NL      | EU        |
       | 43.000000 | -75.000000 | US      | NA        |
 
-  Scenario Outline: Get location by a bad latitude and longitude.
-    When I request a location by latitude and longitude with gRPC:
-      | latitude  | <latitude>  |
-      | longitude | <longitude> |
-    Then I should receive a bad response with gRPC
-
-    Examples:
-      | latitude | longitude |
-      | 91       | 10        |
-      | 10       | 181       |
-
   Scenario Outline: Get location by a not found latitude and longitude.
     When I request a location by latitude and longitude with gRPC:
       | latitude  | <latitude>  |
@@ -66,3 +55,5 @@ Feature: Server
     Examples:
       | latitude | longitude |
       | 90       | 180       |
+      | 91       | 10        |
+      | 10       | 181       |

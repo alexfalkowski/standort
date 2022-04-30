@@ -39,7 +39,7 @@ func (l *Location) GetByIP(ctx context.Context, ipa string) (string, string, err
 	if err != nil {
 		meta.WithAttribute(ctx, "ip.error", err.Error())
 
-		return "", "", fmt.Errorf("%s: %w", ipa, ErrInvalid)
+		return "", "", fmt.Errorf("%s: %w", ipa, ErrNotFound)
 	}
 
 	country, err := l.query.FindCountryByName(c)
@@ -54,14 +54,6 @@ func (l *Location) GetByIP(ctx context.Context, ipa string) (string, string, err
 
 // GetByLatLng a country and continent, otherwise error.
 func (l *Location) GetByLatLng(ctx context.Context, lat, lng float64) (string, string, error) {
-	if lat > 90 || lat < -90 {
-		return "", "", fmt.Errorf("%f/%f: %w", lat, lng, ErrInvalid)
-	}
-
-	if lng > 180 || lng < -180 {
-		return "", "", fmt.Errorf("%f/%f: %w", lat, lng, ErrInvalid)
-	}
-
 	data := orb.SearchTree(l.tree, lat, lng)
 	if data == nil {
 		return "", "", fmt.Errorf("%f/%f: %w", lat, lng, ErrNotFound)
