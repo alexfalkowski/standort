@@ -10,7 +10,7 @@ import (
 var (
 	// Module for fx.
 	Module = fx.Options(
-		fx.Provide(ip.NewDB),
+		fx.Provide(ip.NewProvider),
 		fx.Provide(country.NewQuery),
 		fx.Provide(New),
 		fx.Provide(orb.NewRTree),

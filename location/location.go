@@ -7,9 +7,8 @@ import (
 
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/standort/location/continent"
-	"github.com/alexfalkowski/standort/location/ip"
+	"github.com/alexfalkowski/standort/location/ip/provider"
 	"github.com/alexfalkowski/standort/location/orb"
-	"github.com/ip2location/ip2location-go/v9"
 	"github.com/pariz/gountries"
 	"github.com/tidwall/rtree"
 )
@@ -24,25 +23,26 @@ var (
 
 // Location will find the country and continent by different criteria.
 type Location struct {
-	db    *ip2location.DB
-	query *gountries.Query
-	tree  *rtree.Generic[*orb.Node]
+	provider provider.Provider
+	query    *gountries.Query
+	tree     *rtree.Generic[*orb.Node]
 }
 
 // New location.
-func New(db *ip2location.DB, query *gountries.Query, tree *rtree.Generic[*orb.Node]) *Location {
-	return &Location{db: db, query: query, tree: tree}
+func New(provider provider.Provider, query *gountries.Query, tree *rtree.Generic[*orb.Node]) *Location {
+	return &Location{provider: provider, query: query, tree: tree}
 }
 
 // GetByIP a country and continent, otherwise error.
 func (l *Location) GetByIP(ctx context.Context, ipa string) (string, string, error) {
-	if !ip.IsValid(ipa) {
+	c, err := l.provider.GetByIP(ctx, ipa)
+	if err != nil {
+		meta.WithAttribute(ctx, "ip.error", err.Error())
+
 		return "", "", fmt.Errorf("%s: %w", ipa, ErrInvalid)
 	}
 
-	rec, _ := l.db.Get_all(ipa)
-
-	country, err := l.query.FindCountryByName(rec.Country_long)
+	country, err := l.query.FindCountryByName(c)
 	if err != nil {
 		meta.WithAttribute(ctx, "ip.error", err.Error())
 
