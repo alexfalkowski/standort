@@ -15,6 +15,7 @@ type Config struct {
 	SouthAmericaPath string `yaml:"south_america_path"`
 }
 
+// GetAfricaPath of geojson.
 func (c *Config) GetAfricaPath() string {
 	if c.AfricaPath != "" {
 		return c.AfricaPath
@@ -23,6 +24,7 @@ func (c *Config) GetAfricaPath() string {
 	return c.path("africa")
 }
 
+// GetNorthAmericaPath of geojson.
 func (c *Config) GetNorthAmericaPath() string {
 	if c.NorthAmericaPath != "" {
 		return c.NorthAmericaPath
@@ -31,6 +33,7 @@ func (c *Config) GetNorthAmericaPath() string {
 	return c.path("north_america")
 }
 
+// GetOceaniaPath of geojson.
 func (c *Config) GetOceaniaPath() string {
 	if c.OceaniaPath != "" {
 		return c.OceaniaPath
@@ -39,6 +42,7 @@ func (c *Config) GetOceaniaPath() string {
 	return c.path("oceania")
 }
 
+// GetAntarcticaPath of geojson.
 func (c *Config) GetAntarcticaPath() string {
 	if c.AntarcticaPath != "" {
 		return c.AntarcticaPath
@@ -47,6 +51,7 @@ func (c *Config) GetAntarcticaPath() string {
 	return c.path("antarctica")
 }
 
+// GetAsiaPath of geojson.
 func (c *Config) GetAsiaPath() string {
 	if c.AsiaPath != "" {
 		return c.AsiaPath
@@ -55,6 +60,7 @@ func (c *Config) GetAsiaPath() string {
 	return c.path("asia")
 }
 
+// GetEuropePath of geojson.
 func (c *Config) GetEuropePath() string {
 	if c.EuropePath != "" {
 		return c.EuropePath
@@ -63,6 +69,7 @@ func (c *Config) GetEuropePath() string {
 	return c.path("europe")
 }
 
+// GetSouthAmericaPath of geojson.
 func (c *Config) GetSouthAmericaPath() string {
 	if c.SouthAmericaPath != "" {
 		return c.SouthAmericaPath
@@ -72,5 +79,5 @@ func (c *Config) GetSouthAmericaPath() string {
 }
 
 func (c *Config) path(name string) string {
-	return fmt.Sprintf("assets/%s.geojson", name)
+	return fmt.Sprintf("/assets/%s.geojson", name)
 }

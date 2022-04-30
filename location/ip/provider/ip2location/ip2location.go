@@ -9,7 +9,7 @@ import (
 
 // NewProvider for ip2location.
 func NewProvider(lc fx.Lifecycle, cfg *Config) (*Provider, error) {
-	db, err := ip2location.OpenDB(cfg.Path)
+	db, err := ip2location.OpenDB(cfg.GetPath())
 	if err != nil {
 		return nil, err
 	}
