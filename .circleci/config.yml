@@ -6,7 +6,6 @@ jobs:
       - image: alexfalkowski/go:1.18
     steps:
       - checkout
-      - run: make assets
       - run: make dep
       - run: make lint
       - run: make features
@@ -27,7 +26,6 @@ jobs:
       - image: alexfalkowski/go:1.18
     steps:
       - checkout
-      - run: make assets
       - setup_remote_docker
       - run:
           name: make login

@@ -12,3 +12,8 @@ Feature: Server
     When the server is configured with an invalid "location" path
     Then starting the system should raise an error
     And the server is configured with a valid configuration
+
+  Scenario: Starting server with an invalid ip provider
+    When the server is configured with an invalid ip provider
+    Then starting the system should raise an error
+    And the server is configured with a valid configuration
