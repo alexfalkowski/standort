@@ -25,25 +25,6 @@ Feature: Server
       | metadata | 45.128.199.236 | NL      | EU        | TYPE_IP |
       | metadata | 154.6.22.65    | US      | NA        | TYPE_IP |
 
-  Scenario Outline: Get location by an bad IP address.
-    When I request a location with gRPC:
-      | ip     | <ip>     |
-      | method | <method> |
-    Then I should receive an empty response with gRPC
-    And the process 'server' should consume less than '40mb' of memory
-
-    Examples: With parameters
-      | method | ip     |
-      | params | test   |
-      | params | <test> |
-      | params | 154.6  |
-
-    Examples: With metadata
-      | method   | ip     |
-      | metadata | test   |
-      | metadata | <test> |
-      | metadata | 154.6  |
-
   Scenario Outline: Get location by a not found IP address.
     When I request a location with gRPC:
       | ip     | <ip>     |
@@ -51,10 +32,19 @@ Feature: Server
     Then I should receive an empty response with gRPC
     And the process 'server' should consume less than '40mb' of memory
 
-    Examples:
+    Examples: With parameters
+      | method | ip      |
+      | params | 0.0.0.0 |
+      | params | test    |
+      | params | <test>  |
+      | params | 154.6   |
+
+    Examples: With metadata
       | method   | ip      |
-      | params   | 0.0.0.0 |
       | metadata | 0.0.0.0 |
+      | metadata | test    |
+      | metadata | <test>  |
+      | metadata | 154.6   |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location with gRPC:

@@ -33,28 +33,18 @@ Feature: Server
     And the process 'server' should consume less than '40mb' of memory
 
     Examples: With parameters
-      | method | ip     |
-      | params | test   |
-      | params | <test> |
-      | params | 154.6  |
+      | method | ip      |
+      | params | 0.0.0.0 |
+      | params | test    |
+      | params | <test>  |
+      | params | 154.6   |
 
     Examples: With headers
-      | method  | ip     |
-      | headers | test   |
-      | headers | <test> |
-      | headers | 154.6  |
-
-  Scenario Outline: Get location by a not found IP address.
-    When I request a location with HTTP:
-      | ip     | <ip>     |
-      | method | <method> |
-    Then I should receive an empty response with HTTP
-    And the process 'server' should consume less than '40mb' of memory
-
-    Examples:
       | method  | ip      |
-      | params  | 0.0.0.0 |
       | headers | 0.0.0.0 |
+      | headers | test    |
+      | headers | <test>  |
+      | headers | 154.6   |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location with HTTP:

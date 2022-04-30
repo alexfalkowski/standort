@@ -17,19 +17,6 @@ Feature: Server
       | 45.128.199.236 | NL      | EU        |
       | 154.6.22.65    | US      | NA        |
 
-  Scenario Outline: Get location by an bad IP address.
-    When I request a location by IP address with gRPC:
-      | ip | <ip> |
-    Then I should receive a bad response with gRPC
-    And the process 'server' should consume less than '40mb' of memory
-
-    Examples:
-      | ip     |
-      | test   |
-      | <test> |
-      | 154.6  |
-      |        |
-
   Scenario Outline: Get location by a not found IP address.
     When I request a location by IP address with gRPC:
       | ip | <ip> |
@@ -39,6 +26,9 @@ Feature: Server
     Examples:
       | ip      |
       | 0.0.0.0 |
+      | test    |
+      | <test>  |
+      | 154.6   |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location by latitude and longitude with gRPC:
