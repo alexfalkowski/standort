@@ -2,14 +2,6 @@ health:
   duration: 1s
   timeout: 1s
 location:
-  continent:
-    africa_path: no_valid_path
-    north_america_path: ../assets/north_america.geojson
-    oceania_path: ../assets/oceania.geojson
-    antarctica_path: ../assets/antarctica.geojson
-    asia_path: ../assets/asia.geojson
-    europe_path: ../assets/europe.geojson
-    south_america_path: ../assets/south_america.geojson
   ip:
     type: ip2location
     ip2location:
