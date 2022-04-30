@@ -34,19 +34,19 @@ func New(provider provider.Provider, query *gountries.Query, tree *rtree.Generic
 }
 
 // GetByIP a country and continent, otherwise error.
-func (l *Location) GetByIP(ctx context.Context, ipa string) (string, string, error) {
-	c, err := l.provider.GetByIP(ctx, ipa)
+func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, error) {
+	c, err := l.provider.GetByIP(ctx, ip)
 	if err != nil {
 		meta.WithAttribute(ctx, "ip.error", err.Error())
 
-		return "", "", fmt.Errorf("%s: %w", ipa, ErrNotFound)
+		return "", "", fmt.Errorf("%s: %w", ip, ErrNotFound)
 	}
 
 	country, err := l.query.FindCountryByName(c)
 	if err != nil {
 		meta.WithAttribute(ctx, "ip.error", err.Error())
 
-		return "", "", fmt.Errorf("%s: %w", ipa, ErrNotFound)
+		return "", "", fmt.Errorf("%s: %w", ip, ErrNotFound)
 	}
 
 	return country.Codes.Alpha2, continent.Codes[country.Continent], nil
