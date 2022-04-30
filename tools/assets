@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-unzip -o -qq assets/ip2location.bin.zip -d assets

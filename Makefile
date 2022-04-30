@@ -132,10 +132,6 @@ dep: go-dep ruby-dep
 # Update all deps.
 dep-update-all: go-dep-update-all go-dep ruby-dep-update-all ruby-dep proto-update-all
 
-# Prepare assets.
-assets:
-	tools/assets
-
 # Release to docker hub.
 docker:
 	tools/docker

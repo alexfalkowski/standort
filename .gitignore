@@ -3,4 +3,3 @@ vendor
 *.cov
 *.out
 /standort
-/assets/ip2location.bin
