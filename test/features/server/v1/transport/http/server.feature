@@ -13,11 +13,17 @@ Feature: Server
       | continent | <continent> |
     And the process 'server' should consume less than '40mb' of memory
 
-    Examples:
+    Examples: With ip2location
       | source      | ip             | country | continent |
       | ip2location | 95.91.246.242  | DE      | EU        |
       | ip2location | 45.128.199.236 | NL      | EU        |
       | ip2location | 154.6.22.65    | US      | NA        |
+
+    Examples: With geoip2
+      | source | ip             | country | continent |
+      | geoip2 | 95.91.246.242  | DE      | EU        |
+      | geoip2 | 45.128.199.236 | NL      | EU        |
+      | geoip2 | 154.6.22.65    | US      | NA        |
 
   @manual
   Scenario Outline: Get location by a not found IP address.
@@ -28,13 +34,21 @@ Feature: Server
     Then I should receive a not found response with HTTP
     And the process 'server' should consume less than '40mb' of memory
 
-    Examples:
+    Examples: With ip2location
       | source      | ip      |
       | ip2location | 0.0.0.0 |
       | ip2location | test    |
       | ip2location | <test>  |
       | ip2location | 154.6   |
       | ip2location |         |
+
+    Examples: With geoip2
+      | source | ip      |
+      | geoip2 | 0.0.0.0 |
+      | geoip2 | test    |
+      | geoip2 | <test>  |
+      | geoip2 | 154.6   |
+      | geoip2 |         |
 
   @startup
   Scenario Outline: Get location by a valid latitude and longitude.

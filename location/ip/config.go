@@ -1,15 +1,22 @@
 package ip
 
 import (
+	"github.com/alexfalkowski/standort/location/ip/provider/geoip2"
 	"github.com/alexfalkowski/standort/location/ip/provider/ip2location"
 )
 
 type Config struct {
 	Type        string             `yaml:"type"`
 	IP2Location ip2location.Config `yaml:"ip2location"`
+	GeoIP2      geoip2.Config      `yaml:"geoip2"`
 }
 
 // IsIP2location configured.
 func (c *Config) IsIP2location() bool {
 	return c.Type == "ip2location"
+}
+
+// IsGeoIP2 configured.
+func (c *Config) IsGeoIP2() bool {
+	return c.Type == "geoip2"
 }

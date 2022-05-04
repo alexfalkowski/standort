@@ -15,17 +15,29 @@ Feature: Server
       | continent | <continent> |
     And the process 'server' should consume less than '40mb' of memory
 
-    Examples: With parameters
+    Examples: With ip2location parameters
       | source      | method | ip             | country | continent | type    |
       | ip2location | params | 95.91.246.242  | DE      | EU        | TYPE_IP |
       | ip2location | params | 45.128.199.236 | NL      | EU        | TYPE_IP |
       | ip2location | params | 154.6.22.65    | US      | NA        | TYPE_IP |
 
-    Examples: With headers
+    Examples: With ip2location headers
       | source      | method  | ip             | country | continent | type    |
       | ip2location | headers | 95.91.246.242  | DE      | EU        | TYPE_IP |
       | ip2location | headers | 45.128.199.236 | NL      | EU        | TYPE_IP |
       | ip2location | headers | 154.6.22.65    | US      | NA        | TYPE_IP |
+
+    Examples: With geoip2 parameters
+      | source | method | ip             | country | continent | type    |
+      | geoip2 | params | 95.91.246.242  | DE      | EU        | TYPE_IP |
+      | geoip2 | params | 45.128.199.236 | NL      | EU        | TYPE_IP |
+      | geoip2 | params | 154.6.22.65    | US      | NA        | TYPE_IP |
+
+    Examples: With geoip2 headers
+      | source | method  | ip             | country | continent | type    |
+      | geoip2 | headers | 95.91.246.242  | DE      | EU        | TYPE_IP |
+      | geoip2 | headers | 45.128.199.236 | NL      | EU        | TYPE_IP |
+      | geoip2 | headers | 154.6.22.65    | US      | NA        | TYPE_IP |
 
   @manual
   Scenario Outline: Get location by an bad IP address.
@@ -37,19 +49,33 @@ Feature: Server
     Then I should receive an empty response with HTTP
     And the process 'server' should consume less than '40mb' of memory
 
-    Examples: With parameters
+    Examples: With ip2location parameters
       | source      | method | ip      |
       | ip2location | params | 0.0.0.0 |
       | ip2location | params | test    |
       | ip2location | params | <test>  |
       | ip2location | params | 154.6   |
 
-    Examples: With headers
+    Examples: With ip2location headers
       | source      | method  | ip      |
       | ip2location | headers | 0.0.0.0 |
       | ip2location | headers | test    |
       | ip2location | headers | <test>  |
       | ip2location | headers | 154.6   |
+
+    Examples: With geoip2 parameters
+      | source | method | ip      |
+      | geoip2 | params | 0.0.0.0 |
+      | geoip2 | params | test    |
+      | geoip2 | params | <test>  |
+      | geoip2 | params | 154.6   |
+
+    Examples: With ip2location headers
+      | source | method  | ip      |
+      | geoip2 | headers | 0.0.0.0 |
+      | geoip2 | headers | test    |
+      | geoip2 | headers | <test>  |
+      | geoip2 | headers | 154.6   |
 
   @startup
   Scenario Outline: Get location by a valid latitude and longitude.
