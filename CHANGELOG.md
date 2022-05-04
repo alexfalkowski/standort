@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/alexfalkowski/standort/compare/v2.0.19...v2.1.0) (2022-05-04)
+
+
+### Features
+
+* **server:** add geoip2 support ([#36](https://github.com/alexfalkowski/standort/issues/36)) ([6c46737](https://github.com/alexfalkowski/standort/commit/6c46737c175d3ead2661ceae671afe7de2c8c8d9))
+
 ### [2.0.19](https://github.com/alexfalkowski/standort/compare/v2.0.18...v2.0.19) (2022-04-30)
 
 ### [2.0.18](https://github.com/alexfalkowski/standort/compare/v2.0.17...v2.0.18) (2022-04-29)
