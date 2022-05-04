@@ -21,14 +21,8 @@ func (s *Server) GetLocationByIP(ctx context.Context, req *v1.GetLocationByIPReq
 	resp := &v1.GetLocationByIPResponse{}
 
 	country, continent, err := s.location.GetByIP(ctx, req.Ip)
-	if err != nil {
-		if errors.Is(err, location.ErrInvalid) {
-			return resp, status.Error(codes.InvalidArgument, err.Error())
-		}
-
-		if errors.Is(err, location.ErrNotFound) {
-			return resp, status.Error(codes.NotFound, err.Error())
-		}
+	if err != nil && errors.Is(err, location.ErrNotFound) {
+		return resp, status.Error(codes.NotFound, err.Error())
 	}
 
 	resp.Location = &v1.Location{Country: country, Continent: continent}
@@ -41,14 +35,8 @@ func (s *Server) GetLocationByLatLng(ctx context.Context, req *v1.GetLocationByL
 	resp := &v1.GetLocationByLatLngResponse{Location: &v1.Location{}}
 
 	country, continent, err := s.location.GetByLatLng(ctx, req.Lat, req.Lng)
-	if err != nil {
-		if errors.Is(err, location.ErrInvalid) {
-			return resp, status.Error(codes.InvalidArgument, err.Error())
-		}
-
-		if errors.Is(err, location.ErrNotFound) {
-			return resp, status.Error(codes.NotFound, err.Error())
-		}
+	if err != nil && errors.Is(err, location.ErrNotFound) {
+		return resp, status.Error(codes.NotFound, err.Error())
 	}
 
 	resp.Location = &v1.Location{Country: country, Continent: continent}

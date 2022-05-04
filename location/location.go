@@ -14,9 +14,6 @@ import (
 )
 
 var (
-	// ErrInvalid for location.
-	ErrInvalid = errors.New("invalid")
-
 	// ErrNotFound for location.
 	ErrNotFound = errors.New("not found")
 )
