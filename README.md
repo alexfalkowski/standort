@@ -7,9 +7,9 @@ Standort provides location based information.
 
 ## IP Address
 
-The service allows you to get the location by IP address using the awesome [ip2location](https://github.com/ip2location/ip2location-go).
-
-We have checked in the free version of [ip2location.bin](assets/ip2location.bin)
+The service allows you to get the location by IP address using the following methods:
+- [ip2location](https://github.com/ip2location/ip2location-go)
+- [geoip2](https://github.com/IncSW/geoip2)
 
 ## Countries/Continents
 
