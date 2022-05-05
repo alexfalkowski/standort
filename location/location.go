@@ -7,9 +7,9 @@ import (
 
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/standort/location/continent"
+	country "github.com/alexfalkowski/standort/location/country/provider"
 	ip "github.com/alexfalkowski/standort/location/ip/provider"
 	orb "github.com/alexfalkowski/standort/location/orb/provider"
-	"github.com/pariz/gountries"
 )
 
 var (
@@ -19,14 +19,14 @@ var (
 
 // Location will find the country and continent by different criteria.
 type Location struct {
-	ipProvider  ip.Provider
-	query       *gountries.Query
-	orbProvider orb.Provider
+	ipProvider      ip.Provider
+	countryProvider country.Provider
+	orbProvider     orb.Provider
 }
 
 // New location.
-func New(ipProvider ip.Provider, query *gountries.Query, orbProvider orb.Provider) *Location {
-	return &Location{ipProvider: ipProvider, query: query, orbProvider: orbProvider}
+func New(ipProvider ip.Provider, countryProvider country.Provider, orbProvider orb.Provider) *Location {
+	return &Location{ipProvider: ipProvider, countryProvider: countryProvider, orbProvider: orbProvider}
 }
 
 // GetByIP a country and continent, otherwise error.
@@ -38,14 +38,14 @@ func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, erro
 		return "", "", fmt.Errorf("%s: %w", ip, ErrNotFound)
 	}
 
-	country, err := l.query.FindCountryByName(c)
+	cou, con, err := l.countryProvider.GetByName(ctx, c)
 	if err != nil {
-		meta.WithAttribute(ctx, "ip.error", err.Error())
+		meta.WithAttribute(ctx, "country.error", err.Error())
 
 		return "", "", fmt.Errorf("%s: %w", ip, ErrNotFound)
 	}
 
-	return country.Codes.Alpha2, continent.Codes[country.Continent], nil
+	return cou, continent.Codes[con], nil
 }
 
 // GetByLatLng a country and continent, otherwise error.

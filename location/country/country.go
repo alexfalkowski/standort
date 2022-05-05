@@ -1,10 +1,15 @@
 package country
 
 import (
-	"github.com/pariz/gountries"
+	"github.com/alexfalkowski/standort/location/country/provider"
+	"github.com/alexfalkowski/standort/location/country/provider/gountries"
+	"github.com/alexfalkowski/standort/location/country/provider/opentracing"
 )
 
-// NewQuery for country.
-func NewQuery() *gountries.Query {
-	return gountries.New()
+// NewProvider for country.
+func NewProvider(tracer opentracing.Tracer) provider.Provider {
+	var p provider.Provider = gountries.NewProvider()
+	p = opentracing.NewProvider(p, tracer)
+
+	return p
 }
