@@ -3,7 +3,7 @@ package country
 import (
 	"github.com/alexfalkowski/standort/location/country/provider"
 	"github.com/alexfalkowski/standort/location/country/provider/gountries"
-	"github.com/alexfalkowski/standort/location/country/provider/opentracing"
+	"github.com/alexfalkowski/standort/location/country/provider/trace/opentracing"
 )
 
 // NewProvider for country.

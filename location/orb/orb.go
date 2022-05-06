@@ -3,8 +3,8 @@ package orb
 import (
 	"github.com/alexfalkowski/standort/location/continent"
 	"github.com/alexfalkowski/standort/location/orb/provider"
-	"github.com/alexfalkowski/standort/location/orb/provider/opentracing"
 	"github.com/alexfalkowski/standort/location/orb/provider/rtree"
+	"github.com/alexfalkowski/standort/location/orb/provider/trace/opentracing"
 	"go.uber.org/fx"
 )
 
