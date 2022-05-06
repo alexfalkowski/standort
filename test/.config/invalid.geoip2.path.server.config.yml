@@ -14,8 +14,8 @@ location:
     type: geoip2
 trace:
   opentracing:
-    jaeger:
-      host: localhost:6831
+    type: jaeger
+    host: localhost:6831
 transport:
   http:
     port: 8080

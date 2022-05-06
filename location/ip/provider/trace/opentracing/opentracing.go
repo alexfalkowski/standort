@@ -8,6 +8,7 @@ import (
 	otr "github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	"github.com/opentracing/opentracing-go/log"
+	"go.uber.org/fx"
 )
 
 // Tracer for opentracing.
@@ -16,6 +17,11 @@ type Tracer otr.Tracer
 // StartSpanFromContext for opentracing.
 func StartSpanFromContext(ctx context.Context, tracer Tracer, operation, method string, opts ...otr.StartSpanOption) (context.Context, otr.Span) {
 	return opentracing.StartSpanFromContext(ctx, tracer, "ip", operation, method, opts...)
+}
+
+// NewTracer for opentracing.
+func NewTracer(lc fx.Lifecycle, cfg *opentracing.Config) (Tracer, error) {
+	return opentracing.NewTracer(opentracing.TracerParams{Lifecycle: lc, Name: "ip", Config: cfg})
 }
 
 // Provider for opentracing.
