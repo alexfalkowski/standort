@@ -1,4 +1,4 @@
-package orb
+package rtree
 
 import (
 	"github.com/paulmach/orb"

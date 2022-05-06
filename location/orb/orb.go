@@ -1,83 +1,35 @@
 package orb
 
 import (
-	"io"
-	"os"
-
 	"github.com/alexfalkowski/standort/location/continent"
-	"github.com/paulmach/orb/geojson"
-	"github.com/tidwall/rtree"
+	"github.com/alexfalkowski/standort/location/orb/provider"
+	"github.com/alexfalkowski/standort/location/orb/provider/opentracing"
+	"github.com/alexfalkowski/standort/location/orb/provider/rtree"
+	"go.uber.org/fx"
 )
 
-// NewRTree for orb.
-func NewRTree(cfg *continent.Config) (*rtree.Generic[*Node], error) {
-	paths := []string{
-		cfg.GetAfricaPath(), cfg.GetAntarcticaPath(), cfg.GetAsiaPath(), cfg.GetEuropePath(),
-		cfg.GetNorthAmericaPath(), cfg.GetOceaniaPath(), cfg.GetSouthAmericaPath(),
-	}
-	tree := &rtree.Generic[*Node]{}
+// ProviderParams for orb.
+type ProviderParams struct {
+	fx.In
 
-	for _, path := range paths {
-		if err := populateTree(tree, path); err != nil {
-			return nil, err
-		}
-	}
-
-	return tree, nil
+	Lifecycle fx.Lifecycle
+	Config    *continent.Config
+	Tracer    opentracing.Tracer
 }
 
-// SearchTree for a lat and lng.
-func SearchTree(tree *rtree.Generic[*Node], lat, lng float64) *Node {
+// NewProvider for orb.
+func NewProvider(params ProviderParams) (provider.Provider, error) {
 	var (
-		found bool
-		data  *Node
+		p   provider.Provider
+		err error
 	)
 
-	tree.Search([2]float64{lng, lat}, [2]float64{lng, lat}, func(min, max [2]float64, d *Node) bool {
-		data = d
-
-		if data.IsPointInGeometry(lat, lng) {
-			found = true
-
-			return false
-		}
-
-		return true
-	})
-
-	if !found {
-		return nil
-	}
-
-	return data
-}
-
-func populateTree(tree *rtree.Generic[*Node], path string) error {
-	reader, err := os.Open(path)
+	p, err = rtree.NewProvider(params.Config)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	data, err := io.ReadAll(reader)
-	if err != nil {
-		return err
-	}
+	p = opentracing.NewProvider(p, params.Tracer)
 
-	fc, err := geojson.UnmarshalFeatureCollection(data)
-	if err != nil {
-		return err
-	}
-
-	for _, f := range fc.Features {
-		bound := f.Geometry.Bound()
-		data := &Node{
-			Country:   f.Properties["iso_a2"].(string),
-			Continent: f.Properties["continent"].(string),
-			Geometry:  f.Geometry,
-		}
-
-		tree.Insert(bound.Min, bound.Max, data)
-	}
-
-	return nil
+	return p, nil
 }
