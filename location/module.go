@@ -2,11 +2,11 @@ package location
 
 import (
 	"github.com/alexfalkowski/standort/location/country"
-	cotr "github.com/alexfalkowski/standort/location/country/provider/opentracing"
+	cotr "github.com/alexfalkowski/standort/location/country/provider/trace/opentracing"
 	"github.com/alexfalkowski/standort/location/ip"
 	iotr "github.com/alexfalkowski/standort/location/ip/provider/trace/opentracing"
 	"github.com/alexfalkowski/standort/location/orb"
-	ootr "github.com/alexfalkowski/standort/location/orb/provider/opentracing"
+	ootr "github.com/alexfalkowski/standort/location/orb/provider/trace/opentracing"
 	"go.uber.org/fx"
 )
 
