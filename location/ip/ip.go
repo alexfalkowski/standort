@@ -45,5 +45,7 @@ func NewProvider(params ProviderParams) (provider.Provider, error) {
 		return nil, ErrNoProvider
 	}
 
-	return opentracing.NewProvider(provider, params.Tracer), nil
+	provider = opentracing.NewProvider(provider, params.Tracer)
+
+	return provider, nil
 }
