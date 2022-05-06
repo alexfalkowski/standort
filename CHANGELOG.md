@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/alexfalkowski/standort/compare/v2.1.1...v2.2.0) (2022-05-06)
+
+
+### Features
+
+* **trace:** add tracing across multiple areas ([#38](https://github.com/alexfalkowski/standort/issues/38)) ([3735449](https://github.com/alexfalkowski/standort/commit/373544940d024ca18018ac591e33ec4937aaf64a))
+
 ### [2.1.1](https://github.com/alexfalkowski/standort/compare/v2.1.0...v2.1.1) (2022-05-04)
 
 ## [2.1.0](https://github.com/alexfalkowski/standort/compare/v2.0.19...v2.1.0) (2022-05-04)
