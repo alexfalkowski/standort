@@ -39,8 +39,3 @@ func (p *Provider) GetByIP(ctx context.Context, ip string) (string, error) {
 
 	return rec.Country_long, nil
 }
-
-// String for ip2location.
-func (p *Provider) String() string {
-	return "ip2location"
-}

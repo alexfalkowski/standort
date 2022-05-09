@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/alexfalkowski/go-service/trace/opentracing"
+	"github.com/alexfalkowski/go-service/version"
 	"github.com/alexfalkowski/standort/location/country/provider"
 	otr "github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
@@ -20,8 +21,8 @@ func StartSpanFromContext(ctx context.Context, tracer Tracer, operation, method 
 }
 
 // NewTracer for opentracing.
-func NewTracer(lc fx.Lifecycle, cfg *opentracing.Config) (Tracer, error) {
-	return opentracing.NewTracer(opentracing.TracerParams{Lifecycle: lc, Name: "country", Config: cfg})
+func NewTracer(lc fx.Lifecycle, cfg *opentracing.Config, version version.Version) (Tracer, error) {
+	return opentracing.NewTracer(opentracing.TracerParams{Lifecycle: lc, Name: "country", Config: cfg, Version: version})
 }
 
 // Provider for opentracing.
@@ -37,7 +38,7 @@ func NewProvider(provider provider.Provider, tracer Tracer) *Provider {
 
 // GetByName a country and continent.
 func (p *Provider) GetByName(ctx context.Context, name string) (string, string, error) {
-	ctx, span := StartSpanFromContext(ctx, p.tracer, p.provider.String(), "by-name")
+	ctx, span := StartSpanFromContext(ctx, p.tracer, "by-name", name)
 	defer span.Finish()
 
 	span.SetTag("provider.name", name)
@@ -51,9 +52,4 @@ func (p *Provider) GetByName(ctx context.Context, name string) (string, string, 
 	}
 
 	return country, continent, nil
-}
-
-// String for opentracing.
-func (p *Provider) String() string {
-	return "opentracing"
 }

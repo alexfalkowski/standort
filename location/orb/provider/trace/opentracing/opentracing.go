@@ -2,8 +2,10 @@ package opentracing
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/alexfalkowski/go-service/trace/opentracing"
+	"github.com/alexfalkowski/go-service/version"
 	"github.com/alexfalkowski/standort/location/orb/provider"
 	otr "github.com/opentracing/opentracing-go"
 	"go.uber.org/fx"
@@ -18,8 +20,8 @@ func StartSpanFromContext(ctx context.Context, tracer Tracer, operation, method 
 }
 
 // NewTracer for opentracing.
-func NewTracer(lc fx.Lifecycle, cfg *opentracing.Config) (Tracer, error) {
-	return opentracing.NewTracer(opentracing.TracerParams{Lifecycle: lc, Name: "orb", Config: cfg})
+func NewTracer(lc fx.Lifecycle, cfg *opentracing.Config, version version.Version) (Tracer, error) {
+	return opentracing.NewTracer(opentracing.TracerParams{Lifecycle: lc, Name: "orb", Config: cfg, Version: version})
 }
 
 // Provider for opentracing.
@@ -35,16 +37,11 @@ func NewProvider(provider provider.Provider, tracer Tracer) *Provider {
 
 // Search a lat lng and get country and continent.
 func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string) {
-	ctx, span := StartSpanFromContext(ctx, p.tracer, p.provider.String(), "search")
+	ctx, span := StartSpanFromContext(ctx, p.tracer, "search", fmt.Sprintf("%f/%f", lat, lng))
 	defer span.Finish()
 
 	span.SetTag("provider.lat", lat)
 	span.SetTag("provider.lng", lng)
 
 	return p.provider.Search(ctx, lat, lng)
-}
-
-// String for opentracing.
-func (p *Provider) String() string {
-	return "opentracing"
 }

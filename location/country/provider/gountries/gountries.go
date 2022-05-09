@@ -25,8 +25,3 @@ func (p *Provider) GetByName(ctx context.Context, name string) (string, string, 
 
 	return country.Codes.Alpha2, country.Continent, nil
 }
-
-// String for gountries.
-func (p *Provider) String() string {
-	return "gountries"
-}

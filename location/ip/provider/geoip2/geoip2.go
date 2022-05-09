@@ -31,8 +31,3 @@ func (p *Provider) GetByIP(ctx context.Context, ip string) (string, error) {
 
 	return record.Country.Names["en"], nil
 }
-
-// String for geoip2.
-func (p *Provider) String() string {
-	return "geoip2"
-}
