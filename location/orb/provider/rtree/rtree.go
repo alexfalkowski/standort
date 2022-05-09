@@ -58,11 +58,6 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 	return data.Country, data.Continent
 }
 
-// String for rtree.
-func (p *Provider) String() string {
-	return "rtree"
-}
-
 func populateTree(tree *rtree.Generic[*Node], path string) error {
 	reader, err := os.Open(path)
 	if err != nil {
