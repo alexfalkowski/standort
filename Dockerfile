@@ -10,15 +10,9 @@ RUN go mod download
 COPY . ./
 RUN go build -ldflags="-X 'github.com/alexfalkowski/standort/cmd.Version=${version}'" -a -o standort main.go
 
-FROM debian:bullseye-slim
+FROM gcr.io/distroless/base-debian11
 
 WORKDIR /
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y upgrade && \
-    apt-get install -y --no-install-recommends \
-    ca-certificates && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /app/standort /standort
 COPY --from=build /app/assets /assets
