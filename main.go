@@ -11,7 +11,6 @@ func main() {
 	command := scmd.New()
 
 	command.AddServer(cmd.ServerOptions)
-	command.AddWorker(cmd.WorkerOptions)
 	command.AddVersion(cmd.Version)
 
 	if err := command.Run(); err != nil {
