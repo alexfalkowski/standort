@@ -13,7 +13,6 @@ Feature: Server
       | type      | <type>      |
       | country   | <country>   |
       | continent | <continent> |
-    And the process 'server' should consume less than '40mb' of memory
 
     Examples: With ip2location parameters
       | source      | method | ip             | country | continent | type    |
@@ -47,7 +46,6 @@ Feature: Server
       | ip     | <ip>     |
       | method | <method> |
     Then I should receive an empty response with gRPC
-    And the process 'server' should consume less than '40mb' of memory
 
     Examples: With ip2location parameters
       | source      | method | ip      |
@@ -87,7 +85,6 @@ Feature: Server
       | type      | <type>      |
       | country   | <country>   |
       | continent | <continent> |
-    And the process 'server' should consume less than '40mb' of memory
 
     Examples: With parameters
       | method | latitude  | longitude  | country | continent | type     |
@@ -108,7 +105,6 @@ Feature: Server
       | longitude | <longitude> |
       | method    | <method>    |
     Then I should receive an empty response with gRPC
-    And the process 'server' should consume less than '40mb' of memory
 
     Examples: With parameters
       | method | latitude | longitude |
@@ -129,7 +125,6 @@ Feature: Server
       | longitude | <longitude> |
       | method    | <method>    |
     Then I should receive an empty response with gRPC
-    And the process 'server' should consume less than '40mb' of memory
 
     Examples:
       | method   | latitude | longitude |
