@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.5](https://github.com/alexfalkowski/standort/compare/v2.3.4...v2.3.5) (2022-05-15)
+
+
+### Bug Fixes
+
+* **server:** race in register ([#53](https://github.com/alexfalkowski/standort/issues/53)) ([701337b](https://github.com/alexfalkowski/standort/commit/701337bf56aecad30e788c31a836f638dc01e2d0))
+
 ### [2.3.4](https://github.com/alexfalkowski/standort/compare/v2.3.3...v2.3.4) (2022-05-15)
 
 ### [2.3.3](https://github.com/alexfalkowski/standort/compare/v2.3.2...v2.3.3) (2022-05-14)
