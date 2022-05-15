@@ -2,7 +2,6 @@ package rtree
 
 import (
 	"context"
-	"io"
 	"os"
 
 	"github.com/alexfalkowski/standort/location/continent"
@@ -59,12 +58,7 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 }
 
 func populateTree(tree *rtree.Generic[*Node], path string) error {
-	reader, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-
-	data, err := io.ReadAll(reader)
+	data, err := os.ReadFile(path)
 	if err != nil {
 		return err
 	}
