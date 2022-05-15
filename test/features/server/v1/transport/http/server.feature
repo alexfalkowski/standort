@@ -11,7 +11,6 @@ Feature: Server
     Then I should receive a valid location by IP adress with HTTP:
       | country   | <country>   |
       | continent | <continent> |
-    And the process 'server' should consume less than '40mb' of memory
 
     Examples: With ip2location
       | source      | ip             | country | continent |
@@ -32,7 +31,6 @@ Feature: Server
     When I request a location by IP address with HTTP:
       | ip | <ip> |
     Then I should receive a not found response with HTTP
-    And the process 'server' should consume less than '40mb' of memory
 
     Examples: With ip2location
       | source      | ip      |
@@ -58,7 +56,6 @@ Feature: Server
     Then I should receive a valid location by latitude and longitude with HTTP:
       | country   | <country>   |
       | continent | <continent> |
-    And the process 'server' should consume less than '40mb' of memory
 
     Examples:
       | latitude  | longitude  | country | continent |
@@ -72,7 +69,6 @@ Feature: Server
       | latitude  | <latitude>  |
       | longitude | <longitude> |
     Then I should receive a not found response with HTTP
-    And the process 'server' should consume less than '40mb' of memory
 
     Examples:
       | latitude | longitude |

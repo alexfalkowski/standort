@@ -12,6 +12,11 @@ import (
 	"github.com/alexfalkowski/standort/location"
 )
 
+// NewServer for gRPC.
+func NewServer(location *location.Location) v2.ServiceServer {
+	return &Server{location: location}
+}
+
 // Server for gRPC.
 type Server struct {
 	location *location.Location

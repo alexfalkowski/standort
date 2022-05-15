@@ -30,30 +30,34 @@ type RegisterParams struct {
 }
 
 // Register server.
-func Register(params RegisterParams) {
+func Register(params RegisterParams) error {
+	ctx := context.Background()
 	server := NewServer(params.Location)
 
 	v2.RegisterServiceServer(params.GRPCServer, server)
 
-	var conn *grpc.ClientConn
+	conn, err := sgrpc.NewClient(
+		sgrpc.ClientParams{Context: ctx, Host: fmt.Sprintf("127.0.0.1:%s", params.GRPCConfig.Port), Config: params.GRPCConfig},
+		sgrpc.WithClientLogger(params.Logger), sgrpc.WithClientTracer(params.Tracer), sgrpc.WithClientMetrics(params.Metrics),
+	)
+	if err != nil {
+		return err
+	}
+
+	if err := v2.RegisterServiceHandler(ctx, params.HTTPServer.Mux, conn); err != nil {
+		return err
+	}
 
 	params.Lifecycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-			conn, _ = sgrpc.NewClient(
-				sgrpc.ClientParams{Context: ctx, Host: fmt.Sprintf("127.0.0.1:%s", params.GRPCConfig.Port), Config: params.GRPCConfig},
-				sgrpc.WithClientLogger(params.Logger), sgrpc.WithClientTracer(params.Tracer),
-				sgrpc.WithClientDialOption(grpc.WithBlock()), sgrpc.WithClientMetrics(params.Metrics),
-			)
+			conn.ResetConnectBackoff()
 
-			return v2.RegisterServiceHandler(ctx, params.HTTPServer.Mux, conn)
+			return nil
 		},
 		OnStop: func(ctx context.Context) error {
 			return conn.Close()
 		},
 	})
-}
 
-// NewServer for gRPC.
-func NewServer(location *location.Location) v2.ServiceServer {
-	return &Server{location: location}
+	return nil
 }
