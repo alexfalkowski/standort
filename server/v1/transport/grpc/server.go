@@ -10,6 +10,11 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+// NewServer for gRPC.
+func NewServer(location *location.Location) v1.ServiceServer {
+	return &Server{location: location}
+}
+
 // Server for gRPC.
 type Server struct {
 	location *location.Location
