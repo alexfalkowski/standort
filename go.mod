@@ -6,8 +6,8 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.10.3
-	github.com/alexfalkowski/go-service v1.71.7
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.2
+	github.com/alexfalkowski/go-service v1.71.8
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.3
 	github.com/ip2location/ip2location-go/v9 v9.2.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pariz/gountries v0.1.5
