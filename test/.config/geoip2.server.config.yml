@@ -16,7 +16,7 @@ location:
       path: ../assets/geoip2.mmdb
 trace:
   opentracing:
-    type: jaeger
+    kind: jaeger
     host: localhost:6831
 transport:
   port: 8080

@@ -14,7 +14,7 @@ location:
     type: ip2location
 trace:
   opentracing:
-    type: jaeger
+    kind: jaeger
     host: localhost:6831
 transport:
   port: 8080
