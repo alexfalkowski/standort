@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/alexfalkowski/standort/compare/v2.3.23...v2.4.0) (2022-06-14)
+
+
+### Features
+
+* rename to kind ([#77](https://github.com/alexfalkowski/standort/issues/77)) ([e54addf](https://github.com/alexfalkowski/standort/commit/e54addfea28ad021dd3e1a3067bc779c8e7c8da0))
+
 ### [2.3.23](https://github.com/alexfalkowski/standort/compare/v2.3.22...v2.3.23) (2022-06-12)
 
 ### [2.3.22](https://github.com/alexfalkowski/standort/compare/v2.3.21...v2.3.22) (2022-06-10)
