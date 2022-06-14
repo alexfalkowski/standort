@@ -3,12 +3,12 @@ health:
   timeout: 1s
 location:
   ip:
-    type: ip2location
+    kind: ip2location
     ip2location:
       path: ../assets/ip2location.bin
 trace:
   opentracing:
-    type: jaeger
+    kind: jaeger
     host: localhost:6831
 transport:
   port: 8080

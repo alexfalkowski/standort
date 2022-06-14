@@ -6,17 +6,17 @@ import (
 )
 
 type Config struct {
-	Type        string             `yaml:"type"`
+	Kind        string             `yaml:"kind"`
 	IP2Location ip2location.Config `yaml:"ip2location"`
 	GeoIP2      geoip2.Config      `yaml:"geoip2"`
 }
 
 // IsIP2location configured.
 func (c *Config) IsIP2location() bool {
-	return c.Type == "ip2location"
+	return c.Kind == "ip2location"
 }
 
 // IsGeoIP2 configured.
 func (c *Config) IsGeoIP2() bool {
-	return c.Type == "geoip2"
+	return c.Kind == "geoip2"
 }

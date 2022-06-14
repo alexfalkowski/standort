@@ -11,10 +11,10 @@ location:
     europe_path: ../assets/europe.geojson
     south_america_path: ../assets/south_america.geojson
   ip:
-    type: invalid_type
+    kind: invalid_kind
 trace:
   opentracing:
-    type: jaeger
+    kind: jaeger
     host: localhost:6831
 transport:
   port: 8080
