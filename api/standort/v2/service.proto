@@ -7,15 +7,16 @@ import "google/api/annotations.proto";
 option go_package = "github.com/alexfalkowski/standort/api/standort/v2";
 option ruby_package = "Standort::V2";
 
+// Kind of location.
+enum Kind {
+  KIND_UNSPECIFIED = 0;
+  KIND_IP = 1;
+  KIND_GEO = 2;
+}
+
 // Location of the response.
 message Location {
-  enum Type {
-    TYPE_UNSPECIFIED = 0;
-    TYPE_IP = 1;
-    TYPE_GEO = 2;
-  }
-
-  Type type = 1;
+  Kind kind = 1;
   string country = 2;
   string continent = 3;
 }
