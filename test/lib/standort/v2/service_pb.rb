@@ -8,14 +8,9 @@ require 'google/api/annotations_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("standort/v2/service.proto", :syntax => :proto3) do
     add_message "standort.v2.Location" do
-      optional :type, :enum, 1, "standort.v2.Location.Type", json_name: "type"
+      optional :kind, :enum, 1, "standort.v2.Kind", json_name: "kind"
       optional :country, :string, 2, json_name: "country"
       optional :continent, :string, 3, json_name: "continent"
-    end
-    add_enum "standort.v2.Location.Type" do
-      value :TYPE_UNSPECIFIED, 0
-      value :TYPE_IP, 1
-      value :TYPE_GEO, 2
     end
     add_message "standort.v2.Point" do
       optional :lat, :double, 1, json_name: "lat"
@@ -28,15 +23,20 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "standort.v2.GetLocationResponse" do
       repeated :locations, :message, 1, "standort.v2.Location", json_name: "locations"
     end
+    add_enum "standort.v2.Kind" do
+      value :KIND_UNSPECIFIED, 0
+      value :KIND_IP, 1
+      value :KIND_GEO, 2
+    end
   end
 end
 
 module Standort
   module V2
     Location = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.Location").msgclass
-    Location::Type = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.Location.Type").enummodule
     Point = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.Point").msgclass
     GetLocationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.GetLocationRequest").msgclass
     GetLocationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.GetLocationResponse").msgclass
+    Kind = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.Kind").enummodule
   end
 end

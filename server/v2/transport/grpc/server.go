@@ -31,7 +31,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 		if country, continent, err := s.location.GetByIP(ctx, ip); err != nil {
 			meta.WithAttribute(ctx, "location.ip_error", err.Error())
 		} else {
-			resp.Locations = append(resp.Locations, &v2.Location{Country: country, Continent: continent, Type: v2.Location_TYPE_IP})
+			resp.Locations = append(resp.Locations, &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_IP})
 		}
 	}
 
@@ -46,7 +46,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 		if country, continent, err := s.location.GetByLatLng(ctx, point.Lat, point.Lng); err != nil {
 			meta.WithAttribute(ctx, "location.lat_lng_error", err.Error())
 		} else {
-			resp.Locations = append(resp.Locations, &v2.Location{Country: country, Continent: continent, Type: v2.Location_TYPE_GEO})
+			resp.Locations = append(resp.Locations, &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_GEO})
 		}
 	}
 

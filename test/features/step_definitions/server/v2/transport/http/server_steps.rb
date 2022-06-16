@@ -32,7 +32,7 @@ Then('I should receive a valid locations with HTTP:') do |table|
 
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
-  expect(location['type']).to eq(rows['type'])
+  expect(location['kind']).to eq(rows['kind'])
 end
 
 Then('I should receive an empty response with HTTP') do
