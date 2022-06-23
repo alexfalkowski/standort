@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.10.4
-	github.com/alexfalkowski/go-service v1.73.0
+	github.com/alexfalkowski/go-service v1.73.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.3
 	github.com/ip2location/ip2location-go/v9 v9.3.0
 	github.com/opentracing/opentracing-go v1.2.0
@@ -71,7 +71,7 @@ require (
 	github.com/rs/cors v1.8.2 // indirect
 	github.com/soheilhy/cmux v0.1.5 // indirect
 	github.com/sony/gobreaker v0.5.0 // indirect
-	github.com/spf13/cobra v1.4.0 // indirect
+	github.com/spf13/cobra v1.5.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/tidwall/geoindex v1.6.1 // indirect
 	github.com/tinylib/msgp v1.1.6 // indirect
