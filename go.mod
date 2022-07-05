@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.10.4
-	github.com/alexfalkowski/go-service v1.73.2
+	github.com/alexfalkowski/go-service v1.73.3
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.3
 	github.com/ip2location/ip2location-go/v9 v9.4.0
 	github.com/opentracing/opentracing-go v1.2.0
@@ -91,7 +91,7 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20220411224347-583f2d630306 // indirect
 	golang.org/x/xerrors v0.0.0-20220411194840-2f41105eb62f // indirect
-	gopkg.in/DataDog/dd-trace-go.v1 v1.38.1 // indirect
+	gopkg.in/DataDog/dd-trace-go.v1 v1.39.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
