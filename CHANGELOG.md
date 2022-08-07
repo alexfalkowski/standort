@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/alexfalkowski/standort/compare/v2.5.21...v2.6.0) (2022-08-07)
+
+
+### Features
+
+* **go:** update to v1.19 ([308ced7](https://github.com/alexfalkowski/standort/commit/308ced7bb61e84b83d2e47a2229b6bc070ffec9a))
+
 ### [2.5.21](https://github.com/alexfalkowski/standort/compare/v2.5.20...v2.5.21) (2022-08-07)
 
 ### [2.5.20](https://github.com/alexfalkowski/standort/compare/v2.5.19...v2.5.20) (2022-08-05)
