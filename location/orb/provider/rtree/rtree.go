@@ -3,6 +3,7 @@ package rtree
 import (
 	"context"
 	"os"
+	"path/filepath"
 
 	"github.com/alexfalkowski/standort/location/continent"
 	"github.com/paulmach/orb/geojson"
@@ -58,7 +59,7 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 }
 
 func populateTree(tree *rtree.Generic[*Node], path string) error {
-	data, err := os.ReadFile(path)
+	data, err := os.ReadFile(filepath.Clean(path))
 	if err != nil {
 		return err
 	}
