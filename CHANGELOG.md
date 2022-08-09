@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.3](https://github.com/alexfalkowski/standort/compare/v2.6.2...v2.6.3) (2022-08-09)
+
+
+### Bug Fixes
+
+* **location:** clean path whrn reading into rtree ([#114](https://github.com/alexfalkowski/standort/issues/114)) ([a87ea69](https://github.com/alexfalkowski/standort/commit/a87ea69c545eeb0b6e175df47d4f47376295723c))
+
 ### [2.6.2](https://github.com/alexfalkowski/standort/compare/v2.6.1...v2.6.2) (2022-08-09)
 
 ### [2.6.1](https://github.com/alexfalkowski/standort/compare/v2.6.0...v2.6.1) (2022-08-07)
