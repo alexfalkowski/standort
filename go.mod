@@ -10,7 +10,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.2
 	github.com/ip2location/ip2location-go/v9 v9.4.1
 	github.com/opentracing/opentracing-go v1.2.0
-	github.com/pariz/gountries v0.1.5
+	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.7.1
 	github.com/tidwall/rtree v1.6.0
 	go.uber.org/fx v1.18.1
