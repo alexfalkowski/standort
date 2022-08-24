@@ -6,8 +6,8 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.10.4
-	github.com/alexfalkowski/go-service v1.74.5
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.2
+	github.com/alexfalkowski/go-service v1.74.8
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3
 	github.com/ip2location/ip2location-go/v9 v9.4.1
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pariz/gountries v0.1.6
@@ -15,8 +15,8 @@ require (
 	github.com/tidwall/rtree v1.6.1
 	go.uber.org/fx v1.18.1
 	go.uber.org/zap v1.22.0
-	google.golang.org/genproto v0.0.0-20220817144833-d7fd3f11b9b1
-	google.golang.org/grpc v1.48.0
+	google.golang.org/genproto v0.0.0-20220822174746-9e6da59bd2fc
+	google.golang.org/grpc v1.49.0
 	google.golang.org/protobuf v1.28.1
 )
 
@@ -90,7 +90,7 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20220722155302-e5dcc9cfc0b9 // indirect
 	golang.org/x/xerrors v0.0.0-20220609144429-65e65417b02f // indirect
-	gopkg.in/DataDog/dd-trace-go.v1 v1.40.1 // indirect
+	gopkg.in/DataDog/dd-trace-go.v1 v1.41.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
