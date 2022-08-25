@@ -12,7 +12,7 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.7.1
-	github.com/tidwall/rtree v1.6.1
+	github.com/tidwall/rtree v1.7.0
 	go.uber.org/fx v1.18.1
 	go.uber.org/zap v1.22.0
 	google.golang.org/genproto v0.0.0-20220822174746-9e6da59bd2fc
@@ -72,7 +72,7 @@ require (
 	github.com/sony/gobreaker v0.5.0 // indirect
 	github.com/spf13/cobra v1.5.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/tidwall/geoindex v1.6.1 // indirect
+	github.com/tidwall/geoindex v1.6.2 // indirect
 	github.com/tinylib/msgp v1.1.6 // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
