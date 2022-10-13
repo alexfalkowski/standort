@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.39](https://github.com/alexfalkowski/standort/compare/v2.6.38...v2.6.39) (2022-10-13)
+
 ### [2.6.38](https://github.com/alexfalkowski/standort/compare/v2.6.37...v2.6.38) (2022-10-10)
 
 ### [2.6.37](https://github.com/alexfalkowski/standort/compare/v2.6.36...v2.6.37) (2022-10-06)
