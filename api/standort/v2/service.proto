@@ -42,8 +42,6 @@ message GetLocationResponse {
 service Service {
   // GetLocation via multiple methods.
   rpc GetLocation(GetLocationRequest) returns (GetLocationResponse) {
-    option (google.api.http) = {
-      get: "/v2/location"
-    };
+    option (google.api.http) = {get: "/v2/location"};
   }
 }
