@@ -38,15 +38,11 @@ message GetLocationByLatLngResponse {
 service Service {
   // GetLocationByIP for an IP address.
   rpc GetLocationByIP(GetLocationByIPRequest) returns (GetLocationByIPResponse) {
-    option (google.api.http) = {
-      get: "/v1/location/ip/{ip}"
-    };
+    option (google.api.http) = {get: "/v1/location/ip/{ip}"};
   }
 
   // GetLocationByLatLng for a latitude and longitude.
   rpc GetLocationByLatLng(GetLocationByLatLngRequest) returns (GetLocationByLatLngResponse) {
-    option (google.api.http) = {
-      get: "/v1/location/lat/{lat}/lng/{lng}"
-    };
+    option (google.api.http) = {get: "/v1/location/lat/{lat}/lng/{lng}"};
   }
 }
