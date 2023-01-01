@@ -18,7 +18,7 @@ type Provider struct {
 // NewProvider for rtree.
 func NewProvider(cfg *continent.Config) (*Provider, error) {
 	paths := []string{
-		cfg.GetAfricaPath(), cfg.GetAntarcticaPath(), cfg.GetAsiaPath(), cfg.GetEuropePath(),
+		cfg.GetAfricaPath(), cfg.GetAsiaPath(), cfg.GetEuropePath(),
 		cfg.GetNorthAmericaPath(), cfg.GetOceaniaPath(), cfg.GetSouthAmericaPath(),
 	}
 	tree := &rtree.Generic[*Node]{}
