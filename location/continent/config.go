@@ -9,7 +9,6 @@ type Config struct {
 	AfricaPath       string `yaml:"africa_path"`
 	NorthAmericaPath string `yaml:"north_america_path"`
 	OceaniaPath      string `yaml:"oceania_path"`
-	AntarcticaPath   string `yaml:"antarctica_path"`
 	AsiaPath         string `yaml:"asia_path"`
 	EuropePath       string `yaml:"europe_path"`
 	SouthAmericaPath string `yaml:"south_america_path"`
@@ -40,15 +39,6 @@ func (c *Config) GetOceaniaPath() string {
 	}
 
 	return c.path("oceania")
-}
-
-// GetAntarcticaPath of geojson.
-func (c *Config) GetAntarcticaPath() string {
-	if c.AntarcticaPath != "" {
-		return c.AntarcticaPath
-	}
-
-	return c.path("antarctica")
 }
 
 // GetAsiaPath of geojson.
