@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/alexfalkowski/standort/compare/v2.7.4...v2.8.0) (2023-01-06)
+
+
+### Features
+
+* update github.com/alexfalkowski/go-service to v1.78.0 ([#214](https://github.com/alexfalkowski/standort/issues/214)) ([c1287ce](https://github.com/alexfalkowski/standort/commit/c1287ceda09051ee717893edb58cc3e254e1f059))
+
 ### [2.7.4](https://github.com/alexfalkowski/standort/compare/v2.7.3...v2.7.4) (2023-01-06)
 
 ### [2.7.3](https://github.com/alexfalkowski/standort/compare/v2.7.2...v2.7.3) (2023-01-05)
