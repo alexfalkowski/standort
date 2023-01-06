@@ -11,7 +11,7 @@ require (
 	github.com/ip2location/ip2location-go/v9 v9.5.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pariz/gountries v0.1.6
-	github.com/paulmach/orb v0.7.1
+	github.com/paulmach/orb v0.8.0
 	github.com/tidwall/rtree v1.9.2
 	go.uber.org/fx v1.18.2
 	go.uber.org/zap v1.24.0
