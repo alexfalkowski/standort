@@ -7,6 +7,6 @@ import (
 
 // Config for location.
 type Config struct {
-	Continent continent.Config `yaml:"continent"`
-	IP        ip.Config        `yaml:"ip"`
+	Continent continent.Config `yaml:"continent" json:"continent"`
+	IP        ip.Config        `yaml:"ip" json:"ip"`
 }
