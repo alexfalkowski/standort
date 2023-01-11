@@ -11,9 +11,76 @@ The service allows you to get the location by IP address using the following met
 - [ip2location](https://github.com/ip2location/ip2location-go)
 - [geoip2](https://github.com/IncSW/geoip2)
 
+### IP2Location
+
+This is configured using the following:
+
+```yaml
+location:
+  ip:
+    kind: ip2location
+    ip2location:
+      path: ../assets/ip2location.bin
+```
+
+```toml
+[location.ip]
+kind = "ip2location"
+
+[location.ip.ip2location]
+path = "../assets/ip2location.bin"
+```
+
+*NOTE:* This is only needed if you would like to override it. As the system has all this configured.
+
+### GeoIP2
+
+```yaml
+location:
+  ip:
+    kind: geoip2
+    geoip2:
+      path: ../assets/geoip2.mmdb
+```
+
+```toml
+[location.ip]
+kind = "geoip2"
+
+[location.ip.geoip2]
+path = "../assets/geoip2.mmdb"
+```
+
+*NOTE:* This is only needed if you would like to override it. As the system has all this configured.
+
 ## Countries/Continents
 
 The service allows you to get the location based on [latitude/longitude](https://www.latlong.net/) using the power of [free maps](https://geojson-maps.ash.ms/).
+
+This is configured using the following:
+
+```yaml
+location:
+  continent:
+    africa_path: ../assets/africa.geojson
+    north_america_path: ../assets/north_america.geojson
+    oceania_path: ../assets/oceania.geojson
+    asia_path: ../assets/asia.geojson
+    europe_path: ../assets/europe.geojson
+    south_america_path: ../assets/south_america.geojson
+```
+
+```toml
+[location.continent]
+africa_path = "../assets/africa.geojson"
+north_america_path = "../assets/north_america.geojson"
+oceania_path = "../assets/oceania.geojson"
+asia_path = "../assets/asia.geojson"
+europe_path = "../assets/europe.geojson"
+south_america_path = "../assets/south_america.geojson"
+```
+
+*NOTE:* This is only needed if you would like to override it. As the system has all this configured.
 
 ## Versions
 
