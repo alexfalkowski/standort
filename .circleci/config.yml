@@ -6,6 +6,8 @@ jobs:
       - image: alexfalkowski/go:1.19-3.1
     steps:
       - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
       - run: make dep
       - run: make lint
       - run: make sec
@@ -24,6 +26,8 @@ jobs:
       - image: alexfalkowski/go:1.19-3.1
     steps:
       - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
       - setup_remote_docker
       - run:
           name: make login
