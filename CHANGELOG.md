@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.10.0](https://github.com/alexfalkowski/standort/releases/tag/v2.10.0) - 2023-01-15
+
+- [`da6f90f`](https://github.com/alexfalkowski/standort/commit/da6f90ffd8fd22ece57d926d94a0d1566454c550) feat(config): add other kinds (#231)
+- [`5c56c6e`](https://github.com/alexfalkowski/standort/commit/5c56c6e70930e4906629ab25dd80deffca6330ec) build(deps): bump golang from 1.19.4-bullseye to 1.19.5-bullseye (#220)
+- [`62269c3`](https://github.com/alexfalkowski/standort/commit/62269c3ce1013b6a0763c351f78b1a956170adc0) ci: resource_class: large (#230)
+- [`5639990`](https://github.com/alexfalkowski/standort/commit/56399904f3d4d147777ec01a5108d9cc2b6aadde) build: add bin (#229)
+- [`ce323b3`](https://github.com/alexfalkowski/standort/commit/ce323b3ce34f8c947bc6bce11970cdd62c66e264) ci(dependabot): change commit message (#228)
+- [`079b5d1`](https://github.com/alexfalkowski/standort/commit/079b5d1cb09c44dc9d52d8fa997be09c1134278b) ci: use release 3.1 (#227)
+- [`b3b132a`](https://github.com/alexfalkowski/standort/commit/b3b132a4726366dbbc92c4f226c9a705b9f6ece0) ci: use release 3.0 (#226)
+
 ## [v2.9.4](https://github.com/alexfalkowski/standort/releases/tag/v2.9.4) - 2023-01-12
 
 - [`0cf4fdd`](https://github.com/alexfalkowski/standort/commit/0cf4fdd1faa3ad4bcd94e3ce9b54b36a11efa695) build(deps): bump rubocop from 1.42.0 to 1.43.0 in /test (#221)
