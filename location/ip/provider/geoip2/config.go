@@ -2,7 +2,7 @@ package geoip2
 
 // Config for geoip2.
 type Config struct {
-	Path string `yaml:"path" json:"path"`
+	Path string `yaml:"path" json:"path" toml:"path"`
 }
 
 // GetPath of config.
