@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"github.com/alexfalkowski/go-service/cmd"
 	"github.com/alexfalkowski/go-service/logger"
 	"github.com/alexfalkowski/go-service/marshaller"
 	"github.com/alexfalkowski/go-service/metrics"
@@ -16,9 +15,7 @@ import (
 
 // ServerOptions for cmd.
 var ServerOptions = []fx.Option{
-	fx.NopLogger,
-	marshaller.Module, cmd.Module,
-	fx.Provide(NewVersion), config.Module, health.Module,
+	fx.NopLogger, marshaller.Module, Module, config.Module, health.Module,
 	logger.ZapModule, metrics.PrometheusModule, transport.Module,
 	location.Module, v1.Module, v2.Module,
 }
