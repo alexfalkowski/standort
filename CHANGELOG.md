@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.10.2](https://github.com/alexfalkowski/standort/releases/tag/v2.10.2) - 2023-01-18
+
+- [`203b112`](https://github.com/alexfalkowski/standort/commit/203b112953e16fab6b190d7985c5e1327b7706a5) fix(deps): bump github.com/alexfalkowski/go-service (#233)
+
 ## [v2.10.1](https://github.com/alexfalkowski/standort/releases/tag/v2.10.1) - 2023-01-16
 
 - [`0988082`](https://github.com/alexfalkowski/standort/commit/0988082d78f4d57a653692b27dd1d7408da71c09) fix(deps): bump github.com/tidwall/rtree from 1.9.2 to 1.9.4 (#232)
