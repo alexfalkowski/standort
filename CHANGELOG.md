@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.11.1](https://github.com/alexfalkowski/standort/releases/tag/v2.11.1) - 2023-01-23
+
+- [`f97e90f`](https://github.com/alexfalkowski/standort/commit/f97e90f3569e2cb7e3f15090362176e454f084c0) fix(deps): bump github.com/alexfalkowski/go-service (#237)
+- [`40e869b`](https://github.com/alexfalkowski/standort/commit/40e869bc390cc7fd07fdacd994b986ed648708ae) build(deps): bump rubocop from 1.43.0 to 1.44.0 in /test (#236)
+- [`b144d62`](https://github.com/alexfalkowski/standort/commit/b144d62e5cdf6cee1f1d50530f020a59e10aa5f1) test(deps): update (#235)
+
 ## [v2.11.0](https://github.com/alexfalkowski/standort/releases/tag/v2.11.0) - 2023-01-18
 
 - [`198d954`](https://github.com/alexfalkowski/standort/commit/198d954af4804ab6d92355cb0e224e24b6d1e4df) feat(cmd): add fx module (#234)
