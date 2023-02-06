@@ -12,7 +12,7 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.8.0
-	github.com/tidwall/rtree v1.9.4
+	github.com/tidwall/rtree v1.10.0
 	go.uber.org/fx v1.19.1
 	go.uber.org/zap v1.24.0
 	google.golang.org/genproto v0.0.0-20221207170731-23e4bf6bdc37
