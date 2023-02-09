@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.13.0](https://github.com/alexfalkowski/standort/releases/tag/v2.13.0) - 2023-02-09
+
+- [`1657e3d`](https://github.com/alexfalkowski/standort/commit/1657e3da5d2feb92b37882773a4f4b35386b98d7) feat(go): update to v1.20 (#252)
+
 ## [v2.12.2](https://github.com/alexfalkowski/standort/releases/tag/v2.12.2) - 2023-02-06
 
 - [`9c8afa5`](https://github.com/alexfalkowski/standort/commit/9c8afa587a7cb4954b4098e3cca64e802f90dc21) fix(deps): bump github.com/tidwall/rtree from 1.9.4 to 1.10.0 (#247)
