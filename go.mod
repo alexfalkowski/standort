@@ -7,7 +7,7 @@ require (
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.12.0
 	github.com/alexfalkowski/go-service v1.84.9
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.1
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
 	github.com/ip2location/ip2location-go/v9 v9.5.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pariz/gountries v0.1.6
@@ -15,7 +15,7 @@ require (
 	github.com/tidwall/rtree v1.10.0
 	go.uber.org/fx v1.19.2
 	go.uber.org/zap v1.24.0
-	google.golang.org/genproto v0.0.0-20230221151758-ace64dc21148
+	google.golang.org/genproto v0.0.0-20230223222841-637eb2293923
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.28.1
 )
