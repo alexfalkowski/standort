@@ -23,7 +23,7 @@ type Provider struct {
 }
 
 // GetByIP a country.
-func (p *Provider) GetByIP(ctx context.Context, ip string) (string, error) {
+func (p *Provider) GetByIP(_ context.Context, ip string) (string, error) {
 	record, err := p.reader.Lookup(net.ParseIP(ip))
 	if err != nil {
 		return "", err
