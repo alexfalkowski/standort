@@ -33,7 +33,7 @@ func NewProvider(cfg *continent.Config) (*Provider, error) {
 }
 
 // Search a lat lng and get country and continent.
-func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string) {
+func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string) {
 	var (
 		found bool
 		data  *Node

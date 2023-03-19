@@ -31,7 +31,7 @@ type Provider struct {
 }
 
 // GetByIP a country.
-func (p *Provider) GetByIP(ctx context.Context, ip string) (string, error) {
+func (p *Provider) GetByIP(_ context.Context, ip string) (string, error) {
 	rec, err := p.db.Get_all(ip)
 	if err != nil {
 		return "", err

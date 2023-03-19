@@ -17,7 +17,7 @@ func NewProvider() *Provider {
 }
 
 // GetByName a country and continent.
-func (p *Provider) GetByName(ctx context.Context, name string) (string, string, error) {
+func (p *Provider) GetByName(_ context.Context, name string) (string, string, error) {
 	country, err := p.query.FindCountryByName(name)
 	if err != nil {
 		return "", "", err
