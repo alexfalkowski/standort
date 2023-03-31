@@ -6,10 +6,9 @@ location:
     kind: ip2location
     ip2location:
       path: ../assets/ip2location.bin
-trace:
-  opentracing:
-    kind: jaeger
-    host: localhost:6831
+otel:
+  kind: jaeger
+  host: localhost:6831
 transport:
   port: 8080
   http:

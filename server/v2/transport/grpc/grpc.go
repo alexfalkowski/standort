@@ -7,7 +7,7 @@ import (
 	"github.com/alexfalkowski/go-service/transport"
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	"github.com/alexfalkowski/go-service/transport/grpc/metrics/prometheus"
-	"github.com/alexfalkowski/go-service/transport/grpc/trace/opentracing"
+	"github.com/alexfalkowski/go-service/transport/grpc/otel"
 	"github.com/alexfalkowski/go-service/transport/http"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	"go.uber.org/fx"
@@ -24,7 +24,7 @@ type RegisterParams struct {
 	GRPCConfig      *grpc.Config
 	TransportConfig *transport.Config
 	Logger          *zap.Logger
-	Tracer          opentracing.Tracer
+	Tracer          otel.Tracer
 	Metrics         *prometheus.ClientMetrics
 	Server          v2.ServiceServer
 }

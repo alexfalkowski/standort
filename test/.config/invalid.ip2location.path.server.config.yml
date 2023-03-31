@@ -11,10 +11,9 @@ location:
     south_america_path: ../assets/south_america.geojson
   ip:
     kind: ip2location
-trace:
-  opentracing:
-    kind: jaeger
-    host: localhost:6831
+otel:
+  kind: jaeger
+  host: localhost:6831
 transport:
   port: 8080
   http:

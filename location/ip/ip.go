@@ -6,7 +6,7 @@ import (
 	"github.com/alexfalkowski/standort/location/ip/provider"
 	"github.com/alexfalkowski/standort/location/ip/provider/geoip2"
 	"github.com/alexfalkowski/standort/location/ip/provider/ip2location"
-	"github.com/alexfalkowski/standort/location/ip/provider/trace/opentracing"
+	"github.com/alexfalkowski/standort/location/ip/provider/otel"
 	"go.uber.org/fx"
 )
 
@@ -19,7 +19,7 @@ type ProviderParams struct {
 
 	Lifecycle fx.Lifecycle
 	Config    *Config
-	Tracer    opentracing.Tracer
+	Tracer    otel.Tracer
 }
 
 // NewProvider for ip.
@@ -45,7 +45,7 @@ func NewProvider(params ProviderParams) (provider.Provider, error) {
 		return nil, ErrNoProvider
 	}
 
-	provider = opentracing.NewProvider(provider, params.Tracer)
+	provider = otel.NewProvider(provider, params.Tracer)
 
 	return provider, nil
 }
