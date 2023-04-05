@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.14.1](https://github.com/alexfalkowski/standort/releases/tag/v2.14.1) - 2023-04-05
+
+- [`570b738`](https://github.com/alexfalkowski/standort/commit/570b738e776bfd0ca46ca970b08a7f1157143a65) fix(deps): bump golang from 1.20.2-bullseye to 1.20.3-bullseye (#288)
+- [`68b9c2a`](https://github.com/alexfalkowski/standort/commit/68b9c2a36e6105798445dbaa107bdd16ee2322d7) build(deps): bump rubocop from 1.48.1 to 1.49.0 in /test (#287)
+
 ## [v2.14.0](https://github.com/alexfalkowski/standort/releases/tag/v2.14.0) - 2023-03-31
 
 - [`866fb2a`](https://github.com/alexfalkowski/standort/commit/866fb2a71cbe0665d2e4ff345ff6521cc214e450) feat: replace opentracing with otel (#286)
