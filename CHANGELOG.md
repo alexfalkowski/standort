@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.14.4](https://github.com/alexfalkowski/standort/releases/tag/v2.14.4) - 2023-04-11
+
+- [`8eba5b3`](https://github.com/alexfalkowski/standort/commit/8eba5b37f65913201e9635f0222a84bfd0812a1a) fix(deps): bump github.com/alexfalkowski/go-service (#293)
+- [`afb1e1e`](https://github.com/alexfalkowski/standort/commit/afb1e1ee0987fd7d451c30a71a5ae2469787fdb3) build(deps): bump solargraph from 0.48.0 to 0.49.0 in /test (#291)
+
 ## [v2.14.3](https://github.com/alexfalkowski/standort/releases/tag/v2.14.3) - 2023-04-07
 
 - [`9cf70bb`](https://github.com/alexfalkowski/standort/commit/9cf70bbcb29238d5d05e32b157a2092bb27aedf5) fix(deps): bump github.com/alexfalkowski/go-service (#290)
