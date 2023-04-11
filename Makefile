@@ -10,29 +10,6 @@ build:
 build-test:
 	go test -race -ldflags="-X 'github.com/alexfalkowski/standort/cmd.Version=latest'" -mod vendor -c -tags features -covermode=atomic -o standort -coverpkg=./... github.com/alexfalkowski/standort
 
-sanitize-coverage:
-	bin/quality/go/cov
-
-# Get the HTML coverage for go.
-html-coverage: sanitize-coverage
-	go tool cover -html test/reports/final.cov
-
-# Get the func coverage for go.
-func-coverage: sanitize-coverage
-	go tool cover -func test/reports/final.cov
-
-# Send coveralls data.
-goveralls: sanitize-coverage
-	goveralls -coverprofile=test/reports/final.cov -service=circle-ci -repotoken=olTSDvp12KTgHu7qToW20hgb2kdIwNAY1
-
 # Release to docker hub.
 docker:
 	bin/build/docker/push standort
-
-# Start the environment.
-start:
-	bin/build/docker/env start
-
-# Stop the environment.
-stop:
-	bin/build/docker/env stop
