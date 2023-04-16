@@ -4,12 +4,14 @@ jobs:
   build:
     docker:
       - image: alexfalkowski/go:1.20-3.1
+    working_directory: ~/standort
     steps:
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
       - run: make dep
       - run: make lint
+      - run: make proto-breaking
       - run: make sec
       - run: make features
       - run: make goveralls
