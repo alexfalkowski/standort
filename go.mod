@@ -8,7 +8,7 @@ require (
 	github.com/alexfalkowski/go-health v1.12.1
 	github.com/alexfalkowski/go-service v1.86.9
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
-	github.com/ip2location/ip2location-go/v9 v9.5.0
+	github.com/ip2location/ip2location-go/v9 v9.6.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.9.0
 	github.com/tidwall/rtree v1.10.0
@@ -89,4 +89,5 @@ require (
 	golang.org/x/text v0.9.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	lukechampine.com/uint128 v1.2.0 // indirect
 )
