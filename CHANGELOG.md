@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.14.8](https://github.com/alexfalkowski/standort/releases/tag/v2.14.8) - 2023-04-21
+
+- [`0fa5d94`](https://github.com/alexfalkowski/standort/commit/0fa5d942be224300281e6f3d5467d79835e5fff7) fix(deps): bump github.com/ip2location/ip2location-go/v9 (#305)
+- [`9a3566b`](https://github.com/alexfalkowski/standort/commit/9a3566b9f7736ddccf81b591197cd23b4a852473) build(deps): bump rspec-expectations from 3.12.2 to 3.12.3 in /test (#304)
+
 ## [v2.14.7](https://github.com/alexfalkowski/standort/releases/tag/v2.14.7) - 2023-04-19
 
 - [`4dcfa8e`](https://github.com/alexfalkowski/standort/commit/4dcfa8e9e8241a812306f6f31d7592bbebc7e171) fix(deps): bump github.com/alexfalkowski/go-service (#303)
