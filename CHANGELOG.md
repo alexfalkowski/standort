@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.14.9](https://github.com/alexfalkowski/standort/releases/tag/v2.14.9) - 2023-04-27
+
+- [`4604b1a`](https://github.com/alexfalkowski/standort/commit/4604b1a967d58684daaeaa70eb429170880da4d9) fix(deps): bump github.com/paulmach/orb from 0.9.0 to 0.9.1 (#306)
+
 ## [v2.14.8](https://github.com/alexfalkowski/standort/releases/tag/v2.14.8) - 2023-04-21
 
 - [`0fa5d94`](https://github.com/alexfalkowski/standort/commit/0fa5d942be224300281e6f3d5467d79835e5fff7) fix(deps): bump github.com/ip2location/ip2location-go/v9 (#305)
