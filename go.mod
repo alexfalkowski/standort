@@ -12,8 +12,8 @@ require (
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.9.1
 	github.com/tidwall/rtree v1.10.0
-	go.opentelemetry.io/otel v1.15.0
-	go.opentelemetry.io/otel/trace v1.15.0
+	go.opentelemetry.io/otel v1.15.1
+	go.opentelemetry.io/otel/trace v1.15.1
 	go.uber.org/fx v1.19.2
 	go.uber.org/zap v1.24.0
 	google.golang.org/genproto v0.0.0-20230223222841-637eb2293923
