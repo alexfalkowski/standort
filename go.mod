@@ -12,8 +12,8 @@ require (
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.9.2
 	github.com/tidwall/rtree v1.10.0
-	go.opentelemetry.io/otel v1.15.1
-	go.opentelemetry.io/otel/trace v1.15.1
+	go.opentelemetry.io/otel v1.16.0
+	go.opentelemetry.io/otel/trace v1.16.0
 	go.uber.org/fx v1.19.3
 	go.uber.org/zap v1.24.0
 	google.golang.org/genproto v0.0.0-20230306155012-7f2fa6fef1f4
@@ -78,6 +78,7 @@ require (
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.11.4 // indirect
 	go.opentelemetry.io/otel/exporters/jaeger v1.15.1 // indirect
+	go.opentelemetry.io/otel/metric v1.16.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.15.1 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/dig v1.16.1 // indirect
