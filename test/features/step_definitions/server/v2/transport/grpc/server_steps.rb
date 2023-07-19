@@ -17,7 +17,7 @@ When('I request a location with gRPC:') do |table|
   end
 
   request = Standort::V2::GetLocationRequest.new(params)
-  @response = Standort::V2.server_grpc.get_location(request, { metadata: metadata })
+  @response = Standort::V2.server_grpc.get_location(request, { metadata: })
 rescue StandardError => e
   @response = e
 end
