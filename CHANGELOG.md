@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.14.33](https://github.com/alexfalkowski/standort/releases/tag/v2.14.33) - 2023-07-25
+
+- [`335a711`](https://github.com/alexfalkowski/standort/commit/335a711f3a3613f9bc557c0719e688238919ae3c) fix(deps): update github.com/alexfalkowski/go-service v1.86.41 (#361)
+- [`4c4b480`](https://github.com/alexfalkowski/standort/commit/4c4b480e0e72c631b2517453ffa61686d8a0f9f6) test(ruby): upgrade to version 3.2.2 (#359)
+
 ## [v2.14.32](https://github.com/alexfalkowski/standort/releases/tag/v2.14.32) - 2023-07-17
 
 - [`a439452`](https://github.com/alexfalkowski/standort/commit/a439452c926af81253368004f5f1aab29bdef695) fix(deps): bump github.com/paulmach/orb from 0.9.2 to 0.10.0 (#358)
