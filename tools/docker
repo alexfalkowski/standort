@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-latest_tag=$(git tag | sort -V | tail -1)
-
-# Build and push docker.
-docker build --build-arg version="$latest_tag" -t alexfalkowski/standort -t alexfalkowski/standort:"$latest_tag" .
-docker push alexfalkowski/standort --all-tags
