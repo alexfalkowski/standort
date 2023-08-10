@@ -1,6 +1,6 @@
 module github.com/alexfalkowski/standort
 
-go 1.20
+go 1.21
 
 require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
