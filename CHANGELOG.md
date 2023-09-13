@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.17.0](https://github.com/alexfalkowski/standort/releases/tag/v2.17.0) - 2023-09-13
+
+- [`767afe1`](https://github.com/alexfalkowski/standort/commit/767afe13a82ccf1b1edffafd7212bef855f311ea) feat(otel): support native protocol (#391)
+
 ## [v2.16.0](https://github.com/alexfalkowski/standort/releases/tag/v2.16.0) - 2023-09-12
 
 - [`3a2382b`](https://github.com/alexfalkowski/standort/commit/3a2382bb5d089e6b08714293f1032a502d87eb5f) feat(deps): upgrade github.com/alexfalkowski/go-service to v1.88.0 (#390)
