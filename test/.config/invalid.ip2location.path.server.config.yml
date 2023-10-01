@@ -11,9 +11,10 @@ location:
     south_america_path: ../assets/south_america.geojson
   ip:
     kind: ip2location
-otel:
-  host: localhost:4318
-  secure: false
+telemetry:
+  tracer:
+    host: localhost:4318
+    secure: false
 transport:
   port: 8080
   http:

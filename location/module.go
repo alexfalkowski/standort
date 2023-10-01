@@ -2,11 +2,11 @@ package location
 
 import (
 	"github.com/alexfalkowski/standort/location/country"
-	cotel "github.com/alexfalkowski/standort/location/country/provider/otel"
+	ct "github.com/alexfalkowski/standort/location/country/provider/telemetry/tracer"
 	"github.com/alexfalkowski/standort/location/ip"
-	iotel "github.com/alexfalkowski/standort/location/ip/provider/otel"
+	it "github.com/alexfalkowski/standort/location/ip/provider/telemetry/tracer"
 	"github.com/alexfalkowski/standort/location/orb"
-	ootel "github.com/alexfalkowski/standort/location/orb/provider/otel"
+	ot "github.com/alexfalkowski/standort/location/orb/provider/telemetry/tracer"
 	"go.uber.org/fx"
 )
 
@@ -16,9 +16,9 @@ var (
 		fx.Provide(ip.NewProvider),
 		fx.Provide(country.NewProvider),
 		fx.Provide(New),
-		fx.Provide(cotel.NewTracer),
+		fx.Provide(ct.NewTracer),
 		fx.Provide(orb.NewProvider),
-		fx.Provide(iotel.NewTracer),
-		fx.Provide(ootel.NewTracer),
+		fx.Provide(it.NewTracer),
+		fx.Provide(ot.NewTracer),
 	)
 )

@@ -3,13 +3,13 @@ package country
 import (
 	"github.com/alexfalkowski/standort/location/country/provider"
 	"github.com/alexfalkowski/standort/location/country/provider/gountries"
-	"github.com/alexfalkowski/standort/location/country/provider/otel"
+	"github.com/alexfalkowski/standort/location/country/provider/telemetry/tracer"
 )
 
 // NewProvider for country.
-func NewProvider(tracer otel.Tracer) provider.Provider {
+func NewProvider(t tracer.Tracer) provider.Provider {
 	var p provider.Provider = gountries.NewProvider()
-	p = otel.NewProvider(p, tracer)
+	p = tracer.NewProvider(p, t)
 
 	return p
 }
