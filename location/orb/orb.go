@@ -3,8 +3,8 @@ package orb
 import (
 	"github.com/alexfalkowski/standort/location/continent"
 	"github.com/alexfalkowski/standort/location/orb/provider"
-	"github.com/alexfalkowski/standort/location/orb/provider/otel"
 	"github.com/alexfalkowski/standort/location/orb/provider/rtree"
+	"github.com/alexfalkowski/standort/location/orb/provider/telemetry/tracer"
 	"go.uber.org/fx"
 )
 
@@ -14,7 +14,7 @@ type ProviderParams struct {
 
 	Lifecycle fx.Lifecycle
 	Config    *continent.Config
-	Tracer    otel.Tracer
+	Tracer    tracer.Tracer
 }
 
 // NewProvider for orb.
@@ -29,7 +29,7 @@ func NewProvider(params ProviderParams) (provider.Provider, error) {
 		return nil, err
 	}
 
-	p = otel.NewProvider(p, params.Tracer)
+	p = tracer.NewProvider(p, params.Tracer)
 
 	return p, nil
 }

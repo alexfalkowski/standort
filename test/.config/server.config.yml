@@ -13,9 +13,10 @@ location:
     kind: ip2location
     ip2location:
       path: ../assets/ip2location.bin
-otel:
-  host: localhost:4318
-  secure: false
+telemetry:
+  tracer:
+    host: localhost:4318
+    secure: false
 transport:
   port: 8080
   http:

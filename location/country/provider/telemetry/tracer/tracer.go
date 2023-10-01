@@ -1,9 +1,9 @@
-package otel
+package tracer
 
 import (
 	"context"
 
-	"github.com/alexfalkowski/go-service/otel"
+	"github.com/alexfalkowski/go-service/telemetry/tracer"
 	"github.com/alexfalkowski/go-service/version"
 	"github.com/alexfalkowski/standort/location/country/provider"
 	"go.opentelemetry.io/otel/attribute"
@@ -12,21 +12,21 @@ import (
 	"go.uber.org/fx"
 )
 
-// Tracer for otel.
+// Tracer for tracer.
 type Tracer trace.Tracer
 
-// NewTracer for otel.
-func NewTracer(lc fx.Lifecycle, cfg *otel.Config, version version.Version) (Tracer, error) {
-	return otel.NewTracer(otel.TracerParams{Lifecycle: lc, Name: "country", Config: cfg, Version: version})
+// NewTracer for tracer.
+func NewTracer(lc fx.Lifecycle, cfg *tracer.Config, version version.Version) (Tracer, error) {
+	return tracer.NewTracer(tracer.Params{Lifecycle: lc, Name: "country", Config: cfg, Version: version})
 }
 
-// Provider for otel.
+// Provider for tracer.
 type Provider struct {
 	provider provider.Provider
 	tracer   Tracer
 }
 
-// NewProvider for otel.
+// NewProvider for tracer.
 func NewProvider(provider provider.Provider, tracer Tracer) *Provider {
 	return &Provider{provider: provider, tracer: tracer}
 }
