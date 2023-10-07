@@ -20,7 +20,8 @@ message GetLocationByIPRequest {
 
 // GetLocationByIPResponse for an IP address.
 message GetLocationByIPResponse {
-  Location location = 1;
+  map<string, string> meta = 1;
+  Location location = 2;
 }
 
 // GetLocationByLatLngRequest for a latitude and longitude.
@@ -31,6 +32,7 @@ message GetLocationByLatLngRequest {
 
 // GetLocationByLatLngResponse for a latitude and longitude.
 message GetLocationByLatLngResponse {
+  map<string, string> meta = 2;
   Location location = 1;
 }
 

@@ -35,7 +35,8 @@ message GetLocationRequest {
 
 // GetLocationResponse for getting the location.
 message GetLocationResponse {
-  repeated Location locations = 1;
+  map<string, string> meta = 1;
+  repeated Location locations = 2;
 }
 
 // Service allows to get location via multiple methods.

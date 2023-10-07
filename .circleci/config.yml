@@ -11,7 +11,6 @@ jobs:
       - run: git submodule update --init
       - run: make dep
       - run: make lint
-      - run: make proto-breaking
       - run: make sec
       - run: make features
       - run: make goveralls

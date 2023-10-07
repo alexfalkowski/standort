@@ -50,6 +50,8 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 		}
 	}
 
+	resp.Meta = meta.Attributes(ctx)
+
 	return resp, nil
 }
 

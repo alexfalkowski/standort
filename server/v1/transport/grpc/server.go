@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 
+	"github.com/alexfalkowski/go-service/meta"
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
 	"github.com/alexfalkowski/standort/location"
 	"google.golang.org/grpc/codes"
@@ -31,6 +32,7 @@ func (s *Server) GetLocationByIP(ctx context.Context, req *v1.GetLocationByIPReq
 	}
 
 	resp.Location = &v1.Location{Country: country, Continent: continent}
+	resp.Meta = meta.Attributes(ctx)
 
 	return resp, nil
 }
@@ -45,6 +47,7 @@ func (s *Server) GetLocationByLatLng(ctx context.Context, req *v1.GetLocationByL
 	}
 
 	resp.Location = &v1.Location{Country: country, Continent: continent}
+	resp.Meta = meta.Attributes(ctx)
 
 	return resp, nil
 }
