@@ -7,6 +7,8 @@ location:
     ip2location:
       path: ../assets/ip2location.bin
 telemetry:
+  logger:
+    level: info
   tracer:
     host: localhost:4318
     secure: false

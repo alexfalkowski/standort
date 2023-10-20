@@ -14,6 +14,8 @@ location:
     geoip2:
       path: ../assets/geoip2.mmdb
 telemetry:
+  logger:
+    level: info
   tracer:
     host: localhost:4318
     secure: false
