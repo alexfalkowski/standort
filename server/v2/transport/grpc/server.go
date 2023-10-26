@@ -40,6 +40,8 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 		meta.WithAttribute(ctx, "location.point_error", err.Error())
 	} else {
 		if point == nil {
+			resp.Meta = meta.Attributes(ctx)
+
 			return resp, nil
 		}
 
