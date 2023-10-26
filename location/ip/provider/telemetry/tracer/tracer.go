@@ -3,6 +3,7 @@ package tracer
 import (
 	"context"
 
+	"github.com/alexfalkowski/go-service/env"
 	"github.com/alexfalkowski/go-service/telemetry/tracer"
 	"github.com/alexfalkowski/go-service/version"
 	"github.com/alexfalkowski/standort/location/ip/provider"
@@ -16,8 +17,8 @@ import (
 type Tracer trace.Tracer
 
 // NewTracer for tracer.
-func NewTracer(lc fx.Lifecycle, cfg *tracer.Config, version version.Version) (Tracer, error) {
-	return tracer.NewTracer(lc, "ip", version, cfg)
+func NewTracer(lc fx.Lifecycle, cfg *tracer.Config, env env.Environment, ver version.Version) (Tracer, error) {
+	return tracer.NewTracer(lc, "ip", env, ver, cfg)
 }
 
 // Provider for tracer.
