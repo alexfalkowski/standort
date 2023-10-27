@@ -25,6 +25,7 @@ Then('I should receive a valid locations with HTTP:') do |table|
 
   resp = JSON.parse(@response.body)
 
+  expect(resp['meta'].length).to be > 0
   expect(resp['locations'].length).to eq(1)
 
   rows = table.rows_hash
@@ -40,5 +41,6 @@ Then('I should receive an empty response with HTTP') do
 
   resp = JSON.parse(@response.body)
 
+  expect(resp['meta'].length).to be > 0
   expect(resp['locations'].length).to eq(0)
 end

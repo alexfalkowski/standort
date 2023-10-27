@@ -31,6 +31,7 @@ end
 Then('I should receive a valid location by IP adress with gRPC:') do |table|
   rows = table.rows_hash
 
+  expect(@response.meta.length).to be > 0
   expect(@response.location.country).to eq(rows['country'])
   expect(@response.location.continent).to eq(rows['continent'])
 end
@@ -42,6 +43,7 @@ end
 Then('I should receive a valid location by latitude and longitude with gRPC:') do |table|
   rows = table.rows_hash
 
+  expect(@response.meta.length).to be > 0
   expect(@response.location.country).to eq(rows['country'])
   expect(@response.location.continent).to eq(rows['continent'])
 end

@@ -27,6 +27,7 @@ Then('I should receive a valid location by IP adress with HTTP:') do |table|
   location = resp['location']
   rows = table.rows_hash
 
+  expect(resp['meta'].length).to be > 0
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
 end
@@ -42,6 +43,7 @@ Then('I should receive a valid location by latitude and longitude with HTTP:') d
   location = resp['location']
   rows = table.rows_hash
 
+  expect(resp['meta'].length).to be > 0
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
 end
