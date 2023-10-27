@@ -25,6 +25,7 @@ end
 Then('I should receive a valid locations with gRPC:') do |table|
   rows = table.rows_hash
 
+  expect(@response.meta.length).to be > 0
   expect(@response.locations.length).to eq(1)
 
   location = @response.locations[0]
@@ -34,5 +35,6 @@ Then('I should receive a valid locations with gRPC:') do |table|
 end
 
 Then('I should receive an empty response with gRPC') do
+  expect(@response.meta.length).to be > 0
   expect(@response.locations.length).to eq(0)
 end
