@@ -42,5 +42,5 @@ Then('I should receive an empty response with HTTP') do
   resp = JSON.parse(@response.body)
 
   expect(resp['meta'].length).to be > 0
-  expect(resp['locations'].length).to eq(0)
+  expect(resp['locations']).to be_nil
 end
