@@ -3,13 +3,15 @@ package grpc
 import (
 	"context"
 	"fmt"
+	"net"
+	"strings"
 
 	geouri "git.jlel.se/jlelse/go-geouri"
 	"github.com/alexfalkowski/go-service/meta"
 	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
-	tmeta "github.com/alexfalkowski/go-service/transport/meta"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	"github.com/alexfalkowski/standort/location"
+	"google.golang.org/grpc/peer"
 )
 
 // NewServer for gRPC.
@@ -62,7 +64,19 @@ func (s *Server) ip(ctx context.Context, req *v2.GetLocationRequest) string {
 		return req.Ip
 	}
 
-	return tmeta.RemoteAddress(ctx)
+	md := gmeta.ExtractIncoming(ctx)
+
+	if f := md.Get("forwarded-for"); len(f) > 0 {
+		return strings.Split(f[0], ",")[0]
+	}
+
+	if p, ok := peer.FromContext(ctx); ok {
+		if host, _, err := net.SplitHostPort(p.Addr.String()); err != nil && host != "" {
+			return host
+		}
+	}
+
+	return ""
 }
 
 func (s *Server) point(ctx context.Context, req *v2.GetLocationRequest) (*v2.Point, error) {
