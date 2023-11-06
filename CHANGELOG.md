@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.30.1](https://github.com/alexfalkowski/standort/releases/tag/v2.30.1) - 2023-11-06
+
+- [`6cd6f79`](https://github.com/alexfalkowski/standort/commit/6cd6f7932d68fda395436652b79b9f7ffcdd0de9) fix(server): add retry (#442)
+- [`b56b91b`](https://github.com/alexfalkowski/standort/commit/b56b91bb4f4fbc37e2a8b1dcb9b410f964fb01b3) ci: use go:1.21-ruby (#441)
+- [`d5542e5`](https://github.com/alexfalkowski/standort/commit/d5542e59a0b1f556e207449e69f357a1d107993e) build: push to buf (#440)
+- [`2daf619`](https://github.com/alexfalkowski/standort/commit/2daf619fde9d9193c565fc88ff0b33d47cd7e20c) build(deps): update bin (#439)
+- [`fcd6d45`](https://github.com/alexfalkowski/standort/commit/fcd6d457c824fadd407560e372ff1ad8f3cc7814) test: use grpc port (#438)
+
 ## [v2.30.0](https://github.com/alexfalkowski/standort/releases/tag/v2.30.0) - 2023-11-03
 
 - [`891ae27`](https://github.com/alexfalkowski/standort/commit/891ae2727d0a03a56febbabb85bf5256f688d2b0) feat(deps): update github.com/alexfalkowski/go-service to v1.103.2 (#437)
