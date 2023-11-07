@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.30.2](https://github.com/alexfalkowski/standort/releases/tag/v2.30.2) - 2023-11-07
+
+- [`f0817c3`](https://github.com/alexfalkowski/standort/commit/f0817c39ec25a8c75d4a0db4671431d2c9492fc5) fix(deps): bump github.com/alexfalkowski/go-service (#447)
+- [`386ff23`](https://github.com/alexfalkowski/standort/commit/386ff234b7f4b611b867e36773e175222b33270d) ci: add trivy (#446)
+- [`c9776c8`](https://github.com/alexfalkowski/standort/commit/c9776c84414ce7998b0f9216c45ac05115216b66) ci: move to new structure (#445)
+
 ## [v2.30.1](https://github.com/alexfalkowski/standort/releases/tag/v2.30.1) - 2023-11-06
 
 - [`6cd6f79`](https://github.com/alexfalkowski/standort/commit/6cd6f7932d68fda395436652b79b9f7ffcdd0de9) fix(server): add retry (#442)
