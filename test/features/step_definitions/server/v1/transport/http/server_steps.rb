@@ -4,7 +4,7 @@ When('I request a location by IP address with HTTP:') do |table|
   rows = table.rows_hash
   headers = {
     request_id: SecureRandom.uuid,
-    user_agent: Standort.server_config['transport']['grpc']['user_agent']
+    user_agent: Standort.server_config['transport']['http']['user_agent']
   }
 
   @response = Standort::V1.server_http.get_location_by_ip(rows['ip'].strip, headers)
@@ -14,7 +14,7 @@ When('I request a location by latitude and longitude with HTTP:') do |table|
   rows = table.rows_hash
   headers = {
     request_id: SecureRandom.uuid,
-    user_agent: Standort.server_config['transport']['grpc']['user_agent']
+    user_agent: Standort.server_config['transport']['http']['user_agent']
   }
 
   @response = Standort::V1.server_http.get_location_by_lat_lng(rows['latitude'], rows['longitude'], headers)
