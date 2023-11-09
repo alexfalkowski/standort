@@ -3,7 +3,7 @@
 When('I request a location with gRPC:') do |table|
   rows = table.rows_hash
   @request_id = SecureRandom.uuid
-  metadata = { 'request-id' => @request_id, 'ua' => Standort.server_config['transport']['grpc']['user_agent'] }
+  metadata = { 'request-id' => @request_id, 'user-agent' => Standort.server_config['transport']['grpc']['user_agent'] }
   params = {}
 
   if rows['method'] == 'params'
