@@ -12,8 +12,8 @@ github.com/Masterminds/semver/v3 v3.1.1 h1:hLg3sBzpNErnxhQtUy/mmLR2I9foDujNK030I
 github.com/Masterminds/semver/v3 v3.1.1/go.mod h1:VPu/7SZ7ePZ3QOrcuXROw5FAcLl4a0cBrbBpGY/8hQs=
 github.com/alexfalkowski/go-health v1.13.0 h1:DD+kWEPzn+sIhiv6mMeX1Wtab5sdtQpw8J6TsH/YVL8=
 github.com/alexfalkowski/go-health v1.13.0/go.mod h1:+8Q3zHywTGZl0VcsT2vr5edGOPDMVQIRbx7PboYKhxI=
-github.com/alexfalkowski/go-service v1.106.1 h1:vfJNHDPt47c8i7i5Gu4R8gZke2eCAUTchI5MXPYYj/0=
-github.com/alexfalkowski/go-service v1.106.1/go.mod h1:CcQPUGiztUo7WpgTePtu5zad+SXkzsPK86+eAyE8ht0=
+github.com/alexfalkowski/go-service v1.108.1 h1:fehzkBpP+g881tvUrzwMo/CqiiSPsvWWbm3tO60VY9k=
+github.com/alexfalkowski/go-service v1.108.1/go.mod h1:NA+jv/UPOQUBiAEhnS8gvuYquSLIGejTdzbQlbRfHgw=
 github.com/avast/retry-go/v3 v3.1.1 h1:49Scxf4v8PmiQ/nY0aY3p0hDueqSmc7++cBbtiDGu2g=
 github.com/avast/retry-go/v3 v3.1.1/go.mod h1:6cXRK369RpzFL3UQGqIUp9Q7GDrams+KsYWrfNA1/nQ=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
@@ -78,8 +78,6 @@ github.com/gofrs/uuid v4.0.0+incompatible h1:1SD/1F5pU8p29ybwgQSwpQk+mwdRrXCYuPh
 github.com/gofrs/uuid v4.0.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
 github.com/gogo/protobuf v1.3.2 h1:Ov1cvc58UF3b5XjBnZv7+opcTcQFZebYjWzi34vdm4Q=
 github.com/gogo/protobuf v1.3.2/go.mod h1:P1XiOD3dCwIKUDQYPy72D8LYyHL2YPYrpS2s69NZV8Q=
-github.com/golang-jwt/jwt/v4 v4.5.0 h1:7cYmW1XlMY7h7ii7UhUyChSgS5wUJEnm9uZVTGqOWzg=
-github.com/golang-jwt/jwt/v4 v4.5.0/go.mod h1:m21LjoU+eqJr34lmDMbreY2eSTRJ1cv77w39/MY0Ch0=
 github.com/golang-migrate/migrate/v4 v4.16.2 h1:8coYbMKUyInrFk1lfGfRovTLAW7PhWp8qQDT2iKfuoA=
 github.com/golang-migrate/migrate/v4 v4.16.2/go.mod h1:pfcJX4nPHaVdc5nmdCikFBWtm+UBpiZjRNNsyBbp0/o=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=
