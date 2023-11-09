@@ -3,10 +3,7 @@
 When('I request a location by IP address with gRPC:') do |table|
   rows = table.rows_hash
   @request_id = SecureRandom.uuid
-  metadata = {
-    'request-id' => @request_id,
-    'user-agent' => Standort.server_config['transport']['grpc']['user_agent']
-  }
+  metadata = { 'request-id' => @request_id }
 
   request = Standort::V1::GetLocationByIPRequest.new(ip: rows['ip'].strip)
   @response = Standort::V1.server_grpc.get_location_by_ip(request, { metadata: })
@@ -17,10 +14,7 @@ end
 When('I request a location by latitude and longitude with gRPC:') do |table|
   rows = table.rows_hash
   @request_id = SecureRandom.uuid
-  metadata = {
-    'request-id' => @request_id,
-    'user-agent' => Standort.server_config['transport']['grpc']['user_agent']
-  }
+  metadata = { 'request-id' => @request_id }
 
   request = Standort::V1::GetLocationByLatLngRequest.new(lat: rows['latitude'].to_f, lng: rows['longitude'].to_f)
   @response = Standort::V1.server_grpc.get_location_by_lat_lng(request, { metadata: })
