@@ -3,7 +3,7 @@
 When('I request a location with gRPC:') do |table|
   rows = table.rows_hash
   @request_id = SecureRandom.uuid
-  metadata = { 'request-id' => @request_id, 'user-agent' => Standort.server_config['transport']['grpc']['user_agent'] }
+  metadata = { 'request-id' => @request_id }
   params = {}
 
   if rows['method'] == 'params'
@@ -12,7 +12,7 @@ When('I request a location with gRPC:') do |table|
   end
 
   if rows['method'] == 'metadata'
-    metadata['forwarded-for'] = rows['ip'] if rows['ip']
+    metadata['x-forwarded-for'] = rows['ip'] if rows['ip']
     metadata['geolocation'] = "geo:#{rows['latitude']},#{rows['longitude']}" if rows['latitude'] && rows['longitude']
   end
 

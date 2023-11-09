@@ -66,7 +66,7 @@ func (s *Server) ip(ctx context.Context, req *v2.GetLocationRequest) string {
 
 	md := gmeta.ExtractIncoming(ctx)
 
-	if f := md.Get("forwarded-for"); len(f) > 0 {
+	if f := md.Get("x-forwarded-for"); len(f) > 0 {
 		return strings.Split(f[0], ",")[0]
 	}
 
