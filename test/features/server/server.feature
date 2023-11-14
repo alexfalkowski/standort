@@ -1,4 +1,4 @@
-@manual
+@manual @grpc
 Feature: Server
 
   Server allows users to get locations by different types.
