@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.32.3](https://github.com/alexfalkowski/standort/releases/tag/v2.32.3) - 2023-11-15
+
+- [`427f9db`](https://github.com/alexfalkowski/standort/commit/427f9db4b0a9432bd3a1496a20a887c3414cc79d) fix(deps): bump github.com/ip2location/ip2location-go/v9 (#463)
+- [`0129baf`](https://github.com/alexfalkowski/standort/commit/0129bafe0019e92fc916d2b4bb1be49693b2cd81) build(deps): bump cucumber from 9.0.2 to 9.1.0 in /test (#462)
+- [`8231269`](https://github.com/alexfalkowski/standort/commit/8231269f1d24066a8c4e24f6f550b23c317ee915) build(deps): update bin (#461)
+- [`89bb124`](https://github.com/alexfalkowski/standort/commit/89bb124bb0dcd728f994baf2e47f68c899a9cb46) ci: seperate steps to speedup (#460)
+
 ## [v2.32.2](https://github.com/alexfalkowski/standort/releases/tag/v2.32.2) - 2023-11-14
 
 - [`d7cd0e6`](https://github.com/alexfalkowski/standort/commit/d7cd0e602069c7e9017be46f69fb0c78a8481fd1) fix(deps): update github.com/alexfalkowski/go-service to v1.112.3 (#459)
