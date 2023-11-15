@@ -8,7 +8,7 @@ require (
 	github.com/alexfalkowski/go-health v1.13.0
 	github.com/alexfalkowski/go-service v1.112.3
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
-	github.com/ip2location/ip2location-go/v9 v9.6.0
+	github.com/ip2location/ip2location-go/v9 v9.6.1
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.10.0
 	github.com/tidwall/rtree v1.10.0
