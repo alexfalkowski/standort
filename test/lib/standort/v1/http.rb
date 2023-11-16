@@ -3,26 +3,12 @@
 module Standort
   module V1
     class HTTP < Nonnative::HTTPClient
-      def get_location_by_ip(ip, headers = {})
-        default_headers = {
-          content_type: :json,
-          accept: :json
-        }
-
-        default_headers.merge!(headers)
-
-        get("/v1/location/ip/#{URI::Parser.new.escape(ip)}", headers, 10)
+      def get_location_by_ip(ip, opts = {})
+        get("/v1/location/ip/#{URI::Parser.new.escape(ip)}", opts)
       end
 
-      def get_location_by_lat_lng(lat, lng, headers = {})
-        default_headers = {
-          content_type: :json,
-          accept: :json
-        }
-
-        default_headers.merge!(headers)
-
-        get("/v1/location/lat/#{lat}/lng/#{lng}", headers, 10)
+      def get_location_by_lat_lng(lat, lng, opts = {})
+        get("/v1/location/lat/#{lat}/lng/#{lng}", opts)
       end
     end
   end
