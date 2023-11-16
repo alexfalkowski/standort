@@ -16,9 +16,9 @@ func NewProvider() *Provider {
 	return &Provider{query: gountries.New()}
 }
 
-// GetByName a country and continent.
-func (p *Provider) GetByName(_ context.Context, name string) (string, string, error) {
-	country, err := p.query.FindCountryByName(name)
+// GetByCode a country and continent.
+func (p *Provider) GetByCode(_ context.Context, name string) (string, string, error) {
+	country, err := p.query.FindCountryByAlpha(name)
 	if err != nil {
 		return "", "", err
 	}

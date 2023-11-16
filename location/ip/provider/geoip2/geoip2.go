@@ -29,5 +29,5 @@ func (p *Provider) GetByIP(_ context.Context, ip string) (string, error) {
 		return "", err
 	}
 
-	return record.Country.Names["en"], nil
+	return record.Country.ISOCode, nil
 }

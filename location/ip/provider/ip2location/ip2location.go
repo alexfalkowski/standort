@@ -37,5 +37,5 @@ func (p *Provider) GetByIP(_ context.Context, ip string) (string, error) {
 		return "", err
 	}
 
-	return rec.Country_long, nil
+	return rec.Country_short, nil
 }

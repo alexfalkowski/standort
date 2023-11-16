@@ -38,7 +38,7 @@ func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, erro
 		return "", "", fmt.Errorf("%s: %w", ip, ErrNotFound)
 	}
 
-	cou, con, err := l.countryProvider.GetByName(ctx, c)
+	cou, con, err := l.countryProvider.GetByCode(ctx, c)
 	if err != nil {
 		meta.WithAttribute(ctx, "country.error", err.Error())
 
