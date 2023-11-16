@@ -32,8 +32,8 @@ func NewProvider(provider provider.Provider, tracer Tracer) *Provider {
 	return &Provider{provider: provider, tracer: tracer}
 }
 
-// GetByName a country and continent.
-func (p *Provider) GetByName(ctx context.Context, name string) (string, string, error) {
+// GetByCode a country and continent.
+func (p *Provider) GetByCode(ctx context.Context, name string) (string, string, error) {
 	attrs := []attribute.KeyValue{
 		attribute.Key("provider.name").String(name),
 	}
@@ -41,7 +41,7 @@ func (p *Provider) GetByName(ctx context.Context, name string) (string, string, 
 	ctx, span := p.tracer.Start(ctx, "by-name", trace.WithSpanKind(trace.SpanKindClient), trace.WithAttributes(attrs...))
 	defer span.End()
 
-	country, continent, err := p.provider.GetByName(ctx, name)
+	country, continent, err := p.provider.GetByCode(ctx, name)
 	if err != nil {
 		span.SetStatus(codes.Error, err.Error())
 		span.RecordError(err)
