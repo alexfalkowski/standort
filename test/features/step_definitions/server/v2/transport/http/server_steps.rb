@@ -2,7 +2,14 @@
 
 When('I request a location with HTTP:') do |table|
   rows = table.rows_hash
-  headers = { request_id: SecureRandom.uuid, user_agent: Standort.server_config['transport']['http']['user_agent'] }
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Standort.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json
+    },
+    read_timeout: 10, open_timeout: 10
+  }
+
   params = {}
 
   if rows['method'] == 'params'
@@ -11,13 +18,11 @@ When('I request a location with HTTP:') do |table|
   end
 
   if rows['method'] == 'headers'
-    headers['x-forwarded-for'] = rows['ip'] if rows['ip']
-    headers['geolocation'] = "geo:#{rows['latitude']},#{rows['longitude']}" if rows['latitude'] && rows['longitude']
+    opts[:headers]['x-forwarded-for'] = rows['ip'] if rows['ip']
+    opts[:headers]['geolocation'] = "geo:#{rows['latitude']},#{rows['longitude']}" if rows['latitude'] && rows['longitude']
   end
 
-  params[:headers] = headers
-
-  @response = Standort::V2.server_http.get_location(params)
+  @response = Standort::V2.server_http.get_location(params, opts)
 end
 
 Then('I should receive a valid locations with HTTP:') do |table|

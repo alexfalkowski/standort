@@ -3,10 +3,7 @@
 module Standort
   module V2
     class HTTP < Nonnative::HTTPClient
-      def get_location(params)
-        headers = params[:headers] || {}
-        headers.merge!(content_type: :json, accept: :json)
-
+      def get_location(params, opts = {})
         ip = params[:ip]
         point = params[:point]
         uri = if ip || point
@@ -15,7 +12,7 @@ module Standort
                 '/v2/location'
               end
 
-        get(uri, headers, 10)
+        get(uri, opts)
       end
 
       private
@@ -23,8 +20,8 @@ module Standort
       def params_uri(ip, point)
         point ||= []
         point.compact!
-        params = {}
 
+        params = {}
         params[:ip] = ip if ip
 
         if point.length.positive?
