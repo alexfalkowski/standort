@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.34.1](https://github.com/alexfalkowski/standort/releases/tag/v2.34.1) - 2023-11-16
+
+- [`618b85e`](https://github.com/alexfalkowski/standort/commit/618b85e0d2daacbdbf610b9944969b6479116fd0) fix: remove geoip2.mmdb (#468)
+
 ## [v2.34.0](https://github.com/alexfalkowski/standort/releases/tag/v2.34.0) - 2023-11-16
 
 - [`ef368bf`](https://github.com/alexfalkowski/standort/commit/ef368bf628c9952c0d793f1a113e9dd058f44eaf) feat(assets): update (#467)
