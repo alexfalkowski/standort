@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.34.2](https://github.com/alexfalkowski/standort/releases/tag/v2.34.2) - 2023-11-17
+
+- [`f67bf4b`](https://github.com/alexfalkowski/standort/commit/f67bf4b440ca1980c1355fb016de1fd127e4e467) fix(deps): bump github.com/alexfalkowski/go-service (#472)
+
 ## [v2.34.1](https://github.com/alexfalkowski/standort/releases/tag/v2.34.1) - 2023-11-16
 
 - [`618b85e`](https://github.com/alexfalkowski/standort/commit/618b85e0d2daacbdbf610b9944969b6479116fd0) fix: remove geoip2.mmdb (#468)
