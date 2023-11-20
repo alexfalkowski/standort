@@ -4,7 +4,7 @@ When('I request a location with HTTP:') do |table|
   rows = table.rows_hash
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Standort.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Standort.server_config.transport.http.user_agent,
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10
