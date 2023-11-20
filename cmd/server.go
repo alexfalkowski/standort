@@ -5,12 +5,12 @@ import (
 	"github.com/alexfalkowski/go-service/runtime"
 	"github.com/alexfalkowski/go-service/telemetry"
 	"github.com/alexfalkowski/go-service/telemetry/metrics"
-	"github.com/alexfalkowski/go-service/transport"
 	"github.com/alexfalkowski/standort/config"
 	"github.com/alexfalkowski/standort/location"
 	"github.com/alexfalkowski/standort/server/health"
 	v1 "github.com/alexfalkowski/standort/server/v1"
 	v2 "github.com/alexfalkowski/standort/server/v2"
+	"github.com/alexfalkowski/standort/transport"
 	"go.uber.org/fx"
 )
 

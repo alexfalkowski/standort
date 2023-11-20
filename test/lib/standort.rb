@@ -20,7 +20,7 @@ module Standort
     end
 
     def server_config
-      @server_config ||= YAML.load_file('.config/server.config.yml')
+      @server_config ||= Nonnative.configurations('.config/server.config.yml')
     end
 
     def health_grpc
@@ -28,7 +28,7 @@ module Standort
     end
 
     def user_agent
-      @user_agent ||= { 'grpc.primary_user_agent' => server_config['transport']['grpc']['user_agent'] }
+      @user_agent ||= Nonnative::Header.grpc_user_agent(server_config.transport.grpc.user_agent)
     end
   end
 
@@ -51,7 +51,7 @@ module Standort
       end
 
       def server_grpc
-        @server_grpc ||= Standort::V2::Service::Stub.new('localhost:9090', :this_channel_is_insecure)
+        @server_grpc ||= Standort::V2::Service::Stub.new('localhost:9090', :this_channel_is_insecure, channel_args: Standort.user_agent)
       end
     end
   end
