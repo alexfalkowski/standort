@@ -33,7 +33,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 		if country, continent, err := s.location.GetByIP(ctx, ip); err != nil {
 			meta.WithAttribute(ctx, "location.ip_error", err.Error())
 		} else {
-			resp.Locations = append(resp.Locations, &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_IP})
+			resp.Locations = append(resp.GetLocations(), &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_IP})
 		}
 	}
 
@@ -47,10 +47,10 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 			return resp, nil
 		}
 
-		if country, continent, err := s.location.GetByLatLng(ctx, point.Lat, point.Lng); err != nil {
+		if country, continent, err := s.location.GetByLatLng(ctx, point.GetLat(), point.GetLng()); err != nil {
 			meta.WithAttribute(ctx, "location.lat_lng_error", err.Error())
 		} else {
-			resp.Locations = append(resp.Locations, &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_GEO})
+			resp.Locations = append(resp.GetLocations(), &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_GEO})
 		}
 	}
 
@@ -60,8 +60,9 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 }
 
 func (s *Server) ip(ctx context.Context, req *v2.GetLocationRequest) string {
-	if req.Ip != "" {
-		return req.Ip
+	ip := req.GetIp()
+	if ip != "" {
+		return ip
 	}
 
 	md := gmeta.ExtractIncoming(ctx)
@@ -80,8 +81,9 @@ func (s *Server) ip(ctx context.Context, req *v2.GetLocationRequest) string {
 }
 
 func (s *Server) point(ctx context.Context, req *v2.GetLocationRequest) (*v2.Point, error) {
-	if req.Point != nil {
-		return req.Point, nil
+	point := req.GetPoint()
+	if point != nil {
+		return point, nil
 	}
 
 	md := gmeta.ExtractIncoming(ctx)
@@ -96,5 +98,5 @@ func (s *Server) point(ctx context.Context, req *v2.GetLocationRequest) (*v2.Poi
 		return &v2.Point{Lat: geo.Latitude, Lng: geo.Longitude}, nil
 	}
 
-	return nil, nil
+	return nil, nil //nolint:nilnil
 }

@@ -10,15 +10,13 @@ import (
 	"go.uber.org/fx"
 )
 
-var (
-	// Module for fx.
-	Module = fx.Options(
-		fx.Provide(ip.NewProvider),
-		fx.Provide(country.NewProvider),
-		fx.Provide(New),
-		fx.Provide(ct.NewTracer),
-		fx.Provide(orb.NewProvider),
-		fx.Provide(it.NewTracer),
-		fx.Provide(ot.NewTracer),
-	)
+// Module for fx.
+var Module = fx.Options(
+	fx.Provide(ip.NewProvider),
+	fx.Provide(country.NewProvider),
+	fx.Provide(New),
+	fx.Provide(ct.NewTracer),
+	fx.Provide(orb.NewProvider),
+	fx.Provide(it.NewTracer),
+	fx.Provide(ot.NewTracer),
 )

@@ -26,7 +26,7 @@ type Server struct {
 func (s *Server) GetLocationByIP(ctx context.Context, req *v1.GetLocationByIPRequest) (*v1.GetLocationByIPResponse, error) {
 	resp := &v1.GetLocationByIPResponse{}
 
-	country, continent, err := s.location.GetByIP(ctx, req.Ip)
+	country, continent, err := s.location.GetByIP(ctx, req.GetIp())
 	if err != nil && errors.Is(err, location.ErrNotFound) {
 		return resp, status.Error(codes.NotFound, err.Error())
 	}
@@ -41,7 +41,7 @@ func (s *Server) GetLocationByIP(ctx context.Context, req *v1.GetLocationByIPReq
 func (s *Server) GetLocationByLatLng(ctx context.Context, req *v1.GetLocationByLatLngRequest) (*v1.GetLocationByLatLngResponse, error) {
 	resp := &v1.GetLocationByLatLngResponse{Location: &v1.Location{}}
 
-	country, continent, err := s.location.GetByLatLng(ctx, req.Lat, req.Lng)
+	country, continent, err := s.location.GetByLatLng(ctx, req.GetLat(), req.GetLng())
 	if err != nil && errors.Is(err, location.ErrNotFound) {
 		return resp, status.Error(codes.NotFound, err.Error())
 	}

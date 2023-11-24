@@ -12,10 +12,8 @@ import (
 	orb "github.com/alexfalkowski/standort/location/orb/provider"
 )
 
-var (
-	// ErrNotFound for location.
-	ErrNotFound = errors.New("not found")
-)
+// ErrNotFound for location.
+var ErrNotFound = errors.New("not found")
 
 // Location will find the country and continent by different criteria.
 type Location struct {
