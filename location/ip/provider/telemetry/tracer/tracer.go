@@ -18,7 +18,7 @@ type Tracer trace.Tracer
 
 // NewTracer for tracer.
 func NewTracer(lc fx.Lifecycle, cfg *tracer.Config, env env.Environment, ver version.Version) (Tracer, error) {
-	return tracer.NewTracer(lc, "ip", env, ver, cfg)
+	return tracer.NewTracer(context.Background(), lc, "ip", env, ver, cfg)
 }
 
 // Provider for tracer.
