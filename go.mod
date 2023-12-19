@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.13.1
-	github.com/alexfalkowski/go-service v1.122.8
+	github.com/alexfalkowski/go-service v1.122.10
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
 	github.com/ip2location/ip2location-go/v9 v9.6.1
 	github.com/pariz/gountries v0.1.6
@@ -18,7 +18,7 @@ require (
 	go.uber.org/fx v1.20.1
 	go.uber.org/zap v1.26.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17
-	google.golang.org/grpc v1.60.0
+	google.golang.org/grpc v1.60.1
 	google.golang.org/protobuf v1.31.0
 )
 
@@ -93,7 +93,7 @@ require (
 	go.uber.org/automaxprocs v1.5.3 // indirect
 	go.uber.org/dig v1.17.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/crypto v0.15.0 // indirect
+	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/net v0.18.0 // indirect
 	golang.org/x/sync v0.4.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect
