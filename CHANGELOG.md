@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.39.7](https://github.com/alexfalkowski/standort/releases/tag/v2.39.7) - 2024-01-11
+
+- [`3d94705`](https://github.com/alexfalkowski/standort/commit/3d94705552d8f7dc29763ba0e1588eba8c70d418) fix(deps): bump github.com/ip2location/ip2location-go/v9 from 9.6.1 to 9.7.0 (#510)
+
 ## [v2.39.6](https://github.com/alexfalkowski/standort/releases/tag/v2.39.6) - 2024-01-10
 
 - [`dd28dcd`](https://github.com/alexfalkowski/standort/commit/dd28dcdc77b88e2f72c59e101fbc7a6636e80b2c) fix(deps): bump golang from 1.21.5-bullseye to 1.21.6-bullseye (#509)
