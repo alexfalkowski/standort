@@ -213,8 +213,8 @@ github.com/open-feature/go-sdk-contrib/providers/flipt v0.1.1/go.mod h1:nSLBL0kw
 github.com/opentracing/opentracing-go v1.1.0/go.mod h1:UkNAQd3GIcIGf0SeVgPpRdFStlNbqXla1AfSYxPUl2o=
 github.com/pariz/gountries v0.1.6 h1:Cu8sBSvD6HvAtzinKJ7Yw8q4wAF2dD7oXjA5yDJQt1I=
 github.com/pariz/gountries v0.1.6/go.mod h1:Et5QWMc75++5nUKSYKNtz/uc+2LHl4LKhNd6zwdTu+0=
-github.com/paulmach/orb v0.10.0 h1:guVYVqzxHE/CQ1KpfGO077TR0ATHSNjp4s6XGLn3W9s=
-github.com/paulmach/orb v0.10.0/go.mod h1:5mULz1xQfs3bmQm63QEJA6lNGujuRafwA5S/EnuLaLU=
+github.com/paulmach/orb v0.11.0 h1:JfVXJUBeH9ifc/OrhBY0lL16QsmPgpCHMlqSSYhcgAA=
+github.com/paulmach/orb v0.11.0/go.mod h1:5mULz1xQfs3bmQm63QEJA6lNGujuRafwA5S/EnuLaLU=
 github.com/paulmach/protoscan v0.2.1/go.mod h1:SpcSwydNLrxUGSDvXvO0P7g7AuhJ7lcKfDlhJCDw2gY=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
