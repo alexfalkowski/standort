@@ -10,7 +10,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.0
 	github.com/ip2location/ip2location-go/v9 v9.7.0
 	github.com/pariz/gountries v0.1.6
-	github.com/paulmach/orb v0.10.0
+	github.com/paulmach/orb v0.11.0
 	github.com/tidwall/rtree v1.10.0
 	go.opentelemetry.io/otel v1.21.0
 	go.opentelemetry.io/otel/metric v1.21.0
