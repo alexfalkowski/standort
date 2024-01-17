@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.39.9](https://github.com/alexfalkowski/standort/releases/tag/v2.39.9) - 2024-01-17
+
+- [`e646c28`](https://github.com/alexfalkowski/standort/commit/e646c28c30217d4831c0e108046974894a0ff4e4) fix(deps): bump github.com/alexfalkowski/go-service from 1.124.6 to 1.124.7 (#512)
+- [`615e60e`](https://github.com/alexfalkowski/standort/commit/615e60e426d3a6eb3fba28d8f7342869ad95a15e) build(deps): bump rubocop from 1.59.0 to 1.60.0 in /test (#513)
+
 ## [v2.39.8](https://github.com/alexfalkowski/standort/releases/tag/v2.39.8) - 2024-01-12
 
 - [`4f3ffd9`](https://github.com/alexfalkowski/standort/commit/4f3ffd9c28f422fb89baa5813c3d50e995effeba) fix(deps): bump github.com/paulmach/orb from 0.10.0 to 0.11.0 (#511)
