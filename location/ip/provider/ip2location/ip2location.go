@@ -15,7 +15,7 @@ func NewProvider(lc fx.Lifecycle, cfg *Config) (*Provider, error) {
 	}
 
 	lc.Append(fx.Hook{
-		OnStop: func(ctx context.Context) error {
+		OnStop: func(_ context.Context) error {
 			db.Close()
 
 			return nil

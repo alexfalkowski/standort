@@ -39,7 +39,7 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string) 
 		data  *Node
 	)
 
-	p.tree.Search([2]float64{lng, lat}, [2]float64{lng, lat}, func(min, max [2]float64, d *Node) bool {
+	p.tree.Search([2]float64{lng, lat}, [2]float64{lng, lat}, func(_, _ [2]float64, d *Node) bool {
 		data = d
 
 		if data.IsPointInGeometry(lat, lng) {
