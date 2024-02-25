@@ -5,6 +5,7 @@ import (
 
 	"github.com/alexfalkowski/go-service/env"
 	"github.com/alexfalkowski/go-service/telemetry/tracer"
+	tm "github.com/alexfalkowski/go-service/transport/meta"
 	"github.com/alexfalkowski/go-service/version"
 	"github.com/alexfalkowski/standort/location/orb/provider"
 	"go.opentelemetry.io/otel/attribute"
@@ -40,6 +41,8 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 
 	ctx, span := p.tracer.Start(ctx, "search", trace.WithSpanKind(trace.SpanKindClient), trace.WithAttributes(attrs...))
 	defer span.End()
+
+	ctx = tm.WithTraceID(ctx, span.SpanContext().TraceID().String())
 
 	return p.provider.Search(ctx, lat, lng)
 }

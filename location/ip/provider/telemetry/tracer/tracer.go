@@ -5,6 +5,7 @@ import (
 
 	"github.com/alexfalkowski/go-service/env"
 	"github.com/alexfalkowski/go-service/telemetry/tracer"
+	tm "github.com/alexfalkowski/go-service/transport/meta"
 	"github.com/alexfalkowski/go-service/version"
 	"github.com/alexfalkowski/standort/location/ip/provider"
 	"go.opentelemetry.io/otel/attribute"
@@ -40,6 +41,8 @@ func (p *Provider) GetByIP(ctx context.Context, ip string) (string, error) {
 
 	ctx, span := p.tracer.Start(ctx, "by-ip", trace.WithSpanKind(trace.SpanKindClient), trace.WithAttributes(attrs...))
 	defer span.End()
+
+	ctx = tm.WithTraceID(ctx, span.SpanContext().TraceID().String())
 
 	country, err := p.provider.GetByIP(ctx, ip)
 	if err != nil {
