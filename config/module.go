@@ -14,4 +14,6 @@ var Module = fx.Options(
 	fx.Provide(healthConfig),
 	fx.Provide(ipConfig),
 	fx.Provide(continentConfig),
+	fx.Provide(v1ClientConfig),
+	fx.Provide(v2ClientConfig),
 )
