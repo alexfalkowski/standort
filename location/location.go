@@ -10,6 +10,7 @@ import (
 	country "github.com/alexfalkowski/standort/location/country/provider"
 	ip "github.com/alexfalkowski/standort/location/ip/provider"
 	orb "github.com/alexfalkowski/standort/location/orb/provider"
+	"go.uber.org/fx"
 )
 
 // ErrNotFound for location.
@@ -22,9 +23,18 @@ type Location struct {
 	orbProvider     orb.Provider
 }
 
+// LocationParams for location.
+type LocationParams struct {
+	fx.In
+
+	ORB     orb.Provider
+	IP      ip.Provider
+	Country country.Provider
+}
+
 // New location.
-func New(ipProvider ip.Provider, countryProvider country.Provider, orbProvider orb.Provider) *Location {
-	return &Location{ipProvider: ipProvider, countryProvider: countryProvider, orbProvider: orbProvider}
+func New(params LocationParams) *Location {
+	return &Location{ipProvider: params.IP, countryProvider: params.Country, orbProvider: params.ORB}
 }
 
 // GetByIP a country and continent, otherwise error.
