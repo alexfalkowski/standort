@@ -90,6 +90,30 @@ The service contains 2 versions of the API. These are as follows:
   - For IP address we will use [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For) header.
   - For geo location we would use [Geolocation](http://tools.ietf.org/html/draft-thomson-geopriv-http-geolocation-00) header. The format is described as the [geo URI](https://www.rfc-editor.org/rfc/rfc5870).
 
+## Client
+
+The client can be used in other projects. This is configured as follows:
+
+```yaml
+client:
+  v1:
+    host: server_host
+    timeout: 1s
+  v2:
+    host: server_host
+    timeout: 1s
+```
+
+```toml
+[client.v1]
+host = "server_host"
+timeout = "1s"
+
+[client.v2]
+host = "server_host"
+timeout = "1s"
+```
+
 ## Development
 
 If you would like to contribute, here is how you can get started.
