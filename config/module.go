@@ -11,7 +11,9 @@ var Module = fx.Options(
 	fx.Provide(NewConfigurator),
 	marshaller.Module,
 	config.ConfigModule,
-	fx.Provide(healthConfig),
 	fx.Provide(ipConfig),
 	fx.Provide(continentConfig),
+	fx.Provide(v1Client),
+	fx.Provide(v2Client),
+	fx.Provide(healthConfig),
 )

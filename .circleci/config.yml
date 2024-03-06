@@ -13,6 +13,14 @@ jobs:
       - run: make lint
       - run: make proto-breaking
       - run: make sec
+      - run: make specs
+      - store_artifacts:
+          path: test/reports
+      - run: make -C test leave-coverage
+      - persist_to_workspace:
+          root: test
+          paths:
+            - reports
     resource_class: large
   build-docker:
     docker:
@@ -106,6 +114,7 @@ workflows:
       - features-http
       - features-coveralls:
           requires:
+            - build-service
             - features-grpc
             - features-http
       - release:

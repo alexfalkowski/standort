@@ -5,7 +5,6 @@ import (
 
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	"github.com/alexfalkowski/go-service/transport/grpc/telemetry/tracer"
-	"github.com/alexfalkowski/go-service/transport/http"
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
 	v1c "github.com/alexfalkowski/standort/client/v1/config"
 	"go.opentelemetry.io/otel/metric"
@@ -13,48 +12,36 @@ import (
 	"go.uber.org/zap"
 )
 
-// RegisterParams for gRPC.
-type RegisterParams struct {
+// ServiceClientParams for gRPC.
+type ServiceClientParams struct {
 	fx.In
 
 	Lifecycle    fx.Lifecycle
-	GRPCServer   *grpc.Server
-	HTTPServer   *http.Server
 	ClientConfig *v1c.Config
 	Logger       *zap.Logger
 	Tracer       tracer.Tracer
 	Meter        metric.Meter
-	Server       v1.ServiceServer
 }
 
-// Register server.
-func Register(params RegisterParams) error {
-	ctx := context.Background()
-
-	v1.RegisterServiceServer(params.GRPCServer.Server, params.Server)
-
+// NewServiceClient for gRPC.
+func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 	opts := []grpc.ClientOption{
-		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer),
-		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(&params.ClientConfig.Retry),
-		grpc.WithClientUserAgent(params.ClientConfig.UserAgent),
+		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer), grpc.WithClientMetrics(params.Meter),
+		grpc.WithClientRetry(&params.ClientConfig.Retry), grpc.WithClientUserAgent(params.ClientConfig.UserAgent),
 	}
 
 	if params.ClientConfig.Security.IsEnabled() {
 		sec, err := grpc.WithClientSecure(params.ClientConfig.Security)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		opts = append(opts, sec)
 	}
 
-	conn, err := grpc.NewClient(ctx, params.ClientConfig.Host, opts...)
+	conn, err := grpc.NewClient(context.Background(), params.ClientConfig.Host, opts...)
 	if err != nil {
-		return err
-	}
-
-	if err := v1.RegisterServiceHandler(ctx, params.HTTPServer.Mux, conn); err != nil {
-		return err
+		return nil, err
 	}
 
 	params.Lifecycle.Append(fx.Hook{
@@ -68,5 +55,5 @@ func Register(params RegisterParams) error {
 		},
 	})
 
-	return nil
+	return v1.NewServiceClient(conn), nil
 }
