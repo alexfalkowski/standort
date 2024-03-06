@@ -8,6 +8,7 @@ import (
 	"github.com/alexfalkowski/go-service/transport/http"
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
 	v1c "github.com/alexfalkowski/standort/client/v1/config"
+	g "github.com/alexfalkowski/standort/transport/grpc"
 	"go.opentelemetry.io/otel/metric"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
@@ -33,22 +34,14 @@ func Register(params RegisterParams) error {
 
 	v1.RegisterServiceServer(params.GRPCServer.Server, params.Server)
 
-	opts := []grpc.ClientOption{
-		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer),
-		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(&params.ClientConfig.Retry),
-		grpc.WithClientUserAgent(params.ClientConfig.UserAgent),
+	opts := g.ClientOpts{
+		ClientConfig: params.ClientConfig.Client,
+		Logger:       params.Logger,
+		Tracer:       params.Tracer,
+		Meter:        params.Meter,
 	}
 
-	if params.ClientConfig.Security.IsEnabled() {
-		sec, err := grpc.WithClientSecure(params.ClientConfig.Security)
-		if err != nil {
-			return err
-		}
-
-		opts = append(opts, sec)
-	}
-
-	conn, err := grpc.NewClient(ctx, params.ClientConfig.Host, opts...)
+	conn, err := g.NewClient(ctx, opts)
 	if err != nil {
 		return err
 	}
