@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.44.1](https://github.com/alexfalkowski/standort/releases/tag/v2.44.1) - 2024-03-06
+
+- [`20d1eed`](https://github.com/alexfalkowski/standort/commit/20d1eed7835693bac715e2e26b8788762092ec1c) fix(transport): move to reusable client (#571)
+
 ## [v2.44.0](https://github.com/alexfalkowski/standort/releases/tag/v2.44.0) - 2024-03-06
 
 - [`bb37e05`](https://github.com/alexfalkowski/standort/commit/bb37e05ce68a4a3d02f2f184a962be9172c162b8) feat(config): add client (#570)
