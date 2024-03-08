@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.14.1
-	github.com/alexfalkowski/go-service v1.132.2
+	github.com/alexfalkowski/go-service v1.133.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
 	github.com/ip2location/ip2location-go/v9 v9.7.0
 	github.com/pariz/gountries v0.1.6
@@ -48,7 +48,6 @@ require (
 	github.com/godbus/dbus/v5 v5.0.4 // indirect
 	github.com/golang/glog v1.2.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
-	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gopherjs/gopherjs v1.17.2 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
@@ -72,7 +71,6 @@ require (
 	github.com/lufia/plan9stats v0.0.0-20231016141302-07b5767bb0ed // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/ngrok/sqlmw v0.0.0-20220520173518-97c9c04efc79 // indirect
-	github.com/nsqio/go-nsq v1.1.0 // indirect
 	github.com/open-feature/go-sdk v1.10.0 // indirect
 	github.com/open-feature/go-sdk-contrib/providers/flipt v0.1.1 // indirect
 	github.com/opencontainers/runtime-spec v1.0.2 // indirect
