@@ -35,7 +35,7 @@ func Register(params RegisterParams) error {
 	v1.RegisterServiceServer(params.GRPCServer.Server, params.Server)
 
 	opts := g.ClientOpts{
-		ClientConfig: params.ClientConfig.Client,
+		ClientConfig: params.ClientConfig.Config,
 		Logger:       params.Logger,
 		Tracer:       params.Tracer,
 		Meter:        params.Meter,

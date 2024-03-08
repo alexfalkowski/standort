@@ -26,7 +26,7 @@ type ServiceClientParams struct {
 // NewServiceClient for gRPC.
 func NewServiceClient(params ServiceClientParams) (v2.ServiceClient, error) {
 	opts := grpc.ClientOpts{
-		ClientConfig: params.ClientConfig.Client,
+		ClientConfig: params.ClientConfig.Config,
 		Logger:       params.Logger,
 		Tracer:       params.Tracer,
 		Meter:        params.Meter,

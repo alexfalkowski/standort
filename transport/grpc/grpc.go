@@ -3,7 +3,7 @@ package grpc
 import (
 	"context"
 
-	"github.com/alexfalkowski/go-service/config"
+	"github.com/alexfalkowski/go-service/client"
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	"github.com/alexfalkowski/standort/location/ip/provider/telemetry/tracer"
 	"go.opentelemetry.io/otel/metric"
@@ -13,7 +13,7 @@ import (
 
 // ClientOpts for gRPC.
 type ClientOpts struct {
-	ClientConfig config.Client
+	ClientConfig client.Config
 	Logger       *zap.Logger
 	Tracer       tracer.Tracer
 	Meter        metric.Meter
