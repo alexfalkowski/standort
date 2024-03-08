@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.44.2](https://github.com/alexfalkowski/standort/releases/tag/v2.44.2) - 2024-03-08
+
+- [`8c4ddec`](https://github.com/alexfalkowski/standort/commit/8c4ddec493782b1c1f14c34b9b8a704c1d62954e) fix(deps): bump github.com/alexfalkowski/go-service from 1.132.2 to 1.134.1 (#576)
+- [`f7d40d8`](https://github.com/alexfalkowski/standort/commit/f7d40d8d005c7900bef3a642cc160c1d944d2e3d) build(deps): bump ruby-lsp from 0.14.4 to 0.14.5 in /test (#574)
+- [`ea57a57`](https://github.com/alexfalkowski/standort/commit/ea57a579e2623bd5ce0cda20d5dd02c1f513cb26) build(deps): update bin (#573)
+- [`71e0bea`](https://github.com/alexfalkowski/standort/commit/71e0beac2b8d0e286df9b78eee9249b9aec1ae26) build(deps): bump rubocop from 1.61.0 to 1.62.0 in /test (#572)
+
 ## [v2.44.1](https://github.com/alexfalkowski/standort/releases/tag/v2.44.1) - 2024-03-06
 
 - [`20d1eed`](https://github.com/alexfalkowski/standort/commit/20d1eed7835693bac715e2e26b8788762092ec1c) fix(transport): move to reusable client (#571)
