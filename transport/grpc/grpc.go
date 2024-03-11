@@ -27,7 +27,7 @@ func NewClient(ctx context.Context, options ClientOpts) (*g.ClientConn, error) {
 		grpc.WithClientUserAgent(options.ClientConfig.UserAgent),
 	}
 
-	if options.ClientConfig.Security.IsEnabled() {
+	if options.ClientConfig.Security.Enabled {
 		sec, err := grpc.WithClientSecure(options.ClientConfig.Security)
 		if err != nil {
 			return nil, err
