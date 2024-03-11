@@ -39,6 +39,7 @@ telemetry:
     secure: false
 transport:
   http:
+    enabled: true
     port: 8080
     user_agent: "Standort-server/1.0 http/1.0"
     retry:
