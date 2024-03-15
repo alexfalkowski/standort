@@ -26,6 +26,7 @@ type ServiceClientParams struct {
 // NewServiceClient for gRPC.
 func NewServiceClient(params ServiceClientParams) (v2.ServiceClient, error) {
 	opts := grpc.ClientOpts{
+		Lifecycle:    params.Lifecycle,
 		ClientConfig: params.ClientConfig.Config,
 		Logger:       params.Logger,
 		Tracer:       params.Tracer,
@@ -36,17 +37,6 @@ func NewServiceClient(params ServiceClientParams) (v2.ServiceClient, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	params.Lifecycle.Append(fx.Hook{
-		OnStart: func(_ context.Context) error {
-			conn.ResetConnectBackoff()
-
-			return nil
-		},
-		OnStop: func(_ context.Context) error {
-			return conn.Close()
-		},
-	})
 
 	return v2.NewServiceClient(conn), nil
 }
