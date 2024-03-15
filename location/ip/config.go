@@ -6,9 +6,9 @@ import (
 )
 
 type Config struct {
-	Kind        string             `yaml:"kind" json:"kind" toml:"kind"`
-	IP2Location ip2location.Config `yaml:"ip2location" json:"ip2location" toml:"ip2location"`
-	GeoIP2      geoip2.Config      `yaml:"geoip2" json:"geoip2" toml:"geoip2"`
+	Kind        string             `yaml:"kind,omitempty" json:"kind,omitempty" toml:"kind,omitempty"`
+	IP2Location ip2location.Config `yaml:"ip2location,omitempty" json:"ip2location,omitempty" toml:"ip2location,omitempty"`
+	GeoIP2      geoip2.Config      `yaml:"geoip2,omitempty" json:"geoip2,omitempty" toml:"geoip2,omitempty"`
 }
 
 // IsIP2location configured.
