@@ -35,6 +35,7 @@ func Register(params RegisterParams) error {
 	v2.RegisterServiceServer(params.GRPCServer.Server, params.Server)
 
 	opts := g.ClientOpts{
+		Lifecycle:    params.Lifecycle,
 		ClientConfig: params.ClientConfig.Config,
 		Logger:       params.Logger,
 		Tracer:       params.Tracer,
@@ -46,20 +47,5 @@ func Register(params RegisterParams) error {
 		return err
 	}
 
-	if err := v2.RegisterServiceHandler(ctx, params.HTTPServer.Mux, conn); err != nil {
-		return err
-	}
-
-	params.Lifecycle.Append(fx.Hook{
-		OnStart: func(_ context.Context) error {
-			conn.ResetConnectBackoff()
-
-			return nil
-		},
-		OnStop: func(_ context.Context) error {
-			return conn.Close()
-		},
-	})
-
-	return nil
+	return v2.RegisterServiceHandler(ctx, params.HTTPServer.Mux, conn)
 }
