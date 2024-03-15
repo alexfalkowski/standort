@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.48.0](https://github.com/alexfalkowski/standort/releases/tag/v2.48.0) - 2024-03-15
+
+- [`c967481`](https://github.com/alexfalkowski/standort/commit/c9674817f1a91a400c84cc9a51641f5162392708) feat(transport): simplify gRPC connections (#589)
+- [`d15fc2d`](https://github.com/alexfalkowski/standort/commit/d15fc2d306c77562210d8e76f2c6891021b5f67d) build(deps): bump bin from `66f6a24` to `355347a` (#587)
+
 ## [v2.47.0](https://github.com/alexfalkowski/standort/releases/tag/v2.47.0) - 2024-03-15
 
 - [`b858864`](https://github.com/alexfalkowski/standort/commit/b85886435f89f4a157e3f9f43581e5cba0421dbe) feat(deps): update github.com/alexfalkowski/go-service to v1.139.1 (#588)
