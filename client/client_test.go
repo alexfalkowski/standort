@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	c "github.com/alexfalkowski/go-service/client"
+	"github.com/alexfalkowski/go-service/retry"
 	"github.com/alexfalkowski/go-service/telemetry/tracer"
 	v1c "github.com/alexfalkowski/standort/client/v1/config"
 	v1 "github.com/alexfalkowski/standort/client/v1/transport/grpc"
@@ -19,7 +20,7 @@ func TestV1Client(t *testing.T) {
 
 		params := v1.ServiceClientParams{
 			Lifecycle:    lc,
-			ClientConfig: &v1c.Config{Config: c.Config{Host: "localhost"}},
+			ClientConfig: &v1c.Config{Config: c.Config{Host: "localhost", Retry: retry.Config{Timeout: "1s"}}},
 			Tracer:       tracer.NewNoopTracer("test"),
 		}
 
@@ -44,7 +45,7 @@ func TestV2Client(t *testing.T) {
 
 		params := v2.ServiceClientParams{
 			Lifecycle:    lc,
-			ClientConfig: &v2c.Config{Config: c.Config{Host: "localhost"}},
+			ClientConfig: &v2c.Config{Config: c.Config{Host: "localhost", Retry: retry.Config{Timeout: "1s"}}},
 			Tracer:       tracer.NewNoopTracer("test"),
 		}
 
