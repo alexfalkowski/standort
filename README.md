@@ -23,14 +23,6 @@ location:
       path: ../assets/ip2location.bin
 ```
 
-```toml
-[location.ip]
-kind = "ip2location"
-
-[location.ip.ip2location]
-path = "../assets/ip2location.bin"
-```
-
 *NOTE:* This is only needed if you would like to override it. As the system has all this configured.
 
 ### GeoIP2
@@ -41,14 +33,6 @@ location:
     kind: geoip2
     geoip2:
       path: ../assets/geoip2.mmdb
-```
-
-```toml
-[location.ip]
-kind = "geoip2"
-
-[location.ip.geoip2]
-path = "../assets/geoip2.mmdb"
 ```
 
 *NOTE:* This is only needed if you would like to override it. As the system has all this configured.
@@ -68,16 +52,6 @@ location:
     asia_path: ../assets/asia.geojson
     europe_path: ../assets/europe.geojson
     south_america_path: ../assets/south_america.geojson
-```
-
-```toml
-[location.continent]
-africa_path = "../assets/africa.geojson"
-north_america_path = "../assets/north_america.geojson"
-oceania_path = "../assets/oceania.geojson"
-asia_path = "../assets/asia.geojson"
-europe_path = "../assets/europe.geojson"
-south_america_path = "../assets/south_america.geojson"
 ```
 
 *NOTE:* This is only needed if you would like to override it. As the system has all this configured.
@@ -102,16 +76,6 @@ client:
   v2:
     host: server_host
     timeout: 1s
-```
-
-```toml
-[client.v1]
-host = "server_host"
-timeout = "1s"
-
-[client.v2]
-host = "server_host"
-timeout = "1s"
 ```
 
 ## Development
