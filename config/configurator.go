@@ -18,21 +18,21 @@ func NewConfigurator(i *cmd.InputConfig) (config.Configurator, error) {
 }
 
 func ipConfig(cfg config.Configurator) *ip.Config {
-	return &cfg.(*Config).Location.IP
+	return cfg.(*Config).Location.IP
 }
 
 func continentConfig(cfg config.Configurator) *continent.Config {
-	return &cfg.(*Config).Location.Continent
+	return cfg.(*Config).Location.Continent
 }
 
 func v1Client(cfg config.Configurator) *v1.Config {
-	return &cfg.(*Config).Client.V1
+	return cfg.(*Config).Client.V1
 }
 
 func v2Client(cfg config.Configurator) *v2.Config {
-	return &cfg.(*Config).Client.V2
+	return cfg.(*Config).Client.V2
 }
 
 func healthConfig(cfg config.Configurator) *health.Config {
-	return &cfg.(*Config).Health
+	return cfg.(*Config).Health
 }

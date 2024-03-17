@@ -30,10 +30,9 @@ type RegisterParams struct {
 
 // Register server.
 func Register(params RegisterParams) error {
-	ctx := context.Background()
-
 	v1.RegisterServiceServer(params.GRPCServer.Server, params.Server)
 
+	ctx := context.Background()
 	opts := g.ClientOpts{
 		Lifecycle:    params.Lifecycle,
 		ClientConfig: params.ClientConfig.Config,
