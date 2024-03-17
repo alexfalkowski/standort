@@ -25,12 +25,13 @@ type ClientOpts struct {
 func NewClient(ctx context.Context, options ClientOpts) (*g.ClientConn, error) {
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(options.Logger), grpc.WithClientTracer(options.Tracer),
-		grpc.WithClientMetrics(options.Meter), grpc.WithClientRetry(&options.ClientConfig.Retry),
+		grpc.WithClientMetrics(options.Meter), grpc.WithClientRetry(options.ClientConfig.Retry),
 		grpc.WithClientUserAgent(options.ClientConfig.UserAgent),
 	}
 
-	if options.ClientConfig.Security.Enabled {
-		sec, err := grpc.WithClientSecure(options.ClientConfig.Security)
+	sec := options.ClientConfig.Security
+	if sec != nil && sec.Enabled {
+		sec, err := grpc.WithClientSecure(sec)
 		if err != nil {
 			return nil, err
 		}
