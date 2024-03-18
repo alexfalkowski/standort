@@ -6,5 +6,5 @@ import (
 
 // Config for client.
 type Config struct {
-	client.Config `yaml:",inline" json:",inline" toml:",inline"`
+	*client.Config `yaml:",inline" json:",inline" toml:",inline"`
 }
