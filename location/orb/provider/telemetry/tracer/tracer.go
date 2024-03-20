@@ -42,7 +42,7 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 	ctx, span := p.tracer.Start(ctx, "search", trace.WithSpanKind(trace.SpanKindClient), trace.WithAttributes(attrs...))
 	defer span.End()
 
-	ctx = tm.WithTraceID(ctx, span.SpanContext().TraceID().String())
+	ctx = tm.WithTraceID(ctx, span.SpanContext().TraceID())
 
 	return p.provider.Search(ctx, lat, lng)
 }
