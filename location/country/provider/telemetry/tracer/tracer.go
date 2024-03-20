@@ -42,7 +42,7 @@ func (p *Provider) GetByCode(ctx context.Context, name string) (string, string, 
 	ctx, span := p.tracer.Start(ctx, "by-name", trace.WithSpanKind(trace.SpanKindClient), trace.WithAttributes(attrs...))
 	defer span.End()
 
-	ctx = tm.WithTraceID(ctx, span.SpanContext().TraceID().String())
+	ctx = tm.WithTraceID(ctx, span.SpanContext().TraceID())
 
 	country, continent, err := p.provider.GetByCode(ctx, name)
 	if err != nil {

@@ -31,14 +31,14 @@ func New(ipProvider ip.Provider, countryProvider country.Provider, orbProvider o
 func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, error) {
 	c, err := l.ipProvider.GetByIP(ctx, ip)
 	if err != nil {
-		meta.WithAttribute(ctx, "ipError", err.Error())
+		meta.WithAttribute(ctx, "ipError", meta.Error(err))
 
 		return "", "", fmt.Errorf("%s: %w", ip, ErrNotFound)
 	}
 
 	cou, con, err := l.countryProvider.GetByCode(ctx, c)
 	if err != nil {
-		meta.WithAttribute(ctx, "countryError", err.Error())
+		meta.WithAttribute(ctx, "countryError", meta.Error(err))
 
 		return "", "", fmt.Errorf("%s: %w", ip, ErrNotFound)
 	}

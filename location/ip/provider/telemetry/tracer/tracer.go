@@ -42,7 +42,7 @@ func (p *Provider) GetByIP(ctx context.Context, ip string) (string, error) {
 	ctx, span := p.tracer.Start(ctx, "by-ip", trace.WithSpanKind(trace.SpanKindClient), trace.WithAttributes(attrs...))
 	defer span.End()
 
-	ctx = tm.WithTraceID(ctx, span.SpanContext().TraceID().String())
+	ctx = tm.WithTraceID(ctx, span.SpanContext().TraceID())
 
 	country, err := p.provider.GetByIP(ctx, ip)
 	if err != nil {

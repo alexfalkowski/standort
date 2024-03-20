@@ -31,7 +31,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 
 	if ip := s.ip(ctx, req); ip != "" {
 		if country, continent, err := s.location.GetByIP(ctx, ip); err != nil {
-			meta.WithAttribute(ctx, "location.ip_error", err.Error())
+			meta.WithAttribute(ctx, "location.ip_error", meta.Error(err))
 		} else {
 			resp.Locations = append(resp.GetLocations(), &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_IP})
 		}
@@ -39,22 +39,22 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 
 	point, err := s.point(ctx, req)
 	if err != nil {
-		meta.WithAttribute(ctx, "location.point_error", err.Error())
+		meta.WithAttribute(ctx, "location.point_error", meta.Error(err))
 	} else {
 		if point == nil {
-			resp.Meta = meta.Attributes(ctx)
+			resp.Meta = meta.Strings(ctx)
 
 			return resp, nil
 		}
 
 		if country, continent, err := s.location.GetByLatLng(ctx, point.GetLat(), point.GetLng()); err != nil {
-			meta.WithAttribute(ctx, "location.lat_lng_error", err.Error())
+			meta.WithAttribute(ctx, "location.lat_lng_error", meta.Error(err))
 		} else {
 			resp.Locations = append(resp.GetLocations(), &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_GEO})
 		}
 	}
 
-	resp.Meta = meta.Attributes(ctx)
+	resp.Meta = meta.Strings(ctx)
 
 	return resp, nil
 }
