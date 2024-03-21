@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.15.0
-	github.com/alexfalkowski/go-service v1.146.0
+	github.com/alexfalkowski/go-service v1.147.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
 	github.com/ip2location/ip2location-go/v9 v9.7.0
 	github.com/pariz/gountries v0.1.6
@@ -25,6 +25,7 @@ require (
 
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
+	github.com/Code-Hex/dd v1.1.0 // indirect
 	github.com/KimMachineGun/automemlimit v0.5.0 // indirect
 	github.com/arl/statsviz v0.6.0 // indirect
 	github.com/avast/retry-go/v3 v3.1.1 // indirect
@@ -70,7 +71,6 @@ require (
 	github.com/lib/pq v1.10.7 // indirect
 	github.com/linxGnu/mssqlx v1.1.8 // indirect
 	github.com/lufia/plan9stats v0.0.0-20231016141302-07b5767bb0ed // indirect
-	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/ngrok/sqlmw v0.0.0-20220520173518-97c9c04efc79 // indirect
 	github.com/open-feature/go-sdk v1.10.0 // indirect
 	github.com/open-feature/go-sdk-contrib/providers/flipt v0.1.1 // indirect
@@ -95,6 +95,7 @@ require (
 	github.com/standard-webhooks/standard-webhooks/libraries v0.0.0-20240311193959-ebea2bd69f4e // indirect
 	github.com/stretchr/objx v0.5.0 // indirect
 	github.com/stretchr/testify v1.8.4 // indirect
+	github.com/thessem/zap-prettyconsole v0.3.0 // indirect
 	github.com/tidwall/geoindex v1.7.0 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.13 // indirect
