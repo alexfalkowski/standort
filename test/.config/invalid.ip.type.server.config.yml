@@ -1,13 +1,13 @@
 environment: production
 client:
   v1:
-    host: localhost:9090
+    host: localhost:12000
     user_agent: "Standort-client/1.0 gRPC/1.0"
     retry:
       timeout: 10s
       attempts: 3
   v2:
-    host: localhost:9090
+    host: localhost:12000
     user_agent: "Standort-client/2.0 gRPC/1.0"
     retry:
       timeout: 10s
@@ -38,14 +38,14 @@ telemetry:
 transport:
   http:
     enabled: true
-    port: 8080
+    port: 11000
     user_agent: "Standort-server/2.0 HTTP/1.0"
     retry:
       timeout: 2s
       attempts: 3
   grpc:
     enabled: true
-    port: 9090
+    port: 12000
     user_agent: "Standort-server/2.0 gRPC/1.0"
     retry:
       timeout: 2s
