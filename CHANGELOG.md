@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.54.1](https://github.com/alexfalkowski/standort/releases/tag/v2.54.1) - 2024-03-24
+
+- [`6728dc9`](https://github.com/alexfalkowski/standort/commit/6728dc9a6c7784f54924743ce857503f82d37f82) fix(config): check presense (#606)
+
 ## [v2.54.0](https://github.com/alexfalkowski/standort/releases/tag/v2.54.0) - 2024-03-22
 
 - [`4a44c9b`](https://github.com/alexfalkowski/standort/commit/4a44c9b5f57487fa21802931ab2c00cf2bb1f185) feat: add ldflags to minimise binary size (#605)
