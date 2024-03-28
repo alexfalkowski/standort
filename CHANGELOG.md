@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.54.2](https://github.com/alexfalkowski/standort/releases/tag/v2.54.2) - 2024-03-28
+
+- [`99cc357`](https://github.com/alexfalkowski/standort/commit/99cc3577a6d7ea9467d6c9800db0b75fea977c00) fix(deps): bump github.com/alexfalkowski/go-service from 1.148.0 to 1.149.0 (#616)
+- [`03a6c39`](https://github.com/alexfalkowski/standort/commit/03a6c39629d1900161c31f7212d3fbf0e5e4e65e) build(deps): bump ruby-lsp from 0.14.6 to 0.15.0 in /test (#617)
+- [`4514bce`](https://github.com/alexfalkowski/standort/commit/4514bceb11ddba8e08a6d6348f3c54fd3fcbc037) build(deps): bump bin from `b9b6ae3` to `a19d7ca` (#615)
+- [`481b605`](https://github.com/alexfalkowski/standort/commit/481b605be653d8d915458f82221452cdec41fef5) build(deps): bump bin from `60071ae` to `b9b6ae3` (#614)
+- [`05713e6`](https://github.com/alexfalkowski/standort/commit/05713e653866111f40d245cc2610da5403054934) build(deps): bump bin from `b7532c8` to `60071ae` (#613)
+- [`e7b82d3`](https://github.com/alexfalkowski/standort/commit/e7b82d359c8057d0afa0126567a5226e4f136d36) build: add git tasks to makefile (#612)
+- [`5f4a55b`](https://github.com/alexfalkowski/standort/commit/5f4a55b48195a183cc8e407112a85c7d6b16a3ed) build(deps): bump bin from `355347a` to `b7532c8` (#611)
+
 ## [v2.54.1](https://github.com/alexfalkowski/standort/releases/tag/v2.54.1) - 2024-03-24
 
 - [`6728dc9`](https://github.com/alexfalkowski/standort/commit/6728dc9a6c7784f54924743ce857503f82d37f82) fix(config): check presense (#606)
