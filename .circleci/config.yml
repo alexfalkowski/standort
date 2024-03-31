@@ -42,7 +42,7 @@ jobs:
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
-      - run: make setup
+      - run: make dep
       - run: make features-grpc
       - store_artifacts:
           path: test/reports
@@ -60,7 +60,7 @@ jobs:
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
-      - run: make setup
+      - run: make dep
       - run: make features-http
       - store_artifacts:
           path: test/reports
