@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.55.0](https://github.com/alexfalkowski/standort/releases/tag/v2.55.0) - 2024-04-01
+
+- [`bd22e13`](https://github.com/alexfalkowski/standort/commit/bd22e13e5ff97ca9fa1b0d9308814902b96b06d2) feat(deps): update github.com/alexfalkowski/go-service to v1.150.0 (#626)
+- [`81d7c86`](https://github.com/alexfalkowski/standort/commit/81d7c862b1dc651401a1d1f3db994f909baf0bed) build(deps): bump bin from `608889f` to `024be7f` (#624)
+- [`73e94d3`](https://github.com/alexfalkowski/standort/commit/73e94d395d6f40a5e873882102637e23ac046e12) build(circleci): use dep (#625)
+- [`08d746a`](https://github.com/alexfalkowski/standort/commit/08d746a314a442a18a38fcd0d36920eab6d94fc3) build(circleci): use dep (#623)
+- [`fb03420`](https://github.com/alexfalkowski/standort/commit/fb034200a28054b6b20f2c8bfc005d3aa059517f) build(make): move to makefile (#622)
+
 ## [v2.54.4](https://github.com/alexfalkowski/standort/releases/tag/v2.54.4) - 2024-03-29
 
 - [`027cbbb`](https://github.com/alexfalkowski/standort/commit/027cbbbeb2101d9c130dc3740193756721cd1e78) fix(deps): bump github.com/alexfalkowski/go-service from 1.149.1 to 1.149.3 (#620)
