@@ -1,8 +1,6 @@
 package grpc
 
 import (
-	"context"
-
 	"github.com/alexfalkowski/go-service/transport/grpc/telemetry/tracer"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	v2c "github.com/alexfalkowski/standort/client/v2/config"
@@ -33,7 +31,7 @@ func NewServiceClient(params ServiceClientParams) (v2.ServiceClient, error) {
 		Meter:        params.Meter,
 	}
 
-	conn, err := grpc.NewClient(context.Background(), opts)
+	conn, err := grpc.NewClient(opts)
 	if err != nil {
 		return nil, err
 	}
