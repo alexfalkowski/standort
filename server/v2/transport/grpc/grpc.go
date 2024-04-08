@@ -30,8 +30,6 @@ type RegisterParams struct {
 
 // Register server.
 func Register(params RegisterParams) error {
-	ctx := context.Background()
-
 	v2.RegisterServiceServer(params.GRPCServer.Server, params.Server)
 
 	opts := g.ClientOpts{
@@ -42,10 +40,10 @@ func Register(params RegisterParams) error {
 		Meter:        params.Meter,
 	}
 
-	conn, err := g.NewClient(ctx, opts)
+	conn, err := g.NewClient(opts)
 	if err != nil {
 		return err
 	}
 
-	return v2.RegisterServiceHandler(ctx, params.HTTPServer.Mux, conn)
+	return v2.RegisterServiceHandler(context.Background(), params.HTTPServer.Mux, conn)
 }
