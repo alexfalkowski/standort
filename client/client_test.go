@@ -21,7 +21,7 @@ func TestV1Client(t *testing.T) {
 		params := v1.ServiceClientParams{
 			Lifecycle:    lc,
 			ClientConfig: &v1c.Config{Config: &c.Config{Host: "localhost", Retry: &retry.Config{Timeout: "1s"}}},
-			Tracer:       tracer.NewNoopTracer("test"),
+			Tracer:       tracer.NewNoopTracer(),
 		}
 
 		Convey("When I create a new client", func() {
@@ -46,7 +46,7 @@ func TestV2Client(t *testing.T) {
 		params := v2.ServiceClientParams{
 			Lifecycle:    lc,
 			ClientConfig: &v2c.Config{Config: &c.Config{Host: "localhost", Retry: &retry.Config{Timeout: "1s"}}},
-			Tracer:       tracer.NewNoopTracer("test"),
+			Tracer:       tracer.NewNoopTracer(),
 		}
 
 		Convey("When I create a new client", func() {
