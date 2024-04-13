@@ -6,8 +6,8 @@ import (
 	"github.com/alexfalkowski/go-service/client"
 	"github.com/alexfalkowski/go-service/security"
 	"github.com/alexfalkowski/go-service/transport/grpc"
-	"github.com/alexfalkowski/go-service/transport/grpc/telemetry/tracer"
 	"go.opentelemetry.io/otel/metric"
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 	g "google.golang.org/grpc"
@@ -18,7 +18,7 @@ type ClientOpts struct {
 	Lifecycle    fx.Lifecycle
 	ClientConfig *client.Config
 	Logger       *zap.Logger
-	Tracer       tracer.Tracer
+	Tracer       trace.Tracer
 	Meter        metric.Meter
 }
 

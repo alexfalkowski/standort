@@ -1,11 +1,11 @@
 package grpc
 
 import (
-	"github.com/alexfalkowski/go-service/transport/grpc/telemetry/tracer"
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
 	v1c "github.com/alexfalkowski/standort/client/v1/config"
 	"github.com/alexfalkowski/standort/transport/grpc"
 	"go.opentelemetry.io/otel/metric"
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
@@ -17,7 +17,7 @@ type ServiceClientParams struct {
 	Lifecycle    fx.Lifecycle
 	ClientConfig *v1c.Config
 	Logger       *zap.Logger
-	Tracer       tracer.Tracer
+	Tracer       trace.Tracer
 	Meter        metric.Meter
 }
 
