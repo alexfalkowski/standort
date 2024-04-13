@@ -3,34 +3,22 @@ package tracer
 import (
 	"context"
 
-	"github.com/alexfalkowski/go-service/env"
 	"github.com/alexfalkowski/go-service/meta"
-	"github.com/alexfalkowski/go-service/telemetry/tracer"
 	tm "github.com/alexfalkowski/go-service/transport/meta"
-	"github.com/alexfalkowski/go-service/version"
 	"github.com/alexfalkowski/standort/location/country/provider"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/fx"
 )
-
-// Tracer for tracer.
-type Tracer trace.Tracer
-
-// NewTracer for tracer.
-func NewTracer(lc fx.Lifecycle, cfg *tracer.Config, env env.Environment, ver version.Version) (Tracer, error) {
-	return tracer.NewTracer(context.Background(), lc, "country", env, ver, cfg)
-}
 
 // Provider for tracer.
 type Provider struct {
 	provider provider.Provider
-	tracer   Tracer
+	tracer   trace.Tracer
 }
 
 // NewProvider for tracer.
-func NewProvider(provider provider.Provider, tracer Tracer) *Provider {
+func NewProvider(provider provider.Provider, tracer trace.Tracer) *Provider {
 	return &Provider{provider: provider, tracer: tracer}
 }
 

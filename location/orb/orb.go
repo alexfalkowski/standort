@@ -5,6 +5,7 @@ import (
 	"github.com/alexfalkowski/standort/location/orb/provider"
 	"github.com/alexfalkowski/standort/location/orb/provider/rtree"
 	"github.com/alexfalkowski/standort/location/orb/provider/telemetry/tracer"
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/fx"
 )
 
@@ -14,7 +15,7 @@ type ProviderParams struct {
 
 	Lifecycle fx.Lifecycle
 	Config    *continent.Config
-	Tracer    tracer.Tracer
+	Tracer    trace.Tracer
 }
 
 // NewProvider for orb.

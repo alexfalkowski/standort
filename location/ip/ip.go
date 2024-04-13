@@ -7,6 +7,7 @@ import (
 	"github.com/alexfalkowski/standort/location/ip/provider/geoip2"
 	"github.com/alexfalkowski/standort/location/ip/provider/ip2location"
 	"github.com/alexfalkowski/standort/location/ip/provider/telemetry/tracer"
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/fx"
 )
 
@@ -19,7 +20,7 @@ type ProviderParams struct {
 
 	Lifecycle fx.Lifecycle
 	Config    *Config
-	Tracer    tracer.Tracer
+	Tracer    trace.Tracer
 }
 
 // NewProvider for ip.
