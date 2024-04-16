@@ -12,26 +12,35 @@ jobs:
       - restore_cache:
           name: restore go deps
           keys:
-            - standort-go-cache-{{ checksum "go.sum" }}
+            - standort-build-service-go-cache-{{ checksum "go.sum" }}
       - restore_cache:
           name: restore ruby deps
           keys:
-            - standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+            - standort-build-service-ruby-cache-{{ checksum "test/Gemfile.lock" }}
       - run: make dep
       - save_cache:
           name: save go deps
-          key: standort-go-cache-{{ checksum "go.sum" }}
+          key: standort-build-service-go-cache-{{ checksum "go.sum" }}
           paths:
             - /home/circleci/go/pkg/mod
       - save_cache:
           name: save ruby deps
-          key: standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+          key: standort-build-service-ruby-cache-{{ checksum "test/Gemfile.lock" }}
           paths:
             - test/vendor
+      - restore_cache:
+          name: restore go build cache
+          keys:
+            - standort-build-service-go-build-cache-{{ checksum "go.sum" }}
       - run: make lint
       - run: make proto-breaking
       - run: make sec
       - run: make specs
+      - save_cache:
+          name: save go build cache
+          key: standort-build-service-go-build-cache-{{ checksum "go.sum" }}
+          paths:
+            - /home/circleci/.cache/go-build
       - store_artifacts:
           path: test/reports
       - run: make -C test leave-coverage
@@ -63,23 +72,32 @@ jobs:
       - restore_cache:
           name: restore go deps
           keys:
-            - standort-go-cache-{{ checksum "go.sum" }}
+            - standort-features-grpc-go-cache-{{ checksum "go.sum" }}
       - restore_cache:
           name: restore ruby deps
           keys:
-            - standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+            - standort-features-grpc-ruby-cache-{{ checksum "test/Gemfile.lock" }}
       - run: make dep
       - save_cache:
           name: save go deps
-          key: standort-go-cache-{{ checksum "go.sum" }}
+          key: standort-features-grpc-go-cache-{{ checksum "go.sum" }}
           paths:
             - /home/circleci/go/pkg/mod
       - save_cache:
           name: save ruby deps
-          key: standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+          key: standort-features-grpc-ruby-cache-{{ checksum "test/Gemfile.lock" }}
           paths:
             - test/vendor
+      - restore_cache:
+          name: restore go build cache
+          keys:
+            - standort-features-grpc-go-build-cache-{{ checksum "go.sum" }}
       - run: make features-grpc
+      - save_cache:
+          name: save go build cache
+          key: standort-features-grpc-go-build-cache-{{ checksum "go.sum" }}
+          paths:
+            - /home/circleci/.cache/go-build
       - store_artifacts:
           path: test/reports
       - run: make -C test leave-coverage
@@ -99,23 +117,32 @@ jobs:
       - restore_cache:
           name: restore go deps
           keys:
-            - standort-go-cache-{{ checksum "go.sum" }}
+            - standort-features-http-go-cache-{{ checksum "go.sum" }}
       - restore_cache:
           name: restore ruby deps
           keys:
-            - standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+            - standort-features-http-ruby-cache-{{ checksum "test/Gemfile.lock" }}
       - run: make dep
       - save_cache:
           name: save go deps
-          key: standort-go-cache-{{ checksum "go.sum" }}
+          key: standort-features-http-go-cache-{{ checksum "go.sum" }}
           paths:
             - /home/circleci/go/pkg/mod
       - save_cache:
           name: save ruby deps
-          key: standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+          key: standort-features-http-ruby-cache-{{ checksum "test/Gemfile.lock" }}
           paths:
             - test/vendor
+      - restore_cache:
+          name: restore go build cache
+          keys:
+            - standort-features-http-go-build-cache-{{ checksum "go.sum" }}
       - run: make features-http
+      - save_cache:
+          name: save go build cache
+          key: standort-features-http-go-build-cache-{{ checksum "go.sum" }}
+          paths:
+            - /home/circleci/.cache/go-build
       - store_artifacts:
           path: test/reports
       - run: make -C test leave-coverage
