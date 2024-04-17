@@ -1,5 +1,10 @@
 package geoip2
 
+// IsEnabled for geoip2.
+func IsEnabled(c *Config) bool {
+	return c != nil
+}
+
 // Config for geoip2.
 type Config struct {
 	Path string `yaml:"path,omitempty" json:"path,omitempty" toml:"path,omitempty"`

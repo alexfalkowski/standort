@@ -30,11 +30,11 @@ func NewProvider(params ProviderParams) (provider.Provider, error) {
 		err      error
 	)
 
-	if params.Config.IsIP2location() {
+	if params.Config.IsIP2location() && ip2location.IsEnabled(params.Config.IP2Location) {
 		provider, err = ip2location.NewProvider(params.Lifecycle, params.Config.IP2Location)
 	}
 
-	if params.Config.IsGeoIP2() {
+	if params.Config.IsGeoIP2() && geoip2.IsEnabled(params.Config.GeoIP2) {
 		provider, err = geoip2.NewProvider(params.Config.GeoIP2)
 	}
 

@@ -1,6 +1,8 @@
 package orb
 
 import (
+	"errors"
+
 	"github.com/alexfalkowski/standort/location/continent"
 	"github.com/alexfalkowski/standort/location/orb/provider"
 	"github.com/alexfalkowski/standort/location/orb/provider/rtree"
@@ -8,6 +10,9 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/fx"
 )
+
+// ErrNoProvider in the config.
+var ErrNoProvider = errors.New("no provider configured")
 
 // ProviderParams for orb.
 type ProviderParams struct {
@@ -24,6 +29,10 @@ func NewProvider(params ProviderParams) (provider.Provider, error) {
 		p   provider.Provider
 		err error
 	)
+
+	if !continent.IsEnabled(params.Config) {
+		return nil, ErrNoProvider
+	}
 
 	p, err = rtree.NewProvider(params.Config)
 	if err != nil {

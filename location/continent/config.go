@@ -4,6 +4,11 @@ import (
 	"fmt"
 )
 
+// IsEnabled for continent.
+func IsEnabled(c *Config) bool {
+	return c != nil
+}
+
 // Config for continent.
 type Config struct {
 	AfricaPath       string `yaml:"africa_path,omitempty" json:"africa_path,omitempty" toml:"africa_path,omitempty"`
