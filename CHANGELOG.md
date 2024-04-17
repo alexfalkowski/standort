@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.58.5](https://github.com/alexfalkowski/standort/releases/tag/v2.58.5) - 2024-04-17
+
+- [`b2a58f8`](https://github.com/alexfalkowski/standort/commit/b2a58f8cc7624596f99922597105ba89a5030ce3) fix(grpc): remove reset conn (#659)
+- [`ba75707`](https://github.com/alexfalkowski/standort/commit/ba75707f279879d1b253750515169d8c7b3ba250) build(deps): bump rubocop from 1.63.1 to 1.63.2 in /test (#658)
+- [`f390349`](https://github.com/alexfalkowski/standort/commit/f390349c9669d127a576698e2e7a3f66ea3c65d2) build(ci): store tests (#657)
+- [`85477e4`](https://github.com/alexfalkowski/standort/commit/85477e4068a544bbfd66aa79d349c1dbc1443198) build(deps): bump bin from `b850b19` to `d5f116d` (#656)
+- [`bcf11bb`](https://github.com/alexfalkowski/standort/commit/bcf11bb633578905b6d4b781f0936fab3abc0338) build(deps): bump bin from `51c6ece` to `b850b19` (#655)
+- [`142b5e7`](https://github.com/alexfalkowski/standort/commit/142b5e7886072e3246ae8990d70c00c4de5bfbaa) build(ci): cache go build (#654)
+- [`fd4f861`](https://github.com/alexfalkowski/standort/commit/fd4f8614ba7cbdb3767f08a973945204da7ad1e5) build(deps): bump bin from `a1fc5ac` to `51c6ece` (#653)
+- [`ec3884a`](https://github.com/alexfalkowski/standort/commit/ec3884ab6cca7144b571e8231d6b706d08de5b4b) build(ci): cache deps (#652)
+- [`3ab26dc`](https://github.com/alexfalkowski/standort/commit/3ab26dc74566452c4541559a08e4ba32fe4485b8) build(deps): bump bin from `c322696` to `a1fc5ac` (#651)
+
 ## [v2.58.4](https://github.com/alexfalkowski/standort/releases/tag/v2.58.4) - 2024-04-15
 
 - [`67acb30`](https://github.com/alexfalkowski/standort/commit/67acb3018be6ede99aad804ff88a976804e79ea2) fix(deps): bump github.com/alexfalkowski/go-service from 1.154.4 to 1.154.5 (#650)
