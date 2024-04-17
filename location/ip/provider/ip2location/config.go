@@ -1,5 +1,10 @@
 package ip2location
 
+// IsEnabled for ip2location.
+func IsEnabled(c *Config) bool {
+	return c != nil
+}
+
 // Config for ip2location.
 type Config struct {
 	Path string `yaml:"path,omitempty" json:"path,omitempty" toml:"path,omitempty"`
