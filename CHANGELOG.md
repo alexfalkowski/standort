@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.58.6](https://github.com/alexfalkowski/standort/releases/tag/v2.58.6) - 2024-04-17
+
+- [`f5b2927`](https://github.com/alexfalkowski/standort/commit/f5b2927cea4674ac7b4ada717c106329f020e3c6) fix(config): check if it is enabled (#660)
+
 ## [v2.58.5](https://github.com/alexfalkowski/standort/releases/tag/v2.58.5) - 2024-04-17
 
 - [`b2a58f8`](https://github.com/alexfalkowski/standort/commit/b2a58f8cc7624596f99922597105ba89a5030ce3) fix(grpc): remove reset conn (#659)
