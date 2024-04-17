@@ -13,10 +13,12 @@ jobs:
           name: restore go deps
           keys:
             - standort-build-service-go-cache-{{ checksum "go.sum" }}
+            - standort-build-service-go-cache-
       - restore_cache:
           name: restore ruby deps
           keys:
             - standort-build-service-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+            - standort-build-service-ruby-cache-
       - run: make dep
       - save_cache:
           name: save go deps
@@ -32,6 +34,7 @@ jobs:
           name: restore go build cache
           keys:
             - standort-build-service-go-build-cache-{{ checksum "go.sum" }}
+            - standort-build-service-go-build-cache-
       - run: make lint
       - run: make proto-breaking
       - run: make sec
@@ -75,10 +78,12 @@ jobs:
           name: restore go deps
           keys:
             - standort-features-grpc-go-cache-{{ checksum "go.sum" }}
+            - standort-features-grpc-go-cache-
       - restore_cache:
           name: restore ruby deps
           keys:
             - standort-features-grpc-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+            - standort-features-grpc-ruby-cache-
       - run: make dep
       - save_cache:
           name: save go deps
@@ -94,6 +99,7 @@ jobs:
           name: restore go build cache
           keys:
             - standort-features-grpc-go-build-cache-{{ checksum "go.sum" }}
+            - standort-features-grpc-go-build-cache-
       - run: make features-grpc
       - save_cache:
           name: save go build cache
@@ -122,10 +128,12 @@ jobs:
           name: restore go deps
           keys:
             - standort-features-http-go-cache-{{ checksum "go.sum" }}
+            - standort-features-http-go-cache-
       - restore_cache:
           name: restore ruby deps
           keys:
             - standort-features-http-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+            - standort-features-http-ruby-cache-
       - run: make dep
       - save_cache:
           name: save go deps
@@ -141,6 +149,7 @@ jobs:
           name: restore go build cache
           keys:
             - standort-features-http-go-build-cache-{{ checksum "go.sum" }}
+            - standort-features-http-go-build-cache-
       - run: make features-http
       - save_cache:
           name: save go build cache
