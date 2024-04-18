@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.16.1
-	github.com/alexfalkowski/go-service v1.154.5
+	github.com/alexfalkowski/go-service v1.154.6
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
 	github.com/ip2location/ip2location-go/v9 v9.7.0
 	github.com/pariz/gountries v0.1.6
@@ -25,7 +25,7 @@ require (
 
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
-	github.com/KimMachineGun/automemlimit v0.5.0 // indirect
+	github.com/KimMachineGun/automemlimit v0.6.0 // indirect
 	github.com/arl/statsviz v0.6.0 // indirect
 	github.com/avast/retry-go/v3 v3.1.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
