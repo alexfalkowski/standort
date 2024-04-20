@@ -15,23 +15,23 @@ import (
 
 // ClientOpts for gRPC.
 type ClientOpts struct {
-	Lifecycle    fx.Lifecycle
-	ClientConfig *client.Config
-	Logger       *zap.Logger
-	Tracer       trace.Tracer
-	Meter        metric.Meter
+	Lifecycle fx.Lifecycle
+	Client    *client.Config
+	Logger    *zap.Logger
+	Tracer    trace.Tracer
+	Meter     metric.Meter
 }
 
 // NewClient for gRPC.
 func NewClient(options ClientOpts) (*g.ClientConn, error) {
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(options.Logger), grpc.WithClientTracer(options.Tracer),
-		grpc.WithClientMetrics(options.Meter), grpc.WithClientRetry(options.ClientConfig.Retry),
-		grpc.WithClientUserAgent(options.ClientConfig.UserAgent),
+		grpc.WithClientMetrics(options.Meter), grpc.WithClientRetry(options.Client.Retry),
+		grpc.WithClientUserAgent(options.Client.UserAgent),
 	}
 
-	if security.IsEnabled(options.ClientConfig.Security) {
-		sec, err := grpc.WithClientSecure(options.ClientConfig.Security)
+	if security.IsEnabled(options.Client.Security) {
+		sec, err := grpc.WithClientSecure(options.Client.Security)
 		if err != nil {
 			return nil, err
 		}
@@ -39,7 +39,7 @@ func NewClient(options ClientOpts) (*g.ClientConn, error) {
 		opts = append(opts, sec)
 	}
 
-	conn, err := grpc.NewClient(options.ClientConfig.Host, opts...)
+	conn, err := grpc.NewClient(options.Client.Host, opts...)
 	if err != nil {
 		return nil, err
 	}
