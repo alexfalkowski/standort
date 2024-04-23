@@ -38,11 +38,11 @@ func (p *Provider) GetByIP(ctx context.Context, ip string) (string, error) {
 	if err != nil {
 		span.SetStatus(codes.Error, err.Error())
 		span.RecordError(err)
-
-		return "", err
 	}
 
-	return country, nil
+	tracer.Meta(ctx, span)
+
+	return country, err
 }
 
 func operationName(name string) string {
