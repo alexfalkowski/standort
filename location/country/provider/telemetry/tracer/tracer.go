@@ -38,11 +38,11 @@ func (p *Provider) GetByCode(ctx context.Context, name string) (string, string, 
 	if err != nil {
 		span.SetStatus(codes.Error, err.Error())
 		span.RecordError(err)
-
-		return "", "", err
 	}
 
-	return country, continent, nil
+	tracer.Meta(ctx, span)
+
+	return country, continent, err
 }
 
 func operationName(name string) string {

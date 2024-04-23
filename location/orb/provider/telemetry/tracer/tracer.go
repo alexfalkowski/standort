@@ -34,7 +34,11 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 
 	ctx = tm.WithTraceID(ctx, meta.ToValuer(span.SpanContext().TraceID()))
 
-	return p.provider.Search(ctx, lat, lng)
+	country, continent := p.provider.Search(ctx, lat, lng)
+
+	tracer.Meta(ctx, span)
+
+	return country, continent
 }
 
 func operationName(name string) string {
