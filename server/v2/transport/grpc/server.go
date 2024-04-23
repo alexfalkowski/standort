@@ -42,7 +42,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 		meta.WithAttribute(ctx, "location.point_error", meta.Error(err))
 	} else {
 		if point == nil {
-			resp.Meta = meta.Strings(ctx)
+			resp.Meta = s.meta(ctx)
 
 			return resp, nil
 		}
@@ -54,7 +54,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 		}
 	}
 
-	resp.Meta = meta.Strings(ctx)
+	resp.Meta = s.meta(ctx)
 
 	return resp, nil
 }
@@ -99,4 +99,8 @@ func (s *Server) point(ctx context.Context, req *v2.GetLocationRequest) (*v2.Poi
 	}
 
 	return nil, nil //nolint:nilnil
+}
+
+func (s *Server) meta(ctx context.Context) map[string]string {
+	return meta.CamelStrings(ctx, "")
 }
