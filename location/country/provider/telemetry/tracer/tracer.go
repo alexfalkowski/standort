@@ -8,7 +8,6 @@ import (
 	tm "github.com/alexfalkowski/go-service/transport/meta"
 	"github.com/alexfalkowski/standort/location/country/provider"
 	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -33,13 +32,8 @@ func (p *Provider) GetByCode(ctx context.Context, name string) (string, string, 
 	defer span.End()
 
 	ctx = tm.WithTraceID(ctx, meta.ToValuer(span.SpanContext().TraceID()))
-
 	country, continent, err := p.provider.GetByCode(ctx, name)
-	if err != nil {
-		span.SetStatus(codes.Error, err.Error())
-		span.RecordError(err)
-	}
-
+	tracer.Error(err, span)
 	tracer.Meta(ctx, span)
 
 	return country, continent, err

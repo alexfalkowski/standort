@@ -33,9 +33,7 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 	defer span.End()
 
 	ctx = tm.WithTraceID(ctx, meta.ToValuer(span.SpanContext().TraceID()))
-
 	country, continent := p.provider.Search(ctx, lat, lng)
-
 	tracer.Meta(ctx, span)
 
 	return country, continent
