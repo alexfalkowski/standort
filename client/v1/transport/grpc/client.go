@@ -30,11 +30,7 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 		Tracer:    params.Tracer,
 		Meter:     params.Meter,
 	}
-
 	conn, err := grpc.NewClient(opts)
-	if err != nil {
-		return nil, err
-	}
 
-	return v1.NewServiceClient(conn), nil
+	return v1.NewServiceClient(conn), err
 }
