@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.72.1](https://github.com/alexfalkowski/standort/releases/tag/v2.72.1) - 2024-04-28
+
+- [`8c9f746`](https://github.com/alexfalkowski/standort/commit/8c9f7468573e342596909c0fa0737f419d643d4e) fix(deps): bump github.com/alexfalkowski/go-service from 1.172.0 to 1.172.1 (#694)
+- [`fbe75c8`](https://github.com/alexfalkowski/standort/commit/fbe75c806474039d5c2547890d788aa421563345) build(deps): bump bin from `6fee1b8` to `1755d45` (#696)
+- [`472966b`](https://github.com/alexfalkowski/standort/commit/472966b886a7df81bdaeae4258ec417f567a2252) build(coveralls): remove goveralls (#695)
+- [`75df392`](https://github.com/alexfalkowski/standort/commit/75df3920872ed491db9b74d302331de21303948c) build(deps): bump bin from `c06391c` to `6fee1b8` (#693)
+
 ## [v2.72.0](https://github.com/alexfalkowski/standort/releases/tag/v2.72.0) - 2024-04-27
 
 - [`675587a`](https://github.com/alexfalkowski/standort/commit/675587a817866755db1a93aa1c4d60e41ce61856) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.172.0 (#692)
