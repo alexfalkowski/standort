@@ -166,7 +166,7 @@ jobs:
           paths:
             - reports
     resource_class: large
-  features-coveralls:
+  features-coverage:
     docker:
       - image: alexfalkowski/go:1.22-ruby
     working_directory: ~/standort
@@ -176,7 +176,7 @@ jobs:
           at: test
       - run: git submodule sync
       - run: git submodule update --init
-      - run: make goveralls
+      - run: make func-coverage
     resource_class: large
   release:
     docker:
@@ -208,7 +208,7 @@ workflows:
       - build-docker
       - features-grpc
       - features-http
-      - features-coveralls:
+      - features-coverage:
           requires:
             - build-service
             - features-grpc
@@ -218,7 +218,7 @@ workflows:
           requires:
             - build-service
             - build-docker
-            - features-coveralls
+            - features-coverage
           filters:
             branches:
               only: master
