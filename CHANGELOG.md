@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.72.3](https://github.com/alexfalkowski/standort/releases/tag/v2.72.3) - 2024-04-30
+
+- [`77736de`](https://github.com/alexfalkowski/standort/commit/77736de92f528c4c2c5da3a14639e1a7fa245ff5) fix(deps): bump github.com/alexfalkowski/go-service from 1.172.1 to 1.172.2 (#704)
+- [`751516a`](https://github.com/alexfalkowski/standort/commit/751516a6b5aa39d7f58e920bacfc3f97de2f92a0) build(ci): cover all (#703)
+- [`e851166`](https://github.com/alexfalkowski/standort/commit/e8511664908b400ead9a93eea7d2ceaa0c4ee496) build(deps): bump bin from `3976e45` to `e47704b` (#702)
+- [`735faa8`](https://github.com/alexfalkowski/standort/commit/735faa854b6c4e9ed27e060075ecc2df6a5c7264) build(deps): bump rubocop from 1.63.3 to 1.63.4 in /test (#701)
+
 ## [v2.72.2](https://github.com/alexfalkowski/standort/releases/tag/v2.72.2) - 2024-04-28
 
 - [`da307fe`](https://github.com/alexfalkowski/standort/commit/da307feb2c150e1b8e1c21b2c51878de521bb385) fix(continent): specify paths (#700)
