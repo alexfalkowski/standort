@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.75.0](https://github.com/alexfalkowski/standort/releases/tag/v2.75.0) - 2024-05-05
+
+- [`92187ec`](https://github.com/alexfalkowski/standort/commit/92187ecd47c02d04df861150e3ebd7c496454e26) feat(rtree): use the earth (#715)
+
 ## [v2.74.0](https://github.com/alexfalkowski/standort/releases/tag/v2.74.0) - 2024-05-05
 
 - [`d9c2320`](https://github.com/alexfalkowski/standort/commit/d9c232032fc9a6cf94c68ba56a50d85775b29f24) feat(assets): embed files (#714)
