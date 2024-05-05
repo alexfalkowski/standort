@@ -4,9 +4,9 @@ import (
 	"embed"
 )
 
-//go:embed *.geojson
-//go:embed *.mmdb
-//go:embed *.bin
+//go:embed earth.geojson
+//go:embed geoip2.mmdb
+//go:embed ip2location.bin
 var fs embed.FS
 
 // FS for assets.
