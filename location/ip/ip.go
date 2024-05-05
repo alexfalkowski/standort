@@ -1,7 +1,7 @@
 package ip
 
 import (
-	"errors"
+	"embed"
 
 	"github.com/alexfalkowski/standort/location/ip/provider"
 	"github.com/alexfalkowski/standort/location/ip/provider/geoip2"
@@ -11,42 +11,32 @@ import (
 	"go.uber.org/fx"
 )
 
-// ErrNoProvider in the config.
-var ErrNoProvider = errors.New("no provider configured")
-
 // ProviderParams for ip.
 type ProviderParams struct {
 	fx.In
 
 	Lifecycle fx.Lifecycle
 	Config    *Config
+	FS        embed.FS
 	Tracer    trace.Tracer
 }
 
 // NewProvider for ip.
-func NewProvider(params ProviderParams) (provider.Provider, error) {
-	var (
-		provider provider.Provider
-		err      error
-	)
-
-	if params.Config.IsIP2location() && ip2location.IsEnabled(params.Config.IP2Location) {
-		provider, err = ip2location.NewProvider(params.Lifecycle, params.Config.IP2Location)
-	}
-
-	if params.Config.IsGeoIP2() && geoip2.IsEnabled(params.Config.GeoIP2) {
-		provider, err = geoip2.NewProvider(params.Config.GeoIP2)
-	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	if provider == nil {
-		return nil, ErrNoProvider
-	}
-
+func NewProvider(params ProviderParams) provider.Provider {
+	provider := ipProvider(params.Lifecycle, params.Config, params.FS)
 	provider = tracer.NewProvider(provider, params.Tracer)
 
-	return provider, nil
+	return provider
+}
+
+func ipProvider(lc fx.Lifecycle, cfg *Config, fs embed.FS) provider.Provider {
+	var provider provider.Provider
+
+	if !IsEnabled(cfg) || cfg.IsIP2location() {
+		provider = ip2location.NewProvider(lc, fs)
+	} else if cfg.IsGeoIP2() {
+		provider = geoip2.NewProvider(fs)
+	}
+
+	return provider
 }

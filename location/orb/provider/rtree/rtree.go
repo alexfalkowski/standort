@@ -2,10 +2,9 @@ package rtree
 
 import (
 	"context"
-	"os"
-	"path/filepath"
+	"embed"
 
-	"github.com/alexfalkowski/standort/location/continent"
+	"github.com/alexfalkowski/go-service/runtime"
 	"github.com/paulmach/orb/geojson"
 	"github.com/tidwall/rtree"
 )
@@ -16,20 +15,18 @@ type Provider struct {
 }
 
 // NewProvider for rtree.
-func NewProvider(cfg *continent.Config) (*Provider, error) {
+func NewProvider(fs embed.FS) *Provider {
 	paths := []string{
-		cfg.AfricaPath, cfg.AsiaPath, cfg.EuropePath,
-		cfg.NorthAmericaPath, cfg.OceaniaPath, cfg.SouthAmericaPath,
+		"africa.geojson", "north_america.geojson", "oceania.geojson",
+		"asia.geojson", "europe.geojson", "south_america.geojson",
 	}
 	tree := &rtree.Generic[*Node]{}
 
 	for _, path := range paths {
-		if err := populateTree(tree, path); err != nil {
-			return nil, err
-		}
+		populateTree(tree, fs, path)
 	}
 
-	return &Provider{tree: tree}, nil
+	return &Provider{tree: tree}
 }
 
 // Search a lat lng and get country and continent.
@@ -58,16 +55,12 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string) 
 	return data.Country, data.Continent
 }
 
-func populateTree(tree *rtree.Generic[*Node], path string) error {
-	data, err := os.ReadFile(filepath.Clean(path))
-	if err != nil {
-		return err
-	}
+func populateTree(tree *rtree.Generic[*Node], fs embed.FS, path string) {
+	data, err := fs.ReadFile(path)
+	runtime.Must(err)
 
 	fc, err := geojson.UnmarshalFeatureCollection(data)
-	if err != nil {
-		return err
-	}
+	runtime.Must(err)
 
 	for _, f := range fc.Features {
 		bound := f.Geometry.Bound()
@@ -79,6 +72,4 @@ func populateTree(tree *rtree.Generic[*Node], path string) error {
 
 		tree.Insert(bound.Min, bound.Max, data)
 	}
-
-	return nil
 }

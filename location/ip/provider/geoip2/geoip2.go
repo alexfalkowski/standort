@@ -2,19 +2,22 @@ package geoip2
 
 import (
 	"context"
+	"embed"
 	"net"
 
 	"github.com/IncSW/geoip2"
+	"github.com/alexfalkowski/go-service/runtime"
 )
 
 // NewProvider for geoip2.
-func NewProvider(cfg *Config) (*Provider, error) {
-	reader, err := geoip2.NewCountryReaderFromFile(cfg.GetPath())
-	if err != nil {
-		return nil, err
-	}
+func NewProvider(fs embed.FS) *Provider {
+	c, err := fs.ReadFile("geoip2.mmdb")
+	runtime.Must(err)
 
-	return &Provider{reader: reader}, nil
+	reader, err := geoip2.NewCountryReader(c)
+	runtime.Must(err)
+
+	return &Provider{reader: reader}
 }
 
 // Provider for geoip2.

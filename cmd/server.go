@@ -9,6 +9,7 @@ import (
 	"github.com/alexfalkowski/go-service/telemetry"
 	"github.com/alexfalkowski/go-service/telemetry/metrics"
 	"github.com/alexfalkowski/go-service/transport"
+	"github.com/alexfalkowski/standort/assets"
 	"github.com/alexfalkowski/standort/config"
 	"github.com/alexfalkowski/standort/location"
 	"github.com/alexfalkowski/standort/server/health"
@@ -23,5 +24,5 @@ var ServerOptions = []fx.Option{
 	compressor.Module, marshaller.Module,
 	telemetry.Module, metrics.Module,
 	transport.Module, health.Module, location.Module,
-	config.Module, v1.Module, v2.Module, Module,
+	assets.Module, config.Module, v1.Module, v2.Module, Module,
 }
