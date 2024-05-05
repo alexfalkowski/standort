@@ -16,15 +16,8 @@ type Provider struct {
 
 // NewProvider for rtree.
 func NewProvider(fs embed.FS) *Provider {
-	paths := []string{
-		"africa.geojson", "north_america.geojson", "oceania.geojson",
-		"asia.geojson", "europe.geojson", "south_america.geojson",
-	}
 	tree := &rtree.Generic[*Node]{}
-
-	for _, path := range paths {
-		populateTree(tree, fs, path)
-	}
+	populateTree(tree, fs)
 
 	return &Provider{tree: tree}
 }
@@ -55,8 +48,8 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string) 
 	return data.Country, data.Continent
 }
 
-func populateTree(tree *rtree.Generic[*Node], fs embed.FS, path string) {
-	data, err := fs.ReadFile(path)
+func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
+	data, err := fs.ReadFile("earth.geojson")
 	runtime.Must(err)
 
 	fc, err := geojson.UnmarshalFeatureCollection(data)
