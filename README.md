@@ -18,11 +18,7 @@ This is configured using the following:
 location:
   ip:
     kind: ip2location
-    ip2location:
-      path: ../assets/ip2location.bin
 ```
-
-*NOTE:* This is only needed if you would like to override it. As the system has all this configured.
 
 ### GeoIP2
 
@@ -30,30 +26,11 @@ location:
 location:
   ip:
     kind: geoip2
-    geoip2:
-      path: ../assets/geoip2.mmdb
 ```
-
-*NOTE:* This is only needed if you would like to override it. As the system has all this configured.
 
 ## Countries/Continents
 
 The service allows you to get the location based on [latitude/longitude](https://www.latlong.net/) using the power of [free maps](https://geojson-maps.ash.ms/).
-
-This is configured using the following:
-
-```yaml
-location:
-  continent:
-    africa_path: ../assets/africa.geojson
-    north_america_path: ../assets/north_america.geojson
-    oceania_path: ../assets/oceania.geojson
-    asia_path: ../assets/asia.geojson
-    europe_path: ../assets/europe.geojson
-    south_america_path: ../assets/south_america.geojson
-```
-
-*NOTE:* This is only needed if you would like to override it. As the system has all this configured.
 
 ## Versions
 

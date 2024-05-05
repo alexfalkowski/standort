@@ -10,7 +10,7 @@ var Module = fx.Options(
 	fx.Provide(NewConfig),
 	config.Module,
 	fx.Decorate(decorateConfig),
-	fx.Provide(ipConfig), fx.Provide(continentConfig),
+	fx.Provide(ipConfig),
 	fx.Provide(v1Client), fx.Provide(v2Client),
 	fx.Provide(healthConfig),
 )

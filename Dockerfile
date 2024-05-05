@@ -15,5 +15,4 @@ FROM gcr.io/distroless/base-debian12
 WORKDIR /
 
 COPY --from=build /app/standort /standort
-COPY --from=build /app/assets /assets
 ENTRYPOINT ["/standort"]

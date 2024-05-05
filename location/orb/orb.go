@@ -1,9 +1,9 @@
 package orb
 
 import (
+	"embed"
 	"errors"
 
-	"github.com/alexfalkowski/standort/location/continent"
 	"github.com/alexfalkowski/standort/location/orb/provider"
 	"github.com/alexfalkowski/standort/location/orb/provider/rtree"
 	"github.com/alexfalkowski/standort/location/orb/provider/telemetry/tracer"
@@ -19,27 +19,14 @@ type ProviderParams struct {
 	fx.In
 
 	Lifecycle fx.Lifecycle
-	Config    *continent.Config
+	FS        embed.FS
 	Tracer    trace.Tracer
 }
 
 // NewProvider for orb.
-func NewProvider(params ProviderParams) (provider.Provider, error) {
-	var (
-		p   provider.Provider
-		err error
-	)
-
-	if !continent.IsEnabled(params.Config) {
-		return nil, ErrNoProvider
-	}
-
-	p, err = rtree.NewProvider(params.Config)
-	if err != nil {
-		return nil, err
-	}
-
+func NewProvider(params ProviderParams) provider.Provider {
+	var p provider.Provider = rtree.NewProvider(params.FS)
 	p = tracer.NewProvider(p, params.Tracer)
 
-	return p, nil
+	return p
 }

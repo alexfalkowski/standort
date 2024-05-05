@@ -8,7 +8,6 @@ import (
 	v2 "github.com/alexfalkowski/standort/client/v2/config"
 	"github.com/alexfalkowski/standort/health"
 	"github.com/alexfalkowski/standort/location"
-	"github.com/alexfalkowski/standort/location/continent"
 	"github.com/alexfalkowski/standort/location/ip"
 )
 
@@ -37,14 +36,6 @@ func ipConfig(cfg *Config) *ip.Config {
 	}
 
 	return cfg.Location.IP
-}
-
-func continentConfig(cfg *Config) *continent.Config {
-	if !location.IsEnabled(cfg.Location) {
-		return nil
-	}
-
-	return cfg.Location.Continent
 }
 
 func v1Client(cfg *Config) *v1.Config {
