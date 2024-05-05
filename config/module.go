@@ -7,11 +7,10 @@ import (
 
 // Module for fx.
 var Module = fx.Options(
-	fx.Provide(NewConfigurator),
-	config.ConfigModule,
-	fx.Provide(ipConfig),
-	fx.Provide(continentConfig),
-	fx.Provide(v1Client),
-	fx.Provide(v2Client),
+	fx.Provide(NewConfig),
+	config.Module,
+	fx.Decorate(decorateConfig),
+	fx.Provide(ipConfig), fx.Provide(continentConfig),
+	fx.Provide(v1Client), fx.Provide(v2Client),
 	fx.Provide(healthConfig),
 )
