@@ -5,12 +5,12 @@ import (
 
 	c "github.com/alexfalkowski/go-service/client"
 	"github.com/alexfalkowski/go-service/retry"
-	"github.com/alexfalkowski/go-service/telemetry/tracer"
 	v1c "github.com/alexfalkowski/standort/client/v1/config"
 	v1 "github.com/alexfalkowski/standort/client/v1/transport/grpc"
 	v2c "github.com/alexfalkowski/standort/client/v2/config"
 	v2 "github.com/alexfalkowski/standort/client/v2/transport/grpc"
 	. "github.com/smartystreets/goconvey/convey" //nolint:revive
+	"go.opentelemetry.io/otel/trace/noop"
 	"go.uber.org/fx/fxtest"
 )
 
@@ -21,7 +21,7 @@ func TestV1Client(t *testing.T) {
 		params := v1.ServiceClientParams{
 			Lifecycle:    lc,
 			ClientConfig: &v1c.Config{Config: &c.Config{Host: "localhost", Retry: &retry.Config{Timeout: "1s"}}},
-			Tracer:       tracer.NewNoopTracer(),
+			Tracer:       noop.Tracer{},
 		}
 
 		Convey("When I create a new client", func() {
@@ -46,7 +46,7 @@ func TestV2Client(t *testing.T) {
 		params := v2.ServiceClientParams{
 			Lifecycle:    lc,
 			ClientConfig: &v2c.Config{Config: &c.Config{Host: "localhost", Retry: &retry.Config{Timeout: "1s"}}},
-			Tracer:       tracer.NewNoopTracer(),
+			Tracer:       noop.Tracer{},
 		}
 
 		Convey("When I create a new client", func() {
