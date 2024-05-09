@@ -53,6 +53,7 @@ jobs:
           root: test
           paths:
             - reports
+      - run: make outdated-dep
     resource_class: large
   build-docker:
     docker:
