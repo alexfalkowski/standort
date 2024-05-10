@@ -18,8 +18,8 @@ func NewServer(location *location.Location) v1.ServiceServer {
 
 // Server for gRPC.
 type Server struct {
-	location *location.Location
 	v1.UnimplementedServiceServer
+	location *location.Location
 }
 
 // GetLocationByIP for gRPC.
