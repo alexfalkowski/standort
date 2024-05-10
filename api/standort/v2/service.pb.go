@@ -74,12 +74,11 @@ func (Kind) EnumDescriptor() ([]byte, []int) {
 // Location of the response.
 type Location struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Country       string `protobuf:"bytes,2,opt,name=country,proto3" json:"country,omitempty"`
+	Continent     string `protobuf:"bytes,3,opt,name=continent,proto3" json:"continent,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Kind      Kind   `protobuf:"varint,1,opt,name=kind,proto3,enum=standort.v2.Kind" json:"kind,omitempty"`
-	Country   string `protobuf:"bytes,2,opt,name=country,proto3" json:"country,omitempty"`
-	Continent string `protobuf:"bytes,3,opt,name=continent,proto3" json:"continent,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Kind          Kind `protobuf:"varint,1,opt,name=kind,proto3,enum=standort.v2.Kind" json:"kind,omitempty"`
 }
 
 func (x *Location) Reset() {
@@ -138,11 +137,10 @@ func (x *Location) GetContinent() string {
 // Point for the request.
 type Point struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Lat float64 `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
-	Lng float64 `protobuf:"fixed64,2,opt,name=lng,proto3" json:"lng,omitempty"`
+	Lat           float64 `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
+	Lng           float64 `protobuf:"fixed64,2,opt,name=lng,proto3" json:"lng,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Point) Reset() {
@@ -194,11 +192,10 @@ func (x *Point) GetLng() float64 {
 // GetLocationRequest for getting the location.
 type GetLocationRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Point         *Point `protobuf:"bytes,2,opt,name=point,proto3" json:"point,omitempty"`
+	Ip            string `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Ip    string `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
-	Point *Point `protobuf:"bytes,2,opt,name=point,proto3" json:"point,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLocationRequest) Reset() {
@@ -250,11 +247,10 @@ func (x *GetLocationRequest) GetPoint() *Point {
 // GetLocationResponse for getting the location.
 type GetLocationResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta      map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Locations []*Location       `protobuf:"bytes,2,rep,name=locations,proto3" json:"locations,omitempty"`
+	Locations     []*Location `protobuf:"bytes,2,rep,name=locations,proto3" json:"locations,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLocationResponse) Reset() {

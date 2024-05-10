@@ -7,9 +7,9 @@ import (
 
 // Node for the RTree.
 type Node struct {
+	Geometry  orb.Geometry
 	Country   string
 	Continent string
-	Geometry  orb.Geometry
 }
 
 // IsPointInGeometry for data.

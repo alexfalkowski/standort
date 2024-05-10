@@ -24,11 +24,10 @@ const (
 // Location of the response.
 type Location struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Country       string `protobuf:"bytes,1,opt,name=country,proto3" json:"country,omitempty"`
+	Continent     string `protobuf:"bytes,2,opt,name=continent,proto3" json:"continent,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Country   string `protobuf:"bytes,1,opt,name=country,proto3" json:"country,omitempty"`
-	Continent string `protobuf:"bytes,2,opt,name=continent,proto3" json:"continent,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Location) Reset() {
@@ -80,10 +79,9 @@ func (x *Location) GetContinent() string {
 // GetLocationByIPRequest for an IP address.
 type GetLocationByIPRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Ip            string `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Ip string `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLocationByIPRequest) Reset() {
@@ -128,11 +126,10 @@ func (x *GetLocationByIPRequest) GetIp() string {
 // GetLocationByIPResponse for an IP address.
 type GetLocationByIPResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Location      *Location         `protobuf:"bytes,2,opt,name=location,proto3" json:"location,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta     map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Location *Location         `protobuf:"bytes,2,opt,name=location,proto3" json:"location,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLocationByIPResponse) Reset() {
@@ -184,11 +181,10 @@ func (x *GetLocationByIPResponse) GetLocation() *Location {
 // GetLocationByLatLngRequest for a latitude and longitude.
 type GetLocationByLatLngRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Lat float64 `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
-	Lng float64 `protobuf:"fixed64,2,opt,name=lng,proto3" json:"lng,omitempty"`
+	Lat           float64 `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
+	Lng           float64 `protobuf:"fixed64,2,opt,name=lng,proto3" json:"lng,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLocationByLatLngRequest) Reset() {
@@ -240,11 +236,10 @@ func (x *GetLocationByLatLngRequest) GetLng() float64 {
 // GetLocationByLatLngResponse for a latitude and longitude.
 type GetLocationByLatLngResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,2,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Location      *Location         `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta     map[string]string `protobuf:"bytes,2,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Location *Location         `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLocationByLatLngResponse) Reset() {
