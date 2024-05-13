@@ -18,6 +18,11 @@ func NewConfig(i *cmd.InputConfig) (*Config, error) {
 	return c, i.Unmarshal(c)
 }
 
+// IsEnabled for config.
+func IsEnabled(cfg *Config) bool {
+	return cfg != nil
+}
+
 // Config for the service.
 type Config struct {
 	Location       *location.Config `yaml:"location,omitempty" json:"location,omitempty" toml:"location,omitempty"`
@@ -27,11 +32,15 @@ type Config struct {
 }
 
 func decorateConfig(cfg *Config) *config.Config {
+	if !IsEnabled(cfg) {
+		return nil
+	}
+
 	return cfg.Config
 }
 
 func ipConfig(cfg *Config) *ip.Config {
-	if !location.IsEnabled(cfg.Location) {
+	if !IsEnabled(cfg) || !location.IsEnabled(cfg.Location) {
 		return nil
 	}
 
@@ -39,7 +48,7 @@ func ipConfig(cfg *Config) *ip.Config {
 }
 
 func v1Client(cfg *Config) *v1.Config {
-	if !client.IsEnabled(cfg.Client) {
+	if !IsEnabled(cfg) || !client.IsEnabled(cfg.Client) {
 		return nil
 	}
 
@@ -47,7 +56,7 @@ func v1Client(cfg *Config) *v1.Config {
 }
 
 func v2Client(cfg *Config) *v2.Config {
-	if !client.IsEnabled(cfg.Client) {
+	if !IsEnabled(cfg) || !client.IsEnabled(cfg.Client) {
 		return nil
 	}
 
@@ -55,5 +64,9 @@ func v2Client(cfg *Config) *v2.Config {
 }
 
 func healthConfig(cfg *Config) *health.Config {
+	if !IsEnabled(cfg) {
+		return nil
+	}
+
 	return cfg.Health
 }
