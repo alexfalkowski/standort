@@ -3,9 +3,7 @@ package tracer
 import (
 	"context"
 
-	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/telemetry/tracer"
-	tm "github.com/alexfalkowski/go-service/transport/meta"
 	"github.com/alexfalkowski/standort/location/orb/provider"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
@@ -32,7 +30,7 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 	ctx, span := p.tracer.Start(ctx, operationName("search"), trace.WithSpanKind(trace.SpanKindClient), trace.WithAttributes(attrs...))
 	defer span.End()
 
-	ctx = tm.WithTraceID(ctx, meta.ToString(span.SpanContext().TraceID()))
+	ctx = tracer.WithTraceID(ctx, span)
 	country, continent := p.provider.Search(ctx, lat, lng)
 	tracer.Meta(ctx, span)
 
