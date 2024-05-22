@@ -31,7 +31,7 @@ func NewClient(options ClientOpts) (*g.ClientConn, error) {
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(options.Logger), grpc.WithClientTracer(options.Tracer),
 		grpc.WithClientMetrics(options.Meter), grpc.WithClientRetry(options.Client.Retry),
-		grpc.WithClientUserAgent(options.Client.UserAgent), sec,
+		grpc.WithClientUserAgent(options.Client.UserAgent), grpc.WithClientTimeout(options.Client.Timeout), sec,
 	}
 	conn, err := grpc.NewClient(options.Client.Host, opts...)
 
