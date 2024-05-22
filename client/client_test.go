@@ -20,7 +20,7 @@ func TestV1Client(t *testing.T) {
 
 		params := v1.ServiceClientParams{
 			Lifecycle:    lc,
-			ClientConfig: &v1c.Config{Config: &c.Config{Host: "localhost", Retry: &retry.Config{Timeout: "1s"}}},
+			ClientConfig: &v1c.Config{Config: &c.Config{Host: "localhost", Timeout: "1s", Retry: &retry.Config{Timeout: "1s"}}},
 			Tracer:       noop.Tracer{},
 		}
 
@@ -45,7 +45,7 @@ func TestV2Client(t *testing.T) {
 
 		params := v2.ServiceClientParams{
 			Lifecycle:    lc,
-			ClientConfig: &v2c.Config{Config: &c.Config{Host: "localhost", Retry: &retry.Config{Timeout: "1s"}}},
+			ClientConfig: &v2c.Config{Config: &c.Config{Host: "localhost", Timeout: "1s", Retry: &retry.Config{Timeout: "1s"}}},
 			Tracer:       noop.Tracer{},
 		}
 
