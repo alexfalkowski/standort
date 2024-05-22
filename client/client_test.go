@@ -19,9 +19,13 @@ func TestV1Client(t *testing.T) {
 		lc := fxtest.NewLifecycle(t)
 
 		params := v1.ServiceClientParams{
-			Lifecycle:    lc,
-			ClientConfig: &v1c.Config{Config: &c.Config{Host: "localhost", Timeout: "1s", Retry: &retry.Config{Timeout: "1s"}}},
-			Tracer:       noop.Tracer{},
+			Lifecycle: lc,
+			Client: &v1c.Config{
+				Config: &c.Config{
+					Host: "localhost", Timeout: "1s", Retry: &retry.Config{Backoff: "100ms", Timeout: "1s"},
+				},
+			},
+			Tracer: noop.Tracer{},
 		}
 
 		Convey("When I create a new client", func() {
@@ -44,9 +48,13 @@ func TestV2Client(t *testing.T) {
 		lc := fxtest.NewLifecycle(t)
 
 		params := v2.ServiceClientParams{
-			Lifecycle:    lc,
-			ClientConfig: &v2c.Config{Config: &c.Config{Host: "localhost", Timeout: "1s", Retry: &retry.Config{Timeout: "1s"}}},
-			Tracer:       noop.Tracer{},
+			Lifecycle: lc,
+			Client: &v2c.Config{
+				Config: &c.Config{
+					Host: "localhost", Timeout: "1s", Retry: &retry.Config{Backoff: "100ms", Timeout: "1s"},
+				},
+			},
+			Tracer: noop.Tracer{},
 		}
 
 		Convey("When I create a new client", func() {
