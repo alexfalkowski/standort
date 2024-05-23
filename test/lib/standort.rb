@@ -20,7 +20,7 @@ module Standort
     end
 
     def server_config
-      @server_config ||= Nonnative.configurations('.config/server.config.yml')
+      @server_config ||= Nonnative.configurations('.config/server.yml')
     end
 
     def health_grpc

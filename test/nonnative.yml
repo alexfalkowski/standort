@@ -13,4 +13,4 @@ processes:
     port: 12000
     log: reports/server.log
     environment:
-      STANDORT_CONFIG_FILE: .config/server.config.yml
+      STANDORT_CONFIG_FILE: .config/server.yml

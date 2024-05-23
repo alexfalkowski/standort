@@ -4,6 +4,4 @@ Nonnative.configure do |config|
   config.load_file('nonnative.yml')
 end
 
-Given('I have {string} as the config file') do |source|
-  Nonnative.configuration.processes[0].environment['STANDORT_CONFIG_FILE'] = ".config/#{source}.server.config.yml"
-end
+require 'nonnative/startup'
