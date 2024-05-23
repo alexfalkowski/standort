@@ -19,9 +19,9 @@ client:
 health:
   duration: 1s
   timeout: 1s
-location:
-  ip:
-    kind: geoip2
+limiter:
+  kind: user-agent
+  pattern: 1000-S
 telemetry:
   logger:
     level: info
@@ -39,7 +39,7 @@ transport:
       backoff: 100ms
       timeout: 3s
     timeout: 5s
-    user_agent: "Standort-server/2.0 HTTP/1.0"
+    user_agent: "Standort-server/2.0 http/1.0"
   grpc:
     port: 12000
     retry:
