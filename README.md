@@ -7,26 +7,7 @@ Standort provides location based information.
 ## IP Address
 
 The service allows you to get the location by IP address using the following methods:
-- [ip2location](https://github.com/ip2location/ip2location-go)
 - [geoip2](https://github.com/IncSW/geoip2)
-
-### IP2Location
-
-This is configured using the following:
-
-```yaml
-location:
-  ip:
-    kind: ip2location
-```
-
-### GeoIP2
-
-```yaml
-location:
-  ip:
-    kind: geoip2
-```
 
 ## Countries/Continents
 
@@ -48,10 +29,20 @@ The client can be used in other projects. This is configured as follows:
 client:
   v1:
     host: server_host
-    timeout: 1s
+    retry:
+      attempts: 3
+      backoff: 100ms
+      timeout: 3s
+    timeout: 5s
+    user_agent: "UA"
   v2:
     host: server_host
-    timeout: 1s
+    retry:
+      attempts: 3
+      backoff: 100ms
+      timeout: 3s
+    timeout: 5s
+    user_agent: "UA"
 ```
 
 ## Development
