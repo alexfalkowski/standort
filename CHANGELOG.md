@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.92.0](https://github.com/alexfalkowski/standort/releases/tag/v2.92.0) - 2024-05-23
+
+- [`4453331`](https://github.com/alexfalkowski/standort/commit/4453331e1fbf040107d98eae1608ca04896d32bb) feat(ip): remove ip2location in favour of geoip2 (#747)
+
 ## [v2.91.0](https://github.com/alexfalkowski/standort/releases/tag/v2.91.0) - 2024-05-23
 
 - [`968cf6b`](https://github.com/alexfalkowski/standort/commit/968cf6b8803791040cf8c26b861071da22c73481) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.202.0 (#746)
