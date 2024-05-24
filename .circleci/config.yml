@@ -12,47 +12,43 @@ jobs:
       - restore_cache:
           name: restore go deps
           keys:
-            - standort-build-service-go-cache-{{ checksum "go.sum" }}
-            - standort-build-service-go-cache-
+            - standort-go-cache-{{ checksum "go.sum" }}
+            - standort-go-cache-
       - restore_cache:
           name: restore ruby deps
           keys:
-            - standort-build-service-ruby-cache-{{ checksum "test/Gemfile.lock" }}
-            - standort-build-service-ruby-cache-
+            - standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+            - standort-ruby-cache-
       - run: make dep
       - save_cache:
           name: save go deps
-          key: standort-build-service-go-cache-{{ checksum "go.sum" }}
+          key: standort-go-cache-{{ checksum "go.sum" }}
           paths:
             - /home/circleci/go/pkg/mod
       - save_cache:
           name: save ruby deps
-          key: standort-build-service-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+          key: standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}
           paths:
             - test/vendor
       - restore_cache:
           name: restore go build cache
           keys:
-            - standort-build-service-go-build-cache-{{ checksum "go.sum" }}
-            - standort-build-service-go-build-cache-
+            - standort-go-build-cache-{{ checksum "go.sum" }}
+            - standort-go-build-cache-
       - run: make lint
       - run: make proto-breaking
       - run: make sec
-      - run: make specs
+      - run: make features
       - save_cache:
           name: save go build cache
-          key: standort-build-service-go-build-cache-{{ checksum "go.sum" }}
+          key: standort-go-build-cache-{{ checksum "go.sum" }}
           paths:
             - /home/circleci/.cache/go-build
+      - run: make coverage
       - store_test_results:
           path: test/reports
       - store_artifacts:
           path: test/reports
-      - run: make -C test leave-coverage
-      - persist_to_workspace:
-          root: test
-          paths:
-            - reports
       - run: make outdated-dep
     resource_class: large
   build-docker:
@@ -67,120 +63,6 @@ jobs:
       - run: make build-docker
       - run: make trivy
     resource_class: large
-  features-grpc:
-    docker:
-      - image: alexfalkowski/go:1.22-ruby
-    working_directory: ~/standort
-    steps:
-      - checkout
-      - run: git submodule sync
-      - run: git submodule update --init
-      - restore_cache:
-          name: restore go deps
-          keys:
-            - standort-features-grpc-go-cache-{{ checksum "go.sum" }}
-            - standort-features-grpc-go-cache-
-      - restore_cache:
-          name: restore ruby deps
-          keys:
-            - standort-features-grpc-ruby-cache-{{ checksum "test/Gemfile.lock" }}
-            - standort-features-grpc-ruby-cache-
-      - run: make dep
-      - save_cache:
-          name: save go deps
-          key: standort-features-grpc-go-cache-{{ checksum "go.sum" }}
-          paths:
-            - /home/circleci/go/pkg/mod
-      - save_cache:
-          name: save ruby deps
-          key: standort-features-grpc-ruby-cache-{{ checksum "test/Gemfile.lock" }}
-          paths:
-            - test/vendor
-      - restore_cache:
-          name: restore go build cache
-          keys:
-            - standort-features-grpc-go-build-cache-{{ checksum "go.sum" }}
-            - standort-features-grpc-go-build-cache-
-      - run: make features-grpc
-      - save_cache:
-          name: save go build cache
-          key: standort-features-grpc-go-build-cache-{{ checksum "go.sum" }}
-          paths:
-            - /home/circleci/.cache/go-build
-      - store_test_results:
-          path: test/reports
-      - store_artifacts:
-          path: test/reports
-      - run: make -C test leave-coverage
-      - persist_to_workspace:
-          root: test
-          paths:
-            - reports
-    resource_class: large
-  features-http:
-    docker:
-      - image: alexfalkowski/go:1.22-ruby
-    working_directory: ~/standort
-    steps:
-      - checkout
-      - run: git submodule sync
-      - run: git submodule update --init
-      - restore_cache:
-          name: restore go deps
-          keys:
-            - standort-features-http-go-cache-{{ checksum "go.sum" }}
-            - standort-features-http-go-cache-
-      - restore_cache:
-          name: restore ruby deps
-          keys:
-            - standort-features-http-ruby-cache-{{ checksum "test/Gemfile.lock" }}
-            - standort-features-http-ruby-cache-
-      - run: make dep
-      - save_cache:
-          name: save go deps
-          key: standort-features-http-go-cache-{{ checksum "go.sum" }}
-          paths:
-            - /home/circleci/go/pkg/mod
-      - save_cache:
-          name: save ruby deps
-          key: standort-features-http-ruby-cache-{{ checksum "test/Gemfile.lock" }}
-          paths:
-            - test/vendor
-      - restore_cache:
-          name: restore go build cache
-          keys:
-            - standort-features-http-go-build-cache-{{ checksum "go.sum" }}
-            - standort-features-http-go-build-cache-
-      - run: make features-http
-      - save_cache:
-          name: save go build cache
-          key: standort-features-http-go-build-cache-{{ checksum "go.sum" }}
-          paths:
-            - /home/circleci/.cache/go-build
-      - store_test_results:
-          path: test/reports
-      - store_artifacts:
-          path: test/reports
-      - run: make -C test leave-coverage
-      - persist_to_workspace:
-          root: test
-          paths:
-            - reports
-    resource_class: large
-  features-coverage:
-    docker:
-      - image: alexfalkowski/go:1.22-ruby
-    working_directory: ~/standort
-    steps:
-      - checkout
-      - attach_workspace:
-          at: test
-      - run: git submodule sync
-      - run: git submodule update --init
-      - run: make coverage
-      - store_artifacts:
-          path: test/reports
-    resource_class: large
   release:
     docker:
       - image: alexfalkowski/release:3.1
@@ -191,7 +73,7 @@ jobs:
     resource_class: large
   push-docker:
     docker:
-      - image: alexfalkowski/go:1.21-ruby
+      - image: alexfalkowski/go:1.22-ruby
     working_directory: ~/standort
     steps:
       - checkout
@@ -209,19 +91,11 @@ workflows:
     jobs:
       - build-service
       - build-docker
-      - features-grpc
-      - features-http
-      - features-coverage:
-          requires:
-            - build-service
-            - features-grpc
-            - features-http
       - release:
           context: gh
           requires:
             - build-service
             - build-docker
-            - features-coverage
           filters:
             branches:
               only: master
