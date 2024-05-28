@@ -10,28 +10,7 @@ require 'google/api/annotations_pb'
 descriptor_data = "\n\x19standort/v2/service.proto\x12\x0bstandort.v2\x1a\x1cgoogle/api/annotations.proto\"i\n\x08Location\x12%\n\x04kind\x18\x01 \x01(\x0e\x32\x11.standort.v2.KindR\x04kind\x12\x18\n\x07\x63ountry\x18\x02 \x01(\tR\x07\x63ountry\x12\x1c\n\tcontinent\x18\x03 \x01(\tR\tcontinent\"+\n\x05Point\x12\x10\n\x03lat\x18\x01 \x01(\x01R\x03lat\x12\x10\n\x03lng\x18\x02 \x01(\x01R\x03lng\"N\n\x12GetLocationRequest\x12\x0e\n\x02ip\x18\x01 \x01(\tR\x02ip\x12(\n\x05point\x18\x02 \x01(\x0b\x32\x12.standort.v2.PointR\x05point\"\xc3\x01\n\x13GetLocationResponse\x12>\n\x04meta\x18\x01 \x03(\x0b\x32*.standort.v2.GetLocationResponse.MetaEntryR\x04meta\x12\x33\n\tlocations\x18\x02 \x03(\x0b\x32\x15.standort.v2.LocationR\tlocations\x1a\x37\n\tMetaEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01*7\n\x04Kind\x12\x14\n\x10KIND_UNSPECIFIED\x10\x00\x12\x0b\n\x07KIND_IP\x10\x01\x12\x0c\n\x08KIND_GEO\x10\x02\x32q\n\x07Service\x12\x66\n\x0bGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/v2/locationBBZ1github.com/alexfalkowski/standort/api/standort/v2\xea\x02\x0cStandort::V2b\x06proto3"
 
 pool = Google::Protobuf::DescriptorPool.generated_pool
-
-begin
-  pool.add_serialized_file(descriptor_data)
-rescue TypeError => e
-  # Compatibility code: will be removed in the next major version.
-  require 'google/protobuf/descriptor_pb'
-  parsed = Google::Protobuf::FileDescriptorProto.decode(descriptor_data)
-  parsed.clear_dependency
-  serialized = parsed.class.encode(parsed)
-  file = pool.add_serialized_file(serialized)
-  warn "Warning: Protobuf detected an import path issue while loading generated file #{__FILE__}"
-  imports = [
-  ]
-  imports.each do |type_name, expected_filename|
-    import_file = pool.lookup(type_name).file_descriptor
-    if import_file.name != expected_filename
-      warn "- #{file.name} imports #{expected_filename}, but that import was loaded as #{import_file.name}"
-    end
-  end
-  warn "Each proto file must use a consistent fully-qualified name."
-  warn "This will become an error in the next major version."
-end
+pool.add_serialized_file(descriptor_data)
 
 module Standort
   module V2
