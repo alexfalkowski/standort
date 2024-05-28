@@ -10,28 +10,7 @@ require 'google/api/annotations_pb'
 descriptor_data = "\n\x19standort/v1/service.proto\x12\x0bstandort.v1\x1a\x1cgoogle/api/annotations.proto\"B\n\x08Location\x12\x18\n\x07\x63ountry\x18\x01 \x01(\tR\x07\x63ountry\x12\x1c\n\tcontinent\x18\x02 \x01(\tR\tcontinent\"(\n\x16GetLocationByIPRequest\x12\x0e\n\x02ip\x18\x01 \x01(\tR\x02ip\"\xc9\x01\n\x17GetLocationByIPResponse\x12\x42\n\x04meta\x18\x01 \x03(\x0b\x32..standort.v1.GetLocationByIPResponse.MetaEntryR\x04meta\x12\x31\n\x08location\x18\x02 \x01(\x0b\x32\x15.standort.v1.LocationR\x08location\x1a\x37\n\tMetaEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\"@\n\x1aGetLocationByLatLngRequest\x12\x10\n\x03lat\x18\x01 \x01(\x01R\x03lat\x12\x10\n\x03lng\x18\x02 \x01(\x01R\x03lng\"\xd1\x01\n\x1bGetLocationByLatLngResponse\x12\x46\n\x04meta\x18\x02 \x03(\x0b\x32\x32.standort.v1.GetLocationByLatLngResponse.MetaEntryR\x04meta\x12\x31\n\x08location\x18\x01 \x01(\x0b\x32\x15.standort.v1.LocationR\x08location\x1a\x37\n\tMetaEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\x32\x9a\x02\n\x07Service\x12z\n\x0fGetLocationByIP\x12#.standort.v1.GetLocationByIPRequest\x1a$.standort.v1.GetLocationByIPResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/v1/location/ip/{ip}\x12\x92\x01\n\x13GetLocationByLatLng\x12\'.standort.v1.GetLocationByLatLngRequest\x1a(.standort.v1.GetLocationByLatLngResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /v1/location/lat/{lat}/lng/{lng}BBZ1github.com/alexfalkowski/standort/api/standort/v1\xea\x02\x0cStandort::V1b\x06proto3"
 
 pool = Google::Protobuf::DescriptorPool.generated_pool
-
-begin
-  pool.add_serialized_file(descriptor_data)
-rescue TypeError => e
-  # Compatibility code: will be removed in the next major version.
-  require 'google/protobuf/descriptor_pb'
-  parsed = Google::Protobuf::FileDescriptorProto.decode(descriptor_data)
-  parsed.clear_dependency
-  serialized = parsed.class.encode(parsed)
-  file = pool.add_serialized_file(serialized)
-  warn "Warning: Protobuf detected an import path issue while loading generated file #{__FILE__}"
-  imports = [
-  ]
-  imports.each do |type_name, expected_filename|
-    import_file = pool.lookup(type_name).file_descriptor
-    if import_file.name != expected_filename
-      warn "- #{file.name} imports #{expected_filename}, but that import was loaded as #{import_file.name}"
-    end
-  end
-  warn "Each proto file must use a consistent fully-qualified name."
-  warn "This will become an error in the next major version."
-end
+pool.add_serialized_file(descriptor_data)
 
 module Standort
   module V1
