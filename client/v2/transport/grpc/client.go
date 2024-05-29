@@ -1,6 +1,7 @@
 package grpc
 
 import (
+	"github.com/alexfalkowski/go-service/env"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	v2c "github.com/alexfalkowski/standort/client/v2/config"
 	"github.com/alexfalkowski/standort/transport/grpc"
@@ -19,6 +20,7 @@ type ServiceClientParams struct {
 	Logger    *zap.Logger
 	Tracer    trace.Tracer
 	Meter     metric.Meter
+	UserAgent env.UserAgent
 }
 
 // NewServiceClient for gRPC.
@@ -29,6 +31,7 @@ func NewServiceClient(params ServiceClientParams) (v2.ServiceClient, error) {
 		Logger:    params.Logger,
 		Tracer:    params.Tracer,
 		Meter:     params.Meter,
+		UserAgent: params.UserAgent,
 	}
 	conn, err := grpc.NewClient(opts)
 
