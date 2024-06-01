@@ -7,6 +7,7 @@ import (
 	geouri "git.jlel.se/jlelse/go-geouri"
 	"github.com/alexfalkowski/go-service/meta"
 	sm "github.com/alexfalkowski/go-service/transport/grpc/meta"
+	tm "github.com/alexfalkowski/go-service/transport/meta"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	"github.com/alexfalkowski/standort/location"
 )
@@ -62,7 +63,7 @@ func (s *Server) ip(ctx context.Context, req *v2.GetLocationRequest) string {
 		return ip
 	}
 
-	return sm.IPAddr(ctx, sm.ExtractIncoming(ctx))
+	return tm.IPAddr(ctx).Value()
 }
 
 func (s *Server) point(ctx context.Context, req *v2.GetLocationRequest) (*v2.Point, error) {
