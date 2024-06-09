@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.103.0](https://github.com/alexfalkowski/standort/releases/tag/v2.103.0) - 2024-06-09
+
+- [`bd44aaf`](https://github.com/alexfalkowski/standort/commit/bd44aafa2b4b97380a7bd7d993e0962b61e99314) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.214.1 (#778)
+- [`b1c9766`](https://github.com/alexfalkowski/standort/commit/b1c97664839fc9581ff5a11cceedb21881bac159) build(deps): bump bin from `955891d` to `897d5f1` (#777)
+- [`1ecc4f4`](https://github.com/alexfalkowski/standort/commit/1ecc4f48c5ec7532d3f93ae62d39fc11a5cd17a5) build(ci): fix bundler dependabot (#776)
+- [`1f66dc0`](https://github.com/alexfalkowski/standort/commit/1f66dc01deeb6a27840ffbb1c043dff9638854ef) build(ci): add dependabot (#775)
+- [`6b480d9`](https://github.com/alexfalkowski/standort/commit/6b480d94a5f25b7fe3e360f88c4c5893ef7b7433) build(ci): use alexfalkowski/go:1.22 (#774)
+
 ## [v2.102.2](https://github.com/alexfalkowski/standort/releases/tag/v2.102.2) - 2024-06-05
 
 - [`1053d53`](https://github.com/alexfalkowski/standort/commit/1053d53513be60ee11936f57e4c86085294d2e91) fix(deps): upgraded github.com/alexfalkowski/go-service to v1.213.3 (#773)
