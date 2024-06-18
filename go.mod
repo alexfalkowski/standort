@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.17.1
-	github.com/alexfalkowski/go-service v1.217.2
+	github.com/alexfalkowski/go-service v1.217.3
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.20.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.11.1
@@ -100,7 +100,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/smarty/assertions v1.15.0 // indirect
 	github.com/sony/gobreaker v1.0.0 // indirect
-	github.com/spf13/cobra v1.8.0 // indirect
+	github.com/spf13/cobra v1.8.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/standard-webhooks/standard-webhooks/libraries v0.0.0-20240515140834-bd08ac9ba53b // indirect
 	github.com/stretchr/objx v0.5.2 // indirect
