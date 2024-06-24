@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package standort.v2;
 
-import "google/api/annotations.proto";
-
 option go_package = "github.com/alexfalkowski/standort/api/standort/v2";
 option ruby_package = "Standort::V2";
 
@@ -42,7 +40,5 @@ message GetLocationResponse {
 // Service allows to get location via multiple methods.
 service Service {
   // GetLocation via multiple methods.
-  rpc GetLocation(GetLocationRequest) returns (GetLocationResponse) {
-    option (google.api.http) = {get: "/v2/location"};
-  }
+  rpc GetLocation(GetLocationRequest) returns (GetLocationResponse) {}
 }

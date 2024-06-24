@@ -15,6 +15,11 @@ import (
 // ErrNotFound for location.
 var ErrNotFound = errors.New("not found")
 
+// IsErrNotFound for location.
+func IsNotFound(err error) bool {
+	return errors.Is(err, ErrNotFound)
+}
+
 // Location will find the country and continent by different criteria.
 type Location struct {
 	ipProvider      ip.Provider

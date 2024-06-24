@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package standort.v1;
 
-import "google/api/annotations.proto";
-
 option go_package = "github.com/alexfalkowski/standort/api/standort/v1";
 option ruby_package = "Standort::V1";
 
@@ -39,12 +37,8 @@ message GetLocationByLatLngResponse {
 // Service allows to get locations by different filters.
 service Service {
   // GetLocationByIP for an IP address.
-  rpc GetLocationByIP(GetLocationByIPRequest) returns (GetLocationByIPResponse) {
-    option (google.api.http) = {get: "/v1/location/ip/{ip}"};
-  }
+  rpc GetLocationByIP(GetLocationByIPRequest) returns (GetLocationByIPResponse) {}
 
   // GetLocationByLatLng for a latitude and longitude.
-  rpc GetLocationByLatLng(GetLocationByLatLngRequest) returns (GetLocationByLatLngResponse) {
-    option (google.api.http) = {get: "/v1/location/lat/{lat}/lng/{lng}"};
-  }
+  rpc GetLocationByLatLng(GetLocationByLatLngRequest) returns (GetLocationByLatLngResponse) {}
 }
