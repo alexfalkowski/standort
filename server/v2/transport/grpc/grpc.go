@@ -1,49 +1,23 @@
 package grpc
 
 import (
-	"context"
-
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
-	v2c "github.com/alexfalkowski/standort/client/v2/config"
-	g "github.com/alexfalkowski/standort/transport/grpc"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"go.opentelemetry.io/otel/metric"
-	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/fx"
-	"go.uber.org/zap"
+	"github.com/alexfalkowski/standort/location"
 )
 
-// RegisterParams for gRPC.
-type RegisterParams struct {
-	fx.In
-
-	Lifecycle fx.Lifecycle
-	GRPC      *grpc.Server
-	Mux       *runtime.ServeMux
-	Client    *v2c.Config
-	Logger    *zap.Logger
-	Tracer    trace.Tracer
-	Meter     metric.Meter
-	Server    v2.ServiceServer
+// Register server.
+func Register(gs *grpc.Server, server v2.ServiceServer) {
+	v2.RegisterServiceServer(gs.Server(), server)
 }
 
-// Register server.
-func Register(params RegisterParams) error {
-	v2.RegisterServiceServer(params.GRPC.Server(), params.Server)
+// NewServer for gRPC.
+func NewServer(location *location.Location) v2.ServiceServer {
+	return &Server{location: location}
+}
 
-	opts := g.ClientOpts{
-		Lifecycle: params.Lifecycle,
-		Client:    params.Client.Config,
-		Logger:    params.Logger,
-		Tracer:    params.Tracer,
-		Meter:     params.Meter,
-	}
-
-	conn, err := g.NewClient(opts)
-	if err != nil {
-		return err
-	}
-
-	return v2.RegisterServiceHandler(context.Background(), params.Mux, conn)
+// Server for gRPC.
+type Server struct {
+	v2.UnimplementedServiceServer
+	location *location.Location
 }

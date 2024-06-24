@@ -11,17 +11,6 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-// NewServer for gRPC.
-func NewServer(location *location.Location) v1.ServiceServer {
-	return &Server{location: location}
-}
-
-// Server for gRPC.
-type Server struct {
-	v1.UnimplementedServiceServer
-	location *location.Location
-}
-
 // GetLocationByIP for gRPC.
 func (s *Server) GetLocationByIP(ctx context.Context, req *v1.GetLocationByIPRequest) (*v1.GetLocationByIPResponse, error) {
 	resp := &v1.GetLocationByIPResponse{}

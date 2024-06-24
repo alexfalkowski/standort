@@ -6,22 +6,9 @@ import (
 
 	geouri "git.jlel.se/jlelse/go-geouri"
 	"github.com/alexfalkowski/go-service/meta"
-	sm "github.com/alexfalkowski/go-service/transport/grpc/meta"
 	tm "github.com/alexfalkowski/go-service/transport/meta"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
-	"github.com/alexfalkowski/standort/location"
 )
-
-// NewServer for gRPC.
-func NewServer(location *location.Location) v2.ServiceServer {
-	return &Server{location: location}
-}
-
-// Server for gRPC.
-type Server struct {
-	v2.UnimplementedServiceServer
-	location *location.Location
-}
 
 // GetLocation for gRPC.
 func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*v2.GetLocationResponse, error) {
@@ -40,7 +27,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 		meta.WithAttribute(ctx, "location.point_error", meta.Error(err))
 	} else {
 		if point == nil {
-			resp.Meta = s.meta(ctx)
+			resp.Meta = meta.CamelStrings(ctx, "")
 
 			return resp, nil
 		}
@@ -52,7 +39,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 		}
 	}
 
-	resp.Meta = s.meta(ctx)
+	resp.Meta = meta.CamelStrings(ctx, "")
 
 	return resp, nil
 }
@@ -72,21 +59,15 @@ func (s *Server) point(ctx context.Context, req *v2.GetLocationRequest) (*v2.Poi
 		return point, nil
 	}
 
-	md := sm.ExtractIncoming(ctx)
-
-	values := md.Get("geolocation")
-	if len(values) > 0 {
-		geo, err := geouri.Parse(values[0])
-		if err != nil {
-			return nil, fmt.Errorf("geo uri: %w", err)
-		}
-
-		return &v2.Point{Lat: geo.Latitude, Lng: geo.Longitude}, nil
+	l := tm.Geolocation(ctx).Value()
+	if l == "" {
+		return nil, nil //nolint:nilnil
 	}
 
-	return nil, nil //nolint:nilnil
-}
+	geo, err := geouri.Parse(l)
+	if err != nil {
+		return nil, fmt.Errorf("geo uri: %w", err)
+	}
 
-func (s *Server) meta(ctx context.Context) map[string]string {
-	return meta.CamelStrings(ctx, "")
+	return &v2.Point{Lat: geo.Latitude, Lng: geo.Longitude}, nil
 }
