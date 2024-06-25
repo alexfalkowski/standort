@@ -40,15 +40,18 @@ type (
 		Continent string `json:"continent,omitempty"`
 	}
 
-	ipErrorer         struct{}
-	coordinateErrorer struct{}
+	ipHandler struct {
+		location *location.Location
+	}
+	coordinateHandler struct {
+		location *location.Location
+	}
 )
 
-// GetLocationByIP for gRPC.
-func (s *Server) GetLocationByIP(ctx context.Context, req *GetLocationByIPRequest) (*GetLocationByIPResponse, error) {
+func (h *ipHandler) Handle(ctx context.Context, req *GetLocationByIPRequest) (*GetLocationByIPResponse, error) {
 	resp := &GetLocationByIPResponse{}
 
-	country, continent, err := s.location.GetByIP(ctx, req.IP)
+	country, continent, err := h.location.GetByIP(ctx, req.IP)
 	if err != nil {
 		return resp, err
 	}
@@ -59,26 +62,11 @@ func (s *Server) GetLocationByIP(ctx context.Context, req *GetLocationByIPReques
 	return resp, nil
 }
 
-// GetLocationByLatLng for gRPC.
-func (s *Server) GetLocationByLatLng(ctx context.Context, req *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error) {
-	resp := &GetLocationByLatLngResponse{Location: &Location{}}
-
-	country, continent, err := s.location.GetByLatLng(ctx, req.Lat, req.Lng)
-	if err != nil {
-		return resp, err
-	}
-
-	resp.Location = &Location{Country: country, Continent: continent}
-	resp.Meta = meta.CamelStrings(ctx, "")
-
-	return resp, nil
-}
-
-func (*ipErrorer) Error(ctx context.Context, err error) *GetLocationByIPResponse {
+func (h *ipHandler) Error(ctx context.Context, err error) *GetLocationByIPResponse {
 	return &GetLocationByIPResponse{Meta: meta.CamelStrings(ctx, ""), Error: &Error{Message: err.Error()}}
 }
 
-func (*ipErrorer) Status(err error) int {
+func (h *ipHandler) Status(err error) int {
 	if location.IsNotFound(err) {
 		return http.StatusNotFound
 	}
@@ -86,11 +74,25 @@ func (*ipErrorer) Status(err error) int {
 	return http.StatusInternalServerError
 }
 
-func (*coordinateErrorer) Error(ctx context.Context, err error) *GetLocationByLatLngResponse {
+func (h *coordinateHandler) Handle(ctx context.Context, req *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error) {
+	resp := &GetLocationByLatLngResponse{Location: &Location{}}
+
+	country, continent, err := h.location.GetByLatLng(ctx, req.Lat, req.Lng)
+	if err != nil {
+		return resp, err
+	}
+
+	resp.Location = &Location{Country: country, Continent: continent}
+	resp.Meta = meta.CamelStrings(ctx, "")
+
+	return resp, nil
+}
+
+func (h *coordinateHandler) Error(ctx context.Context, err error) *GetLocationByLatLngResponse {
 	return &GetLocationByLatLngResponse{Meta: meta.CamelStrings(ctx, ""), Error: &Error{Message: err.Error()}}
 }
 
-func (*coordinateErrorer) Status(err error) int {
+func (h *coordinateHandler) Status(err error) int {
 	if location.IsNotFound(err) {
 		return http.StatusNotFound
 	}

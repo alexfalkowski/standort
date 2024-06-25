@@ -58,22 +58,23 @@ type (
 		Kind      string `json:"kind,omitempty"`
 	}
 
-	locationErrorer struct{}
+	locationHandler struct {
+		location *location.Location
+	}
 )
 
-// GetLocation for HTTP.
-func (s *Server) GetLocation(ctx context.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
+func (h *locationHandler) Handle(ctx context.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
 	resp := &GetLocationResponse{Locations: []*Location{}}
 
-	if ip := s.ip(ctx, req); ip != "" {
-		if country, continent, err := s.location.GetByIP(ctx, ip); err != nil {
+	if ip := h.ip(ctx, req); ip != "" {
+		if country, continent, err := h.location.GetByIP(ctx, ip); err != nil {
 			meta.WithAttribute(ctx, "location.ip_error", meta.Error(err))
 		} else {
 			resp.Locations = append(resp.Locations, &Location{Country: country, Continent: continent, Kind: "KIND_IP"})
 		}
 	}
 
-	point, err := s.point(ctx, req)
+	point, err := h.point(ctx, req)
 	if err != nil {
 		meta.WithAttribute(ctx, "location.point_error", meta.Error(err))
 	} else {
@@ -83,7 +84,7 @@ func (s *Server) GetLocation(ctx context.Context, req *GetLocationRequest) (*Get
 			return resp, nil
 		}
 
-		if country, continent, err := s.location.GetByLatLng(ctx, point.Lat, point.Lng); err != nil {
+		if country, continent, err := h.location.GetByLatLng(ctx, point.Lat, point.Lng); err != nil {
 			meta.WithAttribute(ctx, "location.lat_lng_error", meta.Error(err))
 		} else {
 			resp.Locations = append(resp.Locations, &Location{Country: country, Continent: continent, Kind: "KIND_GEO"})
@@ -95,7 +96,19 @@ func (s *Server) GetLocation(ctx context.Context, req *GetLocationRequest) (*Get
 	return resp, nil
 }
 
-func (s *Server) ip(ctx context.Context, req *GetLocationRequest) string {
+func (h *locationHandler) Error(ctx context.Context, err error) *GetLocationResponse {
+	return &GetLocationResponse{Meta: meta.CamelStrings(ctx, ""), Error: &Error{Message: err.Error()}}
+}
+
+func (h *locationHandler) Status(err error) int {
+	if location.IsNotFound(err) {
+		return http.StatusNotFound
+	}
+
+	return http.StatusInternalServerError
+}
+
+func (h *locationHandler) ip(ctx context.Context, req *GetLocationRequest) string {
 	ip := req.IP
 	if ip != "" {
 		return ip
@@ -104,7 +117,7 @@ func (s *Server) ip(ctx context.Context, req *GetLocationRequest) string {
 	return tm.IPAddr(ctx).Value()
 }
 
-func (s *Server) point(ctx context.Context, req *GetLocationRequest) (*Point, error) {
+func (h *locationHandler) point(ctx context.Context, req *GetLocationRequest) (*Point, error) {
 	point := req.Point
 	if point != nil {
 		return point, nil
@@ -121,16 +134,4 @@ func (s *Server) point(ctx context.Context, req *GetLocationRequest) (*Point, er
 	}
 
 	return &Point{Lat: geo.Latitude, Lng: geo.Longitude}, nil
-}
-
-func (*locationErrorer) Error(ctx context.Context, err error) *GetLocationResponse {
-	return &GetLocationResponse{Meta: meta.CamelStrings(ctx, ""), Error: &Error{Message: err.Error()}}
-}
-
-func (*locationErrorer) Status(err error) int {
-	if location.IsNotFound(err) {
-		return http.StatusNotFound
-	}
-
-	return http.StatusInternalServerError
 }
