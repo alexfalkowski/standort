@@ -40,12 +40,3 @@ Then('I should receive a valid locations with HTTP:') do |table|
   expect(location['continent']).to eq(rows['continent'])
   expect(location['kind']).to eq(rows['kind'])
 end
-
-Then('I should receive an empty response with HTTP') do
-  expect(@response.code).to eq(200)
-
-  resp = JSON.parse(@response.body)
-
-  expect(resp['meta'].length).to be > 0
-  expect(resp['locations']).to be_nil
-end

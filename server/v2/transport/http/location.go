@@ -2,13 +2,11 @@ package http
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
-	geouri "git.jlel.se/jlelse/go-geouri"
 	"github.com/alexfalkowski/go-service/meta"
-	tm "github.com/alexfalkowski/go-service/transport/meta"
 	"github.com/alexfalkowski/standort/location"
+	"github.com/alexfalkowski/standort/server/service"
 )
 
 type (
@@ -59,39 +57,31 @@ type (
 	}
 
 	locationHandler struct {
-		location *location.Location
+		service *service.Service
 	}
 )
 
 func (h *locationHandler) Handle(ctx context.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
-	resp := &GetLocationResponse{Locations: []*Location{}}
+	resp := &GetLocationResponse{}
+	locations := []*Location{}
 
-	if ip := h.ip(ctx, req); ip != "" {
-		if country, continent, err := h.location.GetByIP(ctx, ip); err != nil {
-			meta.WithAttribute(ctx, "location.ip_error", meta.Error(err))
-		} else {
-			resp.Locations = append(resp.Locations, &Location{Country: country, Continent: continent, Kind: "KIND_IP"})
-		}
+	ip, geo, err := h.service.GetLocations(ctx, req.IP, toPoint(req.Point))
+	if err != nil {
+		return resp, err
 	}
 
-	point, err := h.point(ctx, req)
-	if err != nil {
-		meta.WithAttribute(ctx, "location.point_error", meta.Error(err))
-	} else {
-		if point == nil {
-			resp.Meta = meta.CamelStrings(ctx, "")
+	i, g := toLocation(ip), toLocation(geo)
 
-			return resp, nil
-		}
+	if i != nil {
+		locations = append(locations, i)
+	}
 
-		if country, continent, err := h.location.GetByLatLng(ctx, point.Lat, point.Lng); err != nil {
-			meta.WithAttribute(ctx, "location.lat_lng_error", meta.Error(err))
-		} else {
-			resp.Locations = append(resp.Locations, &Location{Country: country, Continent: continent, Kind: "KIND_GEO"})
-		}
+	if g != nil {
+		locations = append(locations, g)
 	}
 
 	resp.Meta = meta.CamelStrings(ctx, "")
+	resp.Locations = locations
 
 	return resp, nil
 }
@@ -101,37 +91,25 @@ func (h *locationHandler) Error(ctx context.Context, err error) *GetLocationResp
 }
 
 func (h *locationHandler) Status(err error) int {
-	if location.IsNotFound(err) {
+	if service.IsNotFound(err) || location.IsNotFound(err) {
 		return http.StatusNotFound
 	}
 
 	return http.StatusInternalServerError
 }
 
-func (h *locationHandler) ip(ctx context.Context, req *GetLocationRequest) string {
-	ip := req.IP
-	if ip != "" {
-		return ip
+func toPoint(p *Point) *service.Point {
+	if p == nil {
+		return nil
 	}
 
-	return tm.IPAddr(ctx).Value()
+	return &service.Point{Lat: p.Lat, Lng: p.Lng}
 }
 
-func (h *locationHandler) point(ctx context.Context, req *GetLocationRequest) (*Point, error) {
-	point := req.Point
-	if point != nil {
-		return point, nil
+func toLocation(l *service.Location) *Location {
+	if l == nil {
+		return nil
 	}
 
-	l := tm.Geolocation(ctx).Value()
-	if l == "" {
-		return nil, nil //nolint:nilnil
-	}
-
-	geo, err := geouri.Parse(l)
-	if err != nil {
-		return nil, fmt.Errorf("geo uri: %w", err)
-	}
-
-	return &Point{Lat: geo.Latitude, Lng: geo.Longitude}, nil
+	return &Location{Country: l.Country, Continent: l.Continent, Kind: string(l.Kind)}
 }

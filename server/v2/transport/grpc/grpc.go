@@ -3,7 +3,7 @@ package grpc
 import (
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
-	"github.com/alexfalkowski/standort/location"
+	"github.com/alexfalkowski/standort/server/service"
 )
 
 // Register server.
@@ -12,12 +12,12 @@ func Register(gs *grpc.Server, server v2.ServiceServer) {
 }
 
 // NewServer for gRPC.
-func NewServer(location *location.Location) v2.ServiceServer {
-	return &Server{location: location}
+func NewServer(service *service.Service) v2.ServiceServer {
+	return &Server{service: service}
 }
 
 // Server for gRPC.
 type Server struct {
 	v2.UnimplementedServiceServer
-	location *location.Location
+	service *service.Service
 }
