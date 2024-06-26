@@ -2,72 +2,71 @@ package grpc
 
 import (
 	"context"
-	"fmt"
 
-	geouri "git.jlel.se/jlelse/go-geouri"
 	"github.com/alexfalkowski/go-service/meta"
-	tm "github.com/alexfalkowski/go-service/transport/meta"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
+	"github.com/alexfalkowski/standort/server/service"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 // GetLocation for gRPC.
 func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*v2.GetLocationResponse, error) {
-	resp := &v2.GetLocationResponse{Locations: []*v2.Location{}}
+	resp := &v2.GetLocationResponse{}
+	locations := []*v2.Location{}
 
-	if ip := s.ip(ctx, req); ip != "" {
-		if country, continent, err := s.location.GetByIP(ctx, ip); err != nil {
-			meta.WithAttribute(ctx, "location.ip_error", meta.Error(err))
-		} else {
-			resp.Locations = append(resp.GetLocations(), &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_IP})
-		}
+	ip, geo, err := s.service.GetLocations(ctx, req.GetIp(), toPoint(req.GetPoint()))
+	if err != nil {
+		return resp, toError(err)
 	}
 
-	point, err := s.point(ctx, req)
-	if err != nil {
-		meta.WithAttribute(ctx, "location.point_error", meta.Error(err))
-	} else {
-		if point == nil {
-			resp.Meta = meta.CamelStrings(ctx, "")
+	i, g := toLocation(ip), toLocation(geo)
 
-			return resp, nil
-		}
+	if i != nil {
+		locations = append(locations, i)
+	}
 
-		if country, continent, err := s.location.GetByLatLng(ctx, point.GetLat(), point.GetLng()); err != nil {
-			meta.WithAttribute(ctx, "location.lat_lng_error", meta.Error(err))
-		} else {
-			resp.Locations = append(resp.GetLocations(), &v2.Location{Country: country, Continent: continent, Kind: v2.Kind_KIND_GEO})
-		}
+	if g != nil {
+		locations = append(locations, g)
 	}
 
 	resp.Meta = meta.CamelStrings(ctx, "")
+	resp.Locations = locations
 
 	return resp, nil
 }
 
-func (s *Server) ip(ctx context.Context, req *v2.GetLocationRequest) string {
-	ip := req.GetIp()
-	if ip != "" {
-		return ip
+func toError(err error) error {
+	if service.IsNotFound(err) {
+		return status.Error(codes.NotFound, err.Error())
 	}
 
-	return tm.IPAddr(ctx).Value()
+	return status.Error(codes.Internal, err.Error())
 }
 
-func (s *Server) point(ctx context.Context, req *v2.GetLocationRequest) (*v2.Point, error) {
-	point := req.GetPoint()
-	if point != nil {
-		return point, nil
+func toPoint(p *v2.Point) *service.Point {
+	if p == nil {
+		return nil
 	}
 
-	l := tm.Geolocation(ctx).Value()
-	if l == "" {
-		return nil, nil //nolint:nilnil
+	return &service.Point{Lat: p.GetLat(), Lng: p.GetLng()}
+}
+
+func toLocation(l *service.Location) *v2.Location {
+	if l == nil {
+		return nil
 	}
 
-	geo, err := geouri.Parse(l)
-	if err != nil {
-		return nil, fmt.Errorf("geo uri: %w", err)
+	var k v2.Kind
+
+	switch l.Kind {
+	case service.GEO:
+		k = v2.Kind_KIND_GEO
+	case service.IP:
+		k = v2.Kind_KIND_IP
+	default:
+		k = v2.Kind_KIND_UNSPECIFIED
 	}
 
-	return &v2.Point{Lat: geo.Latitude, Lng: geo.Longitude}, nil
+	return &v2.Location{Country: l.Country, Continent: l.Continent, Kind: k}
 }

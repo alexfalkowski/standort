@@ -33,8 +33,3 @@ Then('I should receive a valid locations with gRPC:') do |table|
   expect(location.continent).to eq(rows['continent'])
   expect(location.kind).to eq(rows['kind'].to_sym)
 end
-
-Then('I should receive an empty response with gRPC') do
-  expect(@response.meta.length).to be > 0
-  expect(@response.locations.length).to eq(0)
-end

@@ -28,7 +28,7 @@ Feature: Server
     When I request a location with gRPC:
       | ip     | <ip>     |
       | method | <method> |
-    Then I should receive an empty response with gRPC
+    Then I should receive a not found response with gRPC
 
     Examples: With geoip2 parameters
       | source | method | ip      |
@@ -71,7 +71,7 @@ Feature: Server
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive an empty response with gRPC
+    Then I should receive a not found response with gRPC
 
     Examples: With parameters
       | method | latitude | longitude |
@@ -90,7 +90,7 @@ Feature: Server
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive an empty response with gRPC
+    Then I should receive a not found response with gRPC
 
     Examples:
       | method   | latitude | longitude |
