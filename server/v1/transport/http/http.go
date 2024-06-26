@@ -12,6 +12,6 @@ type Error struct {
 
 // Register for HTTP.
 func Register(location *location.Location) {
-	http.Handle("POST /v1/ip", &ipHandler{location: location})
-	http.Handle("POST /v1/coordinate", &coordinateHandler{location: location})
+	http.Handle("/v1/ip", &ipHandler{location: location})
+	http.Handle("/v1/coordinate", &coordinateHandler{location: location})
 }
