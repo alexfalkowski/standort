@@ -1,10 +1,10 @@
 package http
 
 import (
-	"context"
 	"net/http"
 
 	"github.com/alexfalkowski/go-service/meta"
+	nh "github.com/alexfalkowski/go-service/net/http"
 	"github.com/alexfalkowski/standort/location"
 	"github.com/alexfalkowski/standort/server/service"
 )
@@ -61,7 +61,7 @@ type (
 	}
 )
 
-func (h *locationHandler) Handle(ctx context.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
+func (h *locationHandler) Handle(ctx nh.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
 	resp := &GetLocationResponse{}
 	locations := []*Location{}
 
@@ -86,7 +86,7 @@ func (h *locationHandler) Handle(ctx context.Context, req *GetLocationRequest) (
 	return resp, nil
 }
 
-func (h *locationHandler) Error(ctx context.Context, err error) *GetLocationResponse {
+func (h *locationHandler) Error(ctx nh.Context, err error) *GetLocationResponse {
 	return &GetLocationResponse{Meta: meta.CamelStrings(ctx, ""), Error: &Error{Message: err.Error()}}
 }
 
