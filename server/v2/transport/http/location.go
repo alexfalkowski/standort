@@ -19,7 +19,6 @@ type (
 	// GetLocationResponse for getting the location.
 	GetLocationResponse struct {
 		Meta      map[string]string `json:"meta,omitempty"`
-		Error     *Error            `json:"error,omitempty"`
 		Locations []*Location       `json:"locations,omitempty"`
 	}
 
@@ -32,7 +31,6 @@ type (
 	// GetLocationByIPResponse for an IP address.
 	GetLocationByIPResponse struct {
 		Meta     map[string]string `json:"meta,omitempty"`
-		Error    *Error            `json:"error,omitempty"`
 		Location *Location         `json:"location,omitempty"`
 	}
 
@@ -45,7 +43,6 @@ type (
 	// GetLocationByLatLngResponse for a latitude and longitude.
 	GetLocationByLatLngResponse struct {
 		Meta     map[string]string `json:"meta,omitempty"`
-		Error    *Error            `json:"error,omitempty"`
 		Location *Location         `json:"location,omitempty"`
 	}
 
@@ -84,10 +81,6 @@ func (h *locationHandler) Handle(ctx nh.Context, req *GetLocationRequest) (*GetL
 	resp.Locations = locations
 
 	return resp, nil
-}
-
-func (h *locationHandler) Error(ctx nh.Context, err error) *GetLocationResponse {
-	return &GetLocationResponse{Meta: meta.CamelStrings(ctx, ""), Error: &Error{Message: err.Error()}}
 }
 
 func (h *locationHandler) Status(err error) int {
