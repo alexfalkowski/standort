@@ -1,5 +1,8 @@
-[![CircleCI](https://circleci.com/gh/alexfalkowski/standort.svg?style=svg)](https://circleci.com/gh/alexfalkowski/standort)
+[![CircleCI](https://circleci.com/gh/alexfalkowski/standort.svg?style=shield)](https://circleci.com/gh/alexfalkowski/standort)
 [![codecov](https://codecov.io/gh/alexfalkowski/standort/graph/badge.svg?token=JJP65DPD1M)](https://codecov.io/gh/alexfalkowski/standort)
+[![Go Report Card](https://goreportcard.com/badge/github.com/alexfalkowski/standort)](https://goreportcard.com/report/github.com/alexfalkowski/standort)
+[![Go Reference](https://pkg.go.dev/badge/github.com/alexfalkowski/standort.svg)](https://pkg.go.dev/github.com/alexfalkowski/standort)
+[![Stability: Active](https://masterminds.github.io/stability/active.svg)](https://masterminds.github.io/stability/active.html)
 
 # Standort
 
