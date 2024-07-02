@@ -2,13 +2,9 @@ package grpc
 
 import (
 	"context"
-	"errors"
 
 	"github.com/alexfalkowski/go-service/meta"
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
-	"github.com/alexfalkowski/standort/location"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 // GetLocationByIP for gRPC.
@@ -16,12 +12,14 @@ func (s *Server) GetLocationByIP(ctx context.Context, req *v1.GetLocationByIPReq
 	resp := &v1.GetLocationByIPResponse{}
 
 	country, continent, err := s.location.GetByIP(ctx, req.GetIp())
-	if err != nil && errors.Is(err, location.ErrNotFound) {
-		return resp, status.Error(codes.NotFound, err.Error())
+	if err != nil {
+		resp.Meta = meta.CamelStrings(ctx, "")
+
+		return resp, s.error(err)
 	}
 
 	resp.Location = &v1.Location{Country: country, Continent: continent}
-	resp.Meta = s.meta(ctx)
+	resp.Meta = meta.CamelStrings(ctx, "")
 
 	return resp, nil
 }
@@ -31,16 +29,14 @@ func (s *Server) GetLocationByLatLng(ctx context.Context, req *v1.GetLocationByL
 	resp := &v1.GetLocationByLatLngResponse{Location: &v1.Location{}}
 
 	country, continent, err := s.location.GetByLatLng(ctx, req.GetLat(), req.GetLng())
-	if err != nil && errors.Is(err, location.ErrNotFound) {
-		return resp, status.Error(codes.NotFound, err.Error())
+	if err != nil {
+		resp.Meta = meta.CamelStrings(ctx, "")
+
+		return resp, s.error(err)
 	}
 
 	resp.Location = &v1.Location{Country: country, Continent: continent}
-	resp.Meta = s.meta(ctx)
+	resp.Meta = meta.CamelStrings(ctx, "")
 
 	return resp, nil
-}
-
-func (s *Server) meta(ctx context.Context) map[string]string {
-	return meta.CamelStrings(ctx, "")
 }

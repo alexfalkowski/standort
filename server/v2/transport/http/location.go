@@ -1,11 +1,8 @@
 package http
 
 import (
-	"net/http"
-
 	"github.com/alexfalkowski/go-service/meta"
-	nh "github.com/alexfalkowski/go-service/net/http"
-	"github.com/alexfalkowski/standort/location"
+	"github.com/alexfalkowski/go-service/net/http"
 	"github.com/alexfalkowski/standort/server/service"
 )
 
@@ -58,13 +55,15 @@ type (
 	}
 )
 
-func (h *locationHandler) Handle(ctx nh.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
+func (h *locationHandler) Handle(ctx http.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
 	resp := &GetLocationResponse{}
 	locations := []*Location{}
 
 	ip, geo, err := h.service.GetLocations(ctx, req.IP, toPoint(req.Point))
 	if err != nil {
-		return resp, err
+		resp.Meta = meta.CamelStrings(ctx, "")
+
+		return resp, handleError(err)
 	}
 
 	i, g := toLocation(ip), toLocation(geo)
@@ -81,14 +80,6 @@ func (h *locationHandler) Handle(ctx nh.Context, req *GetLocationRequest) (*GetL
 	resp.Locations = locations
 
 	return resp, nil
-}
-
-func (h *locationHandler) Status(err error) int {
-	if service.IsNotFound(err) || location.IsNotFound(err) {
-		return http.StatusNotFound
-	}
-
-	return http.StatusInternalServerError
 }
 
 func toPoint(p *Point) *service.Point {

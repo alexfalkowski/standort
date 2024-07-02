@@ -1,10 +1,8 @@
 package http
 
 import (
-	"net/http"
-
 	"github.com/alexfalkowski/go-service/meta"
-	nh "github.com/alexfalkowski/go-service/net/http"
+	"github.com/alexfalkowski/go-service/net/http"
 	"github.com/alexfalkowski/standort/location"
 )
 
@@ -46,12 +44,14 @@ type (
 	}
 )
 
-func (h *ipHandler) Handle(ctx nh.Context, req *GetLocationByIPRequest) (*GetLocationByIPResponse, error) {
+func (h *ipHandler) Handle(ctx http.Context, req *GetLocationByIPRequest) (*GetLocationByIPResponse, error) {
 	resp := &GetLocationByIPResponse{}
 
 	country, continent, err := h.location.GetByIP(ctx, req.IP)
 	if err != nil {
-		return resp, err
+		resp.Meta = meta.CamelStrings(ctx, "")
+
+		return resp, handleError(err)
 	}
 
 	resp.Location = &Location{Country: country, Continent: continent}
@@ -60,32 +60,18 @@ func (h *ipHandler) Handle(ctx nh.Context, req *GetLocationByIPRequest) (*GetLoc
 	return resp, nil
 }
 
-func (h *ipHandler) Status(err error) int {
-	if location.IsNotFound(err) {
-		return http.StatusNotFound
-	}
-
-	return http.StatusInternalServerError
-}
-
-func (h *coordinateHandler) Handle(ctx nh.Context, req *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error) {
+func (h *coordinateHandler) Handle(ctx http.Context, req *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error) {
 	resp := &GetLocationByLatLngResponse{Location: &Location{}}
 
 	country, continent, err := h.location.GetByLatLng(ctx, req.Lat, req.Lng)
 	if err != nil {
-		return resp, err
+		resp.Meta = meta.CamelStrings(ctx, "")
+
+		return resp, handleError(err)
 	}
 
 	resp.Location = &Location{Country: country, Continent: continent}
 	resp.Meta = meta.CamelStrings(ctx, "")
 
 	return resp, nil
-}
-
-func (h *coordinateHandler) Status(err error) int {
-	if location.IsNotFound(err) {
-		return http.StatusNotFound
-	}
-
-	return http.StatusInternalServerError
 }
