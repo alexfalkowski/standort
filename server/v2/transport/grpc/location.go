@@ -6,8 +6,6 @@ import (
 	"github.com/alexfalkowski/go-service/meta"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	"github.com/alexfalkowski/standort/server/service"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 // GetLocation for gRPC.
@@ -17,7 +15,9 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 
 	ip, geo, err := s.service.GetLocations(ctx, req.GetIp(), toPoint(req.GetPoint()))
 	if err != nil {
-		return resp, toError(err)
+		resp.Meta = meta.CamelStrings(ctx, "")
+
+		return resp, s.error(err)
 	}
 
 	i, g := toLocation(ip), toLocation(geo)
@@ -34,14 +34,6 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 	resp.Locations = locations
 
 	return resp, nil
-}
-
-func toError(err error) error {
-	if service.IsNotFound(err) {
-		return status.Error(codes.NotFound, err.Error())
-	}
-
-	return status.Error(codes.Internal, err.Error())
 }
 
 func toPoint(p *v2.Point) *service.Point {
