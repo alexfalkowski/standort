@@ -4,17 +4,16 @@ import (
 	"net/http"
 
 	nh "github.com/alexfalkowski/go-service/net/http"
-	"github.com/alexfalkowski/standort/location"
-	"github.com/alexfalkowski/standort/server/service"
+	"github.com/alexfalkowski/standort/server/location"
 )
 
 // Register for HTTP.
-func Register(service *service.Service) {
+func Register(service *location.Locator) {
 	nh.Handle("/v2/location", &locationHandler{service: service})
 }
 
 func handleError(err error) error {
-	if service.IsNotFound(err) || location.IsNotFound(err) {
+	if location.IsNotFound(err) {
 		return nh.Error(http.StatusNotFound, err.Error())
 	}
 

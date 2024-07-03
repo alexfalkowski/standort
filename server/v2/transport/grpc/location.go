@@ -5,7 +5,7 @@ import (
 
 	"github.com/alexfalkowski/go-service/meta"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
-	"github.com/alexfalkowski/standort/server/service"
+	"github.com/alexfalkowski/standort/server/location"
 )
 
 // GetLocation for gRPC.
@@ -13,7 +13,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 	resp := &v2.GetLocationResponse{}
 	locations := []*v2.Location{}
 
-	ip, geo, err := s.service.GetLocations(ctx, req.GetIp(), toPoint(req.GetPoint()))
+	ip, geo, err := s.service.Locate(ctx, req.GetIp(), toPoint(req.GetPoint()))
 	if err != nil {
 		resp.Meta = meta.CamelStrings(ctx, "")
 
@@ -36,15 +36,15 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 	return resp, nil
 }
 
-func toPoint(p *v2.Point) *service.Point {
+func toPoint(p *v2.Point) *location.Point {
 	if p == nil {
 		return nil
 	}
 
-	return &service.Point{Lat: p.GetLat(), Lng: p.GetLng()}
+	return &location.Point{Lat: p.GetLat(), Lng: p.GetLng()}
 }
 
-func toLocation(l *service.Location) *v2.Location {
+func toLocation(l *location.Location) *v2.Location {
 	if l == nil {
 		return nil
 	}
@@ -52,9 +52,9 @@ func toLocation(l *service.Location) *v2.Location {
 	var k v2.Kind
 
 	switch l.Kind {
-	case service.GEO:
+	case location.GEO:
 		k = v2.Kind_KIND_GEO
-	case service.IP:
+	case location.IP:
 		k = v2.Kind_KIND_IP
 	default:
 		k = v2.Kind_KIND_UNSPECIFIED
