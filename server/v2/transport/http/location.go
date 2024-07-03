@@ -3,7 +3,7 @@ package http
 import (
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/net/http"
-	"github.com/alexfalkowski/standort/server/service"
+	"github.com/alexfalkowski/standort/server/location"
 )
 
 type (
@@ -51,7 +51,7 @@ type (
 	}
 
 	locationHandler struct {
-		service *service.Service
+		service *location.Locator
 	}
 )
 
@@ -59,7 +59,7 @@ func (h *locationHandler) Handle(ctx http.Context, req *GetLocationRequest) (*Ge
 	resp := &GetLocationResponse{}
 	locations := []*Location{}
 
-	ip, geo, err := h.service.GetLocations(ctx, req.IP, toPoint(req.Point))
+	ip, geo, err := h.service.Locate(ctx, req.IP, toPoint(req.Point))
 	if err != nil {
 		resp.Meta = meta.CamelStrings(ctx, "")
 
@@ -82,15 +82,15 @@ func (h *locationHandler) Handle(ctx http.Context, req *GetLocationRequest) (*Ge
 	return resp, nil
 }
 
-func toPoint(p *Point) *service.Point {
+func toPoint(p *Point) *location.Point {
 	if p == nil {
 		return nil
 	}
 
-	return &service.Point{Lat: p.Lat, Lng: p.Lng}
+	return &location.Point{Lat: p.Lat, Lng: p.Lng}
 }
 
-func toLocation(l *service.Location) *Location {
+func toLocation(l *location.Location) *Location {
 	if l == nil {
 		return nil
 	}

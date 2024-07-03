@@ -1,4 +1,4 @@
-package service
+package location
 
 import (
 	"context"
@@ -31,8 +31,8 @@ type (
 		Lng float64
 	}
 
-	// Service for the different transports.
-	Service struct {
+	// Locator for the different transports.
+	Locator struct {
 		location *location.Location
 	}
 )
@@ -47,16 +47,16 @@ const (
 
 // IsNotFound for service.
 func IsNotFound(err error) bool {
-	return errors.Is(err, ErrNotFound)
+	return errors.Is(err, ErrNotFound) || location.IsNotFound(err)
 }
 
-// NewService for the different transports.
-func NewService(location *location.Location) *Service {
-	return &Service{location: location}
+// NewLocator for the different transports.
+func NewLocator(location *location.Location) *Locator {
+	return &Locator{location: location}
 }
 
-// GetLocations from IP and a point, it is returned in that order.
-func (s *Service) GetLocations(ctx context.Context, ip string, p *Point) (*Location, *Location, error) {
+// Locate from IP and a point, it is returned in that order.
+func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (*Location, *Location, error) {
 	var (
 		ipLocation  *Location
 		geoLocation *Location
@@ -88,7 +88,7 @@ func (s *Service) GetLocations(ctx context.Context, ip string, p *Point) (*Locat
 	return ipLocation, geoLocation, nil
 }
 
-func (s *Service) ip(ctx context.Context, ip string) string {
+func (s *Locator) ip(ctx context.Context, ip string) string {
 	if ip != "" {
 		return ip
 	}
@@ -96,7 +96,7 @@ func (s *Service) ip(ctx context.Context, ip string) string {
 	return tm.IPAddr(ctx).Value()
 }
 
-func (s *Service) point(ctx context.Context, p *Point) (*Point, error) {
+func (s *Locator) point(ctx context.Context, p *Point) (*Point, error) {
 	if p != nil {
 		return p, nil
 	}
