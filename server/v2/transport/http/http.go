@@ -3,6 +3,7 @@ package http
 import (
 	"net/http"
 
+	nh "github.com/alexfalkowski/go-service/net/http"
 	"github.com/alexfalkowski/go-service/net/http/rpc"
 	"github.com/alexfalkowski/standort/server/location"
 )
@@ -14,7 +15,7 @@ func Register(service *location.Locator) {
 
 func handleError(err error) error {
 	if location.IsNotFound(err) {
-		return rpc.Error(http.StatusNotFound, err.Error())
+		return nh.Error(http.StatusNotFound, err.Error())
 	}
 
 	return err

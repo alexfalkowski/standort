@@ -2,7 +2,7 @@ package http
 
 import (
 	"github.com/alexfalkowski/go-service/meta"
-	"github.com/alexfalkowski/go-service/net/http/rpc"
+	"github.com/alexfalkowski/go-service/net/http"
 	"github.com/alexfalkowski/standort/location"
 )
 
@@ -44,7 +44,7 @@ type (
 	}
 )
 
-func (h *ipHandler) Handle(ctx rpc.Context, req *GetLocationByIPRequest) (*GetLocationByIPResponse, error) {
+func (h *ipHandler) Handle(ctx http.Context, req *GetLocationByIPRequest) (*GetLocationByIPResponse, error) {
 	resp := &GetLocationByIPResponse{}
 
 	country, continent, err := h.location.GetByIP(ctx, req.IP)
@@ -60,7 +60,7 @@ func (h *ipHandler) Handle(ctx rpc.Context, req *GetLocationByIPRequest) (*GetLo
 	return resp, nil
 }
 
-func (h *coordinateHandler) Handle(ctx rpc.Context, req *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error) {
+func (h *coordinateHandler) Handle(ctx http.Context, req *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error) {
 	resp := &GetLocationByLatLngResponse{Location: &Location{}}
 
 	country, continent, err := h.location.GetByLatLng(ctx, req.Lat, req.Lng)
