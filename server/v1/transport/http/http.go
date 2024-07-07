@@ -9,8 +9,8 @@ import (
 
 // Register for HTTP.
 func Register(location *location.Location) {
-	rpc.Handle("/v1/ip", &ipHandler{location: location})
-	rpc.Handle("/v1/coordinate", &coordinateHandler{location: location})
+	rpc.Unary("/v1/ip", &ipHandler{location: location})
+	rpc.Unary("/v1/coordinate", &coordinateHandler{location: location})
 }
 
 func handleError(err error) error {
