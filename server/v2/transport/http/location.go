@@ -56,7 +56,7 @@ type (
 	}
 )
 
-func (h *locationHandler) Handle(ctx context.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
+func (h *locationHandler) Locate(ctx context.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
 	resp := &GetLocationResponse{}
 	locations := []*Location{}
 
