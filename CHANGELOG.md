@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.138.0](https://github.com/alexfalkowski/standort/releases/tag/v2.138.0) - 2024-07-15
+
+- [`f485c11`](https://github.com/alexfalkowski/standort/commit/f485c1175856126dabf69df5647b259a4a70c6d0) feat(deps): bump github.com/alexfalkowski/go-service from 1.247.0 to 1.248.0 (#843)
+- [`7d061a4`](https://github.com/alexfalkowski/standort/commit/7d061a4bd9d1ab3b33de8df1a57830f73bae2fb5) build(deps): bump bin from `897d5f1` to `44badfa` (#844)
+- [`33dbd55`](https://github.com/alexfalkowski/standort/commit/33dbd55689d8ca289532074a2d49a4d74c130518) build(ci): use docker caching (#842)
+- [`dd9ad96`](https://github.com/alexfalkowski/standort/commit/dd9ad96ade0e94589d2545bb360bf58a097df192) test(deps): bump ruby-lsp from 0.17.6 to 0.17.7 in /test (#841)
+
 ## [v2.137.0](https://github.com/alexfalkowski/standort/releases/tag/v2.137.0) - 2024-07-11
 
 - [`2e8ffa1`](https://github.com/alexfalkowski/standort/commit/2e8ffa12011c819b23950be59f94be7e2cddf5b6) feat(deps): bump github.com/alexfalkowski/go-service from 1.246.0 to 1.247.0 (#838)
