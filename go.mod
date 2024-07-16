@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.17.2
-	github.com/alexfalkowski/go-service v1.248.0
+	github.com/alexfalkowski/go-service v1.248.1
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.11.1
 	github.com/smartystreets/goconvey v1.8.1
@@ -93,7 +93,7 @@ require (
 	github.com/prometheus/client_model v0.6.1 // indirect
 	github.com/prometheus/common v0.55.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
-	github.com/redis/go-redis/v9 v9.5.3 // indirect
+	github.com/redis/go-redis/v9 v9.5.4 // indirect
 	github.com/rs/cors v1.11.0 // indirect
 	github.com/secure-io/siv-go v0.0.0-20180922214919-5ff40651e2c4 // indirect
 	github.com/sethvargo/go-limiter v1.0.0 // indirect
