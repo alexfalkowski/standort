@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.140.0](https://github.com/alexfalkowski/standort/releases/tag/v2.140.0) - 2024-07-24
+
+- [`4170f1f`](https://github.com/alexfalkowski/standort/commit/4170f1f1324455d73f9afd4f15234bca4512d407) feat(deps): bump github.com/alexfalkowski/go-service from 1.248.1 to 1.251.0 (#849)
+- [`802abb5`](https://github.com/alexfalkowski/standort/commit/802abb50200cd45cb91bf51902d8ebdab7a586bc) test(deps): bump nonnative from 1.80.0 to 1.81.0 in /test (#847)
+- [`9d83f70`](https://github.com/alexfalkowski/standort/commit/9d83f7079e6c5f9736b962de70e4264b11769d75) test(deps): bump rexml from 3.3.1 to 3.3.2 in /test (#850)
+- [`dd1b252`](https://github.com/alexfalkowski/standort/commit/dd1b252721488d8b9676459352ab92f200c684f1) test(deps): bump ruby-lsp from 0.17.8 to 0.17.9 in /test (#848)
+- [`435cdf5`](https://github.com/alexfalkowski/standort/commit/435cdf5b2e490beae80e7d9547bd85dcf8729c63) test(deps): bump ruby-lsp from 0.17.7 to 0.17.8 in /test (#846)
+
 ## [v2.139.0](https://github.com/alexfalkowski/standort/releases/tag/v2.139.0) - 2024-07-16
 
 - [`05edfed`](https://github.com/alexfalkowski/standort/commit/05edfed9c832ec8c3f5672a240d344f0842a986d) feat(deps): bump github.com/alexfalkowski/go-service from 1.248.0 to 1.248.1 (#845)
