@@ -11,10 +11,10 @@ import (
 // Register for HTTP.
 func Register(location *location.Location) {
 	ih := &ipHandler{location: location}
-	rpc.Unary("/v1/ip", ih.Locate)
+	rpc.Route("/v1/ip", ih.Locate)
 
 	ch := &coordinateHandler{location: location}
-	rpc.Unary("/v1/coordinate", ch.Locate)
+	rpc.Route("/v1/coordinate", ch.Locate)
 }
 
 func handleError(err error) error {
