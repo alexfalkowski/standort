@@ -11,7 +11,7 @@ import (
 // Register for HTTP.
 func Register(service *location.Locator) {
 	lh := &locationHandler{service: service}
-	rpc.Unary("/v2/location", lh.Locate)
+	rpc.Route("/v2/location", lh.Locate)
 }
 
 func handleError(err error) error {
