@@ -1,21 +1,4 @@
 environment: production
-client:
-  v1:
-    address: localhost:12000
-    retry:
-      attempts: 3
-      backoff: 100ms
-      timeout: 3s
-    timeout: 5s
-    user_agent: "Standort-client/1.0 gRPC/1.0"
-  v2:
-    address: localhost:12000
-    retry:
-      attempts: 3
-      backoff: 100ms
-      timeout: 3s
-    timeout: 5s
-    user_agent: "Standort-client/2.0 gRPC/1.0"
 health:
   duration: 1s
   timeout: 1s
