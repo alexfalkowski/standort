@@ -1,7 +1,7 @@
 environment: production
 client:
   v1:
-    host: localhost:12000
+    address: localhost:12000
     retry:
       attempts: 3
       backoff: 100ms
@@ -9,7 +9,7 @@ client:
     timeout: 5s
     user_agent: "Standort-client/1.0 gRPC/1.0"
   v2:
-    host: localhost:12000
+    address: localhost:12000
     retry:
       attempts: 3
       backoff: 100ms
@@ -30,10 +30,10 @@ telemetry:
     kind: prometheus
   tracer:
     kind: otlp
-    host: http://localhost:4318/v1/traces
+    url: http://localhost:4318/v1/traces
 transport:
   http:
-    port: 11000
+    address: :11000
     retry:
       attempts: 3
       backoff: 100ms
@@ -41,7 +41,7 @@ transport:
     timeout: 5s
     user_agent: "Standort-server/2.0 http/1.0"
   grpc:
-    port: 12000
+    address: :12000
     retry:
       attempts: 3
       backoff: 100ms
