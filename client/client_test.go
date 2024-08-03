@@ -22,7 +22,7 @@ func TestV1Client(t *testing.T) {
 			Lifecycle: lc,
 			Client: &v1c.Config{
 				Config: &c.Config{
-					Host: "localhost", Timeout: "1s", Retry: &retry.Config{Backoff: "100ms", Timeout: "1s"},
+					Address: "localhost", Timeout: "1s", Retry: &retry.Config{Backoff: "100ms", Timeout: "1s"},
 				},
 			},
 			Tracer: noop.Tracer{},
@@ -51,7 +51,7 @@ func TestV2Client(t *testing.T) {
 			Lifecycle: lc,
 			Client: &v2c.Config{
 				Config: &c.Config{
-					Host: "localhost", Timeout: "1s", Retry: &retry.Config{Backoff: "100ms", Timeout: "1s"},
+					Address: "localhost", Timeout: "1s", Retry: &retry.Config{Backoff: "100ms", Timeout: "1s"},
 				},
 			},
 			Tracer: noop.Tracer{},

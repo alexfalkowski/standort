@@ -35,7 +35,7 @@ func NewClient(options ClientOpts) (*g.ClientConn, error) {
 		grpc.WithClientMetrics(options.Meter), grpc.WithClientRetry(options.Client.Retry),
 		grpc.WithClientUserAgent(options.UserAgent), grpc.WithClientTimeout(options.Client.Timeout), sec,
 	}
-	conn, err := grpc.NewClient(options.Client.Host, opts...)
+	conn, err := grpc.NewClient(options.Client.Address, opts...)
 
 	options.Lifecycle.Append(fx.Hook{
 		OnStop: func(_ context.Context) error {
