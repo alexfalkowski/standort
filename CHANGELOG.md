@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.184.0](https://github.com/alexfalkowski/standort/releases/tag/v2.184.0) - 2024-09-25
+
+- [`140a832`](https://github.com/alexfalkowski/standort/commit/140a832da2810e151f242d9d56e7c8173b034dc6) feat(deps): bump github.com/alexfalkowski/go-service from 1.297.0 to 1.300.0 (#946)
+- [`6db3377`](https://github.com/alexfalkowski/standort/commit/6db3377cdaca5ff723fc8220b8d8e3ded3429df5) test(deps): bump ruby-lsp from 0.18.2 to 0.18.3 in /test (#945)
+- [`75fa924`](https://github.com/alexfalkowski/standort/commit/75fa924f797e7203a7cc4c849f7a2bec5aa8e54b) test(deps): bump ruby-lsp from 0.18.1 to 0.18.2 in /test (#944)
+- [`b295fbf`](https://github.com/alexfalkowski/standort/commit/b295fbf3211cf18a07d7c1d6b6e739300c1e15d2) build(api): buf lint (#943)
+- [`d0819dd`](https://github.com/alexfalkowski/standort/commit/d0819dd5967a7e9cbb643bd9cbf6c12227301a2d) test(deps): bump ruby-lsp from 0.18.0 to 0.18.1 in /test (#942)
+- [`455d1f3`](https://github.com/alexfalkowski/standort/commit/455d1f383a9bbdaf1532d42dba859606343d757a) build(deps): bump bin from `b975eab` to `8b87d26` (#941)
+
 ## [v2.183.0](https://github.com/alexfalkowski/standort/releases/tag/v2.183.0) - 2024-09-20
 
 - [`08e3fb4`](https://github.com/alexfalkowski/standort/commit/08e3fb45cef7e7a36f4ca7b7d1d542ca0dfc16ed) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.297.0 (#940)
