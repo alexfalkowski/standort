@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.200.0](https://github.com/alexfalkowski/standort/releases/tag/v2.200.0) - 2024-11-19
+
+- [`fe03337`](https://github.com/alexfalkowski/standort/commit/fe033379797fd09745c49a73d22e82ed2ba7bfc1) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.314.0 (#983)
+- [`d002b6b`](https://github.com/alexfalkowski/standort/commit/d002b6bdd7e5e85339223666c280d878578f868e) test(deps): bump sinatra from 4.0.0 to 4.1.0 in /test (#982)
+
 ## [v2.199.0](https://github.com/alexfalkowski/standort/releases/tag/v2.199.0) - 2024-11-15
 
 - [`57ebbbe`](https://github.com/alexfalkowski/standort/commit/57ebbbe087a41767a8b803e175c011e4a198aaa1) feat(deps): bump github.com/alexfalkowski/go-service from 1.312.1 to 1.313.0 (#981)
