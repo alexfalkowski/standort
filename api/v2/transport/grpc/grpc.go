@@ -2,8 +2,8 @@ package grpc
 
 import (
 	"github.com/alexfalkowski/go-service/transport/grpc"
+	"github.com/alexfalkowski/standort/api/location"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
-	"github.com/alexfalkowski/standort/server/location"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
