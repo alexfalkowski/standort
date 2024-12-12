@@ -1,6 +1,6 @@
 @http
-Feature: Server
-  Server allows users to get locations by different means.
+Feature: HTTP API
+  These endpoints allows users to get locations by different means.
 
   Scenario Outline: Get location by a valid IP address.
     When I request a location by IP address with HTTP:
