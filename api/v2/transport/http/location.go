@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/alexfalkowski/go-service/meta"
-	"github.com/alexfalkowski/standort/server/location"
+	"github.com/alexfalkowski/standort/api/location"
 )
 
 type (

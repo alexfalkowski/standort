@@ -5,7 +5,7 @@ import (
 
 	"github.com/alexfalkowski/go-service/net/http/rpc"
 	"github.com/alexfalkowski/go-service/net/http/status"
-	"github.com/alexfalkowski/standort/server/location"
+	"github.com/alexfalkowski/standort/api/location"
 )
 
 // Register for HTTP.

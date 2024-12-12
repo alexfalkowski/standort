@@ -1,9 +1,9 @@
 package v2
 
 import (
-	"github.com/alexfalkowski/standort/server/location"
-	"github.com/alexfalkowski/standort/server/v2/transport/grpc"
-	"github.com/alexfalkowski/standort/server/v2/transport/http"
+	"github.com/alexfalkowski/standort/api/location"
+	"github.com/alexfalkowski/standort/api/v2/transport/grpc"
+	"github.com/alexfalkowski/standort/api/v2/transport/http"
 	"go.uber.org/fx"
 )
 

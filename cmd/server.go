@@ -9,12 +9,12 @@ import (
 	"github.com/alexfalkowski/go-service/sync"
 	"github.com/alexfalkowski/go-service/telemetry"
 	"github.com/alexfalkowski/go-service/transport"
+	v1 "github.com/alexfalkowski/standort/api/v1"
+	v2 "github.com/alexfalkowski/standort/api/v2"
 	"github.com/alexfalkowski/standort/assets"
 	"github.com/alexfalkowski/standort/config"
+	"github.com/alexfalkowski/standort/health"
 	"github.com/alexfalkowski/standort/location"
-	"github.com/alexfalkowski/standort/server/health"
-	v1 "github.com/alexfalkowski/standort/server/v1"
-	v2 "github.com/alexfalkowski/standort/server/v2"
 	"go.uber.org/fx"
 )
 
