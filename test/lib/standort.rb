@@ -15,12 +15,8 @@ require 'standort/v2/service_services_pb'
 
 module Standort
   class << self
-    def observability
-      @observability ||= Nonnative::Observability.new('http://localhost:11000')
-    end
-
-    def server_config
-      @server_config ||= Nonnative.configurations('.config/server.yml')
+    def config
+      @config ||= Nonnative.configurations('.config/server.yml')
     end
 
     def health_grpc
@@ -34,24 +30,24 @@ module Standort
 
   module V1
     class << self
-      def server_http
-        @server_http ||= Standort::V1::HTTP.new('http://localhost:11000')
+      def http
+        @http ||= Standort::V1::HTTP.new('http://localhost:11000')
       end
 
-      def server_grpc
-        @server_grpc ||= Standort::V1::Service::Stub.new('localhost:12000', :this_channel_is_insecure, channel_args: Standort.user_agent)
+      def grpc
+        @grpc ||= Standort::V1::Service::Stub.new('localhost:12000', :this_channel_is_insecure, channel_args: Standort.user_agent)
       end
     end
   end
 
   module V2
     class << self
-      def server_http
-        @server_http ||= Standort::V2::HTTP.new('http://localhost:11000')
+      def http
+        @http ||= Standort::V2::HTTP.new('http://localhost:11000')
       end
 
-      def server_grpc
-        @server_grpc ||= Standort::V2::Service::Stub.new('localhost:12000', :this_channel_is_insecure, channel_args: Standort.user_agent)
+      def grpc
+        @grpc ||= Standort::V2::Service::Stub.new('localhost:12000', :this_channel_is_insecure, channel_args: Standort.user_agent)
       end
     end
   end

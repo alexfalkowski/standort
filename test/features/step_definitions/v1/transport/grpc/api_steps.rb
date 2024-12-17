@@ -6,7 +6,7 @@ When('I request a location by IP address with gRPC:') do |table|
   metadata = { 'request-id' => @request_id }
 
   request = Standort::V1::GetLocationByIPRequest.new(ip: rows['ip'].strip)
-  @response = Standort::V1.server_grpc.get_location_by_ip(request, { metadata: })
+  @response = Standort::V1.grpc.get_location_by_ip(request, { metadata: })
 rescue StandardError => e
   @response = e
 end
@@ -17,7 +17,7 @@ When('I request a location by latitude and longitude with gRPC:') do |table|
   metadata = { 'request-id' => @request_id }
 
   request = Standort::V1::GetLocationByLatLngRequest.new(lat: rows['latitude'].to_f, lng: rows['longitude'].to_f)
-  @response = Standort::V1.server_grpc.get_location_by_lat_lng(request, { metadata: })
+  @response = Standort::V1.grpc.get_location_by_lat_lng(request, { metadata: })
 rescue StandardError => e
   @response = e
 end

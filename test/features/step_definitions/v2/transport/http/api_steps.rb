@@ -22,7 +22,7 @@ When('I request a location with HTTP:') do |table|
     opts[:headers]['geolocation'] = "geo:#{rows['latitude']},#{rows['longitude']}" if rows['latitude'] && rows['longitude']
   end
 
-  @response = Standort::V2.server_http.get_location(params, opts)
+  @response = Standort::V2.http.get_location(params, opts)
 end
 
 Then('I should receive a valid locations with HTTP:') do |table|
