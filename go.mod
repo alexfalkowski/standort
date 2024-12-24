@@ -8,7 +8,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.19.0
-	github.com/alexfalkowski/go-service v1.351.0
+	github.com/alexfalkowski/go-service v1.351.1
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.11.1
 	github.com/tidwall/rtree v1.10.0
@@ -16,7 +16,7 @@ require (
 	go.opentelemetry.io/otel/trace v1.33.0
 	go.uber.org/fx v1.23.0
 	google.golang.org/grpc v1.69.2
-	google.golang.org/protobuf v1.36.0
+	google.golang.org/protobuf v1.36.1
 )
 
 require (
@@ -76,7 +76,7 @@ require (
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/linxGnu/mssqlx v1.1.8 // indirect
 	github.com/lufia/plan9stats v0.0.0-20240909124753-873cd0166683 // indirect
-	github.com/matthewhartstonge/argon2 v1.1.0 // indirect
+	github.com/matthewhartstonge/argon2 v1.1.1 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
