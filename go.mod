@@ -8,7 +8,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.2
 	github.com/alexfalkowski/go-health v1.20.0
-	github.com/alexfalkowski/go-service v1.353.0
+	github.com/alexfalkowski/go-service v1.353.1
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.11.1
 	github.com/tidwall/rtree v1.10.0
@@ -101,7 +101,7 @@ require (
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/spf13/cobra v1.8.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/standard-webhooks/standard-webhooks/libraries v0.0.0-20241231132107-9775b90ad9a4 // indirect
+	github.com/standard-webhooks/standard-webhooks/libraries v0.0.0-20250103171228-b75b9ab8ea1e // indirect
 	github.com/tidwall/geoindex v1.7.0 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.14 // indirect
