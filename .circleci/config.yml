@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-service:
     docker:
-      - image: alexfalkowski/go:1.3
+      - image: alexfalkowski/go:1.4
     working_directory: ~/standort
     steps:
       - checkout
@@ -38,7 +38,6 @@ jobs:
       - run: make lint
       - run: make proto-breaking
       - run: make sec
-      - run: make specs
       - run: make features
       - run: make build analyse
       - save_cache:
@@ -55,7 +54,7 @@ jobs:
     resource_class: large
   build-docker:
     docker:
-      - image: alexfalkowski/go:1.3
+      - image: alexfalkowski/go:1.4
     working_directory: ~/standort
     steps:
       - checkout
@@ -76,7 +75,7 @@ jobs:
     resource_class: large
   push-docker:
     docker:
-      - image: alexfalkowski/go:1.3
+      - image: alexfalkowski/go:1.4
     working_directory: ~/standort
     steps:
       - checkout
