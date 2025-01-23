@@ -12,14 +12,7 @@ import (
 func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*v2.GetLocationResponse, error) {
 	resp := &v2.GetLocationResponse{}
 	locations := []*v2.Location{}
-
 	ip, geo, err := s.service.Locate(ctx, req.GetIp(), toPoint(req.GetPoint()))
-	if err != nil {
-		resp.Meta = meta.CamelStrings(ctx, "")
-
-		return resp, s.error(err)
-	}
-
 	i, g := toLocation(ip), toLocation(geo)
 
 	if i != nil {
@@ -33,7 +26,7 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 	resp.Meta = meta.CamelStrings(ctx, "")
 	resp.Locations = locations
 
-	return resp, nil
+	return resp, s.error(err)
 }
 
 func toPoint(p *v2.Point) *location.Point {
