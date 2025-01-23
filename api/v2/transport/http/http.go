@@ -9,12 +9,25 @@ import (
 )
 
 // Register for HTTP.
-func Register(service *location.Locator) {
-	lh := &locationHandler{service: service}
-	rpc.Route("/v2/location", lh.Locate)
+func Register(handler *Handler) {
+	rpc.Route("/v2/location", handler.GetLocation)
 }
 
-func handleError(err error) error {
+// NewHandler for HTTP.
+func NewHandler(locator *location.Locator) *Handler {
+	return &Handler{locator: locator}
+}
+
+// Handler for HTTP.
+type Handler struct {
+	locator *location.Locator
+}
+
+func (h *Handler) error(err error) error {
+	if err == nil {
+		return nil
+	}
+
 	if location.IsNotFound(err) {
 		return status.Error(http.StatusNotFound, err.Error())
 	}

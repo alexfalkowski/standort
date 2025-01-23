@@ -50,23 +50,13 @@ type (
 		Continent string `json:"continent,omitempty"`
 		Kind      string `json:"kind,omitempty"`
 	}
-
-	locationHandler struct {
-		service *location.Locator
-	}
 )
 
-func (h *locationHandler) Locate(ctx context.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
+// GetLocation for HTTP.
+func (h *Handler) GetLocation(ctx context.Context, req *GetLocationRequest) (*GetLocationResponse, error) {
 	resp := &GetLocationResponse{}
 	locations := []*Location{}
-
-	ip, geo, err := h.service.Locate(ctx, req.IP, toPoint(req.Point))
-	if err != nil {
-		resp.Meta = meta.CamelStrings(ctx, "")
-
-		return resp, handleError(err)
-	}
-
+	ip, geo, err := h.locator.Locate(ctx, req.IP, toPoint(req.Point))
 	i, g := toLocation(ip), toLocation(geo)
 
 	if i != nil {
@@ -80,7 +70,7 @@ func (h *locationHandler) Locate(ctx context.Context, req *GetLocationRequest) (
 	resp.Meta = meta.CamelStrings(ctx, "")
 	resp.Locations = locations
 
-	return resp, nil
+	return resp, h.error(err)
 }
 
 func toPoint(p *Point) *location.Point {

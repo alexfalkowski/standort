@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/alexfalkowski/go-service/meta"
-	"github.com/alexfalkowski/standort/location"
 )
 
 type (
@@ -36,43 +35,26 @@ type (
 		Country   string `json:"country,omitempty"`
 		Continent string `json:"continent,omitempty"`
 	}
-
-	ipHandler struct {
-		location *location.Location
-	}
-	coordinateHandler struct {
-		location *location.Location
-	}
 )
 
-func (h *ipHandler) Locate(ctx context.Context, req *GetLocationByIPRequest) (*GetLocationByIPResponse, error) {
+// GetLocationByIP for HTTP.
+func (h *Handler) GetLocationByIP(ctx context.Context, req *GetLocationByIPRequest) (*GetLocationByIPResponse, error) {
 	resp := &GetLocationByIPResponse{}
-
 	country, continent, err := h.location.GetByIP(ctx, req.IP)
-	if err != nil {
-		resp.Meta = meta.CamelStrings(ctx, "")
 
-		return resp, handleError(err)
-	}
-
-	resp.Location = &Location{Country: country, Continent: continent}
 	resp.Meta = meta.CamelStrings(ctx, "")
+	resp.Location = &Location{Country: country, Continent: continent}
 
-	return resp, nil
+	return resp, h.error(err)
 }
 
-func (h *coordinateHandler) Locate(ctx context.Context, req *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error) {
+// GetLocationByLatLng for HTTP.
+func (h *Handler) GetLocationByLatLng(ctx context.Context, req *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error) {
 	resp := &GetLocationByLatLngResponse{Location: &Location{}}
-
 	country, continent, err := h.location.GetByLatLng(ctx, req.Lat, req.Lng)
-	if err != nil {
-		resp.Meta = meta.CamelStrings(ctx, "")
 
-		return resp, handleError(err)
-	}
-
-	resp.Location = &Location{Country: country, Continent: continent}
 	resp.Meta = meta.CamelStrings(ctx, "")
+	resp.Location = &Location{Country: country, Continent: continent}
 
-	return resp, nil
+	return resp, h.error(err)
 }

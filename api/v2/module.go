@@ -12,5 +12,6 @@ var Module = fx.Options(
 	fx.Provide(location.NewLocator),
 	fx.Provide(grpc.NewServer),
 	fx.Invoke(grpc.Register),
+	fx.Provide(http.NewHandler),
 	fx.Invoke(http.Register),
 )
