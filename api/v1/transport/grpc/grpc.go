@@ -4,6 +4,7 @@ import (
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	v1 "github.com/alexfalkowski/standort/api/standort/v1"
 	"github.com/alexfalkowski/standort/location"
+	"github.com/alexfalkowski/standort/location/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -29,7 +30,7 @@ func (s *Server) error(err error) error {
 		return nil
 	}
 
-	if location.IsNotFound(err) {
+	if errors.IsNotFound(err) {
 		return status.Error(codes.NotFound, err.Error())
 	}
 

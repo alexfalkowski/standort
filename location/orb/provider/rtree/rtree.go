@@ -5,14 +5,10 @@ import (
 	"embed"
 
 	"github.com/alexfalkowski/go-service/runtime"
+	"github.com/alexfalkowski/standort/location/errors"
 	"github.com/paulmach/orb/geojson"
 	"github.com/tidwall/rtree"
 )
-
-// Provider for rtree.
-type Provider struct {
-	tree *rtree.Generic[*Node]
-}
 
 // NewProvider for rtree.
 func NewProvider(fs embed.FS) *Provider {
@@ -22,8 +18,13 @@ func NewProvider(fs embed.FS) *Provider {
 	return &Provider{tree: tree}
 }
 
+// Provider for rtree.
+type Provider struct {
+	tree *rtree.Generic[*Node]
+}
+
 // Search a lat lng and get country and continent.
-func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string) {
+func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string, error) {
 	var (
 		found bool
 		data  *Node
@@ -42,10 +43,10 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string) 
 	})
 
 	if !found {
-		return "", ""
+		return "", "", errors.ErrNotFound
 	}
 
-	return data.Country, data.Continent
+	return data.Country, data.Continent, nil
 }
 
 func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
