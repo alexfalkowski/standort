@@ -2,14 +2,17 @@ package location
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	geouri "git.jlel.se/jlelse/go-geouri"
 	"github.com/alexfalkowski/go-service/meta"
 	tm "github.com/alexfalkowski/go-service/transport/meta"
 	"github.com/alexfalkowski/standort/location"
-	"github.com/alexfalkowski/standort/location/errors"
 )
+
+// ErrNotFound for location.
+var ErrNotFound = errors.New("not found")
 
 type (
 	// Kind of location.
@@ -74,7 +77,7 @@ func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (*Location, *
 	}
 
 	if ipLocation == nil && geoLocation == nil {
-		return nil, nil, errors.ErrNotFound
+		return nil, nil, ErrNotFound
 	}
 
 	return ipLocation, geoLocation, nil
