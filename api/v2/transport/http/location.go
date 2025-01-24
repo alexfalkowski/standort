@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/alexfalkowski/go-service/meta"
+	"github.com/alexfalkowski/go-service/slices"
 	"github.com/alexfalkowski/standort/api/location"
 )
 
@@ -57,15 +58,7 @@ func (h *Handler) GetLocation(ctx context.Context, req *GetLocationRequest) (*Ge
 	resp := &GetLocationResponse{}
 	locations := []*Location{}
 	ip, geo, err := h.locator.Locate(ctx, req.IP, toPoint(req.Point))
-	i, g := toLocation(ip), toLocation(geo)
-
-	if i != nil {
-		locations = append(locations, i)
-	}
-
-	if g != nil {
-		locations = append(locations, g)
-	}
+	locations = slices.Append(locations, toLocation(ip), toLocation(geo))
 
 	resp.Meta = meta.CamelStrings(ctx, "")
 	resp.Locations = locations

@@ -16,15 +16,10 @@ type Node struct {
 func (n *Node) IsPointInGeometry(lat, lng float64) bool {
 	point := orb.Point{lng, lat}
 
-	multiPoly, isMulti := n.Geometry.(orb.MultiPolygon)
-	if isMulti {
+	multiPoly, ok := n.Geometry.(orb.MultiPolygon)
+	if ok {
 		return planar.MultiPolygonContains(multiPoly, point)
 	}
 
-	polygon, isPoly := n.Geometry.(orb.Polygon)
-	if isPoly {
-		return planar.PolygonContains(polygon, point)
-	}
-
-	return false
+	return planar.PolygonContains(n.Geometry.(orb.Polygon), point)
 }
