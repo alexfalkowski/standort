@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.261.0](https://github.com/alexfalkowski/standort/releases/tag/v2.261.0) - 2025-01-24
+
+- [`8f09baf`](https://github.com/alexfalkowski/standort/commit/8f09bafe0e694af1f5c7cba6f1a447127378707b) feat(location): centralise not found error (#1088)
+
 ## [v2.260.0](https://github.com/alexfalkowski/standort/releases/tag/v2.260.0) - 2025-01-23
 
 - [`5bfa41e`](https://github.com/alexfalkowski/standort/commit/5bfa41e2c1fa857dd31ea3d48a384adbbecae8a3) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.384.0 (#1086)
