@@ -6,6 +6,7 @@ import (
 	"github.com/alexfalkowski/go-service/net/http/rpc"
 	"github.com/alexfalkowski/go-service/net/http/status"
 	"github.com/alexfalkowski/standort/location"
+	"github.com/alexfalkowski/standort/location/errors"
 )
 
 // Register for HTTP.
@@ -29,7 +30,7 @@ func (h *Handler) error(err error) error {
 		return nil
 	}
 
-	if location.IsNotFound(err) {
+	if errors.IsNotFound(err) {
 		return status.Error(http.StatusNotFound, err.Error())
 	}
 

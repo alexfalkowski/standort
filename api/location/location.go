@@ -2,17 +2,14 @@ package location
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	geouri "git.jlel.se/jlelse/go-geouri"
 	"github.com/alexfalkowski/go-service/meta"
 	tm "github.com/alexfalkowski/go-service/transport/meta"
 	"github.com/alexfalkowski/standort/location"
+	"github.com/alexfalkowski/standort/location/errors"
 )
-
-// ErrNotFound for service.
-var ErrNotFound = errors.New("not found")
 
 type (
 	// Kind of location.
@@ -30,11 +27,6 @@ type (
 		Lat float64
 		Lng float64
 	}
-
-	// Locator for the different transports.
-	Locator struct {
-		location *location.Location
-	}
 )
 
 const (
@@ -45,14 +37,14 @@ const (
 	GEO Kind = Kind("geo")
 )
 
-// IsNotFound for service.
-func IsNotFound(err error) bool {
-	return errors.Is(err, ErrNotFound) || location.IsNotFound(err)
-}
-
 // NewLocator for the different transports.
 func NewLocator(location *location.Location) *Locator {
 	return &Locator{location: location}
+}
+
+// Locator for the different transports.
+type Locator struct {
+	location *location.Location
 }
 
 // Locate from IP and a point, it is returned in that order.
@@ -82,7 +74,7 @@ func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (*Location, *
 	}
 
 	if ipLocation == nil && geoLocation == nil {
-		return nil, nil, ErrNotFound
+		return nil, nil, errors.ErrNotFound
 	}
 
 	return ipLocation, geoLocation, nil

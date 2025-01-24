@@ -21,7 +21,7 @@ func NewProvider(provider provider.Provider, tracer trace.Tracer) *Provider {
 }
 
 // Search a lat lng and get country and continent.
-func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string) {
+func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string, error) {
 	attrs := []attribute.KeyValue{
 		attribute.Key("provider.lat").Float64(lat),
 		attribute.Key("provider.lng").Float64(lng),
@@ -31,10 +31,12 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 	defer span.End()
 
 	ctx = tracer.WithTraceID(ctx, span)
-	country, continent := p.provider.Search(ctx, lat, lng)
-	tracer.Meta(ctx, span)
+	country, continent, err := p.provider.Search(ctx, lat, lng)
 
-	return country, continent
+	tracer.Meta(ctx, span)
+	tracer.Error(err, span)
+
+	return country, continent, err
 }
 
 func operationName(name string) string {
