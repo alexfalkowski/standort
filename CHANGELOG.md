@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.263.0](https://github.com/alexfalkowski/standort/releases/tag/v2.263.0) - 2025-01-24
+
+- [`04b44e1`](https://github.com/alexfalkowski/standort/commit/04b44e12e6fbfa2aba93fd8b3771d40edca395b0) feat(api): map kinds for v2 grpc (#1090)
+
 ## [v2.262.0](https://github.com/alexfalkowski/standort/releases/tag/v2.262.0) - 2025-01-24
 
 - [`010a575`](https://github.com/alexfalkowski/standort/commit/010a5752d8f10183d69b9bd0c738b8a4f06ae5e5) feat(location): all errors lead to not found (#1089)
