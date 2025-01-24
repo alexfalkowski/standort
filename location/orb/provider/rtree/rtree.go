@@ -3,12 +3,15 @@ package rtree
 import (
 	"context"
 	"embed"
+	"errors"
 
 	"github.com/alexfalkowski/go-service/runtime"
-	"github.com/alexfalkowski/standort/location/errors"
 	"github.com/paulmach/orb/geojson"
 	"github.com/tidwall/rtree"
 )
+
+// ErrNotFound for rtree.
+var ErrNotFound = errors.New("not found")
 
 // NewProvider for rtree.
 func NewProvider(fs embed.FS) *Provider {
@@ -43,7 +46,7 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string, 
 	})
 
 	if !found {
-		return "", "", errors.ErrNotFound
+		return "", "", ErrNotFound
 	}
 
 	return data.Country, data.Continent, nil
