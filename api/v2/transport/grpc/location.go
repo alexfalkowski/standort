@@ -8,6 +8,12 @@ import (
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 )
 
+// Kinds maps from location.Kind to v2.Kind.
+var Kinds = map[location.Kind]v2.Kind{
+	location.IP:  v2.Kind_KIND_IP,
+	location.GEO: v2.Kind_KIND_GEO,
+}
+
 // GetLocation for gRPC.
 func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*v2.GetLocationResponse, error) {
 	resp := &v2.GetLocationResponse{}
@@ -42,16 +48,5 @@ func toLocation(l *location.Location) *v2.Location {
 		return nil
 	}
 
-	var k v2.Kind
-
-	switch l.Kind {
-	case location.GEO:
-		k = v2.Kind_KIND_GEO
-	case location.IP:
-		k = v2.Kind_KIND_IP
-	default:
-		k = v2.Kind_KIND_UNSPECIFIED
-	}
-
-	return &v2.Location{Country: l.Country, Continent: l.Continent, Kind: k}
+	return &v2.Location{Country: l.Country, Continent: l.Continent, Kind: Kinds[l.Kind]}
 }
