@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.262.0](https://github.com/alexfalkowski/standort/releases/tag/v2.262.0) - 2025-01-24
+
+- [`010a575`](https://github.com/alexfalkowski/standort/commit/010a5752d8f10183d69b9bd0c738b8a4f06ae5e5) feat(location): all errors lead to not found (#1089)
+
 ## [v2.261.0](https://github.com/alexfalkowski/standort/releases/tag/v2.261.0) - 2025-01-24
 
 - [`8f09baf`](https://github.com/alexfalkowski/standort/commit/8f09bafe0e694af1f5c7cba6f1a447127378707b) feat(location): centralise not found error (#1088)
