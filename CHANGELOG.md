@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.270.1](https://github.com/alexfalkowski/standort/releases/tag/v2.270.1) - 2025-01-29
+
+- [`0bf390b`](https://github.com/alexfalkowski/standort/commit/0bf390b0e45feaffa6fd6c203e006f2ca954ca40) fix(deps): upgraded github.com/IncSW/geoip2 v0.1.2 => v0.1.3 (#1107)
+- [`d8ac4c8`](https://github.com/alexfalkowski/standort/commit/d8ac4c881bb757137e4d0eb09c88bdc602436b69) test(deps): bump nonnative from 1.89.0 to 1.91.0 in /test (#1105)
+- [`ff40dbb`](https://github.com/alexfalkowski/standort/commit/ff40dbb4e5b34e6f4410e791679840c84c24a78d) test(deps): bump ruby-lsp from 0.23.6 to 0.23.7 in /test (#1104)
+- [`0ef2ef9`](https://github.com/alexfalkowski/standort/commit/0ef2ef95562916ee26cdcf232c7bcd0679d0d12e) build(ci): update alexfalkowski/go:1.8 (#1103)
+
 ## [v2.270.0](https://github.com/alexfalkowski/standort/releases/tag/v2.270.0) - 2025-01-28
 
 - [`ae4e74a`](https://github.com/alexfalkowski/standort/commit/ae4e74a536b311827e1d8aec955c18e8e48d1890) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.391.0 (#1102)
