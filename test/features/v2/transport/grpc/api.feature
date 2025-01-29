@@ -12,11 +12,11 @@ Feature: gRPC API
       | continent | <continent> |
 
     Examples: With geoip2 parameters
-      | source | method | ip                  | country | continent | kind    |
-      | geoip2 | params |       95.91.246.242 | DE      | EU        | KIND_IP |
-      | geoip2 | params |      45.128.199.236 | NL      | EU        | KIND_IP |
-      | geoip2 | params |         154.6.22.65 | US      | NA        | KIND_IP |
-      | geoip2 | params | 2a01:4f9:2a:15e1::2 | DE      | EU        | KIND_IP |
+      | source | method | ip                                      | country | continent | kind    |
+      | geoip2 | params |                           95.91.246.242 | DE      | EU        | KIND_IP |
+      | geoip2 | params |                          45.128.199.236 | NL      | EU        | KIND_IP |
+      | geoip2 | params |                             154.6.22.65 | US      | NA        | KIND_IP |
+      | geoip2 | params | 2a02:8109:9f2e:4600:861e:b845:8bd4:b047 | DE      | EU        | KIND_IP |
 
     Examples: With geoip2 metadata
       | source | method   | ip             | country | continent | kind    |
