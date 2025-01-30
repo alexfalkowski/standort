@@ -35,8 +35,9 @@ Then('I should receive a valid locations with HTTP:') do |table|
 
   rows = table.rows_hash
   location = resp['locations'][0]
+  kind = location['kind'] == 1 ? 'ip' : 'geo'
 
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
-  expect(location['kind']).to eq(rows['kind'])
+  expect(kind).to eq(rows['kind'])
 end
