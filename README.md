@@ -1,3 +1,4 @@
+![Gopher](assets/gopher.png)
 [![CircleCI](https://circleci.com/gh/alexfalkowski/standort.svg?style=shield)](https://circleci.com/gh/alexfalkowski/standort)
 [![codecov](https://codecov.io/gh/alexfalkowski/standort/graph/badge.svg?token=JJP65DPD1M)](https://codecov.io/gh/alexfalkowski/standort)
 [![Go Report Card](https://goreportcard.com/badge/github.com/alexfalkowski/standort)](https://goreportcard.com/report/github.com/alexfalkowski/standort)
@@ -24,9 +25,9 @@ The service allows you to get the location based on [latitude/longitude](https:/
 
 ![Dependencies](./assets/location.png)
 
-## Server
+## API
 
-The server has the following versions.
+The api has the following versions.
 
 ### Versions
 
@@ -35,42 +36,6 @@ The service contains 2 versions of the API. These are as follows:
 - V2 - combines both into one endpoint and uses the following headers:
   - For IP address we will use [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For) header.
   - For geo location we would use [Geolocation](http://tools.ietf.org/html/draft-thomson-geopriv-http-geolocation-00) header. The format is described as the [geo URI](https://www.rfc-editor.org/rfc/rfc5870).
-
-### Dependencies
-
-![Dependencies](./assets/server.png)
-
-## Client
-
-The client can be used in other projects.
-
-### Configuration
-
-This is configured as follows:
-
-```yaml
-client:
-  v1:
-    host: server_host
-    retry:
-      attempts: 3
-      backoff: 100ms
-      timeout: 3s
-    timeout: 5s
-    user_agent: "UA"
-  v2:
-    host: server_host
-    retry:
-      attempts: 3
-      backoff: 100ms
-      timeout: 3s
-    timeout: 5s
-    user_agent: "UA"
-```
-
-### Dependencies
-
-![Dependencies](./assets/client.png)
 
 ## Development
 
