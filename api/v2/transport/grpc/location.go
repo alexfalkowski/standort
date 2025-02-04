@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/alexfalkowski/go-service/meta"
-	"github.com/alexfalkowski/go-service/slices"
+	"github.com/alexfalkowski/go-service/types/slices"
 	"github.com/alexfalkowski/standort/api/location"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 )
