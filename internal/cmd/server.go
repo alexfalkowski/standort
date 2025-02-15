@@ -22,6 +22,6 @@ func RegisterServer(command *cmd.Command) {
 		telemetry.Module, transport.Module,
 		health.Module, location.Module,
 		assets.Module, config.Module,
-		v1.Module, v2.Module, Module,
+		v1.Module, v2.Module, cmd.Module,
 	)
 }
