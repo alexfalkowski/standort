@@ -19,8 +19,8 @@ import (
 // RegisterServer for cmd.
 func RegisterServer(command *cmd.Command) {
 	flags := flags.NewFlagSet("server")
+	flags.AddInput("env:STANDORT_CONFIG_FILE")
 
-	command.RegisterInput(flags, "env:STANDORT_CONFIG_FILE")
 	command.AddServer("server", "Start standort server", flags,
 		module.Module, debug.Module, feature.Module,
 		telemetry.Module, transport.Module,
