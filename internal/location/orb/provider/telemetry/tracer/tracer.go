@@ -9,15 +9,15 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
+// NewProvider for tracer.
+func NewProvider(provider provider.Provider, tracer *tracer.Tracer) *Provider {
+	return &Provider{provider: provider, tracer: tracer}
+}
+
 // Provider for tracer.
 type Provider struct {
 	provider provider.Provider
-	tracer   trace.Tracer
-}
-
-// NewProvider for tracer.
-func NewProvider(provider provider.Provider, tracer trace.Tracer) *Provider {
-	return &Provider{provider: provider, tracer: tracer}
+	tracer   *tracer.Tracer
 }
 
 // Search a lat lng and get country and continent.

@@ -1,16 +1,16 @@
 package country
 
 import (
+	"github.com/alexfalkowski/go-service/telemetry/tracer"
 	"github.com/alexfalkowski/standort/internal/location/country/provider"
 	"github.com/alexfalkowski/standort/internal/location/country/provider/gountries"
-	"github.com/alexfalkowski/standort/internal/location/country/provider/telemetry/tracer"
-	"go.opentelemetry.io/otel/trace"
+	tt "github.com/alexfalkowski/standort/internal/location/country/provider/telemetry/tracer"
 )
 
 // NewProvider for country.
-func NewProvider(t trace.Tracer) provider.Provider {
-	var p provider.Provider = gountries.NewProvider()
-	p = tracer.NewProvider(p, t)
+func NewProvider(tracer *tracer.Tracer) provider.Provider {
+	var provider provider.Provider = gountries.NewProvider()
+	provider = tt.NewProvider(provider, tracer)
 
-	return p
+	return provider
 }

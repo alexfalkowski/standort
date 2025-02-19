@@ -4,10 +4,10 @@ import (
 	"embed"
 	"errors"
 
+	"github.com/alexfalkowski/go-service/telemetry/tracer"
 	"github.com/alexfalkowski/standort/internal/location/orb/provider"
 	"github.com/alexfalkowski/standort/internal/location/orb/provider/rtree"
-	"github.com/alexfalkowski/standort/internal/location/orb/provider/telemetry/tracer"
-	"go.opentelemetry.io/otel/trace"
+	tt "github.com/alexfalkowski/standort/internal/location/orb/provider/telemetry/tracer"
 	"go.uber.org/fx"
 )
 
@@ -20,13 +20,13 @@ type ProviderParams struct {
 
 	Lifecycle fx.Lifecycle
 	FS        embed.FS
-	Tracer    trace.Tracer
+	Tracer    *tracer.Tracer
 }
 
 // NewProvider for orb.
 func NewProvider(params ProviderParams) provider.Provider {
-	var p provider.Provider = rtree.NewProvider(params.FS)
-	p = tracer.NewProvider(p, params.Tracer)
+	var provider provider.Provider = rtree.NewProvider(params.FS)
+	provider = tt.NewProvider(provider, params.Tracer)
 
-	return p
+	return provider
 }
