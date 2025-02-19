@@ -6,7 +6,6 @@ import (
 	"github.com/alexfalkowski/go-service/telemetry/tracer"
 	"github.com/alexfalkowski/standort/internal/location/orb/provider"
 	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/trace"
 )
 
 // NewProvider for tracer.
@@ -27,10 +26,9 @@ func (p *Provider) Search(ctx context.Context, lat, lng float64) (string, string
 		attribute.Key("provider.lng").Float64(lng),
 	}
 
-	ctx, span := p.tracer.Start(ctx, operationName("search"), trace.WithSpanKind(trace.SpanKindClient), trace.WithAttributes(attrs...))
+	ctx, span := p.tracer.StartClient(ctx, operationName("search"), attrs...)
 	defer span.End()
 
-	ctx = tracer.WithTraceID(ctx, span)
 	country, continent, err := p.provider.Search(ctx, lat, lng)
 
 	tracer.Meta(ctx, span)
