@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.3
 	github.com/alexfalkowski/go-health v1.22.0
-	github.com/alexfalkowski/go-service v1.460.0
+	github.com/alexfalkowski/go-service v1.461.1
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.11.1
 	github.com/tidwall/rtree v1.10.0
@@ -99,14 +99,18 @@ require (
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	go.mongodb.org/mongo-driver v1.15.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
+	go.opentelemetry.io/contrib/bridges/otelslog v0.9.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/host v0.59.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/runtime v0.59.0 // indirect
+	go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp v0.10.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.34.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.34.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.34.0 // indirect
 	go.opentelemetry.io/otel/exporters/prometheus v0.56.0 // indirect
+	go.opentelemetry.io/otel/log v0.10.0 // indirect
 	go.opentelemetry.io/otel/metric v1.34.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.34.0 // indirect
+	go.opentelemetry.io/otel/sdk/log v0.10.0 // indirect
 	go.opentelemetry.io/otel/sdk/metric v1.34.0 // indirect
 	go.opentelemetry.io/otel/trace v1.34.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.5.0 // indirect
