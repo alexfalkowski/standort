@@ -10,7 +10,7 @@ import (
 
 // Register server.
 func Register(gs *grpc.Server, server *Server) {
-	v2.RegisterServiceServer(gs.Server(), server)
+	v2.RegisterServiceServer(gs.ServiceRegistrar(), server)
 }
 
 // NewServer for gRPC.
