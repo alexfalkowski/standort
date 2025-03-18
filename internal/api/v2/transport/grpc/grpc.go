@@ -1,16 +1,16 @@
 package grpc
 
 import (
-	"github.com/alexfalkowski/go-service/transport/grpc"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	"github.com/alexfalkowski/standort/internal/api/location"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 // Register server.
-func Register(gs *grpc.Server, server *Server) {
-	v2.RegisterServiceServer(gs.ServiceRegistrar(), server)
+func Register(registrar grpc.ServiceRegistrar, server *Server) {
+	v2.RegisterServiceServer(registrar, server)
 }
 
 // NewServer for gRPC.
