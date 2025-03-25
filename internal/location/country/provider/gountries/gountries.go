@@ -20,5 +20,5 @@ type Provider struct {
 func (p *Provider) GetByCode(_ context.Context, code string) (string, string, error) {
 	country, err := p.query.FindCountryByAlpha(code)
 
-	return country.Codes.Alpha2, country.Continent, err
+	return country.Alpha2, country.Continent, err
 }
