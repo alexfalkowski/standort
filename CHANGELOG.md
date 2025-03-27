@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.379.0](https://github.com/alexfalkowski/standort/releases/tag/v2.379.0) - 2025-03-28
+
+- [`f3f321f`](https://github.com/alexfalkowski/standort/commit/f3f321f10f7dd69e65051860b0f3354636aaee5d) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.516.0 (#1256)
+- [`535f670`](https://github.com/alexfalkowski/standort/commit/535f670f05d5de78e1ddd0b2a30a1312232f5478) build(ci): add clean (#1255)
+- [`aa07885`](https://github.com/alexfalkowski/standort/commit/aa078852b60a5fc763ff79be8439e17d7ae5067c) build(deps): bump bin from `c661929` to `16e2296` (#1254)
+- [`fb5f9ca`](https://github.com/alexfalkowski/standort/commit/fb5f9ca45d4b1d9e7b7bbdb36d4c38b5811e8ce4) test(deps): bump rubocop from 1.74.0 to 1.75.1 in /test (#1253)
+- [`9c19647`](https://github.com/alexfalkowski/standort/commit/9c19647a6c375b9254815092ca982f389d43d314) build(deps): bump bin from `446c480` to `c661929` (#1252)
+- [`4c02202`](https://github.com/alexfalkowski/standort/commit/4c02202adb4bf9d2f92f9efb6b233c807f642780) build(ci): use alexfalkowski/go:2.2 (#1251)
+
 ## [v2.378.0](https://github.com/alexfalkowski/standort/releases/tag/v2.378.0) - 2025-03-26
 
 - [`2cb6794`](https://github.com/alexfalkowski/standort/commit/2cb679461d606cd44ae48ba8a7a0be9dd670e258) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.515.0 (#1250)
