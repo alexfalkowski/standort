@@ -9,7 +9,7 @@ module Standort
         point = params[:point] || []
         req[:point] = { lat: point[0].to_f, lng: point[1].to_f } if point.length.positive?
 
-        post('/v2/location', req.to_json, opts)
+        post('/standort.v2.Service/GetLocation', req.to_json, opts)
       end
     end
   end
