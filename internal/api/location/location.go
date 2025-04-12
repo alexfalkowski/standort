@@ -7,6 +7,7 @@ import (
 
 	geouri "git.jlel.se/jlelse/go-geouri"
 	"github.com/alexfalkowski/go-service/meta"
+	"github.com/alexfalkowski/go-service/strings"
 	tm "github.com/alexfalkowski/go-service/transport/meta"
 	"github.com/alexfalkowski/standort/internal/location"
 )
@@ -57,7 +58,7 @@ func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (*Location, *
 		geoLocation *Location
 	)
 
-	if ip := s.ip(ctx, ip); ip != "" {
+	if ip := s.ip(ctx, ip); !strings.IsEmpty(ip) {
 		if country, continent, err := s.location.GetByIP(ctx, ip); err != nil {
 			meta.WithAttribute(ctx, "locationIpError", meta.Error(err))
 		} else {
@@ -84,7 +85,7 @@ func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (*Location, *
 }
 
 func (s *Locator) ip(ctx context.Context, ip string) string {
-	if ip != "" {
+	if !strings.IsEmpty(ip) {
 		return ip
 	}
 
@@ -96,12 +97,12 @@ func (s *Locator) point(ctx context.Context, p *Point) (*Point, error) {
 		return p, nil
 	}
 
-	l := tm.Geolocation(ctx).Value()
-	if l == "" {
+	loc := tm.Geolocation(ctx)
+	if loc.IsEmpty() {
 		return nil, nil //nolint:nilnil
 	}
 
-	geo, err := geouri.Parse(l)
+	geo, err := geouri.Parse(loc.Value())
 	if err != nil {
 		return nil, fmt.Errorf("geo uri: %w", err)
 	}
