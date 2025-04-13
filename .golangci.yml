@@ -5,6 +5,7 @@ linters:
     - bodyclose
     - depguard
     - exhaustruct
+    - funcorder
     - forcetypeassert
     - gochecknoglobals
     - ireturn
