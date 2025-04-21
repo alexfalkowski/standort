@@ -5,18 +5,10 @@ package standort.v2;
 option go_package = "github.com/alexfalkowski/standort/api/standort/v2";
 option ruby_package = "Standort::V2";
 
-// Kind of location.
-enum Kind {
-  KIND_UNSPECIFIED = 0;
-  KIND_IP = 1;
-  KIND_GEO = 2;
-}
-
 // Location of the response.
 message Location {
-  Kind kind = 1;
-  string country = 2;
-  string continent = 3;
+  string country = 1;
+  string continent = 2;
 }
 
 // Point for the request.
@@ -34,7 +26,8 @@ message GetLocationRequest {
 // GetLocationResponse for getting the location.
 message GetLocationResponse {
   map<string, string> meta = 1;
-  repeated Location locations = 2;
+  Location ip = 2;
+  Location geo = 3;
 }
 
 // Service allows to get location via multiple methods.

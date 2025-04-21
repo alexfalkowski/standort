@@ -12,16 +12,16 @@ Feature: HTTP API
       | continent | <continent> |
 
     Examples: With geoip2 parameters
-      | source | method | ip             | country | continent | kind |
-      | geoip2 | params |  95.91.246.242 | DE      | EU        | ip   |
-      | geoip2 | params | 45.128.199.236 | NL      | EU        | ip   |
-      | geoip2 | params |    154.6.22.65 | US      | NA        | ip   |
+      | source | method | ip             | country | continent |
+      | geoip2 | params |  95.91.246.242 | DE      | EU        |
+      | geoip2 | params | 45.128.199.236 | NL      | EU        |
+      | geoip2 | params |    154.6.22.65 | US      | NA        |
 
     Examples: With geoip2 headers
-      | source | method  | ip             | country | continent | kind |
-      | geoip2 | headers |  95.91.246.242 | DE      | EU        | ip   |
-      | geoip2 | headers | 45.128.199.236 | NL      | EU        | ip   |
-      | geoip2 | headers |    154.6.22.65 | US      | NA        | ip   |
+      | source | method  | ip             | country | continent |
+      | geoip2 | headers |  95.91.246.242 | DE      | EU        |
+      | geoip2 | headers | 45.128.199.236 | NL      | EU        |
+      | geoip2 | headers |    154.6.22.65 | US      | NA        |
 
   Scenario Outline: Get location by an bad IP address.
     When I request a location with HTTP:
@@ -54,16 +54,16 @@ Feature: HTTP API
       | continent | <continent> |
 
     Examples: With parameters
-      | method | latitude  | longitude  | country | continent | kind |
-      | params | 52.520008 |  13.404954 | DE      | EU        | geo  |
-      | params | 52.377956 |   4.897070 | NL      | EU        | geo  |
-      | params | 43.000000 | -75.000000 | US      | NA        | geo  |
+      | method | latitude  | longitude  | country | continent |
+      | params | 52.520008 |  13.404954 | DE      | EU        |
+      | params | 52.377956 |   4.897070 | NL      | EU        |
+      | params | 43.000000 | -75.000000 | US      | NA        |
 
     Examples: With headers
-      | method  | latitude  | longitude  | country | continent | kind |
-      | headers | 52.520008 |  13.404954 | DE      | EU        | geo  |
-      | headers | 52.377956 |   4.897070 | NL      | EU        | geo  |
-      | headers | 43.000000 | -75.000000 | US      | NA        | geo  |
+      | method  | latitude  | longitude  | country | continent |
+      | headers | 52.520008 |  13.404954 | DE      | EU        |
+      | headers | 52.377956 |   4.897070 | NL      | EU        |
+      | headers | 43.000000 | -75.000000 | US      | NA        |
 
   Scenario Outline: Get location by a bad latitude and longitude.
     When I request a location with HTTP:
