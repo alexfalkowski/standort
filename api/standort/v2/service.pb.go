@@ -21,62 +21,11 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Kind of location.
-type Kind int32
-
-const (
-	Kind_KIND_UNSPECIFIED Kind = 0
-	Kind_KIND_IP          Kind = 1
-	Kind_KIND_GEO         Kind = 2
-)
-
-// Enum value maps for Kind.
-var (
-	Kind_name = map[int32]string{
-		0: "KIND_UNSPECIFIED",
-		1: "KIND_IP",
-		2: "KIND_GEO",
-	}
-	Kind_value = map[string]int32{
-		"KIND_UNSPECIFIED": 0,
-		"KIND_IP":          1,
-		"KIND_GEO":         2,
-	}
-)
-
-func (x Kind) Enum() *Kind {
-	p := new(Kind)
-	*p = x
-	return p
-}
-
-func (x Kind) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (Kind) Descriptor() protoreflect.EnumDescriptor {
-	return file_standort_v2_service_proto_enumTypes[0].Descriptor()
-}
-
-func (Kind) Type() protoreflect.EnumType {
-	return &file_standort_v2_service_proto_enumTypes[0]
-}
-
-func (x Kind) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use Kind.Descriptor instead.
-func (Kind) EnumDescriptor() ([]byte, []int) {
-	return file_standort_v2_service_proto_rawDescGZIP(), []int{0}
-}
-
 // Location of the response.
 type Location struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Kind          Kind                   `protobuf:"varint,1,opt,name=kind,proto3,enum=standort.v2.Kind" json:"kind,omitempty"`
-	Country       string                 `protobuf:"bytes,2,opt,name=country,proto3" json:"country,omitempty"`
-	Continent     string                 `protobuf:"bytes,3,opt,name=continent,proto3" json:"continent,omitempty"`
+	Country       string                 `protobuf:"bytes,1,opt,name=country,proto3" json:"country,omitempty"`
+	Continent     string                 `protobuf:"bytes,2,opt,name=continent,proto3" json:"continent,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -109,13 +58,6 @@ func (x *Location) ProtoReflect() protoreflect.Message {
 // Deprecated: Use Location.ProtoReflect.Descriptor instead.
 func (*Location) Descriptor() ([]byte, []int) {
 	return file_standort_v2_service_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *Location) GetKind() Kind {
-	if x != nil {
-		return x.Kind
-	}
-	return Kind_KIND_UNSPECIFIED
 }
 
 func (x *Location) GetCountry() string {
@@ -242,7 +184,8 @@ func (x *GetLocationRequest) GetPoint() *Point {
 type GetLocationResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Meta          map[string]string      `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Locations     []*Location            `protobuf:"bytes,2,rep,name=locations,proto3" json:"locations,omitempty"`
+	Ip            *Location              `protobuf:"bytes,2,opt,name=ip,proto3" json:"ip,omitempty"`
+	Geo           *Location              `protobuf:"bytes,3,opt,name=geo,proto3" json:"geo,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -284,9 +227,16 @@ func (x *GetLocationResponse) GetMeta() map[string]string {
 	return nil
 }
 
-func (x *GetLocationResponse) GetLocations() []*Location {
+func (x *GetLocationResponse) GetIp() *Location {
 	if x != nil {
-		return x.Locations
+		return x.Ip
+	}
+	return nil
+}
+
+func (x *GetLocationResponse) GetGeo() *Location {
+	if x != nil {
+		return x.Geo
 	}
 	return nil
 }
@@ -295,27 +245,23 @@ var File_standort_v2_service_proto protoreflect.FileDescriptor
 
 const file_standort_v2_service_proto_rawDesc = "" +
 	"\n" +
-	"\x19standort/v2/service.proto\x12\vstandort.v2\"i\n" +
-	"\bLocation\x12%\n" +
-	"\x04kind\x18\x01 \x01(\x0e2\x11.standort.v2.KindR\x04kind\x12\x18\n" +
-	"\acountry\x18\x02 \x01(\tR\acountry\x12\x1c\n" +
-	"\tcontinent\x18\x03 \x01(\tR\tcontinent\"+\n" +
+	"\x19standort/v2/service.proto\x12\vstandort.v2\"B\n" +
+	"\bLocation\x12\x18\n" +
+	"\acountry\x18\x01 \x01(\tR\acountry\x12\x1c\n" +
+	"\tcontinent\x18\x02 \x01(\tR\tcontinent\"+\n" +
 	"\x05Point\x12\x10\n" +
 	"\x03lat\x18\x01 \x01(\x01R\x03lat\x12\x10\n" +
 	"\x03lng\x18\x02 \x01(\x01R\x03lng\"N\n" +
 	"\x12GetLocationRequest\x12\x0e\n" +
 	"\x02ip\x18\x01 \x01(\tR\x02ip\x12(\n" +
-	"\x05point\x18\x02 \x01(\v2\x12.standort.v2.PointR\x05point\"\xc3\x01\n" +
+	"\x05point\x18\x02 \x01(\v2\x12.standort.v2.PointR\x05point\"\xde\x01\n" +
 	"\x13GetLocationResponse\x12>\n" +
-	"\x04meta\x18\x01 \x03(\v2*.standort.v2.GetLocationResponse.MetaEntryR\x04meta\x123\n" +
-	"\tlocations\x18\x02 \x03(\v2\x15.standort.v2.LocationR\tlocations\x1a7\n" +
+	"\x04meta\x18\x01 \x03(\v2*.standort.v2.GetLocationResponse.MetaEntryR\x04meta\x12%\n" +
+	"\x02ip\x18\x02 \x01(\v2\x15.standort.v2.LocationR\x02ip\x12'\n" +
+	"\x03geo\x18\x03 \x01(\v2\x15.standort.v2.LocationR\x03geo\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01*7\n" +
-	"\x04Kind\x12\x14\n" +
-	"\x10KIND_UNSPECIFIED\x10\x00\x12\v\n" +
-	"\aKIND_IP\x10\x01\x12\f\n" +
-	"\bKIND_GEO\x10\x022]\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x012]\n" +
 	"\aService\x12R\n" +
 	"\vGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x00BBZ1github.com/alexfalkowski/standort/api/standort/v2\xea\x02\fStandort::V2b\x06proto3"
 
@@ -331,23 +277,21 @@ func file_standort_v2_service_proto_rawDescGZIP() []byte {
 	return file_standort_v2_service_proto_rawDescData
 }
 
-var file_standort_v2_service_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_standort_v2_service_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_standort_v2_service_proto_goTypes = []any{
-	(Kind)(0),                   // 0: standort.v2.Kind
-	(*Location)(nil),            // 1: standort.v2.Location
-	(*Point)(nil),               // 2: standort.v2.Point
-	(*GetLocationRequest)(nil),  // 3: standort.v2.GetLocationRequest
-	(*GetLocationResponse)(nil), // 4: standort.v2.GetLocationResponse
-	nil,                         // 5: standort.v2.GetLocationResponse.MetaEntry
+	(*Location)(nil),            // 0: standort.v2.Location
+	(*Point)(nil),               // 1: standort.v2.Point
+	(*GetLocationRequest)(nil),  // 2: standort.v2.GetLocationRequest
+	(*GetLocationResponse)(nil), // 3: standort.v2.GetLocationResponse
+	nil,                         // 4: standort.v2.GetLocationResponse.MetaEntry
 }
 var file_standort_v2_service_proto_depIdxs = []int32{
-	0, // 0: standort.v2.Location.kind:type_name -> standort.v2.Kind
-	2, // 1: standort.v2.GetLocationRequest.point:type_name -> standort.v2.Point
-	5, // 2: standort.v2.GetLocationResponse.meta:type_name -> standort.v2.GetLocationResponse.MetaEntry
-	1, // 3: standort.v2.GetLocationResponse.locations:type_name -> standort.v2.Location
-	3, // 4: standort.v2.Service.GetLocation:input_type -> standort.v2.GetLocationRequest
-	4, // 5: standort.v2.Service.GetLocation:output_type -> standort.v2.GetLocationResponse
+	1, // 0: standort.v2.GetLocationRequest.point:type_name -> standort.v2.Point
+	4, // 1: standort.v2.GetLocationResponse.meta:type_name -> standort.v2.GetLocationResponse.MetaEntry
+	0, // 2: standort.v2.GetLocationResponse.ip:type_name -> standort.v2.Location
+	0, // 3: standort.v2.GetLocationResponse.geo:type_name -> standort.v2.Location
+	2, // 4: standort.v2.Service.GetLocation:input_type -> standort.v2.GetLocationRequest
+	3, // 5: standort.v2.Service.GetLocation:output_type -> standort.v2.GetLocationResponse
 	5, // [5:6] is the sub-list for method output_type
 	4, // [4:5] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name
@@ -365,14 +309,13 @@ func file_standort_v2_service_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_standort_v2_service_proto_rawDesc), len(file_standort_v2_service_proto_rawDesc)),
-			NumEnums:      1,
+			NumEnums:      0,
 			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_standort_v2_service_proto_goTypes,
 		DependencyIndexes: file_standort_v2_service_proto_depIdxs,
-		EnumInfos:         file_standort_v2_service_proto_enumTypes,
 		MessageInfos:      file_standort_v2_service_proto_msgTypes,
 	}.Build()
 	File_standort_v2_service_proto = out.File

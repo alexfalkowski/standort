@@ -23,13 +23,11 @@ rescue StandardError => e
 end
 
 Then('I should receive a valid locations with gRPC:') do |table|
-  rows = table.rows_hash
-
   expect(@response.meta.length).to be > 0
-  expect(@response.locations.length).to eq(1)
 
-  location = @response.locations[0]
+  rows = table.rows_hash
+  location = @response.ip || @response.geo
+
   expect(location.country).to eq(rows['country'])
   expect(location.continent).to eq(rows['continent'])
-  expect(location.kind).to eq(rows['kind'].to_sym)
 end

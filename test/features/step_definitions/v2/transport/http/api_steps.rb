@@ -31,13 +31,10 @@ Then('I should receive a valid locations with HTTP:') do |table|
   resp = JSON.parse(@response.body)
 
   expect(resp['meta'].length).to be > 0
-  expect(resp['locations'].length).to eq(1)
 
   rows = table.rows_hash
-  location = resp['locations'][0]
-  kind = location['kind'] == 1 ? 'ip' : 'geo'
+  location = resp['ip'] || resp['geo']
 
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
-  expect(kind).to eq(rows['kind'])
 end
