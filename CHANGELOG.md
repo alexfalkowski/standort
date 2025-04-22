@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.409.0](https://github.com/alexfalkowski/standort/releases/tag/v2.409.0) - 2025-04-22
+
+- [`80ccce7`](https://github.com/alexfalkowski/standort/commit/80ccce7a073e1afade37950f582f69fa773f2beb) feat(deps): bump bin from `dbf1984` to `b0fd780` (#1295)
+- [`550756a`](https://github.com/alexfalkowski/standort/commit/550756a5cb0b118a46491ab94476158492d46ab0) build(ci): use alexfalkowski/go:2.12 (#1294)
+- [`2268ff5`](https://github.com/alexfalkowski/standort/commit/2268ff51d14e96139e8395af0a08dfba6756dd42) build(ci): reenable api-breaking (#1293)
+
 ## [v2.408.0](https://github.com/alexfalkowski/standort/releases/tag/v2.408.0) - 2025-04-21
 
 - [`b8a6028`](https://github.com/alexfalkowski/standort/commit/b8a6028f047c907018eadb4ee4e426f7849a9d8a) feat(v2): we do not need an enum (#1292)
