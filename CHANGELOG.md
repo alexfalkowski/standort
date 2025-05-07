@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.439.0](https://github.com/alexfalkowski/standort/releases/tag/v2.439.0) - 2025-05-07
+
+- [`c473cbc`](https://github.com/alexfalkowski/standort/commit/c473cbcf03b945d9fb1f993b04de95f5458ccbcd) feat(deps): bump bin from `652fb33` to `ac9a5b2` (#1333)
+
 ## [v2.438.0](https://github.com/alexfalkowski/standort/releases/tag/v2.438.0) - 2025-05-07
 
 - [`d965558`](https://github.com/alexfalkowski/standort/commit/d96555846d5928a9fd304b277ee1035938590c9f) feat(deps): bump bin from `7b214f3` to `652fb33` (#1332)
