@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/alexfalkowski/go-service/runtime"
 	"github.com/alexfalkowski/standort/internal/location/continent"
 	country "github.com/alexfalkowski/standort/internal/location/country/provider"
 	ip "github.com/alexfalkowski/standort/internal/location/ip/provider"
@@ -24,24 +23,18 @@ type Location struct {
 }
 
 // GetByIP a country and continent, otherwise error.
-//
-//nolint:nonamedreturns
-func (l *Location) GetByIP(ctx context.Context, ip string) (country string, cont string, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			err = fmt.Errorf("%s: %w", ip, runtime.ConvertRecover(r))
-		}
-	}()
-
+func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, error) {
 	c, err := l.ipProvider.GetByIP(ctx, ip)
-	runtime.Must(err)
+	if err != nil {
+		return "", "", err
+	}
 
-	country, cont, err = l.countryProvider.GetByCode(ctx, c)
-	runtime.Must(err)
+	country, cont, err := l.countryProvider.GetByCode(ctx, c)
+	if err != nil {
+		return "", "", err
+	}
 
-	cont = continent.Codes[cont]
-
-	return
+	return country, continent.Codes[cont], nil
 }
 
 // GetByLatLng a country and continent, otherwise error.
