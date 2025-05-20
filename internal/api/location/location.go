@@ -9,7 +9,7 @@ import (
 	"github.com/alexfalkowski/go-service/v2/meta"
 	"github.com/alexfalkowski/go-service/v2/strings"
 	tm "github.com/alexfalkowski/go-service/v2/transport/meta"
-	"github.com/alexfalkowski/standort/internal/location"
+	"github.com/alexfalkowski/standort/v2/internal/location"
 )
 
 // ErrNotFound for location.

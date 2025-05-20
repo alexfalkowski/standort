@@ -1,9 +1,9 @@
 package location
 
 import (
-	"github.com/alexfalkowski/standort/internal/location/country"
-	"github.com/alexfalkowski/standort/internal/location/ip"
-	"github.com/alexfalkowski/standort/internal/location/orb"
+	"github.com/alexfalkowski/standort/v2/internal/location/country"
+	"github.com/alexfalkowski/standort/v2/internal/location/ip"
+	"github.com/alexfalkowski/standort/v2/internal/location/orb"
 	"go.uber.org/fx"
 )
 

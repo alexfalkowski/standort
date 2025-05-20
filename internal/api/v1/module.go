@@ -1,8 +1,8 @@
 package v1
 
 import (
-	"github.com/alexfalkowski/standort/internal/api/v1/transport/grpc"
-	"github.com/alexfalkowski/standort/internal/api/v1/transport/http"
+	"github.com/alexfalkowski/standort/v2/internal/api/v1/transport/grpc"
+	"github.com/alexfalkowski/standort/v2/internal/api/v1/transport/http"
 	"go.uber.org/fx"
 )
 

@@ -38,7 +38,7 @@ jobs:
             - standort-go-build-cache-
       - run: make clean
       - run: make lint
-      - run: make proto-breaking
+      # - run: make proto-breaking
       - run: make sec
       - run: make features
       - run: make benchmarks

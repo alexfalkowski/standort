@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package standort.v1;
 
-option go_package = "github.com/alexfalkowski/standort/api/standort/v1";
+option go_package = "github.com/alexfalkowski/standort/v2/api/standort/v1";
 option ruby_package = "Standort::V1";
 
 // Location of the response.

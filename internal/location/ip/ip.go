@@ -4,9 +4,9 @@ import (
 	"embed"
 
 	"github.com/alexfalkowski/go-service/v2/telemetry/tracer"
-	"github.com/alexfalkowski/standort/internal/location/ip/provider"
-	"github.com/alexfalkowski/standort/internal/location/ip/provider/geoip2"
-	tt "github.com/alexfalkowski/standort/internal/location/ip/provider/telemetry/tracer"
+	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
+	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider/geoip2"
+	tt "github.com/alexfalkowski/standort/v2/internal/location/ip/provider/telemetry/tracer"
 	"go.uber.org/fx"
 )
 

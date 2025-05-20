@@ -5,9 +5,9 @@ import (
 	"errors"
 
 	"github.com/alexfalkowski/go-service/v2/telemetry/tracer"
-	"github.com/alexfalkowski/standort/internal/location/orb/provider"
-	"github.com/alexfalkowski/standort/internal/location/orb/provider/rtree"
-	tt "github.com/alexfalkowski/standort/internal/location/orb/provider/telemetry/tracer"
+	"github.com/alexfalkowski/standort/v2/internal/location/orb/provider"
+	"github.com/alexfalkowski/standort/v2/internal/location/orb/provider/rtree"
+	tt "github.com/alexfalkowski/standort/v2/internal/location/orb/provider/telemetry/tracer"
 	"go.uber.org/fx"
 )
 

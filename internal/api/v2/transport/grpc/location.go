@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/alexfalkowski/go-service/v2/meta"
-	v2 "github.com/alexfalkowski/standort/api/standort/v2"
-	"github.com/alexfalkowski/standort/internal/api/location"
+	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
+	"github.com/alexfalkowski/standort/v2/internal/api/location"
 )
 
 // GetLocation for gRPC.
