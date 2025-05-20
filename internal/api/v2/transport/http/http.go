@@ -1,7 +1,7 @@
 package http
 
 import (
-	"github.com/alexfalkowski/go-service/net/http/rpc"
+	"github.com/alexfalkowski/go-service/v2/net/http/rpc"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	"github.com/alexfalkowski/standort/internal/api/v2/transport/grpc"
 )

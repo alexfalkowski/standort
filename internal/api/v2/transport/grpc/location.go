@@ -3,7 +3,7 @@ package grpc
 import (
 	"context"
 
-	"github.com/alexfalkowski/go-service/meta"
+	"github.com/alexfalkowski/go-service/v2/meta"
 	v2 "github.com/alexfalkowski/standort/api/standort/v2"
 	"github.com/alexfalkowski/standort/internal/api/location"
 )

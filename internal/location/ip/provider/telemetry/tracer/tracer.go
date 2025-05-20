@@ -3,7 +3,7 @@ package tracer
 import (
 	"context"
 
-	"github.com/alexfalkowski/go-service/telemetry/tracer"
+	"github.com/alexfalkowski/go-service/v2/telemetry/tracer"
 	"github.com/alexfalkowski/standort/internal/location/ip/provider"
 	"go.opentelemetry.io/otel/attribute"
 )
