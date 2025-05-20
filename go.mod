@@ -1,4 +1,4 @@
-module github.com/alexfalkowski/standort
+module github.com/alexfalkowski/standort/v2
 
 go 1.24.0
 

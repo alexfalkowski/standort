@@ -305,7 +305,7 @@ const file_standort_v1_service_proto_rawDesc = "" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x012\xd5\x01\n" +
 	"\aService\x12^\n" +
 	"\x0fGetLocationByIP\x12#.standort.v1.GetLocationByIPRequest\x1a$.standort.v1.GetLocationByIPResponse\"\x00\x12j\n" +
-	"\x13GetLocationByLatLng\x12'.standort.v1.GetLocationByLatLngRequest\x1a(.standort.v1.GetLocationByLatLngResponse\"\x00BBZ1github.com/alexfalkowski/standort/api/standort/v1\xea\x02\fStandort::V1b\x06proto3"
+	"\x13GetLocationByLatLng\x12'.standort.v1.GetLocationByLatLngRequest\x1a(.standort.v1.GetLocationByLatLngResponse\"\x00BEZ4github.com/alexfalkowski/standort/v2/api/standort/v1\xea\x02\fStandort::V1b\x06proto3"
 
 var (
 	file_standort_v1_service_proto_rawDescOnce sync.Once

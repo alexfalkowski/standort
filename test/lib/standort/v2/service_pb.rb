@@ -5,9 +5,9 @@
 require 'google/protobuf'
 
 
-descriptor_data = "\n\x19standort/v2/service.proto\x12\x0bstandort.v2\"B\n\x08Location\x12\x18\n\x07\x63ountry\x18\x01 \x01(\tR\x07\x63ountry\x12\x1c\n\tcontinent\x18\x02 \x01(\tR\tcontinent\"+\n\x05Point\x12\x10\n\x03lat\x18\x01 \x01(\x01R\x03lat\x12\x10\n\x03lng\x18\x02 \x01(\x01R\x03lng\"N\n\x12GetLocationRequest\x12\x0e\n\x02ip\x18\x01 \x01(\tR\x02ip\x12(\n\x05point\x18\x02 \x01(\x0b\x32\x12.standort.v2.PointR\x05point\"\xde\x01\n\x13GetLocationResponse\x12>\n\x04meta\x18\x01 \x03(\x0b\x32*.standort.v2.GetLocationResponse.MetaEntryR\x04meta\x12%\n\x02ip\x18\x02 \x01(\x0b\x32\x15.standort.v2.LocationR\x02ip\x12\'\n\x03geo\x18\x03 \x01(\x0b\x32\x15.standort.v2.LocationR\x03geo\x1a\x37\n\tMetaEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\x32]\n\x07Service\x12R\n\x0bGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x00\x42\x42Z1github.com/alexfalkowski/standort/api/standort/v2\xea\x02\x0cStandort::V2b\x06proto3"
+descriptor_data = "\n\x19standort/v2/service.proto\x12\x0bstandort.v2\"B\n\x08Location\x12\x18\n\x07\x63ountry\x18\x01 \x01(\tR\x07\x63ountry\x12\x1c\n\tcontinent\x18\x02 \x01(\tR\tcontinent\"+\n\x05Point\x12\x10\n\x03lat\x18\x01 \x01(\x01R\x03lat\x12\x10\n\x03lng\x18\x02 \x01(\x01R\x03lng\"N\n\x12GetLocationRequest\x12\x0e\n\x02ip\x18\x01 \x01(\tR\x02ip\x12(\n\x05point\x18\x02 \x01(\x0b\x32\x12.standort.v2.PointR\x05point\"\xde\x01\n\x13GetLocationResponse\x12>\n\x04meta\x18\x01 \x03(\x0b\x32*.standort.v2.GetLocationResponse.MetaEntryR\x04meta\x12%\n\x02ip\x18\x02 \x01(\x0b\x32\x15.standort.v2.LocationR\x02ip\x12\'\n\x03geo\x18\x03 \x01(\x0b\x32\x15.standort.v2.LocationR\x03geo\x1a\x37\n\tMetaEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\x32]\n\x07Service\x12R\n\x0bGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x00\x42\x45Z4github.com/alexfalkowski/standort/v2/api/standort/v2\xea\x02\x0cStandort::V2b\x06proto3"
 
-pool = Google::Protobuf::DescriptorPool.generated_pool
+pool = ::Google::Protobuf::DescriptorPool.generated_pool
 pool.add_serialized_file(descriptor_data)
 
 module Standort

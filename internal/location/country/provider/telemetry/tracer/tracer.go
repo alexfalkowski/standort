@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/alexfalkowski/go-service/v2/telemetry/tracer"
-	"github.com/alexfalkowski/standort/internal/location/country/provider"
+	"github.com/alexfalkowski/standort/v2/internal/location/country/provider"
 	"go.opentelemetry.io/otel/attribute"
 )
 

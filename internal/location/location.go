@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/alexfalkowski/standort/internal/location/continent"
-	country "github.com/alexfalkowski/standort/internal/location/country/provider"
-	ip "github.com/alexfalkowski/standort/internal/location/ip/provider"
-	orb "github.com/alexfalkowski/standort/internal/location/orb/provider"
+	"github.com/alexfalkowski/standort/v2/internal/location/continent"
+	country "github.com/alexfalkowski/standort/v2/internal/location/country/provider"
+	ip "github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
+	orb "github.com/alexfalkowski/standort/v2/internal/location/orb/provider"
 )
 
 // New location.

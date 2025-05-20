@@ -263,7 +263,7 @@ const file_standort_v2_service_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x012]\n" +
 	"\aService\x12R\n" +
-	"\vGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x00BBZ1github.com/alexfalkowski/standort/api/standort/v2\xea\x02\fStandort::V2b\x06proto3"
+	"\vGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x00BEZ4github.com/alexfalkowski/standort/v2/api/standort/v2\xea\x02\fStandort::V2b\x06proto3"
 
 var (
 	file_standort_v2_service_proto_rawDescOnce sync.Once

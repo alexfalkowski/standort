@@ -7,12 +7,12 @@ import (
 	"github.com/alexfalkowski/go-service/v2/module"
 	"github.com/alexfalkowski/go-service/v2/telemetry"
 	"github.com/alexfalkowski/go-service/v2/transport"
-	"github.com/alexfalkowski/standort/assets"
-	v1 "github.com/alexfalkowski/standort/internal/api/v1"
-	v2 "github.com/alexfalkowski/standort/internal/api/v2"
-	"github.com/alexfalkowski/standort/internal/config"
-	"github.com/alexfalkowski/standort/internal/health"
-	"github.com/alexfalkowski/standort/internal/location"
+	"github.com/alexfalkowski/standort/v2/assets"
+	v1 "github.com/alexfalkowski/standort/v2/internal/api/v1"
+	v2 "github.com/alexfalkowski/standort/v2/internal/api/v2"
+	"github.com/alexfalkowski/standort/v2/internal/config"
+	"github.com/alexfalkowski/standort/v2/internal/health"
+	"github.com/alexfalkowski/standort/v2/internal/location"
 )
 
 // RegisterServer for cmd.
