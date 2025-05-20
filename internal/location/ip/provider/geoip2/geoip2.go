@@ -6,7 +6,7 @@ import (
 	"net"
 
 	"github.com/IncSW/geoip2"
-	"github.com/alexfalkowski/go-service/runtime"
+	"github.com/alexfalkowski/go-service/v2/runtime"
 )
 
 // NewProvider for geoip2.

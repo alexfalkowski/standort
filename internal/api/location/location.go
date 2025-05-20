@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	geouri "git.jlel.se/jlelse/go-geouri"
-	"github.com/alexfalkowski/go-service/meta"
-	"github.com/alexfalkowski/go-service/strings"
-	tm "github.com/alexfalkowski/go-service/transport/meta"
+	"github.com/alexfalkowski/go-service/v2/meta"
+	"github.com/alexfalkowski/go-service/v2/strings"
+	tm "github.com/alexfalkowski/go-service/v2/transport/meta"
 	"github.com/alexfalkowski/standort/internal/location"
 )
 
