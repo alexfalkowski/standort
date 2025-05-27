@@ -2,13 +2,12 @@ package location
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	geouri "git.jlel.se/jlelse/go-geouri"
-	"github.com/alexfalkowski/go-service/v2/meta"
+	"github.com/alexfalkowski/go-service/v2/errors"
 	"github.com/alexfalkowski/go-service/v2/strings"
-	tm "github.com/alexfalkowski/go-service/v2/transport/meta"
+	"github.com/alexfalkowski/go-service/v2/transport/meta"
 	"github.com/alexfalkowski/standort/v2/internal/location"
 )
 
@@ -89,7 +88,7 @@ func (s *Locator) ip(ctx context.Context, ip string) string {
 		return ip
 	}
 
-	return tm.IPAddr(ctx).Value()
+	return meta.IPAddr(ctx).Value()
 }
 
 func (s *Locator) point(ctx context.Context, p *Point) (*Point, error) {
@@ -97,7 +96,7 @@ func (s *Locator) point(ctx context.Context, p *Point) (*Point, error) {
 		return p, nil
 	}
 
-	loc := tm.Geolocation(ctx)
+	loc := meta.Geolocation(ctx)
 	if loc.IsEmpty() {
 		return nil, nil //nolint:nilnil
 	}

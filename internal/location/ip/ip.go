@@ -3,10 +3,9 @@ package ip
 import (
 	"embed"
 
-	"github.com/alexfalkowski/go-service/v2/telemetry/tracer"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider/geoip2"
-	tt "github.com/alexfalkowski/standort/v2/internal/location/ip/provider/telemetry/tracer"
+	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider/telemetry/tracer"
 	"go.uber.org/fx"
 )
 
@@ -22,7 +21,7 @@ type ProviderParams struct {
 // NewProvider for ip.
 func NewProvider(params ProviderParams) provider.Provider {
 	var provider provider.Provider = geoip2.NewProvider(params.FS)
-	provider = tt.NewProvider(provider, params.Tracer)
+	provider = tracer.NewProvider(provider, params.Tracer)
 
 	return provider
 }
