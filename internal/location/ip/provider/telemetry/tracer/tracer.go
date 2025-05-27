@@ -8,15 +8,18 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 )
 
+// Tracer is an alias for the tracer.Tracer.
+type Tracer = tracer.Tracer
+
 // NewProvider for tracer.
-func NewProvider(provider provider.Provider, tracer *tracer.Tracer) *Provider {
+func NewProvider(provider provider.Provider, tracer *Tracer) *Provider {
 	return &Provider{provider: provider, tracer: tracer}
 }
 
 // Provider for tracer.
 type Provider struct {
 	provider provider.Provider
-	tracer   *tracer.Tracer
+	tracer   *Tracer
 }
 
 // GetByIP a country.

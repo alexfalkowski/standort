@@ -2,14 +2,17 @@ package orb
 
 import (
 	"embed"
-	"errors"
 
+	"github.com/alexfalkowski/go-service/v2/errors"
 	"github.com/alexfalkowski/go-service/v2/telemetry/tracer"
 	"github.com/alexfalkowski/standort/v2/internal/location/orb/provider"
 	"github.com/alexfalkowski/standort/v2/internal/location/orb/provider/rtree"
 	tt "github.com/alexfalkowski/standort/v2/internal/location/orb/provider/telemetry/tracer"
 	"go.uber.org/fx"
 )
+
+// Tracer is an alias for the tracer.Tracer.
+type Tracer = tracer.Tracer
 
 // ErrNoProvider in the config.
 var ErrNoProvider = errors.New("no provider configured")
@@ -20,7 +23,7 @@ type ProviderParams struct {
 
 	Lifecycle fx.Lifecycle
 	FS        embed.FS
-	Tracer    *tracer.Tracer
+	Tracer    *Tracer
 }
 
 // NewProvider for orb.
