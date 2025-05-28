@@ -1,28 +1,10 @@
 package cmd
 
-import (
-	"github.com/alexfalkowski/go-service/v2/cli"
-	"github.com/alexfalkowski/go-service/v2/debug"
-	"github.com/alexfalkowski/go-service/v2/feature"
-	"github.com/alexfalkowski/go-service/v2/module"
-	"github.com/alexfalkowski/go-service/v2/telemetry"
-	"github.com/alexfalkowski/go-service/v2/transport"
-	"github.com/alexfalkowski/standort/v2/assets"
-	v1 "github.com/alexfalkowski/standort/v2/internal/api/v1"
-	v2 "github.com/alexfalkowski/standort/v2/internal/api/v2"
-	"github.com/alexfalkowski/standort/v2/internal/config"
-	"github.com/alexfalkowski/standort/v2/internal/health"
-	"github.com/alexfalkowski/standort/v2/internal/location"
-)
+import "github.com/alexfalkowski/go-service/v2/cli"
 
 // RegisterServer for cmd.
 func RegisterServer(command cli.Commander) {
-	cmd := command.AddServer("server", "Start standort server",
-		module.Module, debug.Module, feature.Module,
-		telemetry.Module, transport.Module,
-		health.Module, location.Module,
-		assets.Module, config.Module,
-		v1.Module, v2.Module, cli.Module,
-	)
+	cmd := command.AddServer("server", "Start standort server", Module)
+
 	cmd.AddInput("")
 }
