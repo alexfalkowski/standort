@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-service:
     docker:
-      - image: alexfalkowski/go:2.17
+      - image: alexfalkowski/go:2.22
     working_directory: ~/standort
     steps:
       - checkout
@@ -57,7 +57,7 @@ jobs:
     resource_class: large
   build-docker:
     docker:
-      - image: alexfalkowski/go:2.17
+      - image: alexfalkowski/go:2.22
     working_directory: ~/standort
     steps:
       - checkout
@@ -70,7 +70,7 @@ jobs:
     resource_class: large
   release:
     docker:
-      - image: alexfalkowski/release:3.19
+      - image: alexfalkowski/release:3.21
     working_directory: ~/standort
     steps:
       - checkout
@@ -78,7 +78,7 @@ jobs:
     resource_class: large
   push-docker:
     docker:
-      - image: alexfalkowski/go:2.17
+      - image: alexfalkowski/go:2.22
     working_directory: ~/standort
     steps:
       - checkout
