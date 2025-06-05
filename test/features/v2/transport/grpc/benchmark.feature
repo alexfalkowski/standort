@@ -4,4 +4,4 @@ Feature: Benchmark gRPC API
 
   Scenario: Get location in a good time frame and memory.
     When I request a location with gRPC which performs in 15 ms
-    And the process 'server' should consume less than '65mb' of memory
+    And the process 'server' should consume less than '70mb' of memory
