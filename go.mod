@@ -6,11 +6,10 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.3
 	github.com/alexfalkowski/go-health v1.23.0
-	github.com/alexfalkowski/go-service/v2 v2.43.0
+	github.com/alexfalkowski/go-service/v2 v2.46.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.11.1
 	github.com/tidwall/rtree v1.10.0
-	go.opentelemetry.io/otel v1.36.0
 	go.uber.org/fx v1.24.0
 	google.golang.org/grpc v1.73.0
 	google.golang.org/protobuf v1.36.6
@@ -110,6 +109,7 @@ require (
 	go.opentelemetry.io/contrib/bridges/otelslog v0.11.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/host v0.61.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/runtime v0.61.0 // indirect
+	go.opentelemetry.io/otel v1.36.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp v0.12.2 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.36.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.36.0 // indirect
