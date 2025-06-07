@@ -3,9 +3,9 @@ package tracer
 import (
 	"context"
 
+	"github.com/alexfalkowski/go-service/v2/telemetry/attributes"
 	"github.com/alexfalkowski/go-service/v2/telemetry/tracer"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
-	"go.opentelemetry.io/otel/attribute"
 )
 
 // Tracer is an alias for the tracer.Tracer.
@@ -24,11 +24,7 @@ type Provider struct {
 
 // GetByIP a country.
 func (p *Provider) GetByIP(ctx context.Context, ip string) (string, error) {
-	attrs := []attribute.KeyValue{
-		attribute.Key("provider.ip").String(ip),
-	}
-
-	ctx, span := p.tracer.StartClient(ctx, operationName("get"), attrs...)
+	ctx, span := p.tracer.StartClient(ctx, operationName("get"), attributes.String("provider.ip", ip))
 	defer span.End()
 
 	country, err := p.provider.GetByIP(ctx, ip)
