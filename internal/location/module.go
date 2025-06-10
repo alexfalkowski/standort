@@ -1,16 +1,16 @@
 package location
 
 import (
+	"github.com/alexfalkowski/go-service/v2/di"
 	"github.com/alexfalkowski/standort/v2/internal/location/country"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip"
 	"github.com/alexfalkowski/standort/v2/internal/location/orb"
-	"go.uber.org/fx"
 )
 
 // Module for fx.
-var Module = fx.Options(
-	fx.Provide(ip.NewProvider),
-	fx.Provide(country.NewProvider),
-	fx.Provide(New),
-	fx.Provide(orb.NewProvider),
+var Module = di.Module(
+	di.Constructor(ip.NewProvider),
+	di.Constructor(country.NewProvider),
+	di.Constructor(New),
+	di.Constructor(orb.NewProvider),
 )

@@ -3,17 +3,17 @@ package ip
 import (
 	"embed"
 
+	"github.com/alexfalkowski/go-service/v2/di"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider/geoip2"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider/telemetry/tracer"
-	"go.uber.org/fx"
 )
 
 // ProviderParams for ip.
 type ProviderParams struct {
-	fx.In
+	di.In
 
-	Lifecycle fx.Lifecycle
+	Lifecycle di.Lifecycle
 	FS        embed.FS
 	Tracer    *tracer.Tracer
 }
