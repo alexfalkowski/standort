@@ -59,7 +59,7 @@ jobs:
   release:
     docker:
       - image: alexfalkowski/release:3.25
-    working_directory: ~/go-service-template
+    working_directory: ~/standort
     steps:
       - checkout
       - run: git submodule sync
@@ -70,7 +70,7 @@ jobs:
   build-docker-amd64:
     docker:
       - image: alexfalkowski/go:2.27
-    working_directory: ~/go-service-template
+    working_directory: ~/standort
     steps:
       - checkout
       - run: git submodule sync
@@ -83,7 +83,7 @@ jobs:
   build-docker-arm64:
     docker:
       - image: alexfalkowski/go:2.27
-    working_directory: ~/go-service-template
+    working_directory: ~/standort
     steps:
       - checkout
       - run: git submodule sync
@@ -96,7 +96,7 @@ jobs:
   push-docker-amd64:
     docker:
       - image: alexfalkowski/go:2.27
-    working_directory: ~/go-service-template
+    working_directory: ~/standort
     steps:
       - checkout
       - run: git submodule sync
@@ -112,7 +112,7 @@ jobs:
   push-docker-arm64:
     docker:
       - image: alexfalkowski/go:2.27
-    working_directory: ~/go-service-template
+    working_directory: ~/standort
     steps:
       - checkout
       - run: git submodule sync
@@ -128,7 +128,7 @@ jobs:
   manifest-docker:
     docker:
       - image: alexfalkowski/go:2.27
-    working_directory: ~/go-service-template
+    working_directory: ~/standort
     steps:
       - checkout
       - run: git submodule sync
