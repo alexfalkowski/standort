@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.525.0](https://github.com/alexfalkowski/standort/releases/tag/v2.525.0) - 2025-06-14
+
+- [`706f71b`](https://github.com/alexfalkowski/standort/commit/706f71ba64b4d55d522083b134942b80c78c946d) feat(ci): use correct working_directory (#1448)
+
 ## [v2.524.0](https://github.com/alexfalkowski/standort/releases/tag/v2.524.0) - 2025-06-14
 
 - [`b10ae16`](https://github.com/alexfalkowski/standort/commit/b10ae1658ee9a56aacd98993a8a7a746ece63fa3) feat(ci): build multi platform (#1447)
