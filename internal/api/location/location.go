@@ -6,8 +6,8 @@ import (
 
 	geouri "git.jlel.se/jlelse/go-geouri"
 	"github.com/alexfalkowski/go-service/v2/errors"
+	"github.com/alexfalkowski/go-service/v2/meta"
 	"github.com/alexfalkowski/go-service/v2/strings"
-	"github.com/alexfalkowski/go-service/v2/transport/meta"
 	"github.com/alexfalkowski/standort/v2/internal/location"
 )
 
