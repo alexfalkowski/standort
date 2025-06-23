@@ -1,9 +1,9 @@
 package location
 
 import (
-	"context"
 	"fmt"
 
+	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/standort/v2/internal/location/continent"
 	country "github.com/alexfalkowski/standort/v2/internal/location/country/provider"
 	ip "github.com/alexfalkowski/standort/v2/internal/location/ip/provider"

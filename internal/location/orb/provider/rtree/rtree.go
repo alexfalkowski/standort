@@ -1,10 +1,10 @@
 package rtree
 
 import (
-	"context"
 	"embed"
 	"errors"
 
+	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/runtime"
 	"github.com/paulmach/orb/geojson"
 	"github.com/tidwall/rtree"

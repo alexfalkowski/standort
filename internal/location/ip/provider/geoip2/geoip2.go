@@ -1,11 +1,11 @@
 package geoip2
 
 import (
-	"context"
 	"embed"
 	"net"
 
 	"github.com/IncSW/geoip2"
+	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/runtime"
 )
 
