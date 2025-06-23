@@ -1,10 +1,10 @@
 package location
 
 import (
-	"context"
 	"fmt"
 
 	geouri "git.jlel.se/jlelse/go-geouri"
+	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/errors"
 	"github.com/alexfalkowski/go-service/v2/meta"
 	"github.com/alexfalkowski/go-service/v2/strings"

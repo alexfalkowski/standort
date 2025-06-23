@@ -1,8 +1,6 @@
 package provider
 
-import (
-	"context"
-)
+import "github.com/alexfalkowski/go-service/v2/context"
 
 // Provider to search a lat lng and get country and continent.
 type Provider interface {
