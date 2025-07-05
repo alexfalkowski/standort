@@ -8,8 +8,5 @@ import (
 
 // NewProvider for country.
 func NewProvider(t *tracer.Tracer) provider.Provider {
-	var provider provider.Provider = gountries.NewProvider()
-	provider = tracer.NewProvider(provider, t)
-
-	return provider
+	return tracer.NewProvider(gountries.NewProvider(), t)
 }

@@ -1,18 +1,23 @@
 version: "2"
 linters:
   default: all
+  enable:
+    - wsl_v5
   disable:
     - bodyclose
     - depguard
+    - embeddedstructfieldcheck
     - exhaustruct
     - funcorder
     - forcetypeassert
     - gochecknoglobals
     - ireturn
+    - noinlineerr
     - paralleltest
     - tagalign
     - varnamelen
     - wrapcheck
+    - wsl
   settings:
     lll:
       line-length: 140
