@@ -20,8 +20,5 @@ type ProviderParams struct {
 
 // NewProvider for ip.
 func NewProvider(params ProviderParams) provider.Provider {
-	var provider provider.Provider = geoip2.NewProvider(params.FS)
-	provider = tracer.NewProvider(provider, params.Tracer)
-
-	return provider
+	return tracer.NewProvider(geoip2.NewProvider(params.FS), params.Tracer)
 }
