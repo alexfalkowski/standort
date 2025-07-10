@@ -36,12 +36,12 @@ jobs:
           keys:
             - standort-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
             - standort-go-build-cache-
-      - run: make clean
       - restore_cache:
           name: restore go lint cache
           keys:
             - standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
             - standort-go-lint-cache-
+      - run: make clean
       - run: make lint
       - save_cache:
           name: save go lint cache
