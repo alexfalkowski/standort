@@ -9,43 +9,44 @@ jobs:
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
+      - run: make source-key
       - restore_cache:
           name: restore go cache
           keys:
-            - standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+            - standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
             - standort-go-cache-
       - restore_cache:
           name: restore ruby cache
           keys:
-            - standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}-{{ checksum "~/.ruby-version" }}
+            - standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}-{{ checksum "~/.ruby-version" }}-{{ checksum ".source-key" }}
             - standort-ruby-cache-
       - run: make clean
       - run: make dep
       - save_cache:
           name: save go cache
-          key: standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+          key: standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
           paths:
             - ~/go/pkg/mod
       - save_cache:
           name: save ruby cache
-          key: standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}-{{ checksum "~/.ruby-version" }}
+          key: standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}-{{ checksum "~/.ruby-version" }}-{{ checksum ".source-key" }}
           paths:
             - test/vendor
       - restore_cache:
           name: restore go build cache
           keys:
-            - standort-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+            - standort-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
             - standort-go-build-cache-
       - restore_cache:
           name: restore go lint cache
           keys:
-            - standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}
+            - standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}-{{ checksum ".source-key" }}
             - standort-go-lint-cache-
       - run: make clean
       - run: make lint
       - save_cache:
           name: save go lint cache
-          key: standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}
+          key: standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}-{{ checksum ".source-key" }}
           paths:
             - ~/.cache/golangci-lint
       - run: make proto-breaking
@@ -56,7 +57,7 @@ jobs:
       - run: make analyse
       - save_cache:
           name: save go build cache
-          key: standort-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+          key: standort-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
           paths:
             - ~/.cache/go-build
       - run: make coverage
