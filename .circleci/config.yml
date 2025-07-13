@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-service:
     docker:
-      - image: alexfalkowski/go:2.40
+      - image: alexfalkowski/go:2.41
     working_directory: ~/standort
     steps:
       - checkout
@@ -39,13 +39,13 @@ jobs:
       - restore_cache:
           name: restore go lint cache
           keys:
-            - standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+            - standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}
             - standort-go-lint-cache-
       - run: make clean
       - run: make lint
       - save_cache:
           name: save go lint cache
-          key: standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+          key: standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}
           paths:
             - ~/.cache/golangci-lint
       - run: make proto-breaking
@@ -79,7 +79,7 @@ jobs:
     resource_class: large
   build-docker-amd64:
     docker:
-      - image: alexfalkowski/go:2.40
+      - image: alexfalkowski/go:2.41
     working_directory: ~/standort
     steps:
       - checkout
@@ -92,7 +92,7 @@ jobs:
     resource_class: large
   build-docker-arm64:
     docker:
-      - image: alexfalkowski/go:2.40
+      - image: alexfalkowski/go:2.41
     working_directory: ~/standort
     steps:
       - checkout
@@ -105,7 +105,7 @@ jobs:
     resource_class: arm.medium
   push-docker-amd64:
     docker:
-      - image: alexfalkowski/go:2.40
+      - image: alexfalkowski/go:2.41
     working_directory: ~/standort
     steps:
       - checkout
@@ -121,7 +121,7 @@ jobs:
     resource_class: large
   push-docker-arm64:
     docker:
-      - image: alexfalkowski/go:2.40
+      - image: alexfalkowski/go:2.41
     working_directory: ~/standort
     steps:
       - checkout
@@ -137,7 +137,7 @@ jobs:
     resource_class: arm.medium
   manifest-docker:
     docker:
-      - image: alexfalkowski/go:2.40
+      - image: alexfalkowski/go:2.41
     working_directory: ~/standort
     steps:
       - checkout
