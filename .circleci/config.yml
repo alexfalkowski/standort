@@ -69,7 +69,7 @@ jobs:
     resource_class: large
   release:
     docker:
-      - image: alexfalkowski/release:4.2
+      - image: alexfalkowski/release:4.3
     working_directory: ~/standort
     steps:
       - checkout
