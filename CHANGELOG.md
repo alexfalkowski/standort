@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.562.0](https://github.com/alexfalkowski/standort/releases/tag/v2.562.0) - 2025-07-26
+
+- [`c5243ba`](https://github.com/alexfalkowski/standort/commit/c5243ba36a5ea263b20a9e1abd982f1d2e16ab34) feat(health): use just noop for grpc (#1506)
+
 ## [v2.561.0](https://github.com/alexfalkowski/standort/releases/tag/v2.561.0) - 2025-07-26
 
 - [`771647a`](https://github.com/alexfalkowski/standort/commit/771647a2e1a6d80526628a30483ea5704a20576f) feat(deps): upgraded github.com/alexfalkowski/go-service/v2 to v2.107.0 (#1505)
