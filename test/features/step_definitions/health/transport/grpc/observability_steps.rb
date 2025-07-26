@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 When('the system requests the health status with gRPC') do
-  request = Grpc::Health::V1::HealthCheckRequest.new
+  request = Grpc::Health::V1::HealthCheckRequest.new(service: 'standort.v2.Service')
   @response = Standort.health_grpc.check(request)
 end
 
