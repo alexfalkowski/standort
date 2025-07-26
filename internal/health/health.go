@@ -19,8 +19,8 @@ func register(name env.Name, srv *server.Server, cfg *Config) {
 	}
 
 	srv.Register(name.String(), regs...)
-	srv.Register(v1.Service_ServiceDesc.ServiceName, regs...)
-	srv.Register(v2.Service_ServiceDesc.ServiceName, regs...)
+	srv.Register(v1.Service_ServiceDesc.ServiceName, regs[0])
+	srv.Register(v2.Service_ServiceDesc.ServiceName, regs[0])
 }
 
 func httpHealthObserver(name env.Name, server *server.Server) error {
