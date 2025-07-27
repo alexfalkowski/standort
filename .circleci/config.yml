@@ -67,16 +67,15 @@ jobs:
           path: test/reports
       - run: make codecov-upload
     resource_class: large
-  release:
+  version:
     docker:
-      - image: alexfalkowski/release:4.4
+      - image: alexfalkowski/release:5.2
     working_directory: ~/standort
     steps:
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
-      - run: make pull
-      - run: release
+      - run: version
     resource_class: large
   build-docker-amd64:
     docker:
@@ -152,6 +151,16 @@ jobs:
           command: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - run: make manifest-docker
     resource_class: large
+  deploy:
+    docker:
+      - image: alexfalkowski/release:5.2
+    working_directory: ~/bezeichner
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+      - run: deploy
+    resource_class: large
 
 workflows:
   standort:
@@ -165,7 +174,7 @@ workflows:
           filters:
             branches:
               ignore: master
-      - release:
+      - version:
           context: gh
           requires:
             - build-service
@@ -175,14 +184,14 @@ workflows:
       - push-docker-amd64:
           context: docker
           requires:
-            - release
+            - version
           filters:
             branches:
               only: master
       - push-docker-arm64:
           context: docker
           requires:
-            - release
+            - version
           filters:
             branches:
               only: master
@@ -191,6 +200,13 @@ workflows:
           requires:
             - push-docker-amd64
             - push-docker-arm64
+          filters:
+            branches:
+              only: master
+      - deploy:
+          context: gh
+          requires:
+            - manifest-docker
           filters:
             branches:
               only: master
