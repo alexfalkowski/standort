@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.563.0](https://github.com/alexfalkowski/standort/releases/tag/v2.563.0) - 2025-07-28
+
+- [`ba1ff34`](https://github.com/alexfalkowski/standort/commit/ba1ff3485e36939d046956a6ce2c86dc49a617c7) feat(deps): bump bin from `123518d` to `30d8508` (#1508)
+- [`d6884c1`](https://github.com/alexfalkowski/standort/commit/d6884c1c6da41c1592ae0046c44b3ae8cbf311f0) build(ci): use latest published images (#1507)
+
 ## [v2.562.0](https://github.com/alexfalkowski/standort/releases/tag/v2.562.0) - 2025-07-26
 
 - [`c5243ba`](https://github.com/alexfalkowski/standort/commit/c5243ba36a5ea263b20a9e1abd982f1d2e16ab34) feat(health): use just noop for grpc (#1506)
