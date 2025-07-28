@@ -154,7 +154,7 @@ jobs:
   deploy:
     docker:
       - image: alexfalkowski/release:5.2
-    working_directory: ~/bezeichner
+    working_directory: ~/standort
     steps:
       - checkout
       - run: git submodule sync
