@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.564.0](https://github.com/alexfalkowski/standort/releases/tag/v2.564.0) - 2025-07-31
+
+- [`59f3efc`](https://github.com/alexfalkowski/standort/commit/59f3efcd073a3cec8a1634523eaba0b20bd54b86) feat(deps): upgraded github.com/alexfalkowski/go-service/v2 to v2.109.0 (#1512)
+- [`1a2c5e9`](https://github.com/alexfalkowski/standort/commit/1a2c5e92404b3679380f3feca209d36ade977eef) build(ci): use latest published images (#1511)
+- [`54753d8`](https://github.com/alexfalkowski/standort/commit/54753d8fc234c16fd28b41e04682d93e36b91ad6) build(deps): upgraded github.com/alexfalkowski/bin (#1510)
+- [`99b9656`](https://github.com/alexfalkowski/standort/commit/99b9656a3c197d8a8f49da41b8f8ba92414daef1) build(ci): use proper working_directory for deploy (#1509)
+
 ## [v2.563.0](https://github.com/alexfalkowski/standort/releases/tag/v2.563.0) - 2025-07-28
 
 - [`ba1ff34`](https://github.com/alexfalkowski/standort/commit/ba1ff3485e36939d046956a6ce2c86dc49a617c7) feat(deps): bump bin from `123518d` to `30d8508` (#1508)
