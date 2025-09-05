@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.3
 	github.com/alexfalkowski/go-health/v2 v2.4.0
-	github.com/alexfalkowski/go-service/v2 v2.141.0
+	github.com/alexfalkowski/go-service/v2 v2.145.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.11.1
 	github.com/tidwall/rtree v1.10.0
@@ -28,7 +28,7 @@ require (
 	github.com/beevik/nts v0.2.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.9.0 // indirect
-	github.com/casbin/casbin/v2 v2.121.0 // indirect
+	github.com/casbin/casbin/v2 v2.122.0 // indirect
 	github.com/casbin/govaluate v1.8.0 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
@@ -85,9 +85,9 @@ require (
 	github.com/open-feature/go-sdk-contrib/hooks/open-telemetry v0.3.6 // indirect
 	github.com/pbnjay/memory v0.0.0-20210728143218-7b4eea64cf58 // indirect
 	github.com/power-devops/perfstat v0.0.0-20240221224432-82ca36839d55 // indirect
-	github.com/prometheus/client_golang v1.23.0 // indirect
+	github.com/prometheus/client_golang v1.23.1 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
-	github.com/prometheus/common v0.65.0 // indirect
+	github.com/prometheus/common v0.66.0 // indirect
 	github.com/prometheus/otlptranslator v0.0.2 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/redis/go-redis/v9 v9.13.0 // indirect
@@ -99,7 +99,6 @@ require (
 	github.com/shirou/gopsutil/v4 v4.25.8 // indirect
 	github.com/sony/gobreaker v1.0.0 // indirect
 	github.com/spf13/cast v1.9.2 // indirect
-	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/standard-webhooks/standard-webhooks/libraries v0.0.0-20250711233419-a173a6c0125c // indirect
 	github.com/tidwall/geoindex v1.7.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.15 // indirect
