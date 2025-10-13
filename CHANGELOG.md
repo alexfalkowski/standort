@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.613.0](https://github.com/alexfalkowski/standort/releases/tag/v2.613.0) - 2025-10-13
+
+- [`565e165`](https://github.com/alexfalkowski/standort/commit/565e16571eeb16a119dbe3609241b2c62aa15cbf) feat(deps): bump github.com/alexfalkowski/go-service/v2 from 2.170.0 to 2.171.0 (#1611)
+- [`c856d37`](https://github.com/alexfalkowski/standort/commit/c856d37b7bf95ffb25ef3d51c33216adb15581f3) build(ci): use latest published images (#1610)
+- [`d6b67a3`](https://github.com/alexfalkowski/standort/commit/d6b67a3b7d198e3572058a6c8f92c02991b5247b) test(deps): bump sinatra from 4.1.1 to 4.2.0 in /test (#1609)
+- [`92ce087`](https://github.com/alexfalkowski/standort/commit/92ce087ec02465495e9a348aed37503f3fc0f495) test(deps): bump rack from 3.2.2 to 3.2.3 in /test (#1608)
+- [`f872f9e`](https://github.com/alexfalkowski/standort/commit/f872f9e4adf5420e44072b05ccc0309370505c72) build(ci): use latest published images (#1607)
+
 ## [v2.612.0](https://github.com/alexfalkowski/standort/releases/tag/v2.612.0) - 2025-10-10
 
 - [`631bb34`](https://github.com/alexfalkowski/standort/commit/631bb341cb7edc0bc934d128345449749f371c36) feat(deps): bump github.com/alexfalkowski/go-service/v2 from 2.169.0 to 2.170.0 (#1606)
