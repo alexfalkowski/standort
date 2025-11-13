@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.3
 	github.com/alexfalkowski/go-health/v2 v2.4.0
-	github.com/alexfalkowski/go-service/v2 v2.189.1
+	github.com/alexfalkowski/go-service/v2 v2.190.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.12.0
 	github.com/tidwall/rtree v1.10.0
