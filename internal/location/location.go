@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/alexfalkowski/go-service/v2/context"
+	"github.com/alexfalkowski/go-service/v2/strings"
 	"github.com/alexfalkowski/standort/v2/internal/location/continent"
 	country "github.com/alexfalkowski/standort/v2/internal/location/country/provider"
 	ip "github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
@@ -26,12 +27,12 @@ type Location struct {
 func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, error) {
 	c, err := l.ipProvider.GetByIP(ctx, ip)
 	if err != nil {
-		return "", "", err
+		return strings.Empty, strings.Empty, err
 	}
 
 	country, cont, err := l.countryProvider.GetByCode(ctx, c)
 	if err != nil {
-		return "", "", err
+		return strings.Empty, strings.Empty, err
 	}
 
 	return country, continent.Codes[cont], nil
@@ -41,7 +42,7 @@ func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, erro
 func (l *Location) GetByLatLng(ctx context.Context, lat, lng float64) (string, string, error) {
 	cou, con, err := l.orbProvider.Search(ctx, lat, lng)
 	if err != nil {
-		return "", "", fmt.Errorf("%f/%f: %w", lat, lng, err)
+		return strings.Empty, strings.Empty, fmt.Errorf("%f/%f: %w", lat, lng, err)
 	}
 
 	return cou, continent.Codes[con], nil

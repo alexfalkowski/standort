@@ -6,6 +6,7 @@ import (
 
 	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/runtime"
+	"github.com/alexfalkowski/go-service/v2/strings"
 	"github.com/paulmach/orb/geojson"
 	"github.com/tidwall/rtree"
 )
@@ -46,7 +47,7 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string, 
 	})
 
 	if !found {
-		return "", "", ErrNotFound
+		return strings.Empty, strings.Empty, ErrNotFound
 	}
 
 	return data.Country, data.Continent, nil
