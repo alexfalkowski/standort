@@ -3,6 +3,7 @@ package grpc
 import (
 	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/meta"
+	"github.com/alexfalkowski/go-service/v2/strings"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 	"github.com/alexfalkowski/standort/v2/internal/api/location"
 )
@@ -11,7 +12,7 @@ import (
 func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*v2.GetLocationResponse, error) {
 	ip, geo, err := s.service.Locate(ctx, req.GetIp(), toPoint(req.GetPoint()))
 	resp := &v2.GetLocationResponse{
-		Meta: meta.CamelStrings(ctx, ""),
+		Meta: meta.CamelStrings(ctx, strings.Empty),
 		Ip:   toLocation(ip),
 		Geo:  toLocation(geo),
 	}
