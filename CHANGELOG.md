@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.649.0](https://github.com/alexfalkowski/standort/releases/tag/v2.649.0) - 2025-12-08
+
+- [`329581f`](https://github.com/alexfalkowski/standort/commit/329581f085d873e429878cecc98e182d0b5e7a5f) feat(deps): upgraded github.com/alexfalkowski/go-service/v2 to v2.212.0 (#1674)
+- [`23b6f28`](https://github.com/alexfalkowski/standort/commit/23b6f280ead6bd3ea9b95e97341980be76019eb2) build(ci): use latest published images (#1673)
+- [`8547b3f`](https://github.com/alexfalkowski/standort/commit/8547b3ff650c497bd85943df5bc9102cd7fd9733) build(ci): use latest published images (#1672)
+- [`1f3a778`](https://github.com/alexfalkowski/standort/commit/1f3a7780a7d400b14d1321e794d126e0245f0c77) build(ci): use latest published images (#1671)
+- [`d238177`](https://github.com/alexfalkowski/standort/commit/d238177d5ac873eaaf9b6ed33e80e5030a586f5b) build(ci): use latest published images (#1670)
+
 ## [v2.648.0](https://github.com/alexfalkowski/standort/releases/tag/v2.648.0) - 2025-12-04
 
 - [`5963c8d`](https://github.com/alexfalkowski/standort/commit/5963c8d7fbd0c43fc6adf657811a4843bbd01bce) feat(deps): bump bin from `5ed27e1` to `6174b3d` (#1669)
