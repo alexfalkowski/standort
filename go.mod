@@ -11,7 +11,7 @@ require (
 	github.com/paulmach/orb v0.12.0
 	github.com/tidwall/rtree v1.10.0
 	google.golang.org/grpc v1.77.0
-	google.golang.org/protobuf v1.36.10
+	google.golang.org/protobuf v1.36.11
 )
 
 require (
