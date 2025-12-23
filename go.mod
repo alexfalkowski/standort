@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.3
 	github.com/alexfalkowski/go-health/v2 v2.6.0
-	github.com/alexfalkowski/go-service/v2 v2.222.0
+	github.com/alexfalkowski/go-service/v2 v2.223.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.12.0
 	github.com/tidwall/rtree v1.10.0
@@ -26,7 +26,7 @@ require (
 	github.com/arl/statsviz v0.8.0 // indirect
 	github.com/avfs/avfs v0.35.0 // indirect
 	github.com/beevik/ntp v1.5.0 // indirect
-	github.com/beevik/nts v0.2.1 // indirect
+	github.com/beevik/nts v0.3.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.9.1 // indirect
 	github.com/casbin/casbin/v2 v2.135.0 // indirect
@@ -137,7 +137,7 @@ require (
 	golang.org/x/sync v0.19.0 // indirect
 	golang.org/x/sys v0.39.0 // indirect
 	golang.org/x/text v0.32.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20251213004720-97cd9d5aeac2 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20251213004720-97cd9d5aeac2 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20251222181119-0a764e51fe1b // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251222181119-0a764e51fe1b // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
