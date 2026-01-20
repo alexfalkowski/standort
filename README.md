@@ -21,10 +21,6 @@ The service allows you to get the location by IP address using [geoip2](https://
 
 The service allows you to get the location based on [latitude/longitude](https://www.latlong.net/) using the power of [free maps](https://geojson-maps.ash.ms/).
 
-### Dependencies
-
-![Dependencies](./assets/location.png)
-
 ## API
 
 The api has the following versions.
@@ -48,8 +44,8 @@ The project follows the structure in [golang-standards/project-layout](https://g
 ### Dependencies
 
 Please make sure that you have the following installed:
-- [Ruby](.ruby-version)
-- Golang
+- [Ruby](https://www.ruby-lang.org/en/)
+- [Golang](https://go.dev/)
 
 ### Style
 
