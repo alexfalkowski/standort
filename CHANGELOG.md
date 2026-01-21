@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.671.0](https://github.com/alexfalkowski/standort/releases/tag/v2.671.0) - 2026-01-21
+
+- [`73e8b1e`](https://github.com/alexfalkowski/standort/commit/73e8b1efe9ef2d19ad748bc0f028dbc690fd5d05) feat(deps): bump github.com/IncSW/geoip2 from 0.1.3 to 0.1.4 (#1730)
+
 ## [v2.670.0](https://github.com/alexfalkowski/standort/releases/tag/v2.670.0) - 2026-01-20
 
 - [`76800b8`](https://github.com/alexfalkowski/standort/commit/76800b80e631f5e49747efc70f2825896483b3aa) feat(deps): remove deps diagram (#1729)
