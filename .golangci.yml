@@ -12,6 +12,7 @@ linters:
     - ireturn
     - nlreturn
     - noinlineerr
+    - nonamedreturns
     - paralleltest
     - revive
     - tagalign

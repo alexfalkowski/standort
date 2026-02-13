@@ -2,6 +2,12 @@
 
 This repository is a Go service called **standort** (location-based information) with two API versions (v1 and v2) exposed over **gRPC** and **HTTP**.
 
+## Recent repo notes (keep in sync)
+
+- README was updated to remove `make setup` (no such target) and to include accurate bootstrap/run steps and gRPC examples.
+- Package-level documentation is expected to live in `doc.go` files (a set of `doc.go` files were added across key packages).
+- If Go tooling fails with "inconsistent vendoring", run `make dep` to re-vendor (many targets use `-mod vendor`).
+
 ## First steps
 
 ### Prerequisites (observed)
@@ -19,6 +25,10 @@ git submodule sync
 git submodule update --init
 make dep
 ```
+
+Notes:
+- The repo depends on a `bin/` git submodule; initialize it before running most `make` targets.
+- Vendoring is used heavily; re-run `make dep` after dependency changes or if you hit vendoring errors.
 
 Notes:
 - Most `make` targets call scripts under `./bin/` (submodule). If `bin/` is missing/stale, (re)run the submodule commands above.
@@ -50,6 +60,13 @@ Observed from `bin/build/make/grpc.mak:216-218`:
 - Runs `air --build.cmd "make dep build"`.
 - Runs the binary as `./standort server -i file:test/.config/server.yml`.
 
+Run the built binary directly:
+
+```sh
+make build
+./standort server -i file:test/.config/server.yml
+```
+
 The dev config file `test/.config/server.yml` configures addresses:
 - HTTP: `tcp://:11000`
 - gRPC: `tcp://:12000`
@@ -78,6 +95,9 @@ Benchmarks (Ruby harness):
 ```sh
 make benchmarks
 ```
+
+Tip:
+- If `make specs` fails because `gotestsum` is missing, install it (it’s invoked directly by the make target).
 
 ### Lint / format
 
@@ -203,4 +223,5 @@ make specs
 - **Build tags**: feature harness test is behind `//go:build features` (`main_test.go:1-11`).
 - **`make specs` requires `gotestsum`**: it’s invoked directly in the Make target (`bin/build/make/grpc.mak:135-137`).
 - **Generated protobuf**: generated `*.pb.go` / `*_grpc.pb.go` are excluded from lint/format (`.golangci.yml:25-43`). Don’t hand-edit generated files; re-run proto generation instead.
-- **README mismatch**: `README.md` suggests `make setup` (`README.md:54-60`), but no `setup` target was found in the checked-in make fragments under `bin/build/make/` at the time of writing.
+- **README mismatch**: historically `README.md` suggested `make setup`, but there is no `setup` target. The README has been updated; if this line reappears, fix the README and/or add the missing target.
+- **Package docs**: prefer package-level docs in `doc.go` files. If you add new packages or public surface area, create/update `doc.go` rather than scattering package overview docs across implementation files.

@@ -11,10 +11,17 @@ import (
 	"github.com/tidwall/rtree"
 )
 
-// ErrNotFound for rtree.
+// ErrNotFound is returned when no geometry in the R-tree contains the queried point.
+//
+// This error is intended to be treated as a sentinel "no match" condition by
+// callers, as opposed to a system failure (I/O, parsing, etc.).
 var ErrNotFound = errors.New("not found")
 
-// NewProvider for rtree.
+// NewProvider constructs an R-tree-backed orb provider.
+//
+// It builds an in-memory spatial index from the embedded `earth.geojson` asset.
+// Construction will terminate the process (via `runtime.Must`) if the GeoJSON
+// asset cannot be read or parsed.
 func NewProvider(fs embed.FS) *Provider {
 	tree := &rtree.Generic[*Node]{}
 	populateTree(tree, fs)
@@ -22,24 +29,36 @@ func NewProvider(fs embed.FS) *Provider {
 	return &Provider{tree: tree}
 }
 
-// Provider for rtree.
+// Provider implements a latitude/longitude point-in-polygon search using an R-tree.
+//
+// The index is built from `earth.geojson`. Each node stores the geometry along
+// with ISO-3166 alpha-2 country codes and continent names as provided by the dataset.
 type Provider struct {
 	tree *rtree.Generic[*Node]
 }
 
-// Search a lat lng and get country and continent.
+// Search resolves a latitude/longitude coordinate to a country code and continent name.
+//
+// Inputs are in degrees. The search is performed by:
+//  1. querying the R-tree by the point's bounding box to get candidate geometries, then
+//  2. running an exact point-in-polygon test via `(*Node).IsPointInGeometry`.
+//
+// Returns:
+//   - countryCode: ISO-3166 alpha-2 code from the dataset (e.g. "US")
+//   - continent: continent name from the dataset (e.g. "North America")
+//   - err: `ErrNotFound` when no geometry contains the point
 func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string, error) {
 	var (
 		found bool
 		data  *Node
 	)
 
+	// Note: rtree uses [x,y] ordering; for geographic coordinates that is [lng,lat].
 	p.tree.Search([2]float64{lng, lat}, [2]float64{lng, lat}, func(_, _ [2]float64, d *Node) bool {
 		data = d
 
 		if data.IsPointInGeometry(lat, lng) {
 			found = true
-
 			return false
 		}
 
@@ -53,6 +72,10 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string, 
 	return data.Country, data.Continent, nil
 }
 
+// populateTree reads `earth.geojson` from the embedded filesystem and inserts each
+// feature's geometry into the R-tree.
+//
+// The inserted bounding boxes are derived from the feature geometry bounds.
 func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
 	data, err := fs.ReadFile("earth.geojson")
 	runtime.Must(err)

@@ -11,7 +11,15 @@ import (
 	"github.com/alexfalkowski/standort/v2/internal/location"
 )
 
-// Module for fx.
+// Module is the top-level dependency injection composition for the standort server.
+//
+// It composes framework/server wiring (`module.Server`) with standort's internal modules:
+//   - `config.Module`: configuration loading/decoration for the service
+//   - `health.Module`: health checks and HTTP/GRPC health observers
+//   - `assets.Module`: embedded runtime assets (GeoJSON, GeoIP database)
+//   - `location.Module`: domain location resolution (IP and point-in-polygon)
+//   - `v1.Module`: API v1 transports (gRPC + HTTP route registration)
+//   - `v2.Module`: API v2 transports (gRPC + HTTP route registration)
 var Module = di.Module(
 	module.Server,
 	config.Module,
