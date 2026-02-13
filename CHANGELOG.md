@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.686.0](https://github.com/alexfalkowski/standort/releases/tag/v2.686.0) - 2026-02-13
+
+- [`55ddaa4`](https://github.com/alexfalkowski/standort/commit/55ddaa471215aa3f97a8860660c76905dfc3e72c) feat(deps): bump github.com/alexfalkowski/go-service/v2 from 2.277.0 to 2.279.0 (#1769)
+- [`66e005b`](https://github.com/alexfalkowski/standort/commit/66e005b3a47879c3f4ca162f481c235ffd196136) test(deps): bump rubocop from 1.84.1 to 1.84.2 in /test (#1766)
+- [`2edf01c`](https://github.com/alexfalkowski/standort/commit/2edf01c4ddf2c19305b20f78f4d91e8fb212d5f8) build(ci): use arm.large (#1765)
+- [`1948a2e`](https://github.com/alexfalkowski/standort/commit/1948a2e2ad9748df48d6552166a4a0f042aaae9c) build(ci): use arm.large (#1764)
+- [`d2e5db8`](https://github.com/alexfalkowski/standort/commit/d2e5db8f85bf9c25e8833ad3c7d8e34894cff207) build(ci): use latest published images (#1763)
+
 ## [v2.685.0](https://github.com/alexfalkowski/standort/releases/tag/v2.685.0) - 2026-02-12
 
 - [`7187247`](https://github.com/alexfalkowski/standort/commit/71872472a388b918cb5a6c93a47c00e22f5fc1af) feat(deps): bump github.com/alexfalkowski/go-service/v2 from 2.273.0 to 2.277.0 (#1762)
