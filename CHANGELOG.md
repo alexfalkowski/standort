@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.693.0](https://github.com/alexfalkowski/standort/releases/tag/v2.693.0) - 2026-02-24
+
+- [`eb9d564`](https://github.com/alexfalkowski/standort/commit/eb9d56462692dd22b0e76968b7cef43fa2d367b2) feat(deps): bump github.com/alexfalkowski/go-service/v2 from 2.287.0 to 2.288.0 (#1791)
+- [`30572ca`](https://github.com/alexfalkowski/standort/commit/30572ca4479ea3d0e2b483582a0c6bffdca23747) build(ci): use latest published images (#1790)
+- [`1138dd6`](https://github.com/alexfalkowski/standort/commit/1138dd6e040bbc8334b8e88ed9d7f027159e7ac0) build(ci): use latest published images (#1789)
+- [`1e31814`](https://github.com/alexfalkowski/standort/commit/1e31814c762668258e2549d78b60cdfb1a19beea) build(deps): upgraded github.com/alexfalkowski/bin (#1788)
+- [`e68c7c6`](https://github.com/alexfalkowski/standort/commit/e68c7c6f6c8511d90011bec0282eb643fe0be173) build(deps): upgraded github.com/alexfalkowski/bin (#1787)
+
 ## [v2.692.0](https://github.com/alexfalkowski/standort/releases/tag/v2.692.0) - 2026-02-20
 
 - [`d6e82c1`](https://github.com/alexfalkowski/standort/commit/d6e82c1faa29625db9a9bcbd0a53ee77c058bf0e) feat(deps): bump github.com/alexfalkowski/go-service/v2 from 2.286.0 to 2.287.0 (#1786)
