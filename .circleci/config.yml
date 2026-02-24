@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-service:
     docker:
-      - image: alexfalkowski/go:2.109
+      - image: alexfalkowski/go:2.110
     working_directory: ~/standort
     steps:
       - checkout:
@@ -70,7 +70,7 @@ jobs:
     resource_class: arm.large
   version:
     docker:
-      - image: alexfalkowski/release:5.50
+      - image: alexfalkowski/release:5.51
     working_directory: ~/standort
     steps:
       - checkout:
@@ -93,7 +93,7 @@ jobs:
     resource_class: arm.large
   build-docker-amd64:
     docker:
-      - image: alexfalkowski/go:2.109
+      - image: alexfalkowski/go:2.110
     working_directory: ~/standort
     steps:
       - checkout:
@@ -107,7 +107,7 @@ jobs:
     resource_class: large
   build-docker-arm64:
     docker:
-      - image: alexfalkowski/go:2.109
+      - image: alexfalkowski/go:2.110
     working_directory: ~/standort
     steps:
       - checkout:
@@ -121,7 +121,7 @@ jobs:
     resource_class: arm.large
   push-docker-amd64:
     docker:
-      - image: alexfalkowski/go:2.109
+      - image: alexfalkowski/go:2.110
     working_directory: ~/standort
     steps:
       - checkout:
@@ -138,7 +138,7 @@ jobs:
     resource_class: large
   push-docker-arm64:
     docker:
-      - image: alexfalkowski/go:2.109
+      - image: alexfalkowski/go:2.110
     working_directory: ~/standort
     steps:
       - checkout:
@@ -155,7 +155,7 @@ jobs:
     resource_class: arm.large
   manifest-docker:
     docker:
-      - image: alexfalkowski/go:2.109
+      - image: alexfalkowski/go:2.110
     working_directory: ~/standort
     steps:
       - checkout:
@@ -172,7 +172,7 @@ jobs:
     resource_class: arm.large
   deploy:
     docker:
-      - image: alexfalkowski/release:5.50
+      - image: alexfalkowski/release:5.51
     working_directory: ~/standort
     steps:
       - checkout:
