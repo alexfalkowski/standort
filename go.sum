@@ -21,8 +21,8 @@ github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1 h1:+JkXLHME8vLJafGhOH4ao
 github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1/go.mod h1:nuudZmJhzWtx2212z+pkuy7B6nkBqa+xwNXZHL1j8cg=
 github.com/alexfalkowski/go-health/v2 v2.14.0 h1:Ngo7tiwtrWsysdj7pxzS5JNM/3soF4yQlxazOCQs1s8=
 github.com/alexfalkowski/go-health/v2 v2.14.0/go.mod h1:zqX6BJ8Brqu7ittQjNtCItDDzHXef9lPHZCzSTrEzQo=
-github.com/alexfalkowski/go-service/v2 v2.288.1 h1:8hAmoYlZlDSG/QX36Yh95ig+lwkJPxhflt7Glwvk5WM=
-github.com/alexfalkowski/go-service/v2 v2.288.1/go.mod h1:9HJY11Gd7nORr8CHQu1mJC8+HyFpx4n8MBRsRGWjIeA=
+github.com/alexfalkowski/go-service/v2 v2.290.0 h1:6zCgZiX8hEtmSurMdzFUt/YkmjV+jwIQ1gtvaZIivnk=
+github.com/alexfalkowski/go-service/v2 v2.290.0/go.mod h1:7XBl/t+giAMk+TxgAj4XJru7uBu3PHiBOHQhSo1z37U=
 github.com/alexfalkowski/go-sync v1.9.0 h1:9EORw79sGwmD8zUVCamnbE4wEXGy/Iw9d0f7O6HZ4qE=
 github.com/alexfalkowski/go-sync v1.9.0/go.mod h1:78w6G5Aiai2rKb3ZpIZD7kn7SRfZj7aRULVUWeGdGRw=
 github.com/arl/statsviz v0.8.0 h1:O6GjjVxEDxcByAucOSl29HaGYLXsuwA3ujJw8H9E7/U=
@@ -379,8 +379,8 @@ golang.org/x/net v0.0.0-20190620200207-3b0461eec859/go.mod h1:z5CRVTTTmAJ677TzLL
 golang.org/x/net v0.0.0-20200226121028-0de0cce0169b/go.mod h1:z5CRVTTTmAJ677TzLLGU+0bjPO0LkuOLi4/5GtJWs/s=
 golang.org/x/net v0.0.0-20201021035429-f5854403a974/go.mod h1:sp8m0HH+o8qH0wwXwYZr8TS3Oi6o0r6Gce1SSxlDquU=
 golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2/go.mod h1:9nx3DQGgdP8bBQD5qxJ1jj9UTztislL4KSBs9R2vV5Y=
-golang.org/x/net v0.50.0 h1:ucWh9eiCGyDR3vtzso0WMQinm2Dnt8cFMuQa9K33J60=
-golang.org/x/net v0.50.0/go.mod h1:UgoSli3F/pBgdJBHCTc+tp3gmrU4XswgGRgtnwWTfyM=
+golang.org/x/net v0.51.0 h1:94R/GTO7mt3/4wIKpcR5gkGmRLOuE/2hNGeWq/GBIFo=
+golang.org/x/net v0.51.0/go.mod h1:aamm+2QF5ogm02fjy5Bb7CQ0WMt1/WVM7FtyaTLlA9Y=
 golang.org/x/sync v0.0.0-20190423024810-112230192c58/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
