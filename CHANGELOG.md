@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.701.0](https://github.com/alexfalkowski/standort/releases/tag/v2.701.0) - 2026-03-13
+
+- [`6a50e5e`](https://github.com/alexfalkowski/standort/commit/6a50e5ed01e1ae1c0b08c9efdf44ce339e33881c) feat(deps): bump github.com/alexfalkowski/go-service/v2 from 2.298.0 to 2.302.0 (#1822)
+- [`a4e12c2`](https://github.com/alexfalkowski/standort/commit/a4e12c2d36c24c93075c8756a0ecc704e9c6aff2) build(ci): use latest published images (#1821)
+- [`f5aa528`](https://github.com/alexfalkowski/standort/commit/f5aa52894dda064692589a6385828ebe61edb877) test(deps): bump ruby-lsp from 0.26.7 to 0.26.8 in /test (#1820)
+- [`ac3d032`](https://github.com/alexfalkowski/standort/commit/ac3d0320156221d8a4b60d05f77c6a2786a8ba36) build(deps): upgraded github.com/alexfalkowski/bin (#1819)
+- [`a91ed57`](https://github.com/alexfalkowski/standort/commit/a91ed57f31707af8f23c7ec37a3fcf6d489d78b3) build(ci): use alexfalkowski/release:5.58 (#1818)
+- [`b4a05da`](https://github.com/alexfalkowski/standort/commit/b4a05da1390ff5053f6b831a18fc4ebfcd8f5b2e) test(deps): upgraded bundler to 4.0.8 (#1817)
+- [`9ce8169`](https://github.com/alexfalkowski/standort/commit/9ce816985bc4770ba71b5dfcc375ffff0bef883c) build(ci): use latest published images (#1816)
+- [`8b3c84b`](https://github.com/alexfalkowski/standort/commit/8b3c84b9a4198db201f84f5430e295921e133cf3) build(deps): upgraded github.com/alexfalkowski/bin (#1815)
+- [`37bdc3d`](https://github.com/alexfalkowski/standort/commit/37bdc3d1dd9fc4818b2455c449662efc4c5f273d) build(deps): upgraded github.com/alexfalkowski/bin (#1814)
+- [`8ed9867`](https://github.com/alexfalkowski/standort/commit/8ed9867b7027247dbb514e2a2458b053149794e8) build(deps): upgraded github.com/alexfalkowski/bin (#1813)
+- [`addeb24`](https://github.com/alexfalkowski/standort/commit/addeb2411320073bab9262e4ba2e8f009c689392) build(ci): add wait-all (#1812)
+- [`6d84f0c`](https://github.com/alexfalkowski/standort/commit/6d84f0c134308f6036cc5d3ff07a16b0549eaf76) build(ci): use latest published images (#1811)
+- [`3b5fa97`](https://github.com/alexfalkowski/standort/commit/3b5fa971bc08db271345c4b9377a18f8839ae34f) build(ci): use latest published images (#1810)
+- [`4b69cfc`](https://github.com/alexfalkowski/standort/commit/4b69cfcdf0134dcd986a7f139bb15a621d8ac23c) build(ci): use latest published images (#1809)
+
 ## [v2.700.0](https://github.com/alexfalkowski/standort/releases/tag/v2.700.0) - 2026-03-09
 
 - [`031c761`](https://github.com/alexfalkowski/standort/commit/031c76101e747c780a6ed6b244353798683b65cd) feat(deps): bump github.com/alexfalkowski/go-service/v2 from 2.295.0 to 2.298.0 (#1807)
