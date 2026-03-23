@@ -70,7 +70,7 @@ jobs:
     resource_class: arm.large
   sync:
     docker:
-      - image: alexfalkowski/release:5.59
+      - image: alexfalkowski/release:6.3
     working_directory: ~/standort
     steps:
       - checkout:
@@ -81,7 +81,7 @@ jobs:
     resource_class: arm.large
   version:
     docker:
-      - image: alexfalkowski/release:5.59
+      - image: alexfalkowski/release:6.3
     working_directory: ~/standort
     steps:
       - checkout:
@@ -100,6 +100,10 @@ jobs:
             - standort-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
             - standort-go-build-cache-
       - run: version
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - .
       - run: package
     resource_class: arm.large
   wait-all:
@@ -145,7 +149,8 @@ jobs:
           method: blobless
       - run: git submodule sync
       - run: git submodule update --init
-      - run: make pull
+      - attach_workspace:
+          at: /tmp/workspace
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
@@ -162,7 +167,8 @@ jobs:
           method: blobless
       - run: git submodule sync
       - run: git submodule update --init
-      - run: make pull
+      - attach_workspace:
+          at: /tmp/workspace
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
@@ -179,7 +185,8 @@ jobs:
           method: blobless
       - run: git submodule sync
       - run: git submodule update --init
-      - run: make pull
+      - attach_workspace:
+          at: /tmp/workspace
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
@@ -189,13 +196,15 @@ jobs:
     resource_class: arm.large
   deploy:
     docker:
-      - image: alexfalkowski/release:5.59
+      - image: alexfalkowski/release:6.3
     working_directory: ~/standort
     steps:
       - checkout:
           method: blobless
       - run: git submodule sync
       - run: git submodule update --init
+      - attach_workspace:
+          at: /tmp/workspace
       - run: deploy
     resource_class: arm.large
 
@@ -221,6 +230,7 @@ workflows:
               ignore: master
       - version:
           context: gh
+          serial-group: << pipeline.project.slug >>/version
           requires:
             - build-service
           filters:
