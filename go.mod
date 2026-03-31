@@ -8,7 +8,7 @@ require (
 	github.com/alexfalkowski/go-health/v2 v2.17.0
 	github.com/alexfalkowski/go-service/v2 v2.318.0
 	github.com/pariz/gountries v0.1.6
-	github.com/paulmach/orb v0.12.0
+	github.com/paulmach/orb v0.13.0
 	github.com/tidwall/rtree v1.10.0
 	google.golang.org/grpc v1.79.3
 	google.golang.org/protobuf v1.36.11
@@ -106,7 +106,7 @@ require (
 	github.com/tklauser/numcpus v0.11.0 // indirect
 	github.com/urfave/negroni/v3 v3.1.1 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
-	go.mongodb.org/mongo-driver v1.17.6 // indirect
+	go.mongodb.org/mongo-driver/v2 v2.5.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/bridges/otelslog v0.17.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.67.0 // indirect
