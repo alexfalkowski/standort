@@ -6,17 +6,14 @@ import (
 	"github.com/alexfalkowski/go-service/v2/env"
 	"github.com/alexfalkowski/go-service/v2/errors"
 	"github.com/alexfalkowski/go-service/v2/health"
-	"github.com/alexfalkowski/go-service/v2/time"
 	v1 "github.com/alexfalkowski/standort/v2/api/standort/v1"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 )
 
 func register(name env.Name, srv *server.Server, cfg *Config) {
-	d := time.MustParseDuration(cfg.Duration)
-	t := time.MustParseDuration(cfg.Timeout)
 	regs := health.Registrations{
-		server.NewRegistration("noop", d, checker.NewNoopChecker()),
-		server.NewOnlineRegistration(t, d),
+		server.NewRegistration("noop", cfg.Duration.Duration(), checker.NewNoopChecker()),
+		server.NewOnlineRegistration(cfg.Timeout.Duration(), cfg.Duration.Duration()),
 	}
 
 	srv.Register(name.String(), regs...)
