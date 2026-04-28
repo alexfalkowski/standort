@@ -5,8 +5,8 @@ go 1.26.0
 require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.4
-	github.com/alexfalkowski/go-health/v2 v2.19.1
-	github.com/alexfalkowski/go-service/v2 v2.354.0
+	github.com/alexfalkowski/go-health/v2 v2.19.2
+	github.com/alexfalkowski/go-service/v2 v2.355.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.13.0
 	github.com/tidwall/rtree v1.10.0
