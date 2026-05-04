@@ -93,7 +93,9 @@ type Locator struct {
 //  1. IP-based lookup (if an IP is available)
 //  2. Geolocation-based lookup (if a point is available)
 //
-// The returned locations preserve that ordering: `(ipLocation, geoLocation, err)`.
+// The return values are ordered as `(ctx, ipLocation, geoLocation, err)`.
+// The returned context is the input context or a derived context containing
+// lookup/parsing error metadata.
 //
 // Error handling semantics:
 //
@@ -107,7 +109,7 @@ type Locator struct {
 //
 // On partial success (one lookup succeeds and the other fails or is missing), the
 // successful location is returned and `err` is nil.
-func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (*Location, *Location, error) {
+func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (context.Context, *Location, *Location, error) {
 	var (
 		ipLocation  *Location
 		geoLocation *Location
@@ -115,7 +117,7 @@ func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (*Location, *
 
 	if ip := s.ip(ctx, ip); !strings.IsEmpty(ip) {
 		if country, continent, err := s.location.GetByIP(ctx, ip); err != nil {
-			meta.WithAttribute(ctx, "locationIpError", meta.Error(err))
+			ctx = meta.WithAttributes(ctx, meta.NewPair("locationIpError", meta.Error(err)))
 		} else {
 			ipLocation = &Location{Country: country, Continent: continent, Kind: IP}
 		}
@@ -123,20 +125,20 @@ func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (*Location, *
 
 	p, err := s.point(ctx, p)
 	if err != nil {
-		meta.WithAttribute(ctx, "locationPointError", meta.Error(err))
+		ctx = meta.WithAttributes(ctx, meta.NewPair("locationPointError", meta.Error(err)))
 	} else if p != nil {
 		if country, continent, err := s.location.GetByLatLng(ctx, p.Lat, p.Lng); err != nil {
-			meta.WithAttribute(ctx, "locationLatLngError", meta.Error(err))
+			ctx = meta.WithAttributes(ctx, meta.NewPair("locationLatLngError", meta.Error(err)))
 		} else {
 			geoLocation = &Location{Country: country, Continent: continent, Kind: GEO}
 		}
 	}
 
 	if ipLocation == nil && geoLocation == nil {
-		return nil, nil, ErrNotFound
+		return ctx, nil, nil, ErrNotFound
 	}
 
-	return ipLocation, geoLocation, nil
+	return ctx, ipLocation, geoLocation, nil
 }
 
 func (s *Locator) ip(ctx context.Context, ip string) string {
