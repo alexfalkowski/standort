@@ -16,7 +16,8 @@ import (
 //   - attaching lookup/parsing failures to metadata attributes.
 //
 // Response semantics:
-//   - `resp.Meta` is populated from request metadata via `meta.CamelStrings(ctx, strings.Empty)`.
+//   - `resp.Meta` is populated from the context returned by `Locate`, so lookup/parsing
+//     error metadata can be included in the response.
 //   - `resp.Ip` is set when an IP-derived location could be resolved.
 //   - `resp.Geo` is set when a geo-derived location could be resolved.
 //   - if neither input produces a location, the resulting error is mapped to a gRPC
@@ -25,7 +26,7 @@ import (
 // On partial success (one lookup succeeds and the other fails or is missing), the
 // successful side is returned and the other side is nil.
 func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*v2.GetLocationResponse, error) {
-	ip, geo, err := s.service.Locate(ctx, req.GetIp(), toPoint(req.GetPoint()))
+	ctx, ip, geo, err := s.service.Locate(ctx, req.GetIp(), toPoint(req.GetPoint()))
 	resp := &v2.GetLocationResponse{
 		Meta: meta.CamelStrings(ctx, strings.Empty),
 		Ip:   toLocation(ip),
