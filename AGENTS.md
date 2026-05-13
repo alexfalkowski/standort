@@ -1,11 +1,10 @@
 # AGENTS.md
 
-## Shared skill
+## Shared skills
 
-Use the shared `coding-standards` skill from `./bin/skills/coding-standards`
-for cross-repository coding, review, testing, documentation, and PR
-conventions. Treat this `AGENTS.md` as the repo-specific companion to that
-skill.
+This repository uses the shared skills from `bin/skills/`. Read
+`bin/AGENTS.md` for the canonical shared skill list and use the smallest
+matching skill for the task.
 
 This repository is a Go service called **standort** (location-based information) with two API versions (v1 and v2) exposed over **gRPC** and **HTTP**.
 
