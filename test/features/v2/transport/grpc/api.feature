@@ -12,17 +12,17 @@ Feature: gRPC API
       | continent | <continent> |
 
     Examples: With geoip2 parameters
-      | source | method | ip                                      | country | continent |
-      | geoip2 | params |                           95.91.246.242 | DE      | EU        |
-      | geoip2 | params |                          45.128.199.236 | NL      | EU        |
-      | geoip2 | params |                             154.6.22.65 | US      | NA        |
-      | geoip2 | params | 2a02:8109:9f2e:4600:861e:b845:8bd4:b047 | DE      | EU        |
+      | source | method | kind | ip                                      | country | continent |
+      | geoip2 | params | ip   |                           95.91.246.242 | DE      | EU        |
+      | geoip2 | params | ip   |                          45.128.199.236 | NL      | EU        |
+      | geoip2 | params | ip   |                             154.6.22.65 | US      | NA        |
+      | geoip2 | params | ip   | 2a02:8109:9f2e:4600:861e:b845:8bd4:b047 | DE      | EU        |
 
     Examples: With geoip2 metadata
-      | source | method   | ip             | country | continent |
-      | geoip2 | metadata |  95.91.246.242 | DE      | EU        |
-      | geoip2 | metadata | 45.128.199.236 | NL      | EU        |
-      | geoip2 | metadata |    154.6.22.65 | US      | NA        |
+      | source | method   | kind | ip             | country | continent |
+      | geoip2 | metadata | ip   |  95.91.246.242 | DE      | EU        |
+      | geoip2 | metadata | ip   | 45.128.199.236 | NL      | EU        |
+      | geoip2 | metadata | ip   |    154.6.22.65 | US      | NA        |
 
   Scenario Outline: Get location by a not found IP address.
     When I request a location with gRPC:
@@ -35,14 +35,16 @@ Feature: gRPC API
       | geoip2 | params | 0.0.0.0 |
       | geoip2 | params | test    |
       | geoip2 | params | <test>  |
-      | geoip2 | params |   154.6 |
+      | geoip2 | params | 154.6   |
+      | geoip2 | params | 1.0.4.1 |
 
     Examples: With geoip2 metadata
       | source | method   | ip      |
       | geoip2 | metadata | 0.0.0.0 |
       | geoip2 | metadata | test    |
       | geoip2 | metadata | <test>  |
-      | geoip2 | metadata |   154.6 |
+      | geoip2 | metadata | 154.6   |
+      | geoip2 | metadata | 1.0.4.1 |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location with gRPC:
@@ -55,16 +57,16 @@ Feature: gRPC API
       | continent | <continent> |
 
     Examples: With parameters
-      | method | latitude  | longitude  | country | continent |
-      | params | 52.520008 |  13.404954 | DE      | EU        |
-      | params | 52.377956 |   4.897070 | NL      | EU        |
-      | params | 43.000000 | -75.000000 | US      | NA        |
+      | method | kind | latitude  | longitude  | country | continent |
+      | params | geo  | 52.520008 |  13.404954 | DE      | EU        |
+      | params | geo  | 52.377956 |   4.897070 | NL      | EU        |
+      | params | geo  | 43.000000 | -75.000000 | US      | NA        |
 
     Examples: With metadata
-      | method   | latitude  | longitude  | country | continent |
-      | metadata | 52.520008 |  13.404954 | DE      | EU        |
-      | metadata | 52.377956 |   4.897070 | NL      | EU        |
-      | metadata | 43.000000 | -75.000000 | US      | NA        |
+      | method   | kind | latitude  | longitude  | country | continent |
+      | metadata | geo  | 52.520008 |  13.404954 | DE      | EU        |
+      | metadata | geo  | 52.377956 |   4.897070 | NL      | EU        |
+      | metadata | geo  | 43.000000 | -75.000000 | US      | NA        |
 
   Scenario Outline: Get location by a bad latitude and longitude.
     When I request a location with gRPC:
@@ -93,6 +95,8 @@ Feature: gRPC API
     Then I should receive a not found response with gRPC
 
     Examples:
-      | method   | latitude | longitude |
-      | params   |       90 |       180 |
-      | metadata |       90 |       180 |
+      | method   | latitude   | longitude |
+      | params   | 90         | 180       |
+      | metadata | 90         | 180       |
+      | params   | -49.303721 | 69.122136 |
+      | metadata | -49.303721 | 69.122136 |

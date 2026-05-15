@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-When('I request a location with HTTP which performs in {int} ms') do |time|
+When('I request a location with gRPC which performs in {int} ms') do |time|
   @request_id = SecureRandom.uuid
   metadata = { 'request-id' => @request_id }
   params = { 'ip' => '95.91.246.242' }

@@ -33,7 +33,10 @@ Then('I should receive a valid locations with HTTP:') do |table|
   expect(resp['meta'].length).to be > 0
 
   rows = table.rows_hash
-  location = resp['ip'] || resp['geo']
+  other = rows['kind'] == 'ip' ? 'geo' : 'ip'
+  location = resp.fetch(rows['kind'])
+
+  expect(resp[other]).to be_nil
 
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
