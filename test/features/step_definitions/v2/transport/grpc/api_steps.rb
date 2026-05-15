@@ -26,7 +26,16 @@ Then('I should receive a valid locations with gRPC:') do |table|
   expect(@response.meta.length).to be > 0
 
   rows = table.rows_hash
-  location = @response.ip || @response.geo
+  location = case rows['kind']
+             when 'ip'
+               expect(@response.geo).to be_nil
+               @response.ip
+             when 'geo'
+               expect(@response.ip).to be_nil
+               @response.geo
+             else
+               raise "unsupported location kind: #{rows['kind']}"
+             end
 
   expect(location.country).to eq(rows['country'])
   expect(location.continent).to eq(rows['continent'])

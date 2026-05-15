@@ -26,6 +26,7 @@ Feature: gRPC API
       | geoip2 | test    |
       | geoip2 | <test>  |
       | geoip2 |   154.6 |
+      | geoip2 | 1.0.4.1 |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location by latitude and longitude with gRPC:
@@ -36,10 +37,11 @@ Feature: gRPC API
       | continent | <continent> |
 
     Examples:
-      | latitude  | longitude  | country | continent |
-      | 52.520008 |  13.404954 | DE      | EU        |
-      | 52.377956 |   4.897070 | NL      | EU        |
-      | 43.000000 | -75.000000 | US      | NA        |
+      | latitude   | longitude  | country | continent |
+      |  52.520008 |  13.404954 | DE      | EU        |
+      |  52.377956 |   4.897070 | NL      | EU        |
+      |  43.000000 | -75.000000 | US      | NA        |
+      | -79.843222 |  35.885455 | AQ      | AN        |
 
   Scenario Outline: Get location by a not found latitude and longitude.
     When I request a location by latitude and longitude with gRPC:
@@ -48,7 +50,8 @@ Feature: gRPC API
     Then I should receive a not found response with gRPC
 
     Examples:
-      | latitude | longitude |
-      |       90 |       180 |
-      |       91 |        10 |
-      |       10 |       181 |
+      | latitude   | longitude |
+      |         90 |       180 |
+      |         91 |        10 |
+      |         10 |       181 |
+      | -49.303721 | 69.122136 |

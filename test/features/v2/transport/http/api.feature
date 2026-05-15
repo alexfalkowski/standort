@@ -12,16 +12,16 @@ Feature: HTTP API
       | continent | <continent> |
 
     Examples: With geoip2 parameters
-      | source | method | ip             | country | continent |
-      | geoip2 | params |  95.91.246.242 | DE      | EU        |
-      | geoip2 | params | 45.128.199.236 | NL      | EU        |
-      | geoip2 | params |    154.6.22.65 | US      | NA        |
+      | source | method | kind | ip             | country | continent |
+      | geoip2 | params | ip   |  95.91.246.242 | DE      | EU        |
+      | geoip2 | params | ip   | 45.128.199.236 | NL      | EU        |
+      | geoip2 | params | ip   |    154.6.22.65 | US      | NA        |
 
     Examples: With geoip2 headers
-      | source | method  | ip             | country | continent |
-      | geoip2 | headers |  95.91.246.242 | DE      | EU        |
-      | geoip2 | headers | 45.128.199.236 | NL      | EU        |
-      | geoip2 | headers |    154.6.22.65 | US      | NA        |
+      | source | method  | kind | ip             | country | continent |
+      | geoip2 | headers | ip   |  95.91.246.242 | DE      | EU        |
+      | geoip2 | headers | ip   | 45.128.199.236 | NL      | EU        |
+      | geoip2 | headers | ip   |    154.6.22.65 | US      | NA        |
 
   Scenario Outline: Get location by an bad IP address.
     When I request a location with HTTP:
@@ -34,14 +34,16 @@ Feature: HTTP API
       | geoip2 | params | 0.0.0.0 |
       | geoip2 | params | test    |
       | geoip2 | params | <test>  |
-      | geoip2 | params |   154.6 |
+      | geoip2 | params | 154.6   |
+      | geoip2 | params | 1.0.4.1 |
 
     Examples: With ip2location headers
       | source | method  | ip      |
       | geoip2 | headers | 0.0.0.0 |
       | geoip2 | headers | test    |
       | geoip2 | headers | <test>  |
-      | geoip2 | headers |   154.6 |
+      | geoip2 | headers | 154.6   |
+      | geoip2 | headers | 1.0.4.1 |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location with HTTP:
@@ -54,16 +56,16 @@ Feature: HTTP API
       | continent | <continent> |
 
     Examples: With parameters
-      | method | latitude  | longitude  | country | continent |
-      | params | 52.520008 |  13.404954 | DE      | EU        |
-      | params | 52.377956 |   4.897070 | NL      | EU        |
-      | params | 43.000000 | -75.000000 | US      | NA        |
+      | method | kind | latitude  | longitude  | country | continent |
+      | params | geo  | 52.520008 |  13.404954 | DE      | EU        |
+      | params | geo  | 52.377956 |   4.897070 | NL      | EU        |
+      | params | geo  | 43.000000 | -75.000000 | US      | NA        |
 
     Examples: With headers
-      | method  | latitude  | longitude  | country | continent |
-      | headers | 52.520008 |  13.404954 | DE      | EU        |
-      | headers | 52.377956 |   4.897070 | NL      | EU        |
-      | headers | 43.000000 | -75.000000 | US      | NA        |
+      | method  | kind | latitude  | longitude  | country | continent |
+      | headers | geo  | 52.520008 |  13.404954 | DE      | EU        |
+      | headers | geo  | 52.377956 |   4.897070 | NL      | EU        |
+      | headers | geo  | 43.000000 | -75.000000 | US      | NA        |
 
   Scenario Outline: Get location by a bad latitude and longitude.
     When I request a location with HTTP:
@@ -92,6 +94,8 @@ Feature: HTTP API
     Then I should receive a not found response with HTTP
 
     Examples:
-      | method  | latitude | longitude |
-      | params  |       90 |       180 |
-      | headers |       90 |       180 |
+      | method  | latitude   | longitude |
+      | params  | 90         | 180       |
+      | headers | 90         | 180       |
+      | params  | -49.303721 | 69.122136 |
+      | headers | -49.303721 | 69.122136 |

@@ -13,6 +13,7 @@ package continent
 //   - AS: Asia
 //   - EU: Europe
 //   - SA: South America
+//   - AN: Antarctica
 //
 // This map is used by the domain `internal/location` service to normalize provider
 // outputs into stable API codes.
@@ -23,4 +24,5 @@ var Codes = map[string]string{
 	"Asia":          "AS",
 	"Europe":        "EU",
 	"South America": "SA",
+	"Antarctica":    "AN",
 }

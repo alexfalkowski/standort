@@ -4,12 +4,17 @@ import (
 	"fmt"
 
 	"github.com/alexfalkowski/go-service/v2/context"
+	"github.com/alexfalkowski/go-service/v2/errors"
 	"github.com/alexfalkowski/go-service/v2/strings"
 	"github.com/alexfalkowski/standort/v2/internal/location/continent"
 	country "github.com/alexfalkowski/standort/v2/internal/location/country/provider"
 	ip "github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
 	orb "github.com/alexfalkowski/standort/v2/internal/location/orb/provider"
 )
+
+// ErrUnsupportedContinent is returned when a provider resolves a continent name
+// that cannot be normalized to the API's two-letter continent code.
+var ErrUnsupportedContinent = errors.New("unsupported continent")
 
 // New constructs a domain `Location` service.
 //
@@ -58,7 +63,12 @@ func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, erro
 		return strings.Empty, strings.Empty, err
 	}
 
-	return country, continent.Codes[cont], nil
+	code, err := continentCode(cont)
+	if err != nil {
+		return strings.Empty, strings.Empty, err
+	}
+
+	return country, code, nil
 }
 
 // GetByLatLng resolves a location from a latitude/longitude coordinate.
@@ -75,5 +85,19 @@ func (l *Location) GetByLatLng(ctx context.Context, lat, lng float64) (string, s
 		return strings.Empty, strings.Empty, fmt.Errorf("%f/%f: %w", lat, lng, err)
 	}
 
-	return cou, continent.Codes[con], nil
+	code, err := continentCode(con)
+	if err != nil {
+		return strings.Empty, strings.Empty, fmt.Errorf("%f/%f: %w", lat, lng, err)
+	}
+
+	return cou, code, nil
+}
+
+func continentCode(cont string) (string, error) {
+	code, ok := continent.Codes[cont]
+	if !ok {
+		return strings.Empty, fmt.Errorf("%s: %w", cont, ErrUnsupportedContinent)
+	}
+
+	return code, nil
 }
