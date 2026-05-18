@@ -40,5 +40,5 @@ func (s *Server) error(err error) error {
 		return nil
 	}
 
-	return status.Error(codes.NotFound, err.Error())
+	return status.SafeError(codes.NotFound, err)
 }
