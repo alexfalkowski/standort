@@ -30,5 +30,8 @@
 //
 // Handlers populate `resp.Meta` from request metadata using
 // `meta.CamelStrings(ctx, strings.Empty)`. This propagates transport metadata to
-// clients in a stable, camel-cased key format.
+// clients in a stable, camel-cased key format. v2 also uses this metadata as an
+// intentional diagnostic channel for partial lookup failures, so clients can see
+// why the IP-derived or geo-derived side failed without transport-specific
+// logging at each lookup branch.
 package grpc
