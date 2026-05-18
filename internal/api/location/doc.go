@@ -15,11 +15,18 @@
 //   - IP address: `meta.IPAddr(ctx).Value()`
 //   - Geolocation: `meta.Geolocation(ctx)` parsed as a geo URI (RFC 5870-style)
 //
+// This package treats metadata as an already-established transport context. It
+// does not decide whether forwarded IP headers or other metadata sources are
+// trustworthy; that boundary belongs to the transport/framework/deployment layer
+// that populates `meta.IPAddr`.
+//
 // # Partial failure reporting
 //
 // Lookup/parsing failures do not immediately fail the request. Instead, they are
 // attached to the request context as metadata attributes so they can be surfaced
-// to clients via the transport layer:
+// to clients via the transport layer. This is intentional: callers can see why a
+// partial lookup failed without every transport needing to duplicate
+// lookup-specific logging:
 //
 //   - `locationIpError` for IP lookup failures
 //   - `locationPointError` for geo URI parsing failures

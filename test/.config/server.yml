@@ -5,6 +5,9 @@ health:
 id:
   kind: uuid
 limiter:
+  # Test/dev harness setting. User-Agent carries service/version identity and is
+  # easy for feature clients to set; production deployments should choose the
+  # limiter key appropriate to their trust boundary.
   kind: user-agent
   tokens: 1000
   interval: 1s

@@ -77,6 +77,11 @@ func NewLocator(location *location.Location) *Locator {
 //   - IP: `meta.IPAddr(ctx).Value()`
 //   - geolocation: `meta.Geolocation(ctx)` parsed as a geo URI
 //
+// Metadata is treated as transport context that has already crossed the
+// appropriate trust boundary. This package does not validate whether forwarded
+// IP metadata is trustworthy; that responsibility belongs to the
+// transport/framework/deployment layer that populates the metadata.
+//
 // If a lookup attempt fails, the error is recorded as a metadata attribute and
 // resolution continues with any other available inputs.
 //

@@ -17,7 +17,7 @@ import (
 //
 // Response semantics:
 //   - `resp.Meta` is populated from the context returned by `Locate`, so lookup/parsing
-//     error metadata can be included in the response.
+//     error metadata can be included in the response as client-visible diagnostic context.
 //   - `resp.Ip` is set when an IP-derived location could be resolved.
 //   - `resp.Geo` is set when a geo-derived location could be resolved.
 //   - if neither input produces a location, the resulting error is mapped to a gRPC
