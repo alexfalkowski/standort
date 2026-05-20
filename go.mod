@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.4
 	github.com/alexfalkowski/go-health/v2 v2.21.0
-	github.com/alexfalkowski/go-service/v2 v2.421.1
+	github.com/alexfalkowski/go-service/v2 v2.422.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.13.0
 	github.com/tidwall/rtree v1.10.0
@@ -19,6 +19,7 @@ require (
 	aidanwoods.dev/go-result v0.3.1 // indirect
 	dario.cat/mergo v1.0.2 // indirect
 	filippo.io/edwards25519 v1.2.0 // indirect
+	github.com/Basekick-Labs/msgpack/v6 v6.1.0 // indirect
 	github.com/BurntSushi/toml v1.6.0 // indirect
 	github.com/KimMachineGun/automemlimit v0.7.5 // indirect
 	github.com/XSAM/otelsql v0.42.0 // indirect
@@ -104,6 +105,7 @@ require (
 	github.com/tklauser/go-sysconf v0.3.16 // indirect
 	github.com/tklauser/numcpus v0.11.0 // indirect
 	github.com/urfave/negroni/v3 v3.1.1 // indirect
+	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	go.mongodb.org/mongo-driver/v2 v2.5.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
