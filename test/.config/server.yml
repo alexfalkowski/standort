@@ -4,13 +4,6 @@ health:
   timeout: 1s
 id:
   kind: uuid
-limiter:
-  # Test/dev harness setting. User-Agent carries service/version identity and is
-  # easy for feature clients to set; production deployments should choose the
-  # limiter key appropriate to their trust boundary.
-  kind: user-agent
-  tokens: 1000
-  interval: 1s
 telemetry:
   logger:
     kind: text
@@ -23,17 +16,15 @@ telemetry:
 transport:
   http:
     address: tcp://:11000
-    retry:
-      attempts: 3
-      backoff: 100ms
-      timeout: 3s
+    limiter:
+      kind: service-method
+      tokens: 1000
+      interval: 1s
     timeout: 5s
-    user_agent: "Standort-server/2.0 http/1.0"
   grpc:
     address: tcp://:12000
-    retry:
-      attempts: 3
-      backoff: 100ms
-      timeout: 3s
+    limiter:
+      kind: service-method
+      tokens: 1000
+      interval: 1s
     timeout: 5s
-    user_agent: "Standort-server/2.0 gRPC/1.0"
