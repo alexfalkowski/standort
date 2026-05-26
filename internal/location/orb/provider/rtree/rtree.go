@@ -84,13 +84,40 @@ func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
 	runtime.Must(err)
 
 	for _, f := range fc.Features {
+		country := countryCode(f.Properties)
+		if strings.IsEmpty(country) {
+			continue
+		}
+
 		bound := f.Geometry.Bound()
 		data := &Node{
-			Country:   f.Properties["iso_a2"].(string),
+			Country:   country,
 			Continent: f.Properties["continent"].(string),
 			Geometry:  f.Geometry,
 		}
 
 		tree.Insert(bound.Min, bound.Max, data)
 	}
+}
+
+func countryCode(properties map[string]any) string {
+	if code := validCountryCode(properties["iso_a2"]); !strings.IsEmpty(code) {
+		return code
+	}
+
+	return validCountryCode(properties["iso_a2_eh"])
+}
+
+func validCountryCode(value any) string {
+	code, ok := value.(string)
+	if !ok || len(code) != 2 {
+		return strings.Empty
+	}
+	for _, r := range code {
+		if r < 'A' || r > 'Z' {
+			return strings.Empty
+		}
+	}
+
+	return code
 }
