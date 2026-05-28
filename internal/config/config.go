@@ -11,13 +11,13 @@ import (
 // shared go-service configuration via an embedded `*config.Config`.
 type Config struct {
 	// Health configures the health subsystem (checks, observers, durations/timeouts, etc.).
-	Health *health.Config `yaml:"health,omitempty" json:"health,omitempty" toml:"health,omitempty"`
+	Health *health.Config `yaml:"health,omitempty" json:"health,omitempty" toml:"health,omitempty" validate:"required"`
 
 	// Config is the embedded go-service base configuration.
 	//
 	// The `yaml:",inline"` / `json:",inline"` / `toml:",inline"` tags make the
 	// embedded fields appear at the top level of the config file.
-	*config.Config `yaml:",inline" json:",inline" toml:",inline"`
+	*config.Config `yaml:",inline" json:",inline" toml:",inline" validate:"required"`
 }
 
 // decorateConfig adapts `*Config` into the embedded `*config.Config` for consumers
