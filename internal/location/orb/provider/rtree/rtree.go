@@ -113,11 +113,6 @@ func validCountryCode(value any) string {
 	if !ok || len(code) != 2 {
 		return strings.Empty
 	}
-	for _, r := range code {
-		if r < 'A' || r > 'Z' {
-			return strings.Empty
-		}
-	}
 
 	return code
 }
