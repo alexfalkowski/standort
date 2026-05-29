@@ -15,6 +15,18 @@
 // `Config` (see `config.go`) and is expected to be provided by the application's
 // configuration system.
 //
+// # Health semantics
+//
+// The HTTP `healthz` observer intentionally uses go-health's `online` checker.
+// That checker verifies public internet reachability using its default URL set
+// when no custom URLs are supplied. This is a product/operational signal for
+// standort, not an accidental external dependency: `healthz` is expected to
+// report unhealthy when the process cannot reach the public internet.
+//
+// Liveness and readiness are separate local signals. The HTTP `livez` and
+// `readyz` observers, as well as the Standort gRPC service observers, use the
+// local `noop` checker and do not require public egress.
+//
 // # Dependency injection
 //
 // This package exports `Module`, which registers the check registration and
