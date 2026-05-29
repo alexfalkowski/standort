@@ -68,6 +68,42 @@ Feature: gRPC API
       | metadata | geo  | 52.377956 |   4.897070 | NL      | EU        |
       | metadata | geo  | 43.000000 | -75.000000 | US      | NA        |
 
+  Scenario Outline: Get location by a valid IP address and latitude and longitude.
+    When I request a location with gRPC:
+      | ip        | <ip>        |
+      | latitude  | <latitude>  |
+      | longitude | <longitude> |
+      | method    | <method>    |
+    Then I should receive valid locations with gRPC:
+      | kind | country       | continent       |
+      | ip   | <ip_country>  | <ip_continent>  |
+      | geo  | <geo_country> | <geo_continent> |
+
+    Examples: With parameters
+      | method | ip            | latitude  | longitude | ip_country | ip_continent | geo_country | geo_continent |
+      | params | 95.91.246.242 | 52.377956 |  4.897070 | DE         | EU           | NL          | EU            |
+
+  Scenario Outline: Get location by partially valid inputs.
+    When I request a location with gRPC:
+      | ip        | <ip>        |
+      | latitude  | <latitude>  |
+      | longitude | <longitude> |
+      | method    | <method>    |
+    Then I should receive a partial location with gRPC:
+      | kind      | <kind>      |
+      | country   | <country>   |
+      | continent | <continent> |
+      | error     | <error>     |
+
+    Examples: With parameters
+      | method | kind | ip            | latitude  | longitude | country | continent | error               |
+      | params | geo  | 0.0.0.0       | 52.377956 |  4.897070 | NL      | EU        | locationIpError     |
+      | params | ip   | 95.91.246.242 | 91        | 10        | DE      | EU        | locationLatLngError |
+
+    Examples: With metadata
+      | method   | kind | ip            | latitude | longitude | country | continent | error              |
+      | metadata | ip   | 95.91.246.242 | test     | 180       | DE      | EU        | locationPointError |
+
   Scenario Outline: Get location by a bad latitude and longitude.
     When I request a location with gRPC:
       | latitude  | <latitude>  |
