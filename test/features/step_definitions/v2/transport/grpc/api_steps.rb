@@ -23,7 +23,7 @@ rescue StandardError => e
 end
 
 Then('I should receive a valid locations with gRPC:') do |table|
-  expect(@response.meta.length).to be > 0
+  expect(@response.meta['requestId']).to eq(@request_id)
 
   rows = table.rows_hash
   location = case rows['kind']
@@ -37,6 +37,44 @@ Then('I should receive a valid locations with gRPC:') do |table|
                raise "unsupported location kind: #{rows['kind']}"
              end
 
+  expect(location.country).to eq(rows['country'])
+  expect(location.continent).to eq(rows['continent'])
+end
+
+Then('I should receive valid locations with gRPC:') do |table|
+  expect(@response.meta['requestId']).to eq(@request_id)
+
+  table.hashes.each do |row|
+    location = case row['kind']
+               when 'ip'
+                 @response.ip
+               when 'geo'
+                 @response.geo
+               else
+                 raise "unsupported location kind: #{row['kind']}"
+               end
+
+    expect(location.country).to eq(row['country'])
+    expect(location.continent).to eq(row['continent'])
+  end
+end
+
+Then('I should receive a partial location with gRPC:') do |table|
+  expect(@response.meta['requestId']).to eq(@request_id)
+
+  rows = table.rows_hash
+  location = case rows['kind']
+             when 'ip'
+               expect(@response.geo).to be_nil
+               @response.ip
+             when 'geo'
+               expect(@response.ip).to be_nil
+               @response.geo
+             else
+               raise "unsupported location kind: #{rows['kind']}"
+             end
+
+  expect(@response.meta).to include(rows['error'])
   expect(location.country).to eq(rows['country'])
   expect(location.continent).to eq(rows['continent'])
 end

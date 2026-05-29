@@ -34,7 +34,7 @@ Feature: HTTP API
       | geoip2 | params | 0.0.0.0 |
       | geoip2 | params | test    |
       | geoip2 | params | <test>  |
-      | geoip2 | params | 154.6   |
+      | geoip2 | params |   154.6 |
       | geoip2 | params | 1.0.4.1 |
 
     Examples: With ip2location headers
@@ -42,7 +42,7 @@ Feature: HTTP API
       | geoip2 | headers | 0.0.0.0 |
       | geoip2 | headers | test    |
       | geoip2 | headers | <test>  |
-      | geoip2 | headers | 154.6   |
+      | geoip2 | headers |   154.6 |
       | geoip2 | headers | 1.0.4.1 |
 
   Scenario Outline: Get location by a valid latitude and longitude.
@@ -66,6 +66,42 @@ Feature: HTTP API
       | headers | geo  | 52.520008 |  13.404954 | DE      | EU        |
       | headers | geo  | 52.377956 |   4.897070 | NL      | EU        |
       | headers | geo  | 43.000000 | -75.000000 | US      | NA        |
+
+  Scenario Outline: Get location by a valid IP address and latitude and longitude.
+    When I request a location with HTTP:
+      | ip        | <ip>        |
+      | latitude  | <latitude>  |
+      | longitude | <longitude> |
+      | method    | <method>    |
+    Then I should receive valid locations with HTTP:
+      | kind | country       | continent       |
+      | ip   | <ip_country>  | <ip_continent>  |
+      | geo  | <geo_country> | <geo_continent> |
+
+    Examples: With parameters
+      | method | ip            | latitude  | longitude | ip_country | ip_continent | geo_country | geo_continent |
+      | params | 95.91.246.242 | 52.377956 |  4.897070 | DE         | EU           | NL          | EU            |
+
+  Scenario Outline: Get location by partially valid inputs.
+    When I request a location with HTTP:
+      | ip        | <ip>        |
+      | latitude  | <latitude>  |
+      | longitude | <longitude> |
+      | method    | <method>    |
+    Then I should receive a partial location with HTTP:
+      | kind      | <kind>      |
+      | country   | <country>   |
+      | continent | <continent> |
+      | error     | <error>     |
+
+    Examples: With parameters
+      | method | kind | ip            | latitude  | longitude | country | continent | error               |
+      | params | geo  |       0.0.0.0 | 52.377956 |  4.897070 | NL      | EU        | locationIpError     |
+      | params | ip   | 95.91.246.242 |        91 |        10 | DE      | EU        | locationLatLngError |
+
+    Examples: With headers
+      | method  | kind | ip            | latitude | longitude | country | continent | error              |
+      | headers | ip   | 95.91.246.242 | test     |       180 | DE      | EU        | locationPointError |
 
   Scenario Outline: Get location by a bad latitude and longitude.
     When I request a location with HTTP:
@@ -95,7 +131,7 @@ Feature: HTTP API
 
     Examples:
       | method  | latitude   | longitude |
-      | params  | 90         | 180       |
-      | headers | 90         | 180       |
+      | params  |         90 |       180 |
+      | headers |         90 |       180 |
       | params  | -49.303721 | 69.122136 |
       | headers | -49.303721 | 69.122136 |

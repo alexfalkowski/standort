@@ -2,9 +2,10 @@
 
 When('I request a location by IP address with HTTP:') do |table|
   rows = table.rows_hash
+  @request_id = SecureRandom.uuid
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Standort.config.transport.http.user_agent,
+      request_id: @request_id, user_agent: Standort.config.transport.http.user_agent,
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10
@@ -15,9 +16,10 @@ end
 
 When('I request a location by latitude and longitude with HTTP:') do |table|
   rows = table.rows_hash
+  @request_id = SecureRandom.uuid
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Standort.config.transport.http.user_agent,
+      request_id: @request_id, user_agent: Standort.config.transport.http.user_agent,
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10
@@ -33,7 +35,7 @@ Then('I should receive a valid location by IP adress with HTTP:') do |table|
   location = resp['location']
   rows = table.rows_hash
 
-  expect(resp['meta'].length).to be > 0
+  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
 end
@@ -49,7 +51,7 @@ Then('I should receive a valid location by latitude and longitude with HTTP:') d
   location = resp['location']
   rows = table.rows_hash
 
-  expect(resp['meta'].length).to be > 0
+  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
 end

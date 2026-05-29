@@ -2,9 +2,10 @@
 
 When('I request a location with HTTP:') do |table|
   rows = table.rows_hash
+  @request_id = SecureRandom.uuid
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: 'Standort-ruby-client/2.0 HTTP/1.0',
+      request_id: @request_id, user_agent: 'Standort-ruby-client/2.0 HTTP/1.0',
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10
@@ -30,7 +31,7 @@ Then('I should receive a valid locations with HTTP:') do |table|
 
   resp = JSON.parse(@response.body)
 
-  expect(resp['meta'].length).to be > 0
+  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
 
   rows = table.rows_hash
   other = rows['kind'] == 'ip' ? 'geo' : 'ip'
@@ -38,6 +39,36 @@ Then('I should receive a valid locations with HTTP:') do |table|
 
   expect(resp[other]).to be_nil
 
+  expect(location['country']).to eq(rows['country'])
+  expect(location['continent']).to eq(rows['continent'])
+end
+
+Then('I should receive valid locations with HTTP:') do |table|
+  expect(@response.code).to eq(200)
+
+  resp = JSON.parse(@response.body)
+
+  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+
+  table.hashes.each do |row|
+    location = resp.fetch(row['kind'])
+
+    expect(location['country']).to eq(row['country'])
+    expect(location['continent']).to eq(row['continent'])
+  end
+end
+
+Then('I should receive a partial location with HTTP:') do |table|
+  expect(@response.code).to eq(200)
+
+  resp = JSON.parse(@response.body)
+  rows = table.rows_hash
+  other = rows['kind'] == 'ip' ? 'geo' : 'ip'
+  location = resp.fetch(rows['kind'])
+
+  expect(resp[other]).to be_nil
+  expect(resp.fetch('meta')).to include(rows['error'])
+  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
 end
