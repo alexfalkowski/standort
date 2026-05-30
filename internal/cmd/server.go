@@ -16,5 +16,5 @@ import (
 func RegisterServer(command cli.Commander) {
 	cmd := command.AddServer("server", "Start standort server", Module)
 
-	cmd.AddInput(strings.Empty)
+	cmd.AddConfig(strings.Empty)
 }
