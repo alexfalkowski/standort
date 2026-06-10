@@ -6,7 +6,7 @@ When('I request a location by IP address with gRPC:') do |table|
   metadata = { 'request-id' => @request_id }
 
   request = Standort::V1::GetLocationByIPRequest.new(ip: rows['ip'].strip)
-  @response = Standort::V1.grpc.get_location_by_ip(request, { metadata: })
+  @response = Standort::V1.grpc.get_location_by_ip(request, Standort.grpc_options(metadata))
 rescue StandardError => e
   @response = e
 end
@@ -16,8 +16,11 @@ When('I request a location by latitude and longitude with gRPC:') do |table|
   @request_id = SecureRandom.uuid
   metadata = { 'request-id' => @request_id }
 
-  request = Standort::V1::GetLocationByLatLngRequest.new(lat: rows['latitude'].to_f, lng: rows['longitude'].to_f)
-  @response = Standort::V1.grpc.get_location_by_lat_lng(request, { metadata: })
+  request = Standort::V1::GetLocationByLatLngRequest.new(
+    lat: Coordinates.parse(rows['latitude']),
+    lng: Coordinates.parse(rows['longitude'])
+  )
+  @response = Standort::V1.grpc.get_location_by_lat_lng(request, Standort.grpc_options(metadata))
 rescue StandardError => e
   @response = e
 end

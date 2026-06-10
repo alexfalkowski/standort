@@ -19,7 +19,7 @@ This repository is a Go service called **standort** (location-based information)
 ### Prerequisites (observed)
 
 - Go (see `go.mod` → `go 1.25.0`)
-- Git submodules (the repo relies on a `bin/` submodule; see `.gitmodules`)
+- Git submodules with GitHub SSH access (the repo relies on a `bin/` submodule; see `.gitmodules`)
 - Ruby (used for the Ruby test/benchmark harness under `test/`)
 
 Tools referenced by `make` targets (only run if installed): `buf`, `gotestsum`, `govulncheck`, `air`, `hadolint`, `trivy`, `codecovcli`, `mkcert`, `goda`, `dot`, `gsa`, `scc`.
@@ -34,6 +34,7 @@ make dep
 
 Notes:
 - The repo depends on a `bin/` git submodule; initialize it before running most `make` targets.
+- The `bin` submodule intentionally uses an SSH URL (`git@github.com:alexfalkowski/bin.git`), so fresh environments need GitHub SSH credentials before `git submodule update --init` can succeed.
 - Vendoring is used heavily; re-run `make dep` after dependency changes or if you hit vendoring errors.
 
 Notes:

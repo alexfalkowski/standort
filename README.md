@@ -68,7 +68,7 @@ If a lookup fails, v2 records error details into response `meta` attributes wher
 ### ✅ Prerequisites
 
 - Go `1.26.0` (see `go.mod`)
-- Git submodules (this repo relies on a `bin/` submodule)
+- Git submodules with GitHub SSH access (this repo relies on a `bin/` submodule)
 - Ruby (used by the feature/benchmark harness under `test/`)
 
 Optional tools used by specific targets include `air`, `buf`, `gotestsum`, `govulncheck`, `trivy`, and `hadolint`.
@@ -85,6 +85,7 @@ make dep
 
 > [!IMPORTANT]
 > Most workflow commands include make fragments from the `bin/` submodule, and many Go targets run with `-mod vendor`. If `bin/` is missing or Go reports “inconsistent vendoring,” run the bootstrap commands above again.
+> The `bin` submodule intentionally uses an SSH URL (`git@github.com:alexfalkowski/bin.git`), so fresh environments need GitHub SSH credentials before `git submodule update --init` can succeed.
 
 ### 🏗️ Build
 

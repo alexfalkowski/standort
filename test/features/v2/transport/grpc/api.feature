@@ -115,6 +115,8 @@ Feature: gRPC API
       | method | latitude | longitude |
       | params |       91 |        10 |
       | params |       10 |       181 |
+      | params |      nan |        10 |
+      | params |       10 |       inf |
 
     Examples: With metadata
       | method   | latitude | longitude |
