@@ -2,6 +2,7 @@ package location
 
 import (
 	"fmt"
+	"math"
 
 	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/errors"
@@ -15,6 +16,10 @@ import (
 // ErrUnsupportedContinent is returned when a provider resolves a continent name
 // that cannot be normalized to the API's two-letter continent code.
 var ErrUnsupportedContinent = errors.New("unsupported continent")
+
+// ErrInvalidPoint is returned when latitude or longitude is non-finite or outside
+// the supported geographic coordinate range.
+var ErrInvalidPoint = errors.New("invalid point")
 
 // New constructs a domain `Location` service.
 //
@@ -80,6 +85,10 @@ func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, erro
 // Errors from the provider are wrapped with the input coordinate for context.
 // On error, both returned strings are empty.
 func (l *Location) GetByLatLng(ctx context.Context, lat, lng float64) (string, string, error) {
+	if !validPoint(lat, lng) {
+		return strings.Empty, strings.Empty, fmt.Errorf("%f/%f: %w", lat, lng, ErrInvalidPoint)
+	}
+
 	cou, con, err := l.orbProvider.Search(ctx, lat, lng)
 	if err != nil {
 		return strings.Empty, strings.Empty, fmt.Errorf("%f/%f: %w", lat, lng, err)
@@ -91,6 +100,13 @@ func (l *Location) GetByLatLng(ctx context.Context, lat, lng float64) (string, s
 	}
 
 	return cou, code, nil
+}
+
+func validPoint(lat, lng float64) bool {
+	return !math.IsNaN(lat) && !math.IsNaN(lng) &&
+		!math.IsInf(lat, 0) && !math.IsInf(lng, 0) &&
+		lat >= -90 && lat <= 90 &&
+		lng >= -180 && lng <= 180
 }
 
 func continentCode(cont string) (string, error) {

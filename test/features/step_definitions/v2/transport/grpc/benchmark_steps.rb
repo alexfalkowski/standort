@@ -6,5 +6,5 @@ When('I request a location with gRPC which performs in {int} ms') do |time|
   params = { 'ip' => '95.91.246.242' }
   request = Standort::V2::GetLocationRequest.new(params)
 
-  expect { Standort::V2.grpc.get_location(request, { metadata: }) }.to perform_under(time).ms
+  expect { Standort::V2.grpc.get_location(request, Standort.grpc_options(metadata)) }.to perform_under(time).ms
 end

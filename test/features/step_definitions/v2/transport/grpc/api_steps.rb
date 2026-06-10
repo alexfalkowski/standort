@@ -8,7 +8,12 @@ When('I request a location with gRPC:') do |table|
 
   if rows['method'] == 'params'
     params[:ip] = rows['ip'] if rows['ip']
-    params[:point] = Standort::V2::Point.new(lat: rows['latitude'].to_f, lng: rows['longitude'].to_f) if rows['latitude'] && rows['longitude']
+    if rows['latitude'] && rows['longitude']
+      params[:point] = Standort::V2::Point.new(
+        lat: Coordinates.parse(rows['latitude']),
+        lng: Coordinates.parse(rows['longitude'])
+      )
+    end
   end
 
   if rows['method'] == 'metadata'
@@ -17,7 +22,7 @@ When('I request a location with gRPC:') do |table|
   end
 
   request = Standort::V2::GetLocationRequest.new(params)
-  @response = Standort::V2.grpc.get_location(request, { metadata: })
+  @response = Standort::V2.grpc.get_location(request, Standort.grpc_options(metadata))
 rescue StandardError => e
   @response = e
 end

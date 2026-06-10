@@ -54,6 +54,19 @@ module Standort
     end
 
     ##
+    # Returns call options for unary gRPC requests made by the local harness.
+    #
+    # @param metadata [Hash] request metadata to attach to the call.
+    # @return [Hash] gRPC call options including metadata and a client-side deadline.
+    #
+    def grpc_options(metadata = {})
+      {
+        metadata:,
+        deadline: Time.now + 10
+      }
+    end
+
+    ##
     # Returns a memoized gRPC Health Checking stub.
     #
     # This is used by health/observability feature steps to query the server's
