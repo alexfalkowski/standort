@@ -6,7 +6,7 @@ require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.4
 	github.com/alexfalkowski/go-health/v2 v2.28.0
-	github.com/alexfalkowski/go-service/v2 v2.571.0
+	github.com/alexfalkowski/go-service/v2 v2.573.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.13.0
 	github.com/tidwall/rtree v1.10.0
@@ -88,9 +88,9 @@ require (
 	github.com/prometheus/common v0.68.1 // indirect
 	github.com/prometheus/otlptranslator v1.0.0 // indirect
 	github.com/prometheus/procfs v0.20.1 // indirect
-	github.com/redis/go-redis/extra/rediscmd/v9 v9.20.0 // indirect
-	github.com/redis/go-redis/extra/redisotel/v9 v9.20.0 // indirect
-	github.com/redis/go-redis/v9 v9.20.0 // indirect
+	github.com/redis/go-redis/extra/rediscmd/v9 v9.20.1 // indirect
+	github.com/redis/go-redis/extra/redisotel/v9 v9.20.1 // indirect
+	github.com/redis/go-redis/v9 v9.20.1 // indirect
 	github.com/rs/xid v1.6.0 // indirect
 	github.com/secure-io/siv-go v0.0.0-20180922214919-5ff40651e2c4 // indirect
 	github.com/segmentio/ksuid v1.0.4 // indirect
@@ -135,11 +135,11 @@ require (
 	go.uber.org/zap v1.28.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.53.0 // indirect
-	golang.org/x/net v0.55.0 // indirect
+	golang.org/x/net v0.56.0 // indirect
 	golang.org/x/sync v0.21.0 // indirect
 	golang.org/x/sys v0.46.0 // indirect
 	golang.org/x/text v0.38.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20260608224507-4308a22a1bab // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260608224507-4308a22a1bab // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20260610212136-7ab31c22f7ad // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260610212136-7ab31c22f7ad // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
