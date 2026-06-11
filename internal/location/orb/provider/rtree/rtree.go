@@ -7,6 +7,7 @@ import (
 	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/runtime"
 	"github.com/alexfalkowski/go-service/v2/strings"
+	"github.com/alexfalkowski/standort/v2/internal/location/continent"
 	"github.com/paulmach/orb/geojson"
 	"github.com/tidwall/rtree"
 )
@@ -89,10 +90,15 @@ func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
 			continue
 		}
 
+		cont, ok := f.Properties["continent"].(string)
+		if !ok || !supportedContinent(cont) {
+			continue
+		}
+
 		bound := f.Geometry.Bound()
 		data := &Node{
 			Country:   country,
-			Continent: f.Properties["continent"].(string),
+			Continent: cont,
 			Geometry:  f.Geometry,
 		}
 
@@ -106,6 +112,11 @@ func countryCode(properties map[string]any) string {
 	}
 
 	return validCountryCode(properties["iso_a2_eh"])
+}
+
+func supportedContinent(cont string) bool {
+	_, ok := continent.Codes[cont]
+	return ok
 }
 
 func validCountryCode(value any) string {
