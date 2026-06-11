@@ -15,7 +15,11 @@ This repository is a Go service called **standort** (location-based information)
 - If Go tooling fails with "inconsistent vendoring", run `make dep` to re-vendor (many targets use `-mod vendor`).
 - Embedded GeoIP/GeoJSON lookup assets are updated when freshness is needed. Do not report the absence of an automatic asset freshness guard as a reliability gap unless there is a concrete stale-data failure or a documented freshness requirement.
 - When protobuf files are deleted or renamed, the change author is responsible for removing orphaned generated Go/Ruby outputs. Do not report the absence of automatic generated-output cleanup in `buf generate` as a reliability gap unless there is evidence that the repository workflow currently publishes or validates stale generated API artifacts.
-- Docker `latest`/unversioned manifests are best-effort convenience tags. Reliable consumers should pin versioned image tags, so do not report possible overlapping-pipeline movement of `latest` as a reliability gap unless versioned tags or documented pinning behavior are affected.
+- The `manifest-docker` CircleCI workflow job is serialized with
+  `<< pipeline.project.slug >>/manifest-docker` to avoid overlapping master
+  pipelines moving `latest` out of order. Reliable consumers should still pin
+  versioned image tags, so do not report `latest` as the deployment contract
+  unless versioned tags or documented pinning behavior are affected.
 
 ## First steps
 
