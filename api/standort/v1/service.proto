@@ -13,24 +13,34 @@ message Location {
 
 // GetLocationByIPRequest for an IP address.
 message GetLocationByIPRequest {
+  // IP address to resolve.
   string ip = 1;
 }
 
 // GetLocationByIPResponse for an IP address.
 message GetLocationByIPResponse {
+  // Meta contains request metadata returned to the caller, such as requestId.
   map<string, string> meta = 1;
+
+  // Location resolved from the IP address.
   Location location = 2;
 }
 
 // GetLocationByLatLngRequest for a latitude and longitude.
 message GetLocationByLatLngRequest {
+  // Latitude in degrees.
   double lat = 1;
+
+  // Longitude in degrees.
   double lng = 2;
 }
 
 // GetLocationByLatLngResponse for a latitude and longitude.
 message GetLocationByLatLngResponse {
+  // Meta contains request metadata returned to the caller, such as requestId.
   map<string, string> meta = 2;
+
+  // Location resolved from the latitude/longitude point.
   Location location = 1;
 }
 

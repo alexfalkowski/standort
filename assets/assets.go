@@ -18,7 +18,7 @@ var fs embed.FS
 //
 // Consumers can use the returned `embed.FS` with standard `fs` APIs such as
 // `fs.ReadFile` to load embedded asset files by name (for example,
-// `fs.ReadFile("earth.geojson")`).
+// `fs.ReadFile(NewFS(), "earth.geojson")`).
 func NewFS() embed.FS {
 	return fs
 }
