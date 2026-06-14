@@ -16,7 +16,9 @@ module Standort
         self.unmarshal_class_method = :decode
         self.service_name = 'standort.v2.Service'
 
-        # GetLocation via multiple methods.
+        # GetLocation resolves an IP address and/or geographic point. If one lookup
+        # succeeds, the response is successful and failed lookup details are recorded
+        # in meta. Returns gRPC NotFound only when no lookup succeeds.
         rpc :GetLocation, ::Standort::V2::GetLocationRequest, ::Standort::V2::GetLocationResponse
       end
 

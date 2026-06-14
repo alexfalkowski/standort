@@ -28,10 +28,10 @@ message GetLocationByIPResponse {
 
 // GetLocationByLatLngRequest for a latitude and longitude.
 message GetLocationByLatLngRequest {
-  // Latitude in degrees.
+  // Latitude in degrees. Must be finite and in the range [-90, 90].
   double lat = 1;
 
-  // Longitude in degrees.
+  // Longitude in degrees. Must be finite and in the range [-180, 180].
   double lng = 2;
 }
 
@@ -46,9 +46,11 @@ message GetLocationByLatLngResponse {
 
 // Service allows to get locations by different filters.
 service Service {
-  // GetLocationByIP for an IP address.
+  // GetLocationByIP for an IP address. Returns gRPC NotFound when the IP
+  // address cannot be resolved.
   rpc GetLocationByIP(GetLocationByIPRequest) returns (GetLocationByIPResponse) {}
 
-  // GetLocationByLatLng for a latitude and longitude.
+  // GetLocationByLatLng for a latitude and longitude. Returns gRPC NotFound
+  // when the point is invalid or cannot be resolved.
   rpc GetLocationByLatLng(GetLocationByLatLngRequest) returns (GetLocationByLatLngResponse) {}
 }

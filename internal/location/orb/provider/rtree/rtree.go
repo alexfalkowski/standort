@@ -12,7 +12,7 @@ import (
 	"github.com/tidwall/rtree"
 )
 
-// ErrNotFound is returned when no geometry in the R-tree contains the queried point.
+// ErrNotFound is returned when no indexed supported geometry contains the queried point.
 //
 // This error is intended to be treated as a sentinel "no match" condition by
 // callers, as opposed to a system failure (I/O, parsing, etc.).
@@ -34,6 +34,7 @@ func NewProvider(fs embed.FS) *Provider {
 //
 // The index is built from `earth.geojson`. Each node stores the geometry along
 // with ISO-3166 alpha-2 country codes and continent names as provided by the dataset.
+// Features that lack a supported country code or continent are not indexed.
 type Provider struct {
 	tree *rtree.Generic[*Node]
 }
@@ -47,7 +48,7 @@ type Provider struct {
 // Returns:
 //   - countryCode: ISO-3166 alpha-2 code from the dataset (e.g. "US")
 //   - continent: continent name from the dataset (e.g. "North America")
-//   - err: `ErrNotFound` when no geometry contains the point
+//   - err: `ErrNotFound` when no indexed supported geometry contains the point
 func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string, error) {
 	var (
 		found bool

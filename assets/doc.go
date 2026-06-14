@@ -6,7 +6,9 @@
 // Embedded files
 //
 //   - earth.geojson: used to build the spatial index for point-in-polygon
-//     lookups (latitude/longitude → country/continent).
+//     lookups (latitude/longitude → country/continent). The R-tree provider
+//     indexes only features with a two-character `iso_a2` or `iso_a2_eh` country
+//     code and a supported `continent` value.
 //   - geoip2.mmdb: used to resolve IP addresses to ISO country codes.
 //
 // # Dependency injection

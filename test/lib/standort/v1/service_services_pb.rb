@@ -16,9 +16,11 @@ module Standort
         self.unmarshal_class_method = :decode
         self.service_name = 'standort.v1.Service'
 
-        # GetLocationByIP for an IP address.
+        # GetLocationByIP for an IP address. Returns gRPC NotFound when the IP
+        # address cannot be resolved.
         rpc :GetLocationByIP, ::Standort::V1::GetLocationByIPRequest, ::Standort::V1::GetLocationByIPResponse
-        # GetLocationByLatLng for a latitude and longitude.
+        # GetLocationByLatLng for a latitude and longitude. Returns gRPC NotFound
+        # when the point is invalid or cannot be resolved.
         rpc :GetLocationByLatLng, ::Standort::V1::GetLocationByLatLngRequest, ::Standort::V1::GetLocationByLatLngResponse
       end
 

@@ -65,6 +65,8 @@ v2 response fields are independent:
 - both fields are populated when both inputs succeed.
 - on partial success, the successful field is returned and `meta` includes one of `locationIpError`, `locationLatLngError`, or `locationPointError`.
 
+Lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the same lookup miss as HTTP `404`. v2 partial success is still a successful response, with the failed lookup recorded in `meta`.
+
 > [!WARNING]
 > Treat forwarded IP metadata as trusted only after your proxy or gateway has normalized it. Standort reads the metadata supplied by the transport layer; it does not decide whether a forwarded client IP is trustworthy.
 
@@ -140,6 +142,13 @@ When running with the dev config, the health HTTP observer endpoints are:
 > go-service prefixes operational HTTP routes with the service name. The dev and test harness service name is `standort`.
 
 The `healthz` endpoint uses go-health's online checker. The `livez` and `readyz` endpoints are local noop observers. The `metrics` endpoint is available with the dev config because it sets `telemetry.metrics.kind: prometheus`.
+
+Use `livez` or `readyz` for local process probes that must not depend on public egress. The `healthz` endpoint is an online check and is expected to report unhealthy when the process cannot reach the public internet.
+
+The gRPC health service registers these service names:
+
+- `standort.v1.Service`
+- `standort.v2.Service`
 
 ---
 
@@ -272,6 +281,17 @@ curl -sS \
   http://localhost:11000/standort.v2.Service/GetLocation
 ```
 
+Example with a forwarded IP:
+
+```sh
+curl -sS \
+  -X POST \
+  -H 'Content-Type: application/json' \
+  -H 'X-Forwarded-For: 8.8.8.8' \
+  -d '{}' \
+  http://localhost:11000/standort.v2.Service/GetLocation
+```
+
 ---
 
 ## 🛠️ Development workflow
@@ -308,11 +328,15 @@ make specs
 make features
 ```
 
+The Ruby harness is configured by `test/nonnative.yml` and writes logs, coverage, and report artifacts under `test/reports/`.
+
 ### ⏱️ Benchmarks (Ruby harness)
 
 ```sh
 make benchmarks
 ```
+
+Benchmark runs use the same harness configuration and report directory as feature tests.
 
 ### 🧯 Security checks
 
@@ -345,11 +369,15 @@ make proto-format
 make proto-generate
 ```
 
+`buf generate` writes Go protobuf/gRPC files into this repository and Ruby protobuf/gRPC files under `test/lib`. When a `.proto` file is renamed or deleted, remove any orphaned generated Go and Ruby outputs in the same change.
+
 Breaking-change check:
 
 ```sh
 make proto-breaking
 ```
+
+`make proto-breaking` compares `api/` with the `master` branch on GitHub and requires network access to that remote baseline.
 
 Generated-output freshness check:
 

@@ -10,10 +10,10 @@ import (
 // It composes standort-specific configuration (for example `Health`) with the
 // shared go-service configuration via an embedded `*config.Config`.
 type Config struct {
-	// Health configures the health subsystem (checks, observers, durations/timeouts, etc.).
+	// Health configures the health subsystem and is required.
 	Health *health.Config `yaml:"health,omitempty" json:"health,omitempty" toml:"health,omitempty" validate:"required"`
 
-	// Config is the embedded go-service base configuration.
+	// Config is the required embedded go-service base configuration.
 	//
 	// The `yaml:",inline"` / `json:",inline"` / `toml:",inline"` tags make the
 	// embedded fields appear at the top level of the config file.
