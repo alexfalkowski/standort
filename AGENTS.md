@@ -25,9 +25,9 @@ This repository is a Go service called **standort** (location-based information)
 
 ### Prerequisites (observed)
 
-- Go (see `go.mod` → `go 1.25.0`)
+- Go (see `go.mod`)
 - Git submodules with GitHub SSH access (the repo relies on a `bin/` submodule; see `.gitmodules`)
-- Ruby (used for the Ruby test/benchmark harness under `test/`)
+- Ruby with Bundler (used for the Ruby test/benchmark harness under `test/`)
 
 Tools referenced by `make` targets (only run if installed): `buf`, `gotestsum`, `govulncheck`, `air`, `hadolint`, `trivy`, `codecovcli`, `mkcert`, `goda`, `dot`, `gsa`, `scc`.
 
@@ -72,13 +72,13 @@ make dev
 
 Observed from `bin/build/make/grpc.mak:216-218`:
 - Runs `air --build.cmd "make dep build"`.
-- Runs the binary as `./standort server -i file:test/.config/server.yml`.
+- Runs the binary as `./standort server -config file:test/.config/server.yml`.
 
 Run the built binary directly:
 
 ```sh
 make build
-./standort server -i file:test/.config/server.yml
+./standort server -config file:test/.config/server.yml
 ```
 
 The dev config file `test/.config/server.yml` configures addresses:
@@ -150,6 +150,14 @@ make proto-breaking
 
 - Uses `buf breaking --against 'https://github.com/alexfalkowski/$(NAME).git#branch=master,subdir=api'` (see `api/Makefile` → `bin/build/make/buf.mak:27-29`).
 
+Generated-output freshness check:
+
+```sh
+make proto-stale
+```
+
+- Runs `buf generate` and fails if generated protobuf outputs differ from the committed files.
+
 ### Security / containers (optional)
 
 ```sh
@@ -220,7 +228,7 @@ make trivy-image platform=amd64
 ## CI signals (CircleCI)
 
 CircleCI runs (see `.circleci/config.yml`):
-- `make dep`, `make lint`, `make proto-breaking`, `make sec`, `make trivy-repo`, `make features`, `make benchmarks`, `make analyse`, `make coverage`, `make codecov-upload`.
+- `make dep`, `make lint`, `make proto-breaking`, `make proto-stale`, `make sec`, `make trivy-repo`, `make features`, `make benchmarks`, `make analyse`, `make coverage`, `make codecov-upload`.
 
 If you’re trying to match CI locally, start with:
 

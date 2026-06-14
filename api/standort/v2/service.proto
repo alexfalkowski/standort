@@ -7,26 +7,41 @@ option ruby_package = "Standort::V2";
 
 // Location of the response.
 message Location {
+  // ISO-3166 alpha-2 country code, such as US or DE.
   string country = 1;
+
+  // Two-letter continent code, such as NA or EU.
   string continent = 2;
 }
 
 // Point for the request.
 message Point {
+  // Latitude in degrees.
   double lat = 1;
+
+  // Longitude in degrees.
   double lng = 2;
 }
 
 // GetLocationRequest for getting the location.
 message GetLocationRequest {
+  // IP address to resolve. If empty, the server may use request metadata such as X-Forwarded-For.
   string ip = 1;
+
+  // Geographic point to resolve. If omitted, the server may use a Geolocation metadata header.
   Point point = 2;
 }
 
 // GetLocationResponse for getting the location.
 message GetLocationResponse {
+  // Meta contains request metadata and partial-failure details. Partial lookup
+  // errors use locationIpError, locationLatLngError, or locationPointError.
   map<string, string> meta = 1;
+
+  // IP is populated when the IP lookup succeeds.
   Location ip = 2;
+
+  // Geo is populated when the point lookup succeeds.
   Location geo = 3;
 }
 

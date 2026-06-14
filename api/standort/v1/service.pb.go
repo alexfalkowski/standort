@@ -76,8 +76,9 @@ func (x *Location) GetContinent() string {
 
 // GetLocationByIPRequest for an IP address.
 type GetLocationByIPRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Ip            string                 `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// IP address to resolve.
+	Ip            string `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -121,9 +122,11 @@ func (x *GetLocationByIPRequest) GetIp() string {
 
 // GetLocationByIPResponse for an IP address.
 type GetLocationByIPResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          map[string]string      `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Location      *Location              `protobuf:"bytes,2,opt,name=location,proto3" json:"location,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Meta contains request metadata returned to the caller, such as requestId.
+	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// Location resolved from the IP address.
+	Location      *Location `protobuf:"bytes,2,opt,name=location,proto3" json:"location,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -174,9 +177,11 @@ func (x *GetLocationByIPResponse) GetLocation() *Location {
 
 // GetLocationByLatLngRequest for a latitude and longitude.
 type GetLocationByLatLngRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Lat           float64                `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
-	Lng           float64                `protobuf:"fixed64,2,opt,name=lng,proto3" json:"lng,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Latitude in degrees.
+	Lat float64 `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
+	// Longitude in degrees.
+	Lng           float64 `protobuf:"fixed64,2,opt,name=lng,proto3" json:"lng,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -227,9 +232,11 @@ func (x *GetLocationByLatLngRequest) GetLng() float64 {
 
 // GetLocationByLatLngResponse for a latitude and longitude.
 type GetLocationByLatLngResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          map[string]string      `protobuf:"bytes,2,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Location      *Location              `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Meta contains request metadata returned to the caller, such as requestId.
+	Meta map[string]string `protobuf:"bytes,2,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// Location resolved from the latitude/longitude point.
+	Location      *Location `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

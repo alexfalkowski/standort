@@ -11,6 +11,7 @@
 // two-letter code:
 //
 //   - "Africa"        → "AF"
+//   - "Antarctica"    → "AN"
 //   - "Asia"          → "AS"
 //   - "Europe"        → "EU"
 //   - "North America" → "NA"

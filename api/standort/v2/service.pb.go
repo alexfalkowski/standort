@@ -23,9 +23,11 @@ const (
 
 // Location of the response.
 type Location struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Country       string                 `protobuf:"bytes,1,opt,name=country,proto3" json:"country,omitempty"`
-	Continent     string                 `protobuf:"bytes,2,opt,name=continent,proto3" json:"continent,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// ISO-3166 alpha-2 country code, such as US or DE.
+	Country string `protobuf:"bytes,1,opt,name=country,proto3" json:"country,omitempty"`
+	// Two-letter continent code, such as NA or EU.
+	Continent     string `protobuf:"bytes,2,opt,name=continent,proto3" json:"continent,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -76,9 +78,11 @@ func (x *Location) GetContinent() string {
 
 // Point for the request.
 type Point struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Lat           float64                `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
-	Lng           float64                `protobuf:"fixed64,2,opt,name=lng,proto3" json:"lng,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Latitude in degrees.
+	Lat float64 `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
+	// Longitude in degrees.
+	Lng           float64 `protobuf:"fixed64,2,opt,name=lng,proto3" json:"lng,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -129,9 +133,11 @@ func (x *Point) GetLng() float64 {
 
 // GetLocationRequest for getting the location.
 type GetLocationRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Ip            string                 `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
-	Point         *Point                 `protobuf:"bytes,2,opt,name=point,proto3" json:"point,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// IP address to resolve. If empty, the server may use request metadata such as X-Forwarded-For.
+	Ip string `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
+	// Geographic point to resolve. If omitted, the server may use a Geolocation metadata header.
+	Point         *Point `protobuf:"bytes,2,opt,name=point,proto3" json:"point,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -182,10 +188,14 @@ func (x *GetLocationRequest) GetPoint() *Point {
 
 // GetLocationResponse for getting the location.
 type GetLocationResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          map[string]string      `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Ip            *Location              `protobuf:"bytes,2,opt,name=ip,proto3" json:"ip,omitempty"`
-	Geo           *Location              `protobuf:"bytes,3,opt,name=geo,proto3" json:"geo,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Meta contains request metadata and partial-failure details. Partial lookup
+	// errors use locationIpError, locationLatLngError, or locationPointError.
+	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// IP is populated when the IP lookup succeeds.
+	Ip *Location `protobuf:"bytes,2,opt,name=ip,proto3" json:"ip,omitempty"`
+	// Geo is populated when the point lookup succeeds.
+	Geo           *Location `protobuf:"bytes,3,opt,name=geo,proto3" json:"geo,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

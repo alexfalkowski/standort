@@ -73,10 +73,12 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string, 
 	return data.Country, data.Continent, nil
 }
 
-// populateTree reads `earth.geojson` from the embedded filesystem and inserts each
-// feature's geometry into the R-tree.
+// populateTree reads `earth.geojson` from the embedded filesystem and inserts
+// features that include a valid country code and supported continent.
 //
 // The inserted bounding boxes are derived from the feature geometry bounds.
+// Features are skipped unless they have a two-character `iso_a2` or `iso_a2_eh`
+// property and a `continent` value present in `continent.Codes`.
 func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
 	data, err := fs.ReadFile("earth.geojson")
 	runtime.Must(err)

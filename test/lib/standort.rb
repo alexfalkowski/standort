@@ -47,7 +47,7 @@ module Standort
     # The underlying configuration loader is provided by `Nonnative` and reads
     # the YAML config file at `.config/server.yml` *relative to the `test/` directory*.
     #
-    # @return [Hash] The configuration as returned by `Nonnative::ConfigurationFile.load`.
+    # @return [Object] The configuration object returned by `Nonnative::ConfigurationFile.load`.
     #
     def config
       @config ||= Nonnative::ConfigurationFile.load('.config/server.yml')

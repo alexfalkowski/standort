@@ -58,6 +58,13 @@ v2 supports passing inputs either directly in the request *or* via request metad
 
 If a lookup fails, v2 records error details into response `meta` attributes where possible, and only returns “not found” when neither IP nor GEO yields a location.
 
+v2 response fields are independent:
+
+- `ip` is populated when the IP lookup succeeds.
+- `geo` is populated when the point lookup succeeds.
+- both fields are populated when both inputs succeed.
+- on partial success, the successful field is returned and `meta` includes one of `locationIpError`, `locationLatLngError`, or `locationPointError`.
+
 > [!WARNING]
 > Treat forwarded IP metadata as trusted only after your proxy or gateway has normalized it. Standort reads the metadata supplied by the transport layer; it does not decide whether a forwarded client IP is trustworthy.
 
@@ -67,9 +74,9 @@ If a lookup fails, v2 records error details into response `meta` attributes wher
 
 ### ✅ Prerequisites
 
-- Go `1.26.0` (see `go.mod`)
+- Go (see `go.mod`)
 - Git submodules with GitHub SSH access (this repo relies on a `bin/` submodule)
-- Ruby (used by the feature/benchmark harness under `test/`)
+- Ruby with Bundler (used by the feature/benchmark harness under `test/`)
 
 Optional tools used by specific targets include `air`, `buf`, `gotestsum`, `govulncheck`, `trivy`, and `hadolint`.
 
@@ -316,7 +323,7 @@ make trivy-repo
 
 ### ✅ CI parity
 
-CircleCI initializes submodules, vendors dependencies, then runs linting, protobuf breaking checks, security checks, feature tests, benchmarks, analysis, coverage, and Codecov upload. For a focused local pre-push check, start with:
+CircleCI initializes submodules, vendors dependencies, then runs linting, protobuf breaking and generated-output stale checks, security checks, feature tests, benchmarks, analysis, coverage, and Codecov upload. For a focused local pre-push check, start with:
 
 ```sh
 make dep
@@ -344,6 +351,12 @@ Breaking-change check:
 make proto-breaking
 ```
 
+Generated-output freshness check:
+
+```sh
+make proto-stale
+```
+
 > [!CAUTION]
 > Do not hand-edit generated protobuf or gRPC files. Change the `.proto` files and run `make proto-generate`.
 
@@ -367,9 +380,3 @@ make proto-breaking
 ## 🆘 Support and maintenance
 
 Use the GitHub issue tracker for bug reports, documentation fixes, and feature requests. Maintainers should keep README command examples aligned with `Makefile`, `.circleci/config.yml`, and the generated API definitions under `api/`.
-
----
-
-## 📝 Changelog
-
-See `CHANGELOG.md`.
