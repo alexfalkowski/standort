@@ -28,7 +28,9 @@ const (
 //
 // Service allows to get location via multiple methods.
 type ServiceClient interface {
-	// GetLocation via multiple methods.
+	// GetLocation resolves an IP address and/or geographic point. If one lookup
+	// succeeds, the response is successful and failed lookup details are recorded
+	// in meta. Returns gRPC NotFound only when no lookup succeeds.
 	GetLocation(ctx context.Context, in *GetLocationRequest, opts ...grpc.CallOption) (*GetLocationResponse, error)
 }
 
@@ -56,7 +58,9 @@ func (c *serviceClient) GetLocation(ctx context.Context, in *GetLocationRequest,
 //
 // Service allows to get location via multiple methods.
 type ServiceServer interface {
-	// GetLocation via multiple methods.
+	// GetLocation resolves an IP address and/or geographic point. If one lookup
+	// succeeds, the response is successful and failed lookup details are recorded
+	// in meta. Returns gRPC NotFound only when no lookup succeeds.
 	GetLocation(context.Context, *GetLocationRequest) (*GetLocationResponse, error)
 	mustEmbedUnimplementedServiceServer()
 }

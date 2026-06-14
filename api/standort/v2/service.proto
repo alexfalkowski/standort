@@ -16,10 +16,10 @@ message Location {
 
 // Point for the request.
 message Point {
-  // Latitude in degrees.
+  // Latitude in degrees. Must be finite and in the range [-90, 90].
   double lat = 1;
 
-  // Longitude in degrees.
+  // Longitude in degrees. Must be finite and in the range [-180, 180].
   double lng = 2;
 }
 
@@ -47,6 +47,8 @@ message GetLocationResponse {
 
 // Service allows to get location via multiple methods.
 service Service {
-  // GetLocation via multiple methods.
+  // GetLocation resolves an IP address and/or geographic point. If one lookup
+  // succeeds, the response is successful and failed lookup details are recorded
+  // in meta. Returns gRPC NotFound only when no lookup succeeds.
   rpc GetLocation(GetLocationRequest) returns (GetLocationResponse) {}
 }

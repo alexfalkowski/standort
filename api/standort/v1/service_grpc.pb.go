@@ -29,9 +29,11 @@ const (
 //
 // Service allows to get locations by different filters.
 type ServiceClient interface {
-	// GetLocationByIP for an IP address.
+	// GetLocationByIP for an IP address. Returns gRPC NotFound when the IP
+	// address cannot be resolved.
 	GetLocationByIP(ctx context.Context, in *GetLocationByIPRequest, opts ...grpc.CallOption) (*GetLocationByIPResponse, error)
-	// GetLocationByLatLng for a latitude and longitude.
+	// GetLocationByLatLng for a latitude and longitude. Returns gRPC NotFound
+	// when the point is invalid or cannot be resolved.
 	GetLocationByLatLng(ctx context.Context, in *GetLocationByLatLngRequest, opts ...grpc.CallOption) (*GetLocationByLatLngResponse, error)
 }
 
@@ -69,9 +71,11 @@ func (c *serviceClient) GetLocationByLatLng(ctx context.Context, in *GetLocation
 //
 // Service allows to get locations by different filters.
 type ServiceServer interface {
-	// GetLocationByIP for an IP address.
+	// GetLocationByIP for an IP address. Returns gRPC NotFound when the IP
+	// address cannot be resolved.
 	GetLocationByIP(context.Context, *GetLocationByIPRequest) (*GetLocationByIPResponse, error)
-	// GetLocationByLatLng for a latitude and longitude.
+	// GetLocationByLatLng for a latitude and longitude. Returns gRPC NotFound
+	// when the point is invalid or cannot be resolved.
 	GetLocationByLatLng(context.Context, *GetLocationByLatLngRequest) (*GetLocationByLatLngResponse, error)
 	mustEmbedUnimplementedServiceServer()
 }

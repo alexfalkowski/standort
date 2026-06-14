@@ -79,9 +79,9 @@ func (x *Location) GetContinent() string {
 // Point for the request.
 type Point struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Latitude in degrees.
+	// Latitude in degrees. Must be finite and in the range [-90, 90].
 	Lat float64 `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
-	// Longitude in degrees.
+	// Longitude in degrees. Must be finite and in the range [-180, 180].
 	Lng           float64 `protobuf:"fixed64,2,opt,name=lng,proto3" json:"lng,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache

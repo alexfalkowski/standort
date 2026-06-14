@@ -40,7 +40,11 @@ type (
 
 	// Point is a latitude/longitude pair used for geolocation lookup.
 	//
-	// Latitude and longitude are expected to be in degrees.
+	// Latitude and longitude are expected to be finite values in degrees.
+	// Latitude must be in the range [-90, 90], and longitude must be in the
+	// range [-180, 180]. Invalid points follow the same error path as unresolved
+	// points: `Locate` records `locationLatLngError` on partial success or
+	// returns `ErrNotFound` when no lookup succeeds.
 	Point struct {
 		Lat float64
 		Lng float64
