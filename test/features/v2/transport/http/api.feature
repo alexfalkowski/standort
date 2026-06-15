@@ -37,7 +37,7 @@ Feature: HTTP API
       | geoip2 | params |   154.6 |
       | geoip2 | params | 1.0.4.1 |
 
-    Examples: With ip2location headers
+    Examples: With geoip2 headers
       | source | method  | ip      |
       | geoip2 | headers | 0.0.0.0 |
       | geoip2 | headers | test    |

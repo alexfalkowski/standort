@@ -23,9 +23,11 @@ const (
 
 // Location of the response.
 type Location struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Country       string                 `protobuf:"bytes,1,opt,name=country,proto3" json:"country,omitempty"`
-	Continent     string                 `protobuf:"bytes,2,opt,name=continent,proto3" json:"continent,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// ISO-3166 alpha-2 country code, such as US or DE.
+	Country string `protobuf:"bytes,1,opt,name=country,proto3" json:"country,omitempty"`
+	// Two-letter continent code, such as NA or EU.
+	Continent     string `protobuf:"bytes,2,opt,name=continent,proto3" json:"continent,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

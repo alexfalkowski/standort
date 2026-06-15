@@ -17,6 +17,9 @@ package continent
 //
 // This map is used by the domain `internal/location` service to normalize provider
 // outputs into stable API codes.
+//
+// Treat Codes as read-only. Mutating it changes continent normalization for the
+// whole process.
 var Codes = map[string]string{
 	"Africa":        "AF",
 	"North America": "NA",

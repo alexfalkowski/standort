@@ -13,7 +13,8 @@ import (
 //   - Country: ISO-3166 alpha-2 country code (e.g. "US").
 //   - Continent: continent name (e.g. "North America").
 //
-// Geometry is expected to be either an `orb.Polygon` or an `orb.MultiPolygon`.
+// Geometry must be either an `orb.Polygon` or an `orb.MultiPolygon`. The R-tree
+// lookup path assumes nodes preserve that invariant from `earth.geojson`.
 type Node struct {
 	Geometry  orb.Geometry
 	Country   string
@@ -24,7 +25,8 @@ type Node struct {
 // within this node's geometry.
 //
 // Inputs are expressed in degrees. Note that orb uses [x,y] ordering, which for
-// geographic coordinates corresponds to [lng,lat].
+// geographic coordinates corresponds to [lng,lat]. The method assumes
+// `Geometry` is an `orb.Polygon` or `orb.MultiPolygon`.
 func (n *Node) IsPointInGeometry(lat, lng float64) bool {
 	point := orb.Point{lng, lat}
 
