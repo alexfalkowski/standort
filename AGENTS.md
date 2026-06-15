@@ -167,7 +167,8 @@ make build-docker platform=amd64
 make trivy-image platform=amd64
 ```
 
-- `make sec` runs `govulncheck -show verbose -test ./...` (see `bin/build/make/grpc.mak:201-207`).
+- `make sec` runs `govulncheck -show verbose -test ./...` and the Trivy repo scan (see `bin/build/make/grpc.mak:201-207`).
+- `make trivy-repo` runs only the Trivy repo scan.
 
 ## Repository layout (observed)
 
@@ -228,7 +229,7 @@ make trivy-image platform=amd64
 ## CI signals (CircleCI)
 
 CircleCI runs (see `.circleci/config.yml`):
-- `make dep`, `make lint`, `make proto-breaking`, `make proto-stale`, `make sec`, `make trivy-repo`, `make features`, `make benchmarks`, `make analyse`, `make coverage`, `make codecov-upload`.
+- `make dep`, `make lint`, `make proto-breaking`, `make proto-stale`, `make sec`, `make features`, `make benchmarks`, `make analyse`, `make coverage`, `make codecov-upload`.
 
 If you’re trying to match CI locally, start with:
 

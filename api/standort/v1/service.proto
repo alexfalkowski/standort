@@ -7,7 +7,10 @@ option ruby_package = "Standort::V1";
 
 // Location of the response.
 message Location {
+  // ISO-3166 alpha-2 country code, such as US or DE.
   string country = 1;
+
+  // Two-letter continent code, such as NA or EU.
   string continent = 2;
 }
 

@@ -34,6 +34,13 @@ Lookups are performed using embedded assets:
 > [!CAUTION]
 > Location accuracy is only as current as the embedded datasets. Update the assets and rebuild the service when lookup freshness matters.
 
+When replacing embedded lookup data, keep the filenames and formats unchanged:
+
+- `geoip2.mmdb` must remain a GeoIP2 country database compatible with the `github.com/IncSW/geoip2` reader.
+- `earth.geojson` must remain a GeoJSON feature collection whose indexed features have Polygon or MultiPolygon geometry, a two-character `iso_a2` or `iso_a2_eh` country code, and a supported `continent` value.
+
+Record the dataset source/provenance in the asset update change, then rebuild and run the feature harness so changed lookup results are visible in review.
+
 ---
 
 ## 🔌 API versions
@@ -126,6 +133,22 @@ If you’ve built the binary (via `make build`), run:
 ```sh
 ./standort server -config file:test/.config/server.yml
 ```
+
+---
+
+## 🔧 Configuration
+
+`standort server` reads a go-service configuration file from `-config` (or `-c`). The dev sample at `test/.config/server.yml` is the authoritative local example.
+
+Standort-owned configuration currently adds the required `health` section:
+
+```yaml
+health:
+  duration: 1s
+  timeout: 1s
+```
+
+Both values must be positive durations. The rest of the file is the embedded go-service configuration, inlined at the top level, including transport addresses/timeouts, limiter settings, logger, metrics, tracer, and ID settings.
 
 ---
 
@@ -330,6 +353,12 @@ make features
 
 The Ruby harness is configured by `test/nonnative.yml` and writes logs, coverage, and report artifacts under `test/reports/`.
 
+The harness starts and stops `../standort server` itself with `-config file:.config/server.yml` relative to `test/`, so leave ports `11000` and `12000` free before running it. To rerun a focused slice, pass paths relative to `test/`:
+
+```sh
+make features feature=features/v2/transport/grpc/api.feature tags=@grpc
+```
+
 ### ⏱️ Benchmarks (Ruby harness)
 
 ```sh
@@ -338,12 +367,20 @@ make benchmarks
 
 Benchmark runs use the same harness configuration and report directory as feature tests.
 
+Focused benchmark runs also use paths relative to `test/`:
+
+```sh
+make benchmarks feature=features/v2/transport/http/benchmark.feature
+```
+
 ### 🧯 Security checks
 
 ```sh
 make sec
 make trivy-repo
 ```
+
+`make sec` is the full local security wrapper: it runs `govulncheck -show verbose -test ./...` and the Trivy repository scan. Use `make trivy-repo` only when you want the narrower Trivy-only scan.
 
 ### ✅ CI parity
 
@@ -369,7 +406,7 @@ make proto-format
 make proto-generate
 ```
 
-`buf generate` writes Go protobuf/gRPC files into this repository and Ruby protobuf/gRPC files under `test/lib`. When a `.proto` file is renamed or deleted, remove any orphaned generated Go and Ruby outputs in the same change.
+`buf generate` writes Go protobuf/gRPC files into this repository and Ruby protobuf/gRPC files under `test/lib`. It uses Buf remote plugins, so `make proto-generate` and `make proto-stale` may need network access on first run or when the plugin cache is empty. When a `.proto` file is renamed or deleted, remove any orphaned generated Go and Ruby outputs in the same change.
 
 Breaking-change check:
 
