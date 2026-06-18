@@ -20,6 +20,27 @@ This repository is a Go service called **standort** (location-based information)
   pipelines moving `latest` out of order. Reliable consumers should still pin
   versioned image tags, so do not report `latest` as the deployment contract
   unless versioned tags or documented pinning behavior are affected.
+- Docker images from this repository are deployed regularly by the external
+  deployment path, which supplies the runtime command/config. Treat regular
+  successful deployments as evidence that the published image startup contract is
+  covered. Do not report the absence of a repository-local pre-push Docker
+  startup smoke test as a reliability gap unless there is concrete evidence that
+  the deployment startup/readiness gate is missing, broken, or no longer covers
+  the published image contract.
+- The GitHub/GoReleaser release artifact is not the operational deployment
+  contract for this service; the versioned release/deployment path is. Do not
+  report GitHub release publication before Docker/deploy completion as a
+  reliability gap unless versioned image tags, deployed version correctness, or
+  documented version consumption are concretely affected.
+- Deployment is owned by the version-controlled `alexfalkowski/infraops`
+  `area/apps` path. That path pins app versions in `apps.hjson`, renders
+  internal images as `docker.io/alexfalkowski/<name>:v<version>`, supplies the
+  `server` container arg, uses startup/readiness probes, runs serialized
+  `apps_update` jobs, and verifies targeted release app changes. Do not report
+  missing deploy serialization in this repository's CircleCI workflow as a
+  reliability gap unless there is concrete evidence that the infraops
+  version-controlled/serialized apps deployment path no longer controls the
+  deployed standort version or can roll it back out of order.
 - If a one-command local CI preflight target is needed, add it to the shared
   `bin` Make fragments rather than as a service-local target here. Do not report
   the absence of a root `verify`/`ci-checks` target as a feature gap by default.
