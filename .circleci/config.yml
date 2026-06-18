@@ -14,23 +14,23 @@ jobs:
       - restore_cache:
           name: restore go cache
           keys:
-            - standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
+            - standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
             - standort-go-cache-
       - restore_cache:
           name: restore ruby cache
           keys:
-            - standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}-{{ checksum "~/.ruby-version" }}-{{ checksum ".source-key" }}
+            - standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}-{{ checksum "~/.ruby-version" }}
             - standort-ruby-cache-
       - run: make clean
       - run: make dep
       - save_cache:
           name: save go cache
-          key: standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
+          key: standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
           paths:
             - ~/go/pkg/mod
       - save_cache:
           name: save ruby cache
-          key: standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}-{{ checksum "~/.ruby-version" }}-{{ checksum ".source-key" }}
+          key: standort-ruby-cache-{{ checksum "test/Gemfile.lock" }}-{{ checksum "~/.ruby-version" }}
           paths:
             - test/vendor
       - restore_cache:
@@ -92,7 +92,7 @@ jobs:
       - restore_cache:
           name: restore go cache
           keys:
-            - standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
+            - standort-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
             - standort-go-cache-
       - restore_cache:
           name: restore go build cache
