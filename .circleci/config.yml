@@ -70,7 +70,7 @@ jobs:
     resource_class: arm.large
   sync:
     docker:
-      - image: alexfalkowski/release:8.16
+      - image: alexfalkowski/release:8.18
     working_directory: ~/standort
     steps:
       - checkout:
@@ -81,7 +81,7 @@ jobs:
     resource_class: arm.large
   version:
     docker:
-      - image: alexfalkowski/release:8.16
+      - image: alexfalkowski/release:8.18
     working_directory: ~/standort
     steps:
       - checkout:
@@ -194,7 +194,7 @@ jobs:
     resource_class: arm.large
   deploy:
     docker:
-      - image: alexfalkowski/release:8.16
+      - image: alexfalkowski/release:8.18
     working_directory: ~/standort
     steps:
       - checkout:
