@@ -67,6 +67,26 @@ module Standort
     end
 
     ##
+    # Returns bounded per-call options for HTTP feature-harness requests.
+    #
+    # Each call includes a generated `request_id` header. Caller-provided
+    # headers are merged afterward, so scenarios can override that value or add
+    # transport-specific headers such as content type and user agent.
+    #
+    # @param headers [Hash] HTTP headers merged after the generated request id.
+    # @param read_timeout [Integer] read timeout in seconds.
+    # @param open_timeout [Integer] connection open timeout in seconds.
+    # @return [Hash] Options compatible with `Nonnative::HTTPClient` calls.
+    #
+    def http_options(headers: {}, read_timeout: 10, open_timeout: 10)
+      {
+        headers: { request_id: SecureRandom.uuid }.merge(headers),
+        read_timeout:,
+        open_timeout:
+      }
+    end
+
+    ##
     # Returns a memoized gRPC Health Checking stub.
     #
     # This is used by health/observability feature steps to query the server's

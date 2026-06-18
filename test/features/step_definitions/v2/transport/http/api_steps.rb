@@ -3,13 +3,12 @@
 When('I request a location with HTTP:') do |table|
   rows = table.rows_hash
   @request_id = SecureRandom.uuid
-  opts = {
+  opts = Standort.http_options(
     headers: {
       request_id: @request_id, user_agent: 'Standort-ruby-client/2.0 HTTP/1.0',
       content_type: :json, accept: :json
-    },
-    read_timeout: 10, open_timeout: 10
-  }
+    }
+  )
 
   params = {}
 

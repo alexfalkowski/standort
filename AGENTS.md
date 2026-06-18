@@ -20,6 +20,15 @@ This repository is a Go service called **standort** (location-based information)
   pipelines moving `latest` out of order. Reliable consumers should still pin
   versioned image tags, so do not report `latest` as the deployment contract
   unless versioned tags or documented pinning behavior are affected.
+- If a one-command local CI preflight target is needed, add it to the shared
+  `bin` Make fragments rather than as a service-local target here. Do not report
+  the absence of a root `verify`/`ci-checks` target as a feature gap by default.
+- The Ruby code under `test/` is a local feature/benchmark harness, not
+  production service code. Fixed localhost endpoints in `test/lib/**`,
+  `test/nonnative.yml`, `test/.config/**`, and related feature helpers are
+  intentional local harness assumptions unless there is concrete evidence of
+  current workflow breakage. Do not report the lack of environment-configurable
+  HTTP, gRPC, or observability endpoints as a feature gap by default.
 
 ## First steps
 
