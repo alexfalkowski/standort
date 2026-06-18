@@ -23,6 +23,21 @@ This repository is a Go service called **standort** (location-based information)
 - If a one-command local CI preflight target is needed, add it to the shared
   `bin` Make fragments rather than as a service-local target here. Do not report
   the absence of a root `verify`/`ci-checks` target as a feature gap by default.
+- CircleCI's `version` job runs the external `package` command from
+  `alexfalkowski/release` / `alexfalkowski/docker/release`. That release image's
+  `release/package` script runs `goreleaser check "$releaser"` before
+  `goreleaser release`, so do not report the absence of a separate
+  repository-local GoReleaser validation job as a project gap by default unless
+  there is concrete evidence that the release image no longer validates
+  `.goreleaser.yml`, or this repository has explicitly decided to own a
+  pre-release GoReleaser check locally.
+- Ruby runtime selection for the `test/` harness is owned by the external
+  `alexfalkowski/ruby` image from `alexfalkowski/docker/ruby`. Do not report the
+  absence of a repository-local `.ruby-version`, `.tool-versions`, `mise.toml`,
+  or Gemfile `ruby` directive as a project gap by default unless there is
+  concrete evidence that the Ruby CI image no longer supplies the expected
+  runtime, or this repository has explicitly decided to own Ruby version
+  selection locally for the test harness.
 - The Ruby code under `test/` is a local feature/benchmark harness, not
   production service code. Fixed localhost endpoints in `test/lib/**`,
   `test/nonnative.yml`, `test/.config/**`, and related feature helpers are
