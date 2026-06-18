@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 When('the system requests the {string} with HTTP') do |name|
-  opts = {
-    headers: { request_id: SecureRandom.uuid },
-    read_timeout: 10, open_timeout: 10
-  }
+  opts = Standort.http_options
 
   @response = Nonnative.observability.send(name, opts)
 end

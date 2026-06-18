@@ -3,13 +3,12 @@
 When('I request a location by IP address with HTTP:') do |table|
   rows = table.rows_hash
   @request_id = SecureRandom.uuid
-  opts = {
+  opts = Standort.http_options(
     headers: {
       request_id: @request_id, user_agent: Standort.config.transport.http.user_agent,
       content_type: :json, accept: :json
-    },
-    read_timeout: 10, open_timeout: 10
-  }
+    }
+  )
 
   @response = Standort::V1.http.get_location_by_ip(rows['ip'].strip, opts)
 end
@@ -17,13 +16,12 @@ end
 When('I request a location by latitude and longitude with HTTP:') do |table|
   rows = table.rows_hash
   @request_id = SecureRandom.uuid
-  opts = {
+  opts = Standort.http_options(
     headers: {
       request_id: @request_id, user_agent: Standort.config.transport.http.user_agent,
       content_type: :json, accept: :json
-    },
-    read_timeout: 10, open_timeout: 10
-  }
+    }
+  )
 
   @response = Standort::V1.http.get_location_by_lat_lng(rows['latitude'], rows['longitude'], opts)
 end
