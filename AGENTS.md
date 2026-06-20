@@ -41,6 +41,15 @@ This repository is a Go service called **standort** (location-based information)
   reliability gap unless there is concrete evidence that the infraops
   version-controlled/serialized apps deployment path no longer controls the
   deployed standort version or can roll it back out of order.
+- The `deploy` job intentionally does not have its own CircleCI `serial-group`.
+  Deployment ordering and desired state are owned by the downstream infraops app
+  configuration under `alexfalkowski/infraops/area/apps`, so do not flag
+  deploy-job serialization as a project workflow gap in this repository.
+- Docker image validation jobs intentionally run on non-master branches and are
+  not required again before the master `version`/`package` release step. The
+  service is deployed often through the downstream infraops app flow, so do not
+  flag the lack of master-branch `test-docker-*` gating before release writes
+  as a project workflow gap by default.
 - If a one-command local CI preflight target is needed, add it to the shared
   `bin` Make fragments rather than as a service-local target here. Do not report
   the absence of a root `verify`/`ci-checks` target as a feature gap by default.
@@ -92,6 +101,24 @@ Notes:
 Notes:
 - Most `make` targets call scripts under `./bin/` (submodule). If `bin/` is missing/stale, (re)run the submodule commands above.
 - Many Go commands in `make` run with `-mod vendor`; `make dep` runs `go mod vendor`.
+
+### Submodule bootstrap assumptions
+
+- The root `Makefile` is intentionally a thin include wrapper around `bin/`.
+  It is not expected to work as a no-submodule bootstrap shim when
+  `bin/build/make/*.mak` files are absent.
+- If a checkout has not populated the `bin` submodule files yet, run the raw
+  bootstrap command directly:
+
+  ```sh
+  git submodule sync && git submodule update --init
+  ```
+
+- Do **not** flag the lack of a root-owned `make submodule` fallback as a
+  project workflow gap.
+- The SSH submodule URL is intentional for this repository. Read-only users may
+  override it in local Git configuration, but reviewers should not flag the SSH
+  default as a setup or project workflow gap.
 
 ## Essential commands
 
@@ -195,6 +222,15 @@ make proto-breaking
 
 - Uses `buf breaking --against 'https://github.com/alexfalkowski/$(NAME).git#branch=master,subdir=api'` (see `api/Makefile` → `bin/build/make/buf.mak:27-29`).
 
+### Proto breaking baseline naming convention
+
+- `make proto-breaking` intentionally uses the shared `bin/build/make/buf.mak`
+  convention that derives the GitHub repository name from the checkout
+  directory basename.
+- This repository is expected to be checked out as `standort` for that
+  workflow. Do **not** flag the lack of a local `NAME := standort` override in
+  `api/Makefile` as a project workflow gap.
+
 Generated-output freshness check:
 
 ```sh
@@ -233,6 +269,10 @@ make trivy-image platform=amd64
 - `api/`: protobuf definitions + buf config.
 - `test/`: Ruby feature/benchmark harness and runtime config (`test/.config/server.yml`).
 - `vendor/`: vendored Go dependencies (used by many `make` recipes).
+- Feature and benchmark Cucumber runs intentionally share the configured HTML
+  report path in `test/.config/cucumber.yml`. Treat the JUnit XML reports and
+  coverage files as the durable CI artifacts; do not flag the lack of separate
+  feature and benchmark HTML report paths as a project workflow gap by default.
 
 ## Code patterns & conventions (observed)
 
