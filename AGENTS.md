@@ -1,10 +1,8 @@
 # AGENTS.md
 
-## Shared skills
+## Shared guidance
 
-This repository uses the shared skills from `bin/skills/`. Read
-`bin/AGENTS.md` for the canonical shared skill list and use the smallest
-matching skill for the task.
+Use `bin/AGENTS.md` for shared skills and cross-repository defaults.
 
 This repository is a Go service called **standort** (location-based information) with two API versions (v1 and v2) exposed over **gRPC** and **HTTP**.
 
@@ -15,11 +13,6 @@ This repository is a Go service called **standort** (location-based information)
 - If Go tooling fails with "inconsistent vendoring", run `make dep` to re-vendor (many targets use `-mod vendor`).
 - Embedded GeoIP/GeoJSON lookup assets are updated when freshness is needed. Do not report the absence of an automatic asset freshness guard as a reliability gap unless there is a concrete stale-data failure or a documented freshness requirement.
 - When protobuf files are deleted or renamed, the change author is responsible for removing orphaned generated Go/Ruby outputs. Do not report the absence of automatic generated-output cleanup in `buf generate` as a reliability gap unless there is evidence that the repository workflow currently publishes or validates stale generated API artifacts.
-- The `manifest-docker` CircleCI workflow job is serialized with
-  `<< pipeline.project.slug >>/manifest-docker` to avoid overlapping master
-  pipelines moving `latest` out of order. Reliable consumers should still pin
-  versioned image tags, so do not report `latest` as the deployment contract
-  unless versioned tags or documented pinning behavior are affected.
 - Docker images from this repository are deployed regularly by the external
   deployment path, which supplies the runtime command/config. Treat regular
   successful deployments as evidence that the published image startup contract is
@@ -41,39 +34,6 @@ This repository is a Go service called **standort** (location-based information)
   reliability gap unless there is concrete evidence that the infraops
   version-controlled/serialized apps deployment path no longer controls the
   deployed standort version or can roll it back out of order.
-- The `deploy` job intentionally does not have its own CircleCI `serial-group`.
-  Deployment ordering and desired state are owned by the downstream infraops app
-  configuration under `alexfalkowski/infraops/area/apps`, so do not flag
-  deploy-job serialization as a project workflow gap in this repository.
-- Docker image validation jobs intentionally run on non-master branches and are
-  not required again before the master `version`/`package` release step. The
-  service is deployed often through the downstream infraops app flow, so do not
-  flag the lack of master-branch `test-docker-*` gating before release writes
-  as a project workflow gap by default.
-- If a one-command local CI preflight target is needed, add it to the shared
-  `bin` Make fragments rather than as a service-local target here. Do not report
-  the absence of a root `verify`/`ci-checks` target as a feature gap by default.
-- CircleCI's `version` job runs the external `package` command from
-  `alexfalkowski/release` / `alexfalkowski/docker/release`. That release image's
-  `release/package` script runs `goreleaser check "$releaser"` before
-  `goreleaser release`, so do not report the absence of a separate
-  repository-local GoReleaser validation job as a project gap by default unless
-  there is concrete evidence that the release image no longer validates
-  `.goreleaser.yml`, or this repository has explicitly decided to own a
-  pre-release GoReleaser check locally.
-- Ruby runtime selection for the `test/` harness is owned by the external
-  `alexfalkowski/ruby` image from `alexfalkowski/docker/ruby`. Do not report the
-  absence of a repository-local `.ruby-version`, `.tool-versions`, `mise.toml`,
-  or Gemfile `ruby` directive as a project gap by default unless there is
-  concrete evidence that the Ruby CI image no longer supplies the expected
-  runtime, or this repository has explicitly decided to own Ruby version
-  selection locally for the test harness.
-- The Ruby code under `test/` is a local feature/benchmark harness, not
-  production service code. Fixed localhost endpoints in `test/lib/**`,
-  `test/nonnative.yml`, `test/.config/**`, and related feature helpers are
-  intentional local harness assumptions unless there is concrete evidence of
-  current workflow breakage. Do not report the lack of environment-configurable
-  HTTP, gRPC, or observability endpoints as a feature gap by default.
 
 ## First steps
 
@@ -95,30 +55,11 @@ make dep
 
 Notes:
 - The repo depends on a `bin/` git submodule; initialize it before running most `make` targets.
-- The `bin` submodule intentionally uses an SSH URL (`git@github.com:alexfalkowski/bin.git`), so fresh environments need GitHub SSH credentials before `git submodule update --init` can succeed.
 - Vendoring is used heavily; re-run `make dep` after dependency changes or if you hit vendoring errors.
 
 Notes:
 - Most `make` targets call scripts under `./bin/` (submodule). If `bin/` is missing/stale, (re)run the submodule commands above.
 - Many Go commands in `make` run with `-mod vendor`; `make dep` runs `go mod vendor`.
-
-### Submodule bootstrap assumptions
-
-- The root `Makefile` is intentionally a thin include wrapper around `bin/`.
-  It is not expected to work as a no-submodule bootstrap shim when
-  `bin/build/make/*.mak` files are absent.
-- If a checkout has not populated the `bin` submodule files yet, run the raw
-  bootstrap command directly:
-
-  ```sh
-  git submodule sync && git submodule update --init
-  ```
-
-- Do **not** flag the lack of a root-owned `make submodule` fallback as a
-  project workflow gap.
-- The SSH submodule URL is intentional for this repository. Read-only users may
-  override it in local Git configuration, but reviewers should not flag the SSH
-  default as a setup or project workflow gap.
 
 ## Essential commands
 
@@ -222,15 +163,6 @@ make proto-breaking
 
 - Uses `buf breaking --against 'https://github.com/alexfalkowski/$(NAME).git#branch=master,subdir=api'` (see `api/Makefile` → `bin/build/make/buf.mak:27-29`).
 
-### Proto breaking baseline naming convention
-
-- `make proto-breaking` intentionally uses the shared `bin/build/make/buf.mak`
-  convention that derives the GitHub repository name from the checkout
-  directory basename.
-- This repository is expected to be checked out as `standort` for that
-  workflow. Do **not** flag the lack of a local `NAME := standort` override in
-  `api/Makefile` as a project workflow gap.
-
 Generated-output freshness check:
 
 ```sh
@@ -269,11 +201,6 @@ make trivy-image platform=amd64
 - `api/`: protobuf definitions + buf config.
 - `test/`: Ruby feature/benchmark harness and runtime config (`test/.config/server.yml`).
 - `vendor/`: vendored Go dependencies (used by many `make` recipes).
-- Feature and benchmark Cucumber runs intentionally share the configured HTML
-  report path in `test/.config/cucumber.yml`. Treat the JUnit XML reports and
-  coverage files as the durable CI artifacts; do not flag the lack of separate
-  feature and benchmark HTML report paths as a project workflow gap by default.
-
 ## Code patterns & conventions (observed)
 
 ### Dependency injection
