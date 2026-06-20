@@ -12,28 +12,30 @@ This repository is a Go service called **standort** (location-based information)
 - Package-level documentation is expected to live in `doc.go` files (a set of `doc.go` files were added across key packages).
 - If Go tooling fails with "inconsistent vendoring", run `make dep` to re-vendor (many targets use `-mod vendor`).
 - Embedded GeoIP/GeoJSON lookup assets are updated when freshness is needed. Do not report the absence of an automatic asset freshness guard as a reliability gap unless there is a concrete stale-data failure or a documented freshness requirement.
-- When protobuf files are deleted or renamed, the change author is responsible for removing orphaned generated Go/Ruby outputs. Do not report the absence of automatic generated-output cleanup in `buf generate` as a reliability gap unless there is evidence that the repository workflow currently publishes or validates stale generated API artifacts.
-- Docker images from this repository are deployed regularly by the external
+- When protobuf files are deleted or renamed, the change author is responsible
+  for removing orphaned generated Go/Ruby outputs. Do not report the absence of
+  automatic generated-output cleanup in proto generation as a reliability gap
+  unless there is evidence that the repository workflow currently publishes or
+  validates stale generated API artifacts.
+- Runtime artifacts from this repository are deployed regularly by the external
   deployment path, which supplies the runtime command/config. Treat regular
-  successful deployments as evidence that the published image startup contract is
-  covered. Do not report the absence of a repository-local pre-push Docker
-  startup smoke test as a reliability gap unless there is concrete evidence that
-  the deployment startup/readiness gate is missing, broken, or no longer covers
-  the published image contract.
+  successful deployments as evidence that the startup contract is covered. Do
+  not report the absence of a repository-local pre-push Docker startup smoke
+  test as a reliability gap unless there is concrete evidence that the
+  deployment startup/readiness gate is missing, broken, or no longer covers the
+  published artifact contract.
 - The GitHub/GoReleaser release artifact is not the operational deployment
-  contract for this service; the versioned release/deployment path is. Do not
-  report GitHub release publication before Docker/deploy completion as a
-  reliability gap unless versioned image tags, deployed version correctness, or
-  documented version consumption are concretely affected.
+  contract for this service; the external release/deployment path is. Do not
+  report GitHub release publication before deploy completion as a reliability
+  gap unless deployed state or documented release consumption is concretely
+  affected.
 - Deployment is owned by the version-controlled `alexfalkowski/infraops`
-  `area/apps` path. That path pins app versions in `apps.hjson`, renders
-  internal images as `docker.io/alexfalkowski/<name>:v<version>`, supplies the
-  `server` container arg, uses startup/readiness probes, runs serialized
-  `apps_update` jobs, and verifies targeted release app changes. Do not report
-  missing deploy serialization in this repository's CircleCI workflow as a
-  reliability gap unless there is concrete evidence that the infraops
-  version-controlled/serialized apps deployment path no longer controls the
-  deployed standort version or can roll it back out of order.
+  `area/apps` path. That path owns runtime artifact references,
+  startup/readiness probes, serialized update jobs, and targeted release
+  verification. Do not report missing deploy serialization in this repository's
+  CircleCI workflow as a reliability gap unless there is concrete evidence that
+  the infraops deployment path no longer controls the deployed state or can roll
+  it back out of order.
 
 ## First steps
 
@@ -43,23 +45,26 @@ This repository is a Go service called **standort** (location-based information)
 - Git submodules with GitHub SSH access (the repo relies on a `bin/` submodule; see `.gitmodules`)
 - Ruby with Bundler (used for the Ruby test/benchmark harness under `test/`)
 
-Tools referenced by `make` targets (only run if installed): `buf`, `gotestsum`, `govulncheck`, `air`, `hadolint`, `trivy`, `codecovcli`, `mkcert`, `goda`, `dot`, `gsa`, `scc`.
+Some Make targets require external tools on `PATH`; run them through the
+repository targets instead of invoking those tools directly.
 
 ### Bootstrap
 
 ```sh
-git submodule sync
-git submodule update --init
 make dep
 ```
 
 Notes:
-- The repo depends on a `bin/` git submodule; initialize it before running most `make` targets.
+- The repo depends on a `bin/` git submodule; initialize it before running most
+  Make targets. Use `make submodule` once the shared checkout is present; see
+  `bin/AGENTS.md` for fresh-clone bootstrap details.
 - Vendoring is used heavily; re-run `make dep` after dependency changes or if you hit vendoring errors.
 
 Notes:
-- Most `make` targets call scripts under `./bin/` (submodule). If `bin/` is missing/stale, (re)run the submodule commands above.
-- Many Go commands in `make` run with `-mod vendor`; `make dep` runs `go mod vendor`.
+- Most `make` targets call scripts under `./bin/` (submodule). If `bin/` is
+  missing or stale, refresh the submodule before running other targets.
+- Many Go-related Make targets use vendored dependencies; `make dep` refreshes
+  vendor state.
 
 ## Essential commands
 
@@ -84,15 +89,7 @@ make dev
 ```
 
 Observed from `bin/build/make/grpc.mak:216-218`:
-- Runs `air --build.cmd "make dep build"`.
-- Runs the binary as `./standort server -config file:test/.config/server.yml`.
-
-Run the built binary directly:
-
-```sh
-make build
-./standort server -config file:test/.config/server.yml
-```
+- Runs the shared live-reload workflow with the repo dev/test config.
 
 The dev config file `test/.config/server.yml` configures addresses:
 - HTTP: `tcp://:11000`
@@ -106,7 +103,8 @@ Go unit/spec tests:
 make specs
 ```
 
-- Uses `gotestsum` directly (see `bin/build/make/grpc.mak:135-137`), and runs Go tests with `-race -mod vendor -coverpkg=...`.
+- Runs the repository Go test target with race, vendored dependencies, and
+  coverage inputs.
 
 Feature tests (Ruby harness + Go test binary built with `-tags features`):
 
@@ -123,9 +121,6 @@ Benchmarks (Ruby harness):
 make benchmarks
 ```
 
-Tip:
-- If `make specs` fails because `gotestsum` is missing, install it (it’s invoked directly by the make target).
-
 ### Lint / format
 
 ```sh
@@ -135,10 +130,12 @@ make format
 ```
 
 Observed details:
-- Go lint runs field-alignment (`bin/build/go/fa`) + golangci-lint wrapper (`bin/build/go/lint`) (see `bin/build/make/grpc.mak:18-35`).
-- golangci-lint is run with `--build-tags features` (see `bin/build/make/grpc.mak:24-28`).
-- Ruby lint/format runs inside `test/` via bundler (`make -C test ...`; see `bin/build/make/grpc.mak:36-43` and `test/bin/build/make/ruby.mak`).
-- Proto lint/format runs in `api/` via `buf` (`make -C api ...`; see `bin/build/make/grpc.mak:48-55`).
+- Go lint runs through shared `bin` helpers (see
+  `bin/build/make/grpc.mak:18-35`).
+- Ruby lint/format runs inside `test/` through Make targets (see
+  `bin/build/make/grpc.mak:36-43` and `test/bin/build/make/ruby.mak`).
+- Proto lint/format runs in `api/` through Make targets (see
+  `bin/build/make/grpc.mak:48-55`).
 
 ### Protobuf / API generation
 
@@ -151,7 +148,7 @@ make proto-generate
 Observed:
 - Protos live under `api/standort/v1` and `api/standort/v2`.
 - `api/Makefile` includes `bin/build/make/buf.mak`.
-- `buf generate` outputs:
+- Proto generation outputs:
   - Go protobuf + gRPC stubs into this repo (see `api/buf.gen.yaml:3-10`).
   - Ruby protobuf + gRPC stubs into `test/lib` (see `api/buf.gen.yaml:11-14`).
 
@@ -161,7 +158,8 @@ Breaking-change check:
 make proto-breaking
 ```
 
-- Uses `buf breaking --against 'https://github.com/alexfalkowski/$(NAME).git#branch=master,subdir=api'` (see `api/Makefile` → `bin/build/make/buf.mak:27-29`).
+- Uses the shared API Makefile breaking-change target (see `api/Makefile` ->
+  `bin/build/make/buf.mak:27-29`).
 
 Generated-output freshness check:
 
@@ -169,7 +167,8 @@ Generated-output freshness check:
 make proto-stale
 ```
 
-- Runs `buf generate` and fails if generated protobuf outputs differ from the committed files.
+- Runs the shared API freshness target and fails if generated protobuf outputs
+  differ from the committed files.
 
 ### Security / containers (optional)
 
@@ -180,8 +179,9 @@ make build-docker platform=amd64
 make trivy-image platform=amd64
 ```
 
-- `make sec` runs `govulncheck -show verbose -test ./...` and the Trivy repo scan (see `bin/build/make/grpc.mak:201-207`).
-- `make trivy-repo` runs only the Trivy repo scan.
+- `make sec` runs the repository security checks (see
+  `bin/build/make/grpc.mak:201-207`).
+- `make trivy-repo` runs the repository scan target.
 
 ## Repository layout (observed)
 
@@ -256,7 +256,8 @@ make specs
 - **Submodule dependency**: root `Makefile` includes make fragments from `bin/build/make/*` (`Makefile:1-3`). Initialize `bin/` before using most `make` targets.
 - **Vendoring**: many targets use `-mod vendor`. After dependency changes, re-run `make dep`.
 - **Build tags**: feature harness test is behind `//go:build features` (`main_test.go:1-11`).
-- **`make specs` requires `gotestsum`**: it’s invoked directly in the Make target (`bin/build/make/grpc.mak:135-137`).
+- **`make specs` requires the shared test runner**: install the target's
+  reported missing dependency if the Make target cannot find it.
 - **Generated protobuf**: generated `*.pb.go` / `*_grpc.pb.go` are excluded from lint/format (`.golangci.yml:25-43`). Don’t hand-edit generated files; re-run proto generation instead.
 - **README mismatch**: historically `README.md` suggested `make setup`, but there is no `setup` target. The README has been updated; if this line reappears, fix the README and/or add the missing target.
 - **Package docs**: prefer package-level docs in `doc.go` files. If you add new packages or public surface area, create/update `doc.go` rather than scattering package overview docs across implementation files.
