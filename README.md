@@ -384,13 +384,25 @@ make trivy-repo
 
 ### ✅ CI parity
 
-CircleCI initializes submodules, vendors dependencies, then runs linting, protobuf breaking and generated-output stale checks, security checks, feature tests, benchmarks, analysis, coverage, and Codecov upload. For a focused local pre-push check, start with:
+CircleCI initializes submodules, vendors dependencies, then runs linting,
+protobuf breaking and generated-output stale checks, security checks, feature
+tests, benchmarks, analysis, coverage, and Codecov upload. To mirror the main
+validation sequence locally, use:
 
 ```sh
 make dep
 make lint
-make specs
+make proto-breaking
+make proto-stale
+make sec
+make features
+make benchmarks
+make analyse
+make coverage
 ```
+
+Use `make specs` as a focused Go test check; it is not a separate CircleCI
+step in the main build job.
 
 ---
 
