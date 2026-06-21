@@ -12,6 +12,7 @@
 //
 //   - "Africa"        → "AF"
 //   - "Antarctica"    → "AN"
+//   - "Australia"     → "OC"
 //   - "Asia"          → "AS"
 //   - "Europe"        → "EU"
 //   - "North America" → "NA"

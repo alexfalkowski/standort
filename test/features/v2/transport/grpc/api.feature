@@ -16,6 +16,7 @@ Feature: gRPC API
       | geoip2 | params | ip   |                           95.91.246.242 | DE      | EU        |
       | geoip2 | params | ip   |                          45.128.199.236 | NL      | EU        |
       | geoip2 | params | ip   |                             154.6.22.65 | US      | NA        |
+      | geoip2 | params | ip   |                                1.40.0.0 | AU      | OC        |
       | geoip2 | params | ip   | 2a02:8109:9f2e:4600:861e:b845:8bd4:b047 | DE      | EU        |
 
     Examples: With geoip2 metadata
@@ -31,20 +32,20 @@ Feature: gRPC API
     Then I should receive a not found response with gRPC
 
     Examples: With geoip2 parameters
-      | source | method | ip      |
-      | geoip2 | params | 0.0.0.0 |
-      | geoip2 | params | test    |
-      | geoip2 | params | <test>  |
-      | geoip2 | params | 154.6   |
-      | geoip2 | params | 1.0.4.1 |
+      | source | method | ip        |
+      | geoip2 | params | 0.0.0.0   |
+      | geoip2 | params | test      |
+      | geoip2 | params | <test>    |
+      | geoip2 | params | 154.6     |
+      | geoip2 | params | 192.0.2.1 |
 
     Examples: With geoip2 metadata
-      | source | method   | ip      |
-      | geoip2 | metadata | 0.0.0.0 |
-      | geoip2 | metadata | test    |
-      | geoip2 | metadata | <test>  |
-      | geoip2 | metadata | 154.6   |
-      | geoip2 | metadata | 1.0.4.1 |
+      | source | method   | ip        |
+      | geoip2 | metadata | 0.0.0.0   |
+      | geoip2 | metadata | test      |
+      | geoip2 | metadata | <test>    |
+      | geoip2 | metadata | 154.6     |
+      | geoip2 | metadata | 192.0.2.1 |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location with gRPC:

@@ -22,6 +22,7 @@ package continent
 // whole process.
 var Codes = map[string]string{
 	"Africa":        "AF",
+	"Australia":     "OC",
 	"North America": "NA",
 	"Oceania":       "OC",
 	"Asia":          "AS",

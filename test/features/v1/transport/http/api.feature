@@ -21,13 +21,13 @@ Feature: HTTP API
     Then I should receive a not found response with HTTP
 
     Examples: With geoip2
-      | source | ip      |
-      | geoip2 | 0.0.0.0 |
-      | geoip2 | test    |
-      | geoip2 | <test>  |
-      | geoip2 |   154.6 |
-      | geoip2 | 1.0.4.1 |
-      | geoip2 |         |
+      | source | ip        |
+      | geoip2 | 0.0.0.0   |
+      | geoip2 | test      |
+      | geoip2 | <test>    |
+      | geoip2 | 154.6     |
+      | geoip2 | 192.0.2.1 |
+      | geoip2 |           |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location by latitude and longitude with HTTP:
