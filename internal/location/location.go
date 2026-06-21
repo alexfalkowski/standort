@@ -13,10 +13,6 @@ import (
 	orb "github.com/alexfalkowski/standort/v2/internal/location/orb/provider"
 )
 
-// ErrUnsupportedContinent is returned when a provider resolves a continent name
-// that cannot be normalized to the API's two-letter continent code.
-var ErrUnsupportedContinent = errors.New("unsupported continent")
-
 // ErrInvalidPoint is returned when latitude or longitude is non-finite or outside
 // the supported geographic coordinate range.
 var ErrInvalidPoint = errors.New("invalid point")
@@ -68,12 +64,7 @@ func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, erro
 		return strings.Empty, strings.Empty, err
 	}
 
-	code, err := continentCode(cont)
-	if err != nil {
-		return strings.Empty, strings.Empty, err
-	}
-
-	return country, code, nil
+	return country, continent.Codes[cont], nil
 }
 
 // GetByLatLng resolves a location from a latitude/longitude coordinate.
@@ -89,17 +80,12 @@ func (l *Location) GetByLatLng(ctx context.Context, lat, lng float64) (string, s
 		return strings.Empty, strings.Empty, fmt.Errorf("%f/%f: %w", lat, lng, ErrInvalidPoint)
 	}
 
-	cou, con, err := l.orbProvider.Search(ctx, lat, lng)
+	cou, cont, err := l.orbProvider.Search(ctx, lat, lng)
 	if err != nil {
 		return strings.Empty, strings.Empty, fmt.Errorf("%f/%f: %w", lat, lng, err)
 	}
 
-	code, err := continentCode(con)
-	if err != nil {
-		return strings.Empty, strings.Empty, fmt.Errorf("%f/%f: %w", lat, lng, err)
-	}
-
-	return cou, code, nil
+	return cou, continent.Codes[cont], nil
 }
 
 func validPoint(lat, lng float64) bool {
@@ -107,13 +93,4 @@ func validPoint(lat, lng float64) bool {
 		!math.IsInf(lat, 0) && !math.IsInf(lng, 0) &&
 		lat >= -90 && lat <= 90 &&
 		lng >= -180 && lng <= 180
-}
-
-func continentCode(cont string) (string, error) {
-	code, ok := continent.Codes[cont]
-	if !ok {
-		return strings.Empty, fmt.Errorf("%s: %w", cont, ErrUnsupportedContinent)
-	}
-
-	return code, nil
 }

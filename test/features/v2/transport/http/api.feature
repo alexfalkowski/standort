@@ -16,12 +16,14 @@ Feature: HTTP API
       | geoip2 | params | ip   |  95.91.246.242 | DE      | EU        |
       | geoip2 | params | ip   | 45.128.199.236 | NL      | EU        |
       | geoip2 | params | ip   |    154.6.22.65 | US      | NA        |
+      | geoip2 | params | ip   |       1.40.0.0 | AU      | OC        |
 
     Examples: With geoip2 headers
       | source | method  | kind | ip             | country | continent |
       | geoip2 | headers | ip   |  95.91.246.242 | DE      | EU        |
       | geoip2 | headers | ip   | 45.128.199.236 | NL      | EU        |
       | geoip2 | headers | ip   |    154.6.22.65 | US      | NA        |
+      | geoip2 | headers | ip   |       1.40.0.0 | AU      | OC        |
 
   Scenario Outline: Get location by an bad IP address.
     When I request a location with HTTP:
@@ -30,20 +32,20 @@ Feature: HTTP API
     Then I should receive a not found response with HTTP
 
     Examples: With geoip2 parameters
-      | source | method | ip      |
-      | geoip2 | params | 0.0.0.0 |
-      | geoip2 | params | test    |
-      | geoip2 | params | <test>  |
-      | geoip2 | params |   154.6 |
-      | geoip2 | params | 1.0.4.1 |
+      | source | method | ip        |
+      | geoip2 | params | 0.0.0.0   |
+      | geoip2 | params | test      |
+      | geoip2 | params | <test>    |
+      | geoip2 | params | 154.6     |
+      | geoip2 | params | 192.0.2.1 |
 
     Examples: With geoip2 headers
-      | source | method  | ip      |
-      | geoip2 | headers | 0.0.0.0 |
-      | geoip2 | headers | test    |
-      | geoip2 | headers | <test>  |
-      | geoip2 | headers |   154.6 |
-      | geoip2 | headers | 1.0.4.1 |
+      | source | method  | ip        |
+      | geoip2 | headers | 0.0.0.0   |
+      | geoip2 | headers | test      |
+      | geoip2 | headers | <test>    |
+      | geoip2 | headers | 154.6     |
+      | geoip2 | headers | 192.0.2.1 |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location with HTTP:
