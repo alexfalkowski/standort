@@ -17,18 +17,6 @@ This repository is a Go service called **standort** (location-based information)
   automatic generated-output cleanup in proto generation as a reliability gap
   unless there is evidence that the repository workflow currently publishes or
   validates stale generated API artifacts.
-- Runtime artifacts from this repository are deployed regularly by the external
-  deployment path, which supplies the runtime command/config. Treat regular
-  successful deployments as evidence that the startup contract is covered. Do
-  not report the absence of a repository-local pre-push Docker startup smoke
-  test as a reliability gap unless there is concrete evidence that the
-  deployment startup/readiness gate is missing, broken, or no longer covers the
-  published artifact contract.
-- The GitHub/GoReleaser release artifact is not the operational deployment
-  contract for this service; the external release/deployment path is. Do not
-  report GitHub release publication before deploy completion as a reliability
-  gap unless deployed state or documented release consumption is concretely
-  affected.
 - Deployment is owned by the version-controlled `alexfalkowski/infraops`
   `area/apps` path. That path owns runtime artifact references,
   startup/readiness probes, serialized update jobs, and targeted release
