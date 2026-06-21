@@ -231,13 +231,22 @@ make trivy-image platform=amd64
 CircleCI runs (see `.circleci/config.yml`):
 - `make dep`, `make lint`, `make proto-breaking`, `make proto-stale`, `make sec`, `make features`, `make benchmarks`, `make analyse`, `make coverage`, `make codecov-upload`.
 
-If you’re trying to match CI locally, start with:
+If you’re trying to match CI locally, use the same target sequence:
 
 ```sh
 make dep
 make lint
-make specs
+make proto-breaking
+make proto-stale
+make sec
+make features
+make benchmarks
+make analyse
+make coverage
 ```
+
+Use `make specs` as a focused Go test check; it is not a separate CircleCI
+step in the main build job.
 
 ## Common gotchas (observed)
 
