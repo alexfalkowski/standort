@@ -4,8 +4,10 @@
 
 require 'google/protobuf'
 
+require 'google/rpc/status_pb'
 
-descriptor_data = "\n\x19standort/v2/service.proto\x12\x0bstandort.v2\"B\n\x08Location\x12\x18\n\x07\x63ountry\x18\x01 \x01(\tR\x07\x63ountry\x12\x1c\n\tcontinent\x18\x02 \x01(\tR\tcontinent\"+\n\x05Point\x12\x10\n\x03lat\x18\x01 \x01(\x01R\x03lat\x12\x10\n\x03lng\x18\x02 \x01(\x01R\x03lng\"N\n\x12GetLocationRequest\x12\x0e\n\x02ip\x18\x01 \x01(\tR\x02ip\x12(\n\x05point\x18\x02 \x01(\x0b\x32\x12.standort.v2.PointR\x05point\"\xde\x01\n\x13GetLocationResponse\x12>\n\x04meta\x18\x01 \x03(\x0b\x32*.standort.v2.GetLocationResponse.MetaEntryR\x04meta\x12%\n\x02ip\x18\x02 \x01(\x0b\x32\x15.standort.v2.LocationR\x02ip\x12\'\n\x03geo\x18\x03 \x01(\x0b\x32\x15.standort.v2.LocationR\x03geo\x1a\x37\n\tMetaEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\x32]\n\x07Service\x12R\n\x0bGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x00\x42\x45Z4github.com/alexfalkowski/standort/v2/api/standort/v2\xea\x02\x0cStandort::V2b\x06proto3"
+
+descriptor_data = "\n\x19standort/v2/service.proto\x12\x0bstandort.v2\x1a\x17google/rpc/status.proto\"B\n\x08Location\x12\x18\n\x07\x63ountry\x18\x01 \x01(\tR\x07\x63ountry\x12\x1c\n\tcontinent\x18\x02 \x01(\tR\tcontinent\"+\n\x05Point\x12\x10\n\x03lat\x18\x01 \x01(\x01R\x03lat\x12\x10\n\x03lng\x18\x02 \x01(\x01R\x03lng\"N\n\x12GetLocationRequest\x12\x0e\n\x02ip\x18\x01 \x01(\tR\x02ip\x12(\n\x05point\x18\x02 \x01(\x0b\x32\x12.standort.v2.PointR\x05point\"\xde\x01\n\x13GetLocationResponse\x12>\n\x04meta\x18\x01 \x03(\x0b\x32*.standort.v2.GetLocationResponse.MetaEntryR\x04meta\x12%\n\x02ip\x18\x02 \x01(\x0b\x32\x15.standort.v2.LocationR\x02ip\x12\'\n\x03geo\x18\x03 \x01(\x0b\x32\x15.standort.v2.LocationR\x03geo\x1a\x37\n\tMetaEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\"J\n\x0eLocationLookup\x12\x0e\n\x02ip\x18\x01 \x01(\tR\x02ip\x12(\n\x05point\x18\x02 \x01(\x0b\x32\x12.standort.v2.PointR\x05point\"O\n\x16LookupLocationsRequest\x12\x35\n\x07lookups\x18\x01 \x03(\x0b\x32\x1b.standort.v2.LocationLookupR\x07lookups\"\x94\x01\n\x16LocationLookupResponse\x12%\n\x02ip\x18\x01 \x01(\x0b\x32\x15.standort.v2.LocationR\x02ip\x12\'\n\x03geo\x18\x02 \x01(\x0b\x32\x15.standort.v2.LocationR\x03geo\x12*\n\x06status\x18\x03 \x01(\x0b\x32\x12.google.rpc.StatusR\x06status\"\xd5\x01\n\x17LookupLocationsResponse\x12\x42\n\x04meta\x18\x01 \x03(\x0b\x32..standort.v2.LookupLocationsResponse.MetaEntryR\x04meta\x12=\n\x07lookups\x18\x02 \x03(\x0b\x32#.standort.v2.LocationLookupResponseR\x07lookups\x1a\x37\n\tMetaEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\x32\xbd\x01\n\x07Service\x12R\n\x0bGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x00\x12^\n\x0fLookupLocations\x12#.standort.v2.LookupLocationsRequest\x1a$.standort.v2.LookupLocationsResponse\"\x00\x42\x45Z4github.com/alexfalkowski/standort/v2/api/standort/v2\xea\x02\x0cStandort::V2b\x06proto3"
 
 pool = ::Google::Protobuf::DescriptorPool.generated_pool
 pool.add_serialized_file(descriptor_data)
@@ -16,5 +18,9 @@ module Standort
     Point = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.Point").msgclass
     GetLocationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.GetLocationRequest").msgclass
     GetLocationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.GetLocationResponse").msgclass
+    LocationLookup = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.LocationLookup").msgclass
+    LookupLocationsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.LookupLocationsRequest").msgclass
+    LocationLookupResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.LocationLookupResponse").msgclass
+    LookupLocationsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("standort.v2.LookupLocationsResponse").msgclass
   end
 end

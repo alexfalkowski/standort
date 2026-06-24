@@ -23,3 +23,13 @@ func (s *Server) GetLocation(ctx context.Context, req *v2.GetLocationRequest) (*
 
 	return resp, nil
 }
+
+// LookupLocations resolves multiple location lookups.
+func (s *Server) LookupLocations(ctx context.Context, req *v2.LookupLocationsRequest) (*v2.LookupLocationsResponse, error) {
+	resp, err := s.locator.Lookup(ctx, req)
+	if err != nil {
+		return nil, status.SafeError(http.StatusBadRequest, err)
+	}
+
+	return resp, nil
+}

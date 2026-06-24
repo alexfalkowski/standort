@@ -2,11 +2,19 @@ package location
 
 import (
 	"github.com/alexfalkowski/go-service/v2/context"
+	"github.com/alexfalkowski/go-service/v2/errors"
 	"github.com/alexfalkowski/go-service/v2/meta"
+	"github.com/alexfalkowski/go-service/v2/net/grpc/codes"
 	"github.com/alexfalkowski/go-service/v2/strings"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 	"github.com/alexfalkowski/standort/v2/internal/api/location"
+	"google.golang.org/genproto/googleapis/rpc/status"
 )
+
+const maxLookups = 100
+
+// ErrTooManyLookups is returned when a batch request exceeds the supported size.
+var ErrTooManyLookups = errors.New("too many lookups")
 
 // NewLocator constructs a v2 response locator.
 func NewLocator(locator *location.Locator) *Locator {
@@ -30,6 +38,39 @@ func (l *Locator) Locate(ctx context.Context, req *v2.GetLocationRequest) (*v2.G
 		Ip:   toLocation(locations.IP),
 		Geo:  toLocation(locations.GEO),
 	}, nil
+}
+
+// Lookup resolves a v2 batch request.
+func (l *Locator) Lookup(ctx context.Context, req *v2.LookupLocationsRequest) (*v2.LookupLocationsResponse, error) {
+	lookups := req.GetLookups()
+	if len(lookups) > maxLookups {
+		return nil, ErrTooManyLookups
+	}
+
+	resp := &v2.LookupLocationsResponse{
+		Meta:    meta.CamelStrings(ctx, strings.Empty),
+		Lookups: make([]*v2.LocationLookupResponse, 0, len(lookups)),
+	}
+
+	for _, lookup := range lookups {
+		locations, err := l.locator.Locate(ctx, lookup.GetIp(), toPoint(lookup.GetPoint()))
+		if err != nil {
+			resp.Lookups = append(resp.Lookups, &v2.LocationLookupResponse{
+				Status: &status.Status{
+					Code:    int32(codes.NotFound),
+					Message: location.ErrNotFound.Error(),
+				},
+			})
+			continue
+		}
+
+		resp.Lookups = append(resp.Lookups, &v2.LocationLookupResponse{
+			Ip:  toLocation(locations.IP),
+			Geo: toLocation(locations.GEO),
+		})
+	}
+
+	return resp, nil
 }
 
 func toPoint(p *v2.Point) *location.Point {

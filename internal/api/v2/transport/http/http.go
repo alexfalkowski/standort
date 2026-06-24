@@ -15,11 +15,13 @@ import (
 // name to the corresponding HTTP handler:
 //
 //   - `standort.v2.Service/GetLocation` → `Server.GetLocation`
+//   - `standort.v2.Service/LookupLocations` → `Server.LookupLocations`
 //
 // The HTTP server and route shapes are provided by `rpc.Route`; this function only
 // wires the route to the v2 server.
 func Register(server *Server) {
 	rpc.Route(v2.Service_GetLocation_FullMethodName, server.GetLocation)
+	rpc.Route(v2.Service_LookupLocations_FullMethodName, server.LookupLocations)
 }
 
 // NewServer constructs a v2 HTTP `Server`.

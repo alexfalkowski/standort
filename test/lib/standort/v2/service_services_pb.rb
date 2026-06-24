@@ -21,6 +21,8 @@ module Standort
         # lookup succeeds; v2 transports may attach code-only diagnostics to the
         # terminal error metadata.
         rpc :GetLocation, ::Standort::V2::GetLocationRequest, ::Standort::V2::GetLocationResponse
+        # LookupLocations resolves multiple location lookups, preserving request order.
+        rpc :LookupLocations, ::Standort::V2::LookupLocationsRequest, ::Standort::V2::LookupLocationsResponse
       end
 
       Stub = Service.rpc_stub_class

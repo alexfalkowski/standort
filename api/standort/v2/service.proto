@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package standort.v2;
 
+import "google/rpc/status.proto";
+
 option go_package = "github.com/alexfalkowski/standort/v2/api/standort/v2";
 option ruby_package = "Standort::V2";
 
@@ -44,6 +46,42 @@ message GetLocationResponse {
   Location geo = 3;
 }
 
+// LocationLookup is one lookup entry for a batch request.
+message LocationLookup {
+  // IP address to resolve.
+  string ip = 1;
+
+  // Geographic point to resolve.
+  Point point = 2;
+}
+
+// LookupLocationsRequest for batch location lookup.
+message LookupLocationsRequest {
+  // Lookups contains the entries to resolve. At most 100 lookups are supported.
+  repeated LocationLookup lookups = 1;
+}
+
+// LocationLookupResponse is one lookup entry in a batch response.
+message LocationLookupResponse {
+  // IP is populated when the IP lookup succeeds.
+  Location ip = 1;
+
+  // Geo is populated when the point lookup succeeds.
+  Location geo = 2;
+
+  // Status is populated when this lookup does not resolve any location.
+  google.rpc.Status status = 3;
+}
+
+// LookupLocationsResponse for batch location lookup.
+message LookupLocationsResponse {
+  // Meta contains request metadata returned to the caller, such as requestId.
+  map<string, string> meta = 1;
+
+  // Lookups contains one response for each request lookup, preserving order.
+  repeated LocationLookupResponse lookups = 2;
+}
+
 // Service allows to get location via multiple methods.
 service Service {
   // GetLocation resolves an IP address and/or geographic point. If one lookup
@@ -51,4 +89,7 @@ service Service {
   // lookup succeeds; v2 transports may attach code-only diagnostics to the
   // terminal error metadata.
   rpc GetLocation(GetLocationRequest) returns (GetLocationResponse) {}
+
+  // LookupLocations resolves multiple location lookups, preserving request order.
+  rpc LookupLocations(LookupLocationsRequest) returns (LookupLocationsResponse) {}
 }
