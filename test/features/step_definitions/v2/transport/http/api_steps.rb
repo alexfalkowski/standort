@@ -56,6 +56,18 @@ When('I lookup {int} locations with HTTP') do |count|
   @response = Standort::V2.http.lookup_locations(lookups, opts)
 end
 
+When('I request lookup assets with HTTP') do
+  @request_id = SecureRandom.uuid
+  opts = Standort.http_options(
+    headers: {
+      request_id: @request_id, user_agent: 'Standort-ruby-client/2.0 HTTP/1.0',
+      content_type: :json, accept: :json
+    }
+  )
+
+  @response = Standort::V2.http.get_lookup_assets(opts)
+end
+
 Then('I should receive a valid locations with HTTP:') do |table|
   expect(@response.code).to eq(200)
 
@@ -121,6 +133,23 @@ end
 
 Then('I should receive a bad request response with HTTP') do
   expect(@response.code).to eq(400)
+end
+
+Then('I should receive lookup assets with HTTP:') do |table|
+  expect(@response.code).to eq(200)
+
+  resp = JSON.parse(@response.body)
+
+  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+
+  table.hashes.each do |row|
+    asset = resp.fetch('assets').find { |lookup_asset| lookup_asset.fetch('name') == row['name'] }
+
+    expect(asset).not_to be_nil
+    expect(asset.fetch('size_bytes').to_i).to be_positive
+    expect(asset.fetch('checksum_algorithm')).to eq(row['checksum_algorithm'])
+    expect(asset.fetch('checksum')).not_to be_empty
+  end
 end
 
 Then('I should receive a not found response with HTTP:') do |table|

@@ -10,6 +10,7 @@ module Standort
     #
     # - `/standort.v2.Service/GetLocation`
     # - `/standort.v2.Service/LookupLocations`
+    # - `/standort.v2.Service/GetLookupAssets`
     #
     # It inherits request/response behavior (headers, timeouts, etc.) from
     # `Nonnative::HTTPClient`.
@@ -72,6 +73,17 @@ module Standort
         }
 
         post('/standort.v2.Service/LookupLocations', req.to_json, opts)
+      end
+
+      ##
+      # Gets embedded lookup asset metadata.
+      #
+      # @param opts [Hash] Optional request options forwarded to `Nonnative::HTTPClient#post`.
+      #
+      # @return [Object] Whatever `Nonnative::HTTPClient#post` returns.
+      #
+      def get_lookup_assets(opts = {})
+        post('/standort.v2.Service/GetLookupAssets', {}.to_json, opts)
       end
     end
   end

@@ -471,6 +471,171 @@ func (x *LookupLocationsResponse) GetLookups() []*LocationLookupResponse {
 	return nil
 }
 
+// GetLookupAssetsRequest for embedded lookup asset metadata.
+type GetLookupAssetsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetLookupAssetsRequest) Reset() {
+	*x = GetLookupAssetsRequest{}
+	mi := &file_standort_v2_service_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLookupAssetsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLookupAssetsRequest) ProtoMessage() {}
+
+func (x *GetLookupAssetsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_standort_v2_service_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLookupAssetsRequest.ProtoReflect.Descriptor instead.
+func (*GetLookupAssetsRequest) Descriptor() ([]byte, []int) {
+	return file_standort_v2_service_proto_rawDescGZIP(), []int{8}
+}
+
+// LookupAsset describes one embedded lookup asset.
+type LookupAsset struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Name is the embedded asset filename.
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// SizeBytes is the embedded asset size in bytes.
+	SizeBytes uint64 `protobuf:"varint,2,opt,name=size_bytes,json=sizeBytes,proto3" json:"size_bytes,omitempty"`
+	// ChecksumAlgorithm identifies the checksum algorithm used for Checksum.
+	ChecksumAlgorithm string `protobuf:"bytes,3,opt,name=checksum_algorithm,json=checksumAlgorithm,proto3" json:"checksum_algorithm,omitempty"`
+	// Checksum is the lowercase hexadecimal checksum of the embedded asset.
+	Checksum      string `protobuf:"bytes,4,opt,name=checksum,proto3" json:"checksum,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LookupAsset) Reset() {
+	*x = LookupAsset{}
+	mi := &file_standort_v2_service_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LookupAsset) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LookupAsset) ProtoMessage() {}
+
+func (x *LookupAsset) ProtoReflect() protoreflect.Message {
+	mi := &file_standort_v2_service_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LookupAsset.ProtoReflect.Descriptor instead.
+func (*LookupAsset) Descriptor() ([]byte, []int) {
+	return file_standort_v2_service_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *LookupAsset) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *LookupAsset) GetSizeBytes() uint64 {
+	if x != nil {
+		return x.SizeBytes
+	}
+	return 0
+}
+
+func (x *LookupAsset) GetChecksumAlgorithm() string {
+	if x != nil {
+		return x.ChecksumAlgorithm
+	}
+	return ""
+}
+
+func (x *LookupAsset) GetChecksum() string {
+	if x != nil {
+		return x.Checksum
+	}
+	return ""
+}
+
+// GetLookupAssetsResponse for embedded lookup asset metadata.
+type GetLookupAssetsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Meta contains request metadata returned to the caller, such as requestId.
+	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// Assets contains metadata for the embedded lookup assets.
+	Assets        []*LookupAsset `protobuf:"bytes,2,rep,name=assets,proto3" json:"assets,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetLookupAssetsResponse) Reset() {
+	*x = GetLookupAssetsResponse{}
+	mi := &file_standort_v2_service_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLookupAssetsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLookupAssetsResponse) ProtoMessage() {}
+
+func (x *GetLookupAssetsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_standort_v2_service_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLookupAssetsResponse.ProtoReflect.Descriptor instead.
+func (*GetLookupAssetsResponse) Descriptor() ([]byte, []int) {
+	return file_standort_v2_service_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetLookupAssetsResponse) GetMeta() map[string]string {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *GetLookupAssetsResponse) GetAssets() []*LookupAsset {
+	if x != nil {
+		return x.Assets
+	}
+	return nil
+}
+
 var File_standort_v2_service_proto protoreflect.FileDescriptor
 
 const file_standort_v2_service_proto_rawDesc = "" +
@@ -506,10 +671,24 @@ const file_standort_v2_service_proto_rawDesc = "" +
 	"\alookups\x18\x02 \x03(\v2#.standort.v2.LocationLookupResponseR\alookups\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x012\xbd\x01\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x18\n" +
+	"\x16GetLookupAssetsRequest\"\x8b\x01\n" +
+	"\vLookupAsset\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1d\n" +
+	"\n" +
+	"size_bytes\x18\x02 \x01(\x04R\tsizeBytes\x12-\n" +
+	"\x12checksum_algorithm\x18\x03 \x01(\tR\x11checksumAlgorithm\x12\x1a\n" +
+	"\bchecksum\x18\x04 \x01(\tR\bchecksum\"\xc8\x01\n" +
+	"\x17GetLookupAssetsResponse\x12B\n" +
+	"\x04meta\x18\x01 \x03(\v2..standort.v2.GetLookupAssetsResponse.MetaEntryR\x04meta\x120\n" +
+	"\x06assets\x18\x02 \x03(\v2\x18.standort.v2.LookupAssetR\x06assets\x1a7\n" +
+	"\tMetaEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x012\x9d\x02\n" +
 	"\aService\x12R\n" +
 	"\vGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x00\x12^\n" +
-	"\x0fLookupLocations\x12#.standort.v2.LookupLocationsRequest\x1a$.standort.v2.LookupLocationsResponse\"\x00BEZ4github.com/alexfalkowski/standort/v2/api/standort/v2\xea\x02\fStandort::V2b\x06proto3"
+	"\x0fLookupLocations\x12#.standort.v2.LookupLocationsRequest\x1a$.standort.v2.LookupLocationsResponse\"\x00\x12^\n" +
+	"\x0fGetLookupAssets\x12#.standort.v2.GetLookupAssetsRequest\x1a$.standort.v2.GetLookupAssetsResponse\"\x00BEZ4github.com/alexfalkowski/standort/v2/api/standort/v2\xea\x02\fStandort::V2b\x06proto3"
 
 var (
 	file_standort_v2_service_proto_rawDescOnce sync.Once
@@ -523,7 +702,7 @@ func file_standort_v2_service_proto_rawDescGZIP() []byte {
 	return file_standort_v2_service_proto_rawDescData
 }
 
-var file_standort_v2_service_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_standort_v2_service_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_standort_v2_service_proto_goTypes = []any{
 	(*Location)(nil),                // 0: standort.v2.Location
 	(*Point)(nil),                   // 1: standort.v2.Point
@@ -533,31 +712,39 @@ var file_standort_v2_service_proto_goTypes = []any{
 	(*LookupLocationsRequest)(nil),  // 5: standort.v2.LookupLocationsRequest
 	(*LocationLookupResponse)(nil),  // 6: standort.v2.LocationLookupResponse
 	(*LookupLocationsResponse)(nil), // 7: standort.v2.LookupLocationsResponse
-	nil,                             // 8: standort.v2.GetLocationResponse.MetaEntry
-	nil,                             // 9: standort.v2.LookupLocationsResponse.MetaEntry
-	(*status.Status)(nil),           // 10: google.rpc.Status
+	(*GetLookupAssetsRequest)(nil),  // 8: standort.v2.GetLookupAssetsRequest
+	(*LookupAsset)(nil),             // 9: standort.v2.LookupAsset
+	(*GetLookupAssetsResponse)(nil), // 10: standort.v2.GetLookupAssetsResponse
+	nil,                             // 11: standort.v2.GetLocationResponse.MetaEntry
+	nil,                             // 12: standort.v2.LookupLocationsResponse.MetaEntry
+	nil,                             // 13: standort.v2.GetLookupAssetsResponse.MetaEntry
+	(*status.Status)(nil),           // 14: google.rpc.Status
 }
 var file_standort_v2_service_proto_depIdxs = []int32{
 	1,  // 0: standort.v2.GetLocationRequest.point:type_name -> standort.v2.Point
-	8,  // 1: standort.v2.GetLocationResponse.meta:type_name -> standort.v2.GetLocationResponse.MetaEntry
+	11, // 1: standort.v2.GetLocationResponse.meta:type_name -> standort.v2.GetLocationResponse.MetaEntry
 	0,  // 2: standort.v2.GetLocationResponse.ip:type_name -> standort.v2.Location
 	0,  // 3: standort.v2.GetLocationResponse.geo:type_name -> standort.v2.Location
 	1,  // 4: standort.v2.LocationLookup.point:type_name -> standort.v2.Point
 	4,  // 5: standort.v2.LookupLocationsRequest.lookups:type_name -> standort.v2.LocationLookup
 	0,  // 6: standort.v2.LocationLookupResponse.ip:type_name -> standort.v2.Location
 	0,  // 7: standort.v2.LocationLookupResponse.geo:type_name -> standort.v2.Location
-	10, // 8: standort.v2.LocationLookupResponse.status:type_name -> google.rpc.Status
-	9,  // 9: standort.v2.LookupLocationsResponse.meta:type_name -> standort.v2.LookupLocationsResponse.MetaEntry
+	14, // 8: standort.v2.LocationLookupResponse.status:type_name -> google.rpc.Status
+	12, // 9: standort.v2.LookupLocationsResponse.meta:type_name -> standort.v2.LookupLocationsResponse.MetaEntry
 	6,  // 10: standort.v2.LookupLocationsResponse.lookups:type_name -> standort.v2.LocationLookupResponse
-	2,  // 11: standort.v2.Service.GetLocation:input_type -> standort.v2.GetLocationRequest
-	5,  // 12: standort.v2.Service.LookupLocations:input_type -> standort.v2.LookupLocationsRequest
-	3,  // 13: standort.v2.Service.GetLocation:output_type -> standort.v2.GetLocationResponse
-	7,  // 14: standort.v2.Service.LookupLocations:output_type -> standort.v2.LookupLocationsResponse
-	13, // [13:15] is the sub-list for method output_type
-	11, // [11:13] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	13, // 11: standort.v2.GetLookupAssetsResponse.meta:type_name -> standort.v2.GetLookupAssetsResponse.MetaEntry
+	9,  // 12: standort.v2.GetLookupAssetsResponse.assets:type_name -> standort.v2.LookupAsset
+	2,  // 13: standort.v2.Service.GetLocation:input_type -> standort.v2.GetLocationRequest
+	5,  // 14: standort.v2.Service.LookupLocations:input_type -> standort.v2.LookupLocationsRequest
+	8,  // 15: standort.v2.Service.GetLookupAssets:input_type -> standort.v2.GetLookupAssetsRequest
+	3,  // 16: standort.v2.Service.GetLocation:output_type -> standort.v2.GetLocationResponse
+	7,  // 17: standort.v2.Service.LookupLocations:output_type -> standort.v2.LookupLocationsResponse
+	10, // 18: standort.v2.Service.GetLookupAssets:output_type -> standort.v2.GetLookupAssetsResponse
+	16, // [16:19] is the sub-list for method output_type
+	13, // [13:16] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_standort_v2_service_proto_init() }
@@ -571,7 +758,7 @@ func file_standort_v2_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_standort_v2_service_proto_rawDesc), len(file_standort_v2_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -102,6 +102,13 @@ Feature: HTTP API
     When I lookup 101 locations with HTTP
     Then I should receive a bad request response with HTTP
 
+  Scenario: Get lookup assets with HTTP.
+    When I request lookup assets with HTTP
+    Then I should receive lookup assets with HTTP:
+      | name          | checksum_algorithm |
+      | geoip2.mmdb   | sha256             |
+      | earth.geojson | sha256             |
+
   Scenario Outline: Get location by partially valid inputs.
     When I request a location with HTTP:
       | ip        | <ip>        |
