@@ -14,12 +14,24 @@ import (
 // This package uses go-service's RPC routing, mapping the generated full method
 // name to the corresponding HTTP handler:
 //
-//   - `standort.v2.Service/GetLocation` → `getLocation`
+//   - `standort.v2.Service/GetLocation` → `Server.GetLocation`
 //
 // The HTTP server and route shapes are provided by `rpc.Route`; this function only
-// wires the route to the v2 locator.
-func Register(locator *location.Locator) {
-	rpc.Route(v2.Service_GetLocation_FullMethodName, getLocation(locator))
+// wires the route to the v2 server.
+func Register(server *Server) {
+	rpc.Route(v2.Service_GetLocation_FullMethodName, server.GetLocation)
+}
+
+// NewServer constructs a v2 HTTP `Server`.
+//
+// The returned server delegates response construction to the provided v2 locator.
+func NewServer(locator *location.Locator) *Server {
+	return &Server{locator: locator}
+}
+
+// Server implements the v2 HTTP transport handlers.
+type Server struct {
+	locator *location.Locator
 }
 
 func setFailureHeaders(ctx context.Context, values diagnostics.Values) {
