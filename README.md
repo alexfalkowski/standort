@@ -63,16 +63,16 @@ v2 supports passing inputs either directly in the request *or* via request metad
 - IP address can be derived from request metadata (commonly `X-Forwarded-For`).
 - Geolocation can be derived from a `Geolocation` header containing a `geo:` URI (RFC 5870).
 
-If a lookup fails, v2 records error details into response `meta` attributes where possible, and only returns “not found” when neither IP nor GEO yields a location.
+If a lookup fails, v2 keeps trying any other available input, and only returns “not found” when neither IP nor GEO yields a location.
 
 v2 response fields are independent:
 
 - `ip` is populated when the IP lookup succeeds.
 - `geo` is populated when the point lookup succeeds.
 - both fields are populated when both inputs succeed.
-- on partial success, the successful field is returned and `meta` includes one of `locationIpError`, `locationLatLngError`, or `locationPointError`.
+- on partial success, the successful field is returned without failed-side diagnostics.
 
-Lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the same lookup miss as HTTP `404`. v2 partial success is still a successful response, with the failed lookup recorded in `meta`.
+Terminal lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the same lookup miss as HTTP `404`. v2 transports may attach code-only diagnostics to the terminal error metadata, using `location-ip-error`, `location-lat-lng-error`, or `location-point-error`.
 
 > [!WARNING]
 > Treat forwarded IP metadata as trusted only after your proxy or gateway has normalized it. Standort reads the metadata supplied by the transport layer; it does not decide whether a forwarded client IP is trustworthy.

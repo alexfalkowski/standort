@@ -17,8 +17,9 @@ module Standort
         self.service_name = 'standort.v2.Service'
 
         # GetLocation resolves an IP address and/or geographic point. If one lookup
-        # succeeds, the response is successful and failed lookup details are recorded
-        # in meta. Returns gRPC NotFound only when no lookup succeeds.
+        # succeeds, the response is successful. Returns gRPC NotFound only when no
+        # lookup succeeds; v2 transports may attach code-only diagnostics to the
+        # terminal error metadata.
         rpc :GetLocation, ::Standort::V2::GetLocationRequest, ::Standort::V2::GetLocationResponse
       end
 

@@ -1,11 +1,12 @@
 package grpc
 
 import (
+	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/net/grpc"
-	"github.com/alexfalkowski/go-service/v2/net/grpc/codes"
-	"github.com/alexfalkowski/go-service/v2/net/grpc/status"
+	"github.com/alexfalkowski/go-service/v2/net/grpc/meta"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
-	"github.com/alexfalkowski/standort/v2/internal/api/location"
+	"github.com/alexfalkowski/standort/v2/internal/api/v2/location"
+	"github.com/alexfalkowski/standort/v2/internal/diagnostics"
 )
 
 // Register registers the v2 Standort gRPC service implementation with the given registrar.
@@ -18,9 +19,9 @@ func Register(registrar grpc.ServiceRegistrar, server *Server) {
 // NewServer constructs a v2 gRPC `Server`.
 //
 // The returned server implements the generated `standort.v2.ServiceServer` and
-// delegates request handling to the provided transport-facing `*location.Locator` service.
-func NewServer(service *location.Locator) *Server {
-	return &Server{service: service}
+// delegates response construction to the provided v2 locator.
+func NewServer(locator *location.Locator) *Server {
+	return &Server{locator: locator}
 }
 
 // Server implements the generated v2 gRPC service.
@@ -28,17 +29,9 @@ func NewServer(service *location.Locator) *Server {
 // It embeds `v2.UnimplementedServiceServer` for forward compatibility with newly-added RPC methods.
 type Server struct {
 	v2.UnimplementedServiceServer
-	service *location.Locator
+	locator *location.Locator
 }
 
-// error maps domain/service errors to transport errors.
-//
-// Current behavior: any non-nil error is returned to the client as a
-// `codes.NotFound` gRPC status.
-func (s *Server) error(err error) error {
-	if err == nil {
-		return nil
-	}
-
-	return status.SafeError(codes.NotFound, err)
+func setFailureTrailer(ctx context.Context, values diagnostics.Values) {
+	_ = grpc.SetTrailer(ctx, meta.New(values.Map()))
 }
