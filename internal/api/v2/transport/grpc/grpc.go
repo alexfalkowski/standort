@@ -5,6 +5,7 @@ import (
 	"github.com/alexfalkowski/go-service/v2/net/grpc"
 	"github.com/alexfalkowski/go-service/v2/net/grpc/meta"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
+	"github.com/alexfalkowski/standort/v2/internal/api/v2/assets"
 	"github.com/alexfalkowski/standort/v2/internal/api/v2/location"
 	"github.com/alexfalkowski/standort/v2/internal/diagnostics"
 )
@@ -20,8 +21,8 @@ func Register(registrar grpc.ServiceRegistrar, server *Server) {
 //
 // The returned server implements the generated `standort.v2.ServiceServer` and
 // delegates response construction to the provided v2 locator.
-func NewServer(locator *location.Locator) *Server {
-	return &Server{locator: locator}
+func NewServer(locator *location.Locator, assets *assets.Repository) *Server {
+	return &Server{locator: locator, assets: assets}
 }
 
 // Server implements the generated v2 gRPC service.
@@ -30,6 +31,7 @@ func NewServer(locator *location.Locator) *Server {
 type Server struct {
 	v2.UnimplementedServiceServer
 	locator *location.Locator
+	assets  *assets.Repository
 }
 
 func setFailureTrailer(ctx context.Context, values diagnostics.Values) {

@@ -59,6 +59,7 @@ lookups:
 
 - `GetLocation`
 - `LookupLocations`
+- `GetLookupAssets`
 
 v2 supports passing inputs either directly in the request *or* via request metadata:
 
@@ -80,6 +81,10 @@ Terminal lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the
 in the response. Entries that resolve successfully populate `ip`, `geo`, or
 both. Entries that do not resolve any location populate a per-entry
 `google.rpc.Status` instead of failing the whole batch.
+
+`GetLookupAssets` returns read-only metadata for the embedded lookup assets,
+including asset name, size in bytes, checksum algorithm, and checksum. It is
+informational only; it does not enforce asset freshness.
 
 > [!WARNING]
 > Treat forwarded IP metadata as trusted only after your proxy or gateway has normalized it. Standort reads the metadata supplied by the transport layer; it does not decide whether a forwarded client IP is trustworthy.
@@ -265,6 +270,15 @@ grpcurl -plaintext \
   standort.v2.Service/LookupLocations
 ```
 
+#### 🧾 v2: embedded lookup assets
+
+```sh
+grpcurl -plaintext \
+  -d '{}' \
+  localhost:12000 \
+  standort.v2.Service/GetLookupAssets
+```
+
 ### 🌍 HTTP examples
 
 HTTP runs on `localhost:11000` with the dev config. The RPC router exposes POST routes using the generated gRPC full method names.
@@ -339,6 +353,16 @@ curl -sS \
   -H 'Content-Type: application/json' \
   -d '{"lookups":[{"ip":"8.8.8.8"},{"point":{"lat":52.5200,"lng":13.4050}},{"ip":"192.0.2.1"}]}' \
   http://localhost:11000/standort.v2.Service/LookupLocations
+```
+
+#### 🧾 v2: embedded lookup assets
+
+```sh
+curl -sS \
+  -X POST \
+  -H 'Content-Type: application/json' \
+  -d '{}' \
+  http://localhost:11000/standort.v2.Service/GetLookupAssets
 ```
 
 ---

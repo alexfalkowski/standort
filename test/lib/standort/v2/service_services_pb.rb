@@ -23,6 +23,8 @@ module Standort
         rpc :GetLocation, ::Standort::V2::GetLocationRequest, ::Standort::V2::GetLocationResponse
         # LookupLocations resolves multiple location lookups, preserving request order.
         rpc :LookupLocations, ::Standort::V2::LookupLocationsRequest, ::Standort::V2::LookupLocationsResponse
+        # GetLookupAssets returns metadata for embedded lookup assets.
+        rpc :GetLookupAssets, ::Standort::V2::GetLookupAssetsRequest, ::Standort::V2::GetLookupAssetsResponse
       end
 
       Stub = Service.rpc_stub_class

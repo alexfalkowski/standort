@@ -10,6 +10,7 @@
 //
 //   - `standort.v2.Service/GetLocation` → `Server.GetLocation`
 //   - `standort.v2.Service/LookupLocations` → `Server.LookupLocations`
+//   - `standort.v2.Service/GetLookupAssets` → `Server.GetLookupAssets`
 //
 // The route shapes (paths, verbs, encoding) are defined by the go-service RPC
 // router (`rpc.Route`). This package is responsible only for wiring the route to

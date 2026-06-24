@@ -61,6 +61,16 @@ rescue StandardError => e
   @response = e
 end
 
+When('I request lookup assets with gRPC') do
+  @request_id = SecureRandom.uuid
+  metadata = { 'request-id' => @request_id }
+  request = Standort::V2::GetLookupAssetsRequest.new
+
+  @response = Standort::V2.grpc.get_lookup_assets(request, Standort.grpc_options(metadata))
+rescue StandardError => e
+  @response = e
+end
+
 Then('I should receive a valid locations with gRPC:') do |table|
   expect(@response.meta['requestId']).to eq(@request_id)
 
@@ -127,6 +137,19 @@ end
 
 Then('I should receive an invalid argument response with gRPC') do
   expect(@response).to be_a(GRPC::InvalidArgument)
+end
+
+Then('I should receive lookup assets with gRPC:') do |table|
+  expect(@response.meta['requestId']).to eq(@request_id)
+
+  table.hashes.each do |row|
+    asset = @response.assets.find { |lookup_asset| lookup_asset.name == row['name'] }
+
+    expect(asset).not_to be_nil
+    expect(asset.size_bytes).to be_positive
+    expect(asset.checksum_algorithm).to eq(row['checksum_algorithm'])
+    expect(asset.checksum).not_to be_empty
+  end
 end
 
 Then('I should receive a not found response with gRPC:') do |table|

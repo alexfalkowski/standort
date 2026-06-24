@@ -82,6 +82,33 @@ message LookupLocationsResponse {
   repeated LocationLookupResponse lookups = 2;
 }
 
+// GetLookupAssetsRequest for embedded lookup asset metadata.
+message GetLookupAssetsRequest {}
+
+// LookupAsset describes one embedded lookup asset.
+message LookupAsset {
+  // Name is the embedded asset filename.
+  string name = 1;
+
+  // SizeBytes is the embedded asset size in bytes.
+  uint64 size_bytes = 2;
+
+  // ChecksumAlgorithm identifies the checksum algorithm used for Checksum.
+  string checksum_algorithm = 3;
+
+  // Checksum is the lowercase hexadecimal checksum of the embedded asset.
+  string checksum = 4;
+}
+
+// GetLookupAssetsResponse for embedded lookup asset metadata.
+message GetLookupAssetsResponse {
+  // Meta contains request metadata returned to the caller, such as requestId.
+  map<string, string> meta = 1;
+
+  // Assets contains metadata for the embedded lookup assets.
+  repeated LookupAsset assets = 2;
+}
+
 // Service allows to get location via multiple methods.
 service Service {
   // GetLocation resolves an IP address and/or geographic point. If one lookup
@@ -92,4 +119,7 @@ service Service {
 
   // LookupLocations resolves multiple location lookups, preserving request order.
   rpc LookupLocations(LookupLocationsRequest) returns (LookupLocationsResponse) {}
+
+  // GetLookupAssets returns metadata for embedded lookup assets.
+  rpc GetLookupAssets(GetLookupAssetsRequest) returns (GetLookupAssetsResponse) {}
 }

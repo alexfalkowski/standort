@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	Service_GetLocation_FullMethodName     = "/standort.v2.Service/GetLocation"
 	Service_LookupLocations_FullMethodName = "/standort.v2.Service/LookupLocations"
+	Service_GetLookupAssets_FullMethodName = "/standort.v2.Service/GetLookupAssets"
 )
 
 // ServiceClient is the client API for Service service.
@@ -36,6 +37,8 @@ type ServiceClient interface {
 	GetLocation(ctx context.Context, in *GetLocationRequest, opts ...grpc.CallOption) (*GetLocationResponse, error)
 	// LookupLocations resolves multiple location lookups, preserving request order.
 	LookupLocations(ctx context.Context, in *LookupLocationsRequest, opts ...grpc.CallOption) (*LookupLocationsResponse, error)
+	// GetLookupAssets returns metadata for embedded lookup assets.
+	GetLookupAssets(ctx context.Context, in *GetLookupAssetsRequest, opts ...grpc.CallOption) (*GetLookupAssetsResponse, error)
 }
 
 type serviceClient struct {
@@ -66,6 +69,16 @@ func (c *serviceClient) LookupLocations(ctx context.Context, in *LookupLocations
 	return out, nil
 }
 
+func (c *serviceClient) GetLookupAssets(ctx context.Context, in *GetLookupAssetsRequest, opts ...grpc.CallOption) (*GetLookupAssetsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetLookupAssetsResponse)
+	err := c.cc.Invoke(ctx, Service_GetLookupAssets_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceServer is the server API for Service service.
 // All implementations must embed UnimplementedServiceServer
 // for forward compatibility.
@@ -79,6 +92,8 @@ type ServiceServer interface {
 	GetLocation(context.Context, *GetLocationRequest) (*GetLocationResponse, error)
 	// LookupLocations resolves multiple location lookups, preserving request order.
 	LookupLocations(context.Context, *LookupLocationsRequest) (*LookupLocationsResponse, error)
+	// GetLookupAssets returns metadata for embedded lookup assets.
+	GetLookupAssets(context.Context, *GetLookupAssetsRequest) (*GetLookupAssetsResponse, error)
 	mustEmbedUnimplementedServiceServer()
 }
 
@@ -94,6 +109,9 @@ func (UnimplementedServiceServer) GetLocation(context.Context, *GetLocationReque
 }
 func (UnimplementedServiceServer) LookupLocations(context.Context, *LookupLocationsRequest) (*LookupLocationsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method LookupLocations not implemented")
+}
+func (UnimplementedServiceServer) GetLookupAssets(context.Context, *GetLookupAssetsRequest) (*GetLookupAssetsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetLookupAssets not implemented")
 }
 func (UnimplementedServiceServer) mustEmbedUnimplementedServiceServer() {}
 func (UnimplementedServiceServer) testEmbeddedByValue()                 {}
@@ -152,6 +170,24 @@ func _Service_LookupLocations_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Service_GetLookupAssets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLookupAssetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServer).GetLookupAssets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Service_GetLookupAssets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServer).GetLookupAssets(ctx, req.(*GetLookupAssetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Service_ServiceDesc is the grpc.ServiceDesc for Service service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -166,6 +202,10 @@ var Service_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LookupLocations",
 			Handler:    _Service_LookupLocations_Handler,
+		},
+		{
+			MethodName: "GetLookupAssets",
+			Handler:    _Service_GetLookupAssets_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

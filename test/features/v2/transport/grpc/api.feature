@@ -102,6 +102,13 @@ Feature: gRPC API
     When I lookup 101 locations with gRPC
     Then I should receive an invalid argument response with gRPC
 
+  Scenario: Get lookup assets with gRPC.
+    When I request lookup assets with gRPC
+    Then I should receive lookup assets with gRPC:
+      | name          | checksum_algorithm |
+      | geoip2.mmdb   | sha256             |
+      | earth.geojson | sha256             |
+
   Scenario Outline: Get location by partially valid inputs.
     When I request a location with gRPC:
       | ip        | <ip>        |
