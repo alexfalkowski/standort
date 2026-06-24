@@ -86,6 +86,22 @@ Feature: gRPC API
       | method | ip            | latitude  | longitude | ip_country | ip_continent | geo_country | geo_continent |
       | params | 95.91.246.242 | 52.377956 |  4.897070 | DE         | EU           | NL          | EU            |
 
+  Scenario: Lookup locations in a batch with gRPC.
+    When I lookup locations with gRPC:
+      | kind | ip            | latitude  | longitude |
+      | ip   | 95.91.246.242 |           |           |
+      | geo  |               | 52.377956 |  4.897070 |
+      | none | 192.0.2.1     |           |           |
+    Then I should receive batch locations with gRPC:
+      | index | kind | country | continent | code |
+      | 0     | ip   | DE      | EU        |      |
+      | 1     | geo  | NL      | EU        |      |
+      | 2     | none |         |           | 5    |
+
+  Scenario: Lookup too many locations with gRPC.
+    When I lookup 101 locations with gRPC
+    Then I should receive an invalid argument response with gRPC
+
   Scenario Outline: Get location by partially valid inputs.
     When I request a location with gRPC:
       | ip        | <ip>        |

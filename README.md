@@ -54,9 +54,11 @@ v1 has separate RPCs for IP-based lookup and lat/lng-based lookup.
 
 ### 2️⃣ v2
 
-v2 combines both inputs into a single RPC:
+v2 combines both inputs into a single lookup RPC and also supports batch
+lookups:
 
 - `GetLocation`
+- `LookupLocations`
 
 v2 supports passing inputs either directly in the request *or* via request metadata:
 
@@ -73,6 +75,11 @@ v2 response fields are independent:
 - on partial success, the successful field is returned without failed-side diagnostics.
 
 Terminal lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the same lookup miss as HTTP `404`. v2 transports may attach code-only diagnostics to the terminal error metadata, using `location-ip-error`, `location-lat-lng-error`, or `location-point-error`.
+
+`LookupLocations` accepts up to 100 lookup entries and preserves request order
+in the response. Entries that resolve successfully populate `ip`, `geo`, or
+both. Entries that do not resolve any location populate a per-entry
+`google.rpc.Status` instead of failing the whole batch.
 
 > [!WARNING]
 > Treat forwarded IP metadata as trusted only after your proxy or gateway has normalized it. Standort reads the metadata supplied by the transport layer; it does not decide whether a forwarded client IP is trustworthy.
@@ -249,6 +256,15 @@ grpcurl -plaintext \
   standort.v2.Service/GetLocation
 ```
 
+#### 📦 v2: batch lookup
+
+```sh
+grpcurl -plaintext \
+  -d '{"lookups":[{"ip":"8.8.8.8"},{"point":{"lat":52.5200,"lng":13.4050}},{"ip":"192.0.2.1"}]}' \
+  localhost:12000 \
+  standort.v2.Service/LookupLocations
+```
+
 ### 🌍 HTTP examples
 
 HTTP runs on `localhost:11000` with the dev config. The RPC router exposes POST routes using the generated gRPC full method names.
@@ -313,6 +329,16 @@ curl -sS \
   -H 'X-Forwarded-For: 8.8.8.8' \
   -d '{}' \
   http://localhost:11000/standort.v2.Service/GetLocation
+```
+
+#### 📦 v2: batch lookup
+
+```sh
+curl -sS \
+  -X POST \
+  -H 'Content-Type: application/json' \
+  -d '{"lookups":[{"ip":"8.8.8.8"},{"point":{"lat":52.5200,"lng":13.4050}},{"ip":"192.0.2.1"}]}' \
+  http://localhost:11000/standort.v2.Service/LookupLocations
 ```
 
 ---

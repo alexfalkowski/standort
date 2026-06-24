@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Service_GetLocation_FullMethodName = "/standort.v2.Service/GetLocation"
+	Service_GetLocation_FullMethodName     = "/standort.v2.Service/GetLocation"
+	Service_LookupLocations_FullMethodName = "/standort.v2.Service/LookupLocations"
 )
 
 // ServiceClient is the client API for Service service.
@@ -33,6 +34,8 @@ type ServiceClient interface {
 	// lookup succeeds; v2 transports may attach code-only diagnostics to the
 	// terminal error metadata.
 	GetLocation(ctx context.Context, in *GetLocationRequest, opts ...grpc.CallOption) (*GetLocationResponse, error)
+	// LookupLocations resolves multiple location lookups, preserving request order.
+	LookupLocations(ctx context.Context, in *LookupLocationsRequest, opts ...grpc.CallOption) (*LookupLocationsResponse, error)
 }
 
 type serviceClient struct {
@@ -53,6 +56,16 @@ func (c *serviceClient) GetLocation(ctx context.Context, in *GetLocationRequest,
 	return out, nil
 }
 
+func (c *serviceClient) LookupLocations(ctx context.Context, in *LookupLocationsRequest, opts ...grpc.CallOption) (*LookupLocationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LookupLocationsResponse)
+	err := c.cc.Invoke(ctx, Service_LookupLocations_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceServer is the server API for Service service.
 // All implementations must embed UnimplementedServiceServer
 // for forward compatibility.
@@ -64,6 +77,8 @@ type ServiceServer interface {
 	// lookup succeeds; v2 transports may attach code-only diagnostics to the
 	// terminal error metadata.
 	GetLocation(context.Context, *GetLocationRequest) (*GetLocationResponse, error)
+	// LookupLocations resolves multiple location lookups, preserving request order.
+	LookupLocations(context.Context, *LookupLocationsRequest) (*LookupLocationsResponse, error)
 	mustEmbedUnimplementedServiceServer()
 }
 
@@ -76,6 +91,9 @@ type UnimplementedServiceServer struct{}
 
 func (UnimplementedServiceServer) GetLocation(context.Context, *GetLocationRequest) (*GetLocationResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetLocation not implemented")
+}
+func (UnimplementedServiceServer) LookupLocations(context.Context, *LookupLocationsRequest) (*LookupLocationsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method LookupLocations not implemented")
 }
 func (UnimplementedServiceServer) mustEmbedUnimplementedServiceServer() {}
 func (UnimplementedServiceServer) testEmbeddedByValue()                 {}
@@ -116,6 +134,24 @@ func _Service_GetLocation_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Service_LookupLocations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LookupLocationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServer).LookupLocations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Service_LookupLocations_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServer).LookupLocations(ctx, req.(*LookupLocationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Service_ServiceDesc is the grpc.ServiceDesc for Service service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -126,6 +162,10 @@ var Service_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLocation",
 			Handler:    _Service_GetLocation_Handler,
+		},
+		{
+			MethodName: "LookupLocations",
+			Handler:    _Service_LookupLocations_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

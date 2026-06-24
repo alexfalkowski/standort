@@ -9,6 +9,7 @@ module Standort
     # payloads to:
     #
     # - `/standort.v2.Service/GetLocation`
+    # - `/standort.v2.Service/LookupLocations`
     #
     # It inherits request/response behavior (headers, timeouts, etc.) from
     # `Nonnative::HTTPClient`.
@@ -48,6 +49,29 @@ module Standort
         req[:point] = { lat: point[0].to_f, lng: point[1].to_f } if point.length.positive?
 
         post('/standort.v2.Service/GetLocation', req.to_json, opts)
+      end
+
+      ##
+      # Looks up multiple location entries.
+      #
+      # @param lookups [Array<Hash>] Lookup entries. Each entry accepts the same
+      #   keys as {#get_location}.
+      # @param opts [Hash] Optional request options forwarded to `Nonnative::HTTPClient#post`.
+      #
+      # @return [Object] Whatever `Nonnative::HTTPClient#post` returns.
+      #
+      def lookup_locations(lookups, opts = {})
+        req = {
+          lookups: lookups.map do |lookup|
+            entry = {}
+            entry[:ip] = lookup[:ip] if lookup[:ip]
+            point = lookup[:point] || []
+            entry[:point] = { lat: point[0].to_f, lng: point[1].to_f } if point.length.positive?
+            entry
+          end
+        }
+
+        post('/standort.v2.Service/LookupLocations', req.to_json, opts)
       end
     end
   end

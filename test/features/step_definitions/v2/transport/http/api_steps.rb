@@ -25,6 +25,37 @@ When('I request a location with HTTP:') do |table|
   @response = Standort::V2.http.get_location(params, opts)
 end
 
+When('I lookup locations with HTTP:') do |table|
+  @request_id = SecureRandom.uuid
+  opts = Standort.http_options(
+    headers: {
+      request_id: @request_id, user_agent: 'Standort-ruby-client/2.0 HTTP/1.0',
+      content_type: :json, accept: :json
+    }
+  )
+
+  lookups = table.hashes.map do |row|
+    params = {}
+    params[:ip] = row['ip'] unless row['ip'].empty?
+    params[:point] = [row['latitude'], row['longitude']] unless row['latitude'].empty? || row['longitude'].empty?
+    params
+  end
+
+  @response = Standort::V2.http.lookup_locations(lookups, opts)
+end
+
+When('I lookup {int} locations with HTTP') do |count|
+  opts = Standort.http_options(
+    headers: {
+      user_agent: 'Standort-ruby-client/2.0 HTTP/1.0',
+      content_type: :json, accept: :json
+    }
+  )
+  lookups = Array.new(count) { { ip: '95.91.246.242' } }
+
+  @response = Standort::V2.http.lookup_locations(lookups, opts)
+end
+
 Then('I should receive a valid locations with HTTP:') do |table|
   expect(@response.code).to eq(200)
 
@@ -55,6 +86,41 @@ Then('I should receive valid locations with HTTP:') do |table|
     expect(location['country']).to eq(row['country'])
     expect(location['continent']).to eq(row['continent'])
   end
+end
+
+Then('I should receive batch locations with HTTP:') do |table|
+  expect(@response.code).to eq(200)
+
+  resp = JSON.parse(@response.body)
+
+  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+
+  table.hashes.each do |row|
+    lookup = resp.fetch('lookups').fetch(row['index'].to_i)
+    location = case row['kind']
+               when 'ip'
+                 expect(lookup['geo']).to be_nil
+                 lookup.fetch('ip')
+               when 'geo'
+                 expect(lookup['ip']).to be_nil
+                 lookup.fetch('geo')
+               when 'none'
+                 expect(lookup['ip']).to be_nil
+                 expect(lookup['geo']).to be_nil
+                 expect(lookup.fetch('status').fetch('code')).to eq(row['code'].to_i)
+                 next
+               else
+                 raise "unsupported location kind: #{row['kind']}"
+               end
+
+    expect(lookup['status']).to be_nil
+    expect(location['country']).to eq(row['country'])
+    expect(location['continent']).to eq(row['continent'])
+  end
+end
+
+Then('I should receive a bad request response with HTTP') do
+  expect(@response.code).to eq(400)
 end
 
 Then('I should receive a not found response with HTTP:') do |table|

@@ -9,10 +9,12 @@
 // handler:
 //
 //   - `standort.v2.Service/GetLocation` → `Server.GetLocation`
+//   - `standort.v2.Service/LookupLocations` → `Server.LookupLocations`
 //
 // The route shapes (paths, verbs, encoding) are defined by the go-service RPC
 // router (`rpc.Route`). This package is responsible only for wiring the route to
-// a `Server` and setting HTTP-specific diagnostics on terminal lookup failures.
+// a `Server` and setting HTTP-specific diagnostics on terminal single-lookup
+// failures.
 //
 // # Dependency injection
 //
