@@ -1,22 +1,23 @@
 // Package http provides the Standort API v1 HTTP transport wiring.
 //
-// The v1 API is exposed over HTTP by routing RPC-style HTTP requests to
-// transport-specific handler functions.
+// The v1 API is exposed over HTTP by routing RPC-style HTTP requests to a
+// concrete transport server.
 //
 // # Routing
 //
 // `Register` maps the generated full method names to the corresponding HTTP
-// handlers:
+// server handlers:
 //
-//   - `standort.v1.Service/GetLocationByIP` → `getLocationByIP`
-//   - `standort.v1.Service/GetLocationByLatLng` → `getLocationByLatLng`
+//   - `standort.v1.Service/GetLocationByIP` → `Server.GetLocationByIP`
+//   - `standort.v1.Service/GetLocationByLatLng` → `Server.GetLocationByLatLng`
 //
 // The route shapes (paths, verbs, encoding) are defined by the go-service RPC
 // router (`rpc.Route`). This package is responsible only for wiring the routes
-// to `internal/api/v1/location.Locator`.
+// to a `Server`.
 //
 // # Dependency injection
 //
-// The v1 API module (`internal/api/v1.Module`) registers this package's `Register`
-// function into the application's dependency injection graph.
+// The v1 API module (`internal/api/v1.Module`) registers this package's
+// `NewServer` constructor and `Register` function into the application's
+// dependency injection graph.
 package http

@@ -12,12 +12,13 @@ import (
 // It registers:
 //   - the v1 location module (`location.Module`), which builds generated v1 responses
 //   - the v1 gRPC server implementation (`grpc.NewServer`) and its gRPC registration (`grpc.Register`)
-//   - the v1 HTTP routing registration (`http.Register`)
+//   - the v1 HTTP server implementation (`http.NewServer`) and its HTTP routing registration (`http.Register`)
 //
 // This module is intended to be included by the top-level server composition (see `internal/cmd.Module`).
 var Module = di.Module(
 	location.Module,
 	di.Constructor(grpc.NewServer),
 	di.Register(grpc.Register),
+	di.Constructor(http.NewServer),
 	di.Register(http.Register),
 )
