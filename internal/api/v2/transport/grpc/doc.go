@@ -13,25 +13,23 @@
 // # Server construction
 //
 // Use `NewServer` to construct a `*Server` instance. The v2 server delegates
-// request handling to the transport-facing `internal/api/location.Locator`
-// service, which is responsible for applying transport-level behavior such as:
+// response construction to `internal/api/v2/location.Locator`, then applies
+// gRPC-specific behavior such as:
 //
-//   - reading fallback inputs from request metadata when request fields are empty
-//   - attaching partial lookup failures as metadata attributes
+//   - mapping terminal lookup errors to gRPC `codes.NotFound`
+//   - attaching terminal lookup diagnostics as gRPC trailers
 //
 // # Error mapping
 //
 // The v2 gRPC transport maps any non-nil service error to a gRPC
-// `codes.NotFound` status (see `(*Server).error`). This provides a consistent
-// client-facing error contract for "no location found" (and other lookup
-// failures).
+// `codes.NotFound` status. This provides a consistent client-facing error
+// contract for "no location found" (and other lookup failures).
 //
 // # Response metadata
 //
 // Handlers populate `resp.Meta` from request metadata using
 // `meta.CamelStrings(ctx, strings.Empty)`. This propagates transport metadata to
-// clients in a stable, camel-cased key format. v2 also uses this metadata as an
-// intentional diagnostic channel for partial lookup failures, so clients can see
-// why the IP-derived or geo-derived side failed without transport-specific
-// logging at each lookup branch.
+// clients in a stable, camel-cased key format. Lookup diagnostics are not written
+// into response bodies; terminal lookup failures attach code-only diagnostics as
+// gRPC trailers.
 package grpc

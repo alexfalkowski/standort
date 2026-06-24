@@ -12,15 +12,15 @@
 //
 // # Server construction
 //
-// Use `NewServer` to construct a `*Server` instance. The server delegates all
-// lookups to the domain `internal/location.Location` service.
+// Use `NewServer` to construct a `*Server` instance. The server delegates
+// response construction to `internal/api/v1/location.Locator`.
 //
 // # Error mapping
 //
 // The v1 gRPC transport maps any non-nil domain error to a gRPC
-// `codes.NotFound` status (see `(*Server).error`). This ensures a consistent
-// client-facing error contract for "no location found" (and other lookup
-// failures), while responses may still include metadata.
+// `codes.NotFound` status. This ensures a consistent client-facing error
+// contract for "no location found" (and other lookup failures), while responses
+// may still include metadata.
 //
 // # Response metadata
 //

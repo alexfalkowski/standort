@@ -22,7 +22,8 @@ When('I request a location with gRPC:') do |table|
   end
 
   request = Standort::V2::GetLocationRequest.new(params)
-  @response = Standort::V2.grpc.get_location(request, Standort.grpc_options(metadata))
+  @operation = Standort::V2.grpc.get_location(request, Standort.grpc_options(metadata).merge(return_op: true))
+  @response = @operation.execute
 rescue StandardError => e
   @response = e
 end
@@ -64,6 +65,14 @@ Then('I should receive valid locations with gRPC:') do |table|
   end
 end
 
+Then('I should receive a not found response with gRPC:') do |table|
+  expect(@response).to be_a(GRPC::NotFound)
+
+  rows = table.rows_hash
+
+  expect(Array(@operation.trailing_metadata[rows['diagnostic']])).to include(rows['code'])
+end
+
 Then('I should receive a partial location with gRPC:') do |table|
   expect(@response.meta['requestId']).to eq(@request_id)
 
@@ -79,7 +88,6 @@ Then('I should receive a partial location with gRPC:') do |table|
                raise "unsupported location kind: #{rows['kind']}"
              end
 
-  expect(@response.meta).to include(rows['error'])
   expect(location.country).to eq(rows['country'])
   expect(location.continent).to eq(rows['continent'])
 end

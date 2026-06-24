@@ -5,7 +5,7 @@
 //
 //   - accept explicit lookup inputs (IP address and/or latitude/longitude),
 //   - fall back to request metadata when inputs are omitted, and
-//   - record partial failures into request metadata attributes.
+//   - collect code-only terminal failure diagnostics for transports.
 //
 // # Metadata fallbacks
 //
@@ -20,20 +20,20 @@
 // trustworthy; that boundary belongs to the transport/framework/deployment layer
 // that populates `meta.IPAddr`.
 //
-// # Partial failure reporting
+// # Failure reporting
 //
-// Lookup/parsing failures do not immediately fail the request. Instead, they are
-// attached to the request context as metadata attributes so they can be surfaced
-// to clients via the transport layer. This is intentional: callers can see why a
-// partial lookup failed without every transport needing to duplicate
-// lookup-specific logging:
+// Lookup/parsing failures do not immediately fail the request. The locator keeps
+// trying any other available inputs. If at least one lookup succeeds, the response
+// is successful and failed-side diagnostics are discarded.
 //
-//   - `locationIpError` for IP lookup failures
-//   - `locationPointError` for geo URI parsing failures
-//   - `locationLatLngError` for point lookup failures
+// When no lookup succeeds, `ErrNotFound` is returned with code-only diagnostics
+// so v2 transports can surface why the terminal lookup failed without exposing
+// provider error text. Diagnostic keys are owned by `internal/diagnostics`; this
+// package only records failure categories such as IP lookup, geo URI parsing,
+// and point lookup.
 //
-// `ErrNotFound` is returned only when neither the IP-derived nor geo-derived
-// lookup yields a location.
+// v1 uses separate lookup methods and does not use this diagnostic transport
+// contract.
 //
 // # Dependency injection
 //

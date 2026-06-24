@@ -57,6 +57,14 @@ Then('I should receive valid locations with HTTP:') do |table|
   end
 end
 
+Then('I should receive a not found response with HTTP:') do |table|
+  expect(@response.code).to eq(404)
+
+  rows = table.rows_hash
+
+  expect(response_header(@response, rows['diagnostic'])).to eq(rows['code'])
+end
+
 Then('I should receive a partial location with HTTP:') do |table|
   expect(@response.code).to eq(200)
 
@@ -66,8 +74,11 @@ Then('I should receive a partial location with HTTP:') do |table|
   location = resp.fetch(rows['kind'])
 
   expect(resp[other]).to be_nil
-  expect(resp.fetch('meta')).to include(rows['error'])
   expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
+end
+
+def response_header(response, key)
+  response.headers[key.tr('-', '_').to_sym] || response.headers[key]
 end

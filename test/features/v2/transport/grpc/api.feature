@@ -29,23 +29,25 @@ Feature: gRPC API
     When I request a location with gRPC:
       | ip     | <ip>     |
       | method | <method> |
-    Then I should receive a not found response with gRPC
+    Then I should receive a not found response with gRPC:
+      | diagnostic | <diagnostic> |
+      | code       | <code>       |
 
     Examples: With geoip2 parameters
-      | source | method | ip        |
-      | geoip2 | params | 0.0.0.0   |
-      | geoip2 | params | test      |
-      | geoip2 | params | <test>    |
-      | geoip2 | params | 154.6     |
-      | geoip2 | params | 192.0.2.1 |
+      | source | method | ip        | diagnostic        | code      |
+      | geoip2 | params | 0.0.0.0   | location-ip-error | not_found |
+      | geoip2 | params | test      | location-ip-error | not_found |
+      | geoip2 | params | <test>    | location-ip-error | not_found |
+      | geoip2 | params | 154.6     | location-ip-error | not_found |
+      | geoip2 | params | 192.0.2.1 | location-ip-error | not_found |
 
     Examples: With geoip2 metadata
-      | source | method   | ip        |
-      | geoip2 | metadata | 0.0.0.0   |
-      | geoip2 | metadata | test      |
-      | geoip2 | metadata | <test>    |
-      | geoip2 | metadata | 154.6     |
-      | geoip2 | metadata | 192.0.2.1 |
+      | source | method   | ip        | diagnostic        | code      |
+      | geoip2 | metadata | 0.0.0.0   | location-ip-error | not_found |
+      | geoip2 | metadata | test      | location-ip-error | not_found |
+      | geoip2 | metadata | <test>    | location-ip-error | not_found |
+      | geoip2 | metadata | 154.6     | location-ip-error | not_found |
+      | geoip2 | metadata | 192.0.2.1 | location-ip-error | not_found |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location with gRPC:
@@ -94,48 +96,51 @@ Feature: gRPC API
       | kind      | <kind>      |
       | country   | <country>   |
       | continent | <continent> |
-      | error     | <error>     |
 
     Examples: With parameters
-      | method | kind | ip            | latitude  | longitude | country | continent | error               |
-      | params | geo  | 0.0.0.0       | 52.377956 |  4.897070 | NL      | EU        | locationIpError     |
-      | params | ip   | 95.91.246.242 | 91        | 10        | DE      | EU        | locationLatLngError |
+      | method | kind | ip            | latitude  | longitude | country | continent |
+      | params | geo  | 0.0.0.0       | 52.377956 |  4.897070 | NL      | EU        |
+      | params | ip   | 95.91.246.242 | 91        | 10        | DE      | EU        |
 
     Examples: With metadata
-      | method   | kind | ip            | latitude | longitude | country | continent | error              |
-      | metadata | ip   | 95.91.246.242 | test     | 180       | DE      | EU        | locationPointError |
+      | method   | kind | ip            | latitude | longitude | country | continent |
+      | metadata | ip   | 95.91.246.242 | test     | 180       | DE      | EU        |
 
   Scenario Outline: Get location by a bad latitude and longitude.
     When I request a location with gRPC:
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive a not found response with gRPC
+    Then I should receive a not found response with gRPC:
+      | diagnostic | <diagnostic> |
+      | code       | <code>       |
 
     Examples: With parameters
-      | method | latitude | longitude |
-      | params |       91 |        10 |
-      | params |       10 |       181 |
-      | params |      nan |        10 |
-      | params |       10 |       inf |
+      | method | latitude | longitude | diagnostic             | code          |
+      | params |       91 |        10 | location-lat-lng-error | invalid_point |
+      | params |       10 |       181 | location-lat-lng-error | invalid_point |
+      | params |      nan |        10 | location-lat-lng-error | invalid_point |
+      | params |       10 |       inf | location-lat-lng-error | invalid_point |
 
     Examples: With metadata
-      | method   | latitude | longitude |
-      | metadata |       91 |        10 |
-      | metadata |       10 |       181 |
-      | metadata | test     |       180 |
-      | metadata |       90 | test      |
+      | method   | latitude | longitude | diagnostic             | code            |
+      | metadata |       91 |        10 | location-lat-lng-error | invalid_point   |
+      | metadata |       10 |       181 | location-lat-lng-error | invalid_point   |
+      | metadata | test     |       180 | location-point-error   | invalid_geo_uri |
+      | metadata |       90 | test      | location-point-error   | invalid_geo_uri |
 
   Scenario Outline: Get location by a not found latitude and longitude.
     When I request a location with gRPC:
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive a not found response with gRPC
+    Then I should receive a not found response with gRPC:
+      | diagnostic | <diagnostic> |
+      | code       | <code>       |
 
     Examples:
-      | method   | latitude   | longitude |
-      | params   | 90         | 180       |
-      | metadata | 90         | 180       |
-      | params   | -49.303721 | 69.122136 |
-      | metadata | -49.303721 | 69.122136 |
+      | method   | latitude   | longitude | diagnostic             | code      |
+      | params   | 90         | 180       | location-lat-lng-error | not_found |
+      | metadata | 90         | 180       | location-lat-lng-error | not_found |
+      | params   | -49.303721 | 69.122136 | location-lat-lng-error | not_found |
+      | metadata | -49.303721 | 69.122136 | location-lat-lng-error | not_found |

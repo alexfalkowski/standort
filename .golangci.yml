@@ -24,7 +24,7 @@ linters:
     - wsl_v5
   settings:
     lll:
-      line-length: 140
+      line-length: 150
   exclusions:
     generated: lax
     presets:

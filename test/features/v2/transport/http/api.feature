@@ -29,23 +29,25 @@ Feature: HTTP API
     When I request a location with HTTP:
       | ip     | <ip>     |
       | method | <method> |
-    Then I should receive a not found response with HTTP
+    Then I should receive a not found response with HTTP:
+      | diagnostic | <diagnostic> |
+      | code       | <code>       |
 
     Examples: With geoip2 parameters
-      | source | method | ip        |
-      | geoip2 | params | 0.0.0.0   |
-      | geoip2 | params | test      |
-      | geoip2 | params | <test>    |
-      | geoip2 | params | 154.6     |
-      | geoip2 | params | 192.0.2.1 |
+      | source | method | ip        | diagnostic        | code      |
+      | geoip2 | params | 0.0.0.0   | location-ip-error | not_found |
+      | geoip2 | params | test      | location-ip-error | not_found |
+      | geoip2 | params | <test>    | location-ip-error | not_found |
+      | geoip2 | params | 154.6     | location-ip-error | not_found |
+      | geoip2 | params | 192.0.2.1 | location-ip-error | not_found |
 
     Examples: With geoip2 headers
-      | source | method  | ip        |
-      | geoip2 | headers | 0.0.0.0   |
-      | geoip2 | headers | test      |
-      | geoip2 | headers | <test>    |
-      | geoip2 | headers | 154.6     |
-      | geoip2 | headers | 192.0.2.1 |
+      | source | method  | ip        | diagnostic        | code      |
+      | geoip2 | headers | 0.0.0.0   | location-ip-error | not_found |
+      | geoip2 | headers | test      | location-ip-error | not_found |
+      | geoip2 | headers | <test>    | location-ip-error | not_found |
+      | geoip2 | headers | 154.6     | location-ip-error | not_found |
+      | geoip2 | headers | 192.0.2.1 | location-ip-error | not_found |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location with HTTP:
@@ -94,46 +96,49 @@ Feature: HTTP API
       | kind      | <kind>      |
       | country   | <country>   |
       | continent | <continent> |
-      | error     | <error>     |
 
     Examples: With parameters
-      | method | kind | ip            | latitude  | longitude | country | continent | error               |
-      | params | geo  |       0.0.0.0 | 52.377956 |  4.897070 | NL      | EU        | locationIpError     |
-      | params | ip   | 95.91.246.242 |        91 |        10 | DE      | EU        | locationLatLngError |
+      | method | kind | ip            | latitude  | longitude | country | continent |
+      | params | geo  |       0.0.0.0 | 52.377956 |  4.897070 | NL      | EU        |
+      | params | ip   | 95.91.246.242 |        91 |        10 | DE      | EU        |
 
     Examples: With headers
-      | method  | kind | ip            | latitude | longitude | country | continent | error              |
-      | headers | ip   | 95.91.246.242 | test     |       180 | DE      | EU        | locationPointError |
+      | method  | kind | ip            | latitude | longitude | country | continent |
+      | headers | ip   | 95.91.246.242 | test     |       180 | DE      | EU        |
 
   Scenario Outline: Get location by a bad latitude and longitude.
     When I request a location with HTTP:
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive a not found response with HTTP
+    Then I should receive a not found response with HTTP:
+      | diagnostic | <diagnostic> |
+      | code       | <code>       |
 
     Examples: With parameters
-      | method | latitude | longitude |
-      | params |       91 |        10 |
-      | params |       10 |       181 |
+      | method | latitude | longitude | diagnostic             | code          |
+      | params |       91 |        10 | location-lat-lng-error | invalid_point |
+      | params |       10 |       181 | location-lat-lng-error | invalid_point |
 
     Examples: With headers
-      | method  | latitude | longitude |
-      | headers |       91 |        10 |
-      | headers |       10 |       181 |
-      | headers | test     |       180 |
-      | headers |       90 | test      |
+      | method  | latitude | longitude | diagnostic             | code            |
+      | headers |       91 |        10 | location-lat-lng-error | invalid_point   |
+      | headers |       10 |       181 | location-lat-lng-error | invalid_point   |
+      | headers | test     |       180 | location-point-error   | invalid_geo_uri |
+      | headers |       90 | test      | location-point-error   | invalid_geo_uri |
 
   Scenario Outline: Get location by a not found latitude and longitude.
     When I request a location with HTTP:
       | latitude  | <latitude>  |
       | longitude | <longitude> |
       | method    | <method>    |
-    Then I should receive a not found response with HTTP
+    Then I should receive a not found response with HTTP:
+      | diagnostic | <diagnostic> |
+      | code       | <code>       |
 
     Examples:
-      | method  | latitude   | longitude |
-      | params  |         90 |       180 |
-      | headers |         90 |       180 |
-      | params  | -49.303721 | 69.122136 |
-      | headers | -49.303721 | 69.122136 |
+      | method  | latitude   | longitude | diagnostic             | code      |
+      | params  |         90 |       180 | location-lat-lng-error | not_found |
+      | headers |         90 |       180 | location-lat-lng-error | not_found |
+      | params  | -49.303721 | 69.122136 | location-lat-lng-error | not_found |
+      | headers | -49.303721 | 69.122136 | location-lat-lng-error | not_found |

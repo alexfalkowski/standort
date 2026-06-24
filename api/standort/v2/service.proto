@@ -34,8 +34,7 @@ message GetLocationRequest {
 
 // GetLocationResponse for getting the location.
 message GetLocationResponse {
-  // Meta contains request metadata and partial-failure details. Partial lookup
-  // errors use locationIpError, locationLatLngError, or locationPointError.
+  // Meta contains request metadata returned to the caller, such as requestId.
   map<string, string> meta = 1;
 
   // IP is populated when the IP lookup succeeds.
@@ -48,7 +47,8 @@ message GetLocationResponse {
 // Service allows to get location via multiple methods.
 service Service {
   // GetLocation resolves an IP address and/or geographic point. If one lookup
-  // succeeds, the response is successful and failed lookup details are recorded
-  // in meta. Returns gRPC NotFound only when no lookup succeeds.
+  // succeeds, the response is successful. Returns gRPC NotFound only when no
+  // lookup succeeds; v2 transports may attach code-only diagnostics to the
+  // terminal error metadata.
   rpc GetLocation(GetLocationRequest) returns (GetLocationResponse) {}
 }
