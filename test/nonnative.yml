@@ -17,3 +17,6 @@ processes:
       - 11000
       - 12000
     log: reports/server.log
+    readiness:
+      port: 11000
+      path: /standort/readyz
