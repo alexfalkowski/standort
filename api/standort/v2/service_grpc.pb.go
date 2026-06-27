@@ -36,6 +36,7 @@ type ServiceClient interface {
 	// terminal error metadata.
 	GetLocation(ctx context.Context, in *GetLocationRequest, opts ...grpc.CallOption) (*GetLocationResponse, error)
 	// LookupLocations resolves multiple location lookups, preserving request order.
+	// Missing entry inputs may fall back to request metadata for each entry.
 	LookupLocations(ctx context.Context, in *LookupLocationsRequest, opts ...grpc.CallOption) (*LookupLocationsResponse, error)
 	// GetLookupAssets returns metadata for embedded lookup assets.
 	GetLookupAssets(ctx context.Context, in *GetLookupAssetsRequest, opts ...grpc.CallOption) (*GetLookupAssetsResponse, error)
@@ -91,6 +92,7 @@ type ServiceServer interface {
 	// terminal error metadata.
 	GetLocation(context.Context, *GetLocationRequest) (*GetLocationResponse, error)
 	// LookupLocations resolves multiple location lookups, preserving request order.
+	// Missing entry inputs may fall back to request metadata for each entry.
 	LookupLocations(context.Context, *LookupLocationsRequest) (*LookupLocationsResponse, error)
 	// GetLookupAssets returns metadata for embedded lookup assets.
 	GetLookupAssets(context.Context, *GetLookupAssetsRequest) (*GetLookupAssetsResponse, error)

@@ -254,9 +254,11 @@ func (x *GetLocationResponse) GetGeo() *Location {
 // LocationLookup is one lookup entry for a batch request.
 type LocationLookup struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// IP address to resolve.
+	// IP address to resolve. If empty, the server may use request metadata such
+	// as X-Forwarded-For for this entry.
 	Ip string `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
-	// Geographic point to resolve.
+	// Geographic point to resolve. If omitted, the server may use a Geolocation
+	// metadata header for this entry.
 	Point         *Point `protobuf:"bytes,2,opt,name=point,proto3" json:"point,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -309,7 +311,8 @@ func (x *LocationLookup) GetPoint() *Point {
 // LookupLocationsRequest for batch location lookup.
 type LookupLocationsRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Lookups contains the entries to resolve. At most 100 lookups are supported.
+	// Lookups contains the entries to resolve. At most 100 lookups are supported;
+	// larger requests fail the whole call with gRPC InvalidArgument.
 	Lookups       []*LocationLookup `protobuf:"bytes,1,rep,name=lookups,proto3" json:"lookups,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache

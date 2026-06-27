@@ -22,6 +22,7 @@ module Standort
         # terminal error metadata.
         rpc :GetLocation, ::Standort::V2::GetLocationRequest, ::Standort::V2::GetLocationResponse
         # LookupLocations resolves multiple location lookups, preserving request order.
+        # Missing entry inputs may fall back to request metadata for each entry.
         rpc :LookupLocations, ::Standort::V2::LookupLocationsRequest, ::Standort::V2::LookupLocationsResponse
         # GetLookupAssets returns metadata for embedded lookup assets.
         rpc :GetLookupAssets, ::Standort::V2::GetLookupAssetsRequest, ::Standort::V2::GetLookupAssetsResponse

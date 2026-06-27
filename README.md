@@ -80,7 +80,9 @@ Terminal lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the
 `LookupLocations` accepts up to 100 lookup entries and preserves request order
 in the response. Entries that resolve successfully populate `ip`, `geo`, or
 both. Entries that do not resolve any location populate a per-entry
-`google.rpc.Status` instead of failing the whole batch.
+`google.rpc.Status` instead of failing the whole batch. Requests with more than
+100 lookup entries fail the whole call with gRPC `InvalidArgument`; the HTTP RPC
+mapping returns `400`.
 
 `GetLookupAssets` returns read-only metadata for the embedded lookup assets,
 including asset name, size in bytes, checksum algorithm, and checksum. It is
