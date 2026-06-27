@@ -23,7 +23,11 @@ type File struct {
 // Files contains metadata for embedded lookup asset files.
 type Files []File
 
-// NewFiles constructs metadata for embedded lookup asset files.
+// NewFiles constructs metadata for the expected embedded lookup asset files.
+//
+// It reads `geoip2.mmdb` and `earth.geojson`, computes SHA-256 checksums, and
+// records each file's byte size. Construction fails through `runtime.Must` if
+// either expected file cannot be read from the embedded filesystem.
 func NewFiles(fs embed.FS) Files {
 	files := make(Files, 0, len(names))
 	for _, name := range names {

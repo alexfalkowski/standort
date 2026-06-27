@@ -13,7 +13,8 @@ import (
 
 const maxLookups = 100
 
-// ErrTooManyLookups is returned when a batch request exceeds the supported size.
+// ErrTooManyLookups is returned when a batch request contains more than 100
+// lookup entries.
 var ErrTooManyLookups = errors.New("too many lookups")
 
 // NewLocator constructs a v2 response locator.
@@ -41,6 +42,12 @@ func (l *Locator) Locate(ctx context.Context, req *v2.GetLocationRequest) (*v2.G
 }
 
 // Lookup resolves a v2 batch request.
+//
+// Responses preserve request order. Each lookup entry is resolved independently;
+// entries that do not resolve any location receive a per-entry `NotFound`
+// `google.rpc.Status` while the batch response still succeeds. The only
+// request-level error currently returned by this method is `ErrTooManyLookups`
+// when the request contains more than 100 entries.
 func (l *Locator) Lookup(ctx context.Context, req *v2.LookupLocationsRequest) (*v2.LookupLocationsResponse, error) {
 	lookups := req.GetLookups()
 	if len(lookups) > maxLookups {

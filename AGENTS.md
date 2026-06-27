@@ -202,14 +202,23 @@ make trivy-image platform=amd64
 - HTTP transport registers routes using generated full method name constants:
   - v1: `internal/api/v1/transport/http/http.go:9-13`
   - v2: `internal/api/v2/transport/http/http.go:9-12`
-- Error mapping: the gRPC transport `Server.error` converts **any non-nil error** to `codes.NotFound` (`internal/api/v2/transport/grpc/grpc.go:27-33` and similarly in v1).
+- Error mapping:
+  - v1 lookup errors map to gRPC `codes.NotFound` and HTTP `404`.
+  - v2 `GetLocation` terminal lookup failures map to gRPC `codes.NotFound`
+    or HTTP `404`, with safe diagnostics attached to transport metadata.
+  - v2 `LookupLocations` oversized batch requests map to gRPC
+    `codes.InvalidArgument` or HTTP `400`; per-entry misses stay in the
+    successful batch response as `google.rpc.Status`.
 
 ### Request metadata
 
 - v2 `Locator` can read inputs from metadata when the request doesn’t provide them:
   - IP: `meta.IPAddr(ctx).Value()` (`internal/api/location/location.go:86-92`).
   - Geolocation header: `meta.Geolocation(ctx)` parsed as a geo URI (`internal/api/location/location.go:99-110`).
-- v2 `Locator` records lookup errors as metadata attributes (e.g., `locationIpError`, `locationLatLngError`) and only returns `ErrNotFound` if **both** IP and GEO lookups are missing (`internal/api/location/location.go:53-83`).
+- v2 `Locator` records terminal lookup errors as safe metadata attributes
+  (for example, `location-ip-error`, `location-lat-lng-error`, or
+  `location-point-error`) and only returns `ErrNotFound` if **both** IP and
+  GEO lookups are missing.
 - Responses include request metadata via `meta.CamelStrings(ctx, "")` in the gRPC handlers:
   - v1: `internal/api/v1/transport/grpc/location.go:10-30`
   - v2: `internal/api/v2/transport/grpc/location.go:11-21`

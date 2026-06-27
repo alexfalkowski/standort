@@ -48,16 +48,19 @@ message GetLocationResponse {
 
 // LocationLookup is one lookup entry for a batch request.
 message LocationLookup {
-  // IP address to resolve.
+  // IP address to resolve. If empty, the server may use request metadata such
+  // as X-Forwarded-For for this entry.
   string ip = 1;
 
-  // Geographic point to resolve.
+  // Geographic point to resolve. If omitted, the server may use a Geolocation
+  // metadata header for this entry.
   Point point = 2;
 }
 
 // LookupLocationsRequest for batch location lookup.
 message LookupLocationsRequest {
-  // Lookups contains the entries to resolve. At most 100 lookups are supported.
+  // Lookups contains the entries to resolve. At most 100 lookups are supported;
+  // larger requests fail the whole call with gRPC InvalidArgument.
   repeated LocationLookup lookups = 1;
 }
 
@@ -118,6 +121,7 @@ service Service {
   rpc GetLocation(GetLocationRequest) returns (GetLocationResponse) {}
 
   // LookupLocations resolves multiple location lookups, preserving request order.
+  // Missing entry inputs may fall back to request metadata for each entry.
   rpc LookupLocations(LookupLocationsRequest) returns (LookupLocationsResponse) {}
 
   // GetLookupAssets returns metadata for embedded lookup assets.
