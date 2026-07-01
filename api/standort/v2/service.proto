@@ -66,14 +66,24 @@ message LookupLocationsRequest {
 
 // LocationLookupResponse is one lookup entry in a batch response.
 message LocationLookupResponse {
-  // IP is populated when the IP lookup succeeds.
-  Location ip = 1;
+  // ResolvedLocations contains successful lookup results for this entry.
+  message ResolvedLocations {
+    // IP is populated when the IP lookup succeeds.
+    Location ip = 1;
 
-  // Geo is populated when the point lookup succeeds.
-  Location geo = 2;
+    // Geo is populated when the point lookup succeeds.
+    Location geo = 2;
+  }
 
-  // Status is populated when this lookup does not resolve any location.
-  google.rpc.Status status = 3;
+  // Outcome is either successful locations or the status for an entry that did
+  // not resolve any location.
+  oneof outcome {
+    // Locations is populated when this lookup resolves at least one location.
+    ResolvedLocations locations = 1;
+
+    // Status is populated when this lookup does not resolve any location.
+    google.rpc.Status status = 2;
+  }
 }
 
 // LookupLocationsResponse for batch location lookup.

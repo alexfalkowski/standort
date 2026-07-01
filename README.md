@@ -78,11 +78,15 @@ v2 response fields are independent:
 Terminal lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the same lookup miss as HTTP `404`. v2 transports may attach code-only diagnostics to the terminal error metadata, using `location-ip-error`, `location-lat-lng-error`, or `location-point-error`.
 
 `LookupLocations` accepts up to 100 lookup entries and preserves request order
-in the response. Entries that resolve successfully populate `ip`, `geo`, or
-both. Entries that do not resolve any location populate a per-entry
-`google.rpc.Status` instead of failing the whole batch. Requests with more than
-100 lookup entries fail the whole call with gRPC `InvalidArgument`; the HTTP RPC
-mapping returns `400`.
+in the response. Each entry returns one outcome: successful entries populate
+`locations.ip`, `locations.geo`, or both, while entries that do not resolve any
+location populate a per-entry `google.rpc.Status` instead of failing the whole
+batch. Requests with more than 100 lookup entries fail the whole call with gRPC
+`InvalidArgument`; the HTTP RPC mapping returns `400`.
+
+For the HTTP mapping of `LookupLocations`, set the `Content-Type` header to
+`application/pbjson` to receive protobuf JSON where each lookup entry has either
+`locations` or `status`.
 
 `GetLookupAssets` returns read-only metadata for the embedded lookup assets,
 including asset name, size in bytes, checksum algorithm, and checksum. It is
@@ -352,7 +356,7 @@ curl -sS \
 ```sh
 curl -sS \
   -X POST \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: application/pbjson' \
   -d '{"lookups":[{"ip":"8.8.8.8"},{"point":{"lat":52.5200,"lng":13.4050}},{"ip":"192.0.2.1"}]}' \
   http://localhost:11000/standort.v2.Service/LookupLocations
 ```
