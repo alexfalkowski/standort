@@ -115,21 +115,21 @@ Then('I should receive batch locations with gRPC:') do |table|
     lookup = @response.lookups.fetch(row['index'].to_i)
     location = case row['kind']
                when 'ip'
-                 expect(lookup.geo).to be_nil
-                 lookup.ip
+                 expect(lookup.status).to be_nil
+                 expect(lookup.locations.geo).to be_nil
+                 lookup.locations.ip
                when 'geo'
-                 expect(lookup.ip).to be_nil
-                 lookup.geo
+                 expect(lookup.status).to be_nil
+                 expect(lookup.locations.ip).to be_nil
+                 lookup.locations.geo
                when 'none'
-                 expect(lookup.ip).to be_nil
-                 expect(lookup.geo).to be_nil
+                 expect(lookup.locations).to be_nil
                  expect(lookup.status.code).to eq(row['code'].to_i)
                  next
                else
                  raise "unsupported location kind: #{row['kind']}"
                end
 
-    expect(lookup.status).to be_nil
     expect(location.country).to eq(row['country'])
     expect(location.continent).to eq(row['continent'])
   end

@@ -358,12 +358,14 @@ func (x *LookupLocationsRequest) GetLookups() []*LocationLookup {
 // LocationLookupResponse is one lookup entry in a batch response.
 type LocationLookupResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// IP is populated when the IP lookup succeeds.
-	Ip *Location `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
-	// Geo is populated when the point lookup succeeds.
-	Geo *Location `protobuf:"bytes,2,opt,name=geo,proto3" json:"geo,omitempty"`
-	// Status is populated when this lookup does not resolve any location.
-	Status        *status.Status `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`
+	// Outcome is either successful locations or the status for an entry that did
+	// not resolve any location.
+	//
+	// Types that are valid to be assigned to Outcome:
+	//
+	//	*LocationLookupResponse_Locations
+	//	*LocationLookupResponse_Status
+	Outcome       isLocationLookupResponse_Outcome `protobuf_oneof:"outcome"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -398,26 +400,48 @@ func (*LocationLookupResponse) Descriptor() ([]byte, []int) {
 	return file_standort_v2_service_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *LocationLookupResponse) GetIp() *Location {
+func (x *LocationLookupResponse) GetOutcome() isLocationLookupResponse_Outcome {
 	if x != nil {
-		return x.Ip
+		return x.Outcome
 	}
 	return nil
 }
 
-func (x *LocationLookupResponse) GetGeo() *Location {
+func (x *LocationLookupResponse) GetLocations() *LocationLookupResponse_ResolvedLocations {
 	if x != nil {
-		return x.Geo
+		if x, ok := x.Outcome.(*LocationLookupResponse_Locations); ok {
+			return x.Locations
+		}
 	}
 	return nil
 }
 
 func (x *LocationLookupResponse) GetStatus() *status.Status {
 	if x != nil {
-		return x.Status
+		if x, ok := x.Outcome.(*LocationLookupResponse_Status); ok {
+			return x.Status
+		}
 	}
 	return nil
 }
+
+type isLocationLookupResponse_Outcome interface {
+	isLocationLookupResponse_Outcome()
+}
+
+type LocationLookupResponse_Locations struct {
+	// Locations is populated when this lookup resolves at least one location.
+	Locations *LocationLookupResponse_ResolvedLocations `protobuf:"bytes,1,opt,name=locations,proto3,oneof"`
+}
+
+type LocationLookupResponse_Status struct {
+	// Status is populated when this lookup does not resolve any location.
+	Status *status.Status `protobuf:"bytes,2,opt,name=status,proto3,oneof"`
+}
+
+func (*LocationLookupResponse_Locations) isLocationLookupResponse_Outcome() {}
+
+func (*LocationLookupResponse_Status) isLocationLookupResponse_Outcome() {}
 
 // LookupLocationsResponse for batch location lookup.
 type LookupLocationsResponse struct {
@@ -639,6 +663,61 @@ func (x *GetLookupAssetsResponse) GetAssets() []*LookupAsset {
 	return nil
 }
 
+// ResolvedLocations contains successful lookup results for this entry.
+type LocationLookupResponse_ResolvedLocations struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// IP is populated when the IP lookup succeeds.
+	Ip *Location `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
+	// Geo is populated when the point lookup succeeds.
+	Geo           *Location `protobuf:"bytes,2,opt,name=geo,proto3" json:"geo,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LocationLookupResponse_ResolvedLocations) Reset() {
+	*x = LocationLookupResponse_ResolvedLocations{}
+	mi := &file_standort_v2_service_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LocationLookupResponse_ResolvedLocations) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LocationLookupResponse_ResolvedLocations) ProtoMessage() {}
+
+func (x *LocationLookupResponse_ResolvedLocations) ProtoReflect() protoreflect.Message {
+	mi := &file_standort_v2_service_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LocationLookupResponse_ResolvedLocations.ProtoReflect.Descriptor instead.
+func (*LocationLookupResponse_ResolvedLocations) Descriptor() ([]byte, []int) {
+	return file_standort_v2_service_proto_rawDescGZIP(), []int{6, 0}
+}
+
+func (x *LocationLookupResponse_ResolvedLocations) GetIp() *Location {
+	if x != nil {
+		return x.Ip
+	}
+	return nil
+}
+
+func (x *LocationLookupResponse_ResolvedLocations) GetGeo() *Location {
+	if x != nil {
+		return x.Geo
+	}
+	return nil
+}
+
 var File_standort_v2_service_proto protoreflect.FileDescriptor
 
 const file_standort_v2_service_proto_rawDesc = "" +
@@ -664,11 +743,14 @@ const file_standort_v2_service_proto_rawDesc = "" +
 	"\x02ip\x18\x01 \x01(\tR\x02ip\x12(\n" +
 	"\x05point\x18\x02 \x01(\v2\x12.standort.v2.PointR\x05point\"O\n" +
 	"\x16LookupLocationsRequest\x125\n" +
-	"\alookups\x18\x01 \x03(\v2\x1b.standort.v2.LocationLookupR\alookups\"\x94\x01\n" +
-	"\x16LocationLookupResponse\x12%\n" +
+	"\alookups\x18\x01 \x03(\v2\x1b.standort.v2.LocationLookupR\alookups\"\x8d\x02\n" +
+	"\x16LocationLookupResponse\x12U\n" +
+	"\tlocations\x18\x01 \x01(\v25.standort.v2.LocationLookupResponse.ResolvedLocationsH\x00R\tlocations\x12,\n" +
+	"\x06status\x18\x02 \x01(\v2\x12.google.rpc.StatusH\x00R\x06status\x1ac\n" +
+	"\x11ResolvedLocations\x12%\n" +
 	"\x02ip\x18\x01 \x01(\v2\x15.standort.v2.LocationR\x02ip\x12'\n" +
-	"\x03geo\x18\x02 \x01(\v2\x15.standort.v2.LocationR\x03geo\x12*\n" +
-	"\x06status\x18\x03 \x01(\v2\x12.google.rpc.StatusR\x06status\"\xd5\x01\n" +
+	"\x03geo\x18\x02 \x01(\v2\x15.standort.v2.LocationR\x03geoB\t\n" +
+	"\aoutcome\"\xd5\x01\n" +
 	"\x17LookupLocationsResponse\x12B\n" +
 	"\x04meta\x18\x01 \x03(\v2..standort.v2.LookupLocationsResponse.MetaEntryR\x04meta\x12=\n" +
 	"\alookups\x18\x02 \x03(\v2#.standort.v2.LocationLookupResponseR\alookups\x1a7\n" +
@@ -705,23 +787,24 @@ func file_standort_v2_service_proto_rawDescGZIP() []byte {
 	return file_standort_v2_service_proto_rawDescData
 }
 
-var file_standort_v2_service_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_standort_v2_service_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_standort_v2_service_proto_goTypes = []any{
-	(*Location)(nil),                // 0: standort.v2.Location
-	(*Point)(nil),                   // 1: standort.v2.Point
-	(*GetLocationRequest)(nil),      // 2: standort.v2.GetLocationRequest
-	(*GetLocationResponse)(nil),     // 3: standort.v2.GetLocationResponse
-	(*LocationLookup)(nil),          // 4: standort.v2.LocationLookup
-	(*LookupLocationsRequest)(nil),  // 5: standort.v2.LookupLocationsRequest
-	(*LocationLookupResponse)(nil),  // 6: standort.v2.LocationLookupResponse
-	(*LookupLocationsResponse)(nil), // 7: standort.v2.LookupLocationsResponse
-	(*GetLookupAssetsRequest)(nil),  // 8: standort.v2.GetLookupAssetsRequest
-	(*LookupAsset)(nil),             // 9: standort.v2.LookupAsset
-	(*GetLookupAssetsResponse)(nil), // 10: standort.v2.GetLookupAssetsResponse
-	nil,                             // 11: standort.v2.GetLocationResponse.MetaEntry
-	nil,                             // 12: standort.v2.LookupLocationsResponse.MetaEntry
-	nil,                             // 13: standort.v2.GetLookupAssetsResponse.MetaEntry
-	(*status.Status)(nil),           // 14: google.rpc.Status
+	(*Location)(nil),                                 // 0: standort.v2.Location
+	(*Point)(nil),                                    // 1: standort.v2.Point
+	(*GetLocationRequest)(nil),                       // 2: standort.v2.GetLocationRequest
+	(*GetLocationResponse)(nil),                      // 3: standort.v2.GetLocationResponse
+	(*LocationLookup)(nil),                           // 4: standort.v2.LocationLookup
+	(*LookupLocationsRequest)(nil),                   // 5: standort.v2.LookupLocationsRequest
+	(*LocationLookupResponse)(nil),                   // 6: standort.v2.LocationLookupResponse
+	(*LookupLocationsResponse)(nil),                  // 7: standort.v2.LookupLocationsResponse
+	(*GetLookupAssetsRequest)(nil),                   // 8: standort.v2.GetLookupAssetsRequest
+	(*LookupAsset)(nil),                              // 9: standort.v2.LookupAsset
+	(*GetLookupAssetsResponse)(nil),                  // 10: standort.v2.GetLookupAssetsResponse
+	nil,                                              // 11: standort.v2.GetLocationResponse.MetaEntry
+	(*LocationLookupResponse_ResolvedLocations)(nil), // 12: standort.v2.LocationLookupResponse.ResolvedLocations
+	nil,                   // 13: standort.v2.LookupLocationsResponse.MetaEntry
+	nil,                   // 14: standort.v2.GetLookupAssetsResponse.MetaEntry
+	(*status.Status)(nil), // 15: google.rpc.Status
 }
 var file_standort_v2_service_proto_depIdxs = []int32{
 	1,  // 0: standort.v2.GetLocationRequest.point:type_name -> standort.v2.Point
@@ -730,24 +813,25 @@ var file_standort_v2_service_proto_depIdxs = []int32{
 	0,  // 3: standort.v2.GetLocationResponse.geo:type_name -> standort.v2.Location
 	1,  // 4: standort.v2.LocationLookup.point:type_name -> standort.v2.Point
 	4,  // 5: standort.v2.LookupLocationsRequest.lookups:type_name -> standort.v2.LocationLookup
-	0,  // 6: standort.v2.LocationLookupResponse.ip:type_name -> standort.v2.Location
-	0,  // 7: standort.v2.LocationLookupResponse.geo:type_name -> standort.v2.Location
-	14, // 8: standort.v2.LocationLookupResponse.status:type_name -> google.rpc.Status
-	12, // 9: standort.v2.LookupLocationsResponse.meta:type_name -> standort.v2.LookupLocationsResponse.MetaEntry
-	6,  // 10: standort.v2.LookupLocationsResponse.lookups:type_name -> standort.v2.LocationLookupResponse
-	13, // 11: standort.v2.GetLookupAssetsResponse.meta:type_name -> standort.v2.GetLookupAssetsResponse.MetaEntry
-	9,  // 12: standort.v2.GetLookupAssetsResponse.assets:type_name -> standort.v2.LookupAsset
-	2,  // 13: standort.v2.Service.GetLocation:input_type -> standort.v2.GetLocationRequest
-	5,  // 14: standort.v2.Service.LookupLocations:input_type -> standort.v2.LookupLocationsRequest
-	8,  // 15: standort.v2.Service.GetLookupAssets:input_type -> standort.v2.GetLookupAssetsRequest
-	3,  // 16: standort.v2.Service.GetLocation:output_type -> standort.v2.GetLocationResponse
-	7,  // 17: standort.v2.Service.LookupLocations:output_type -> standort.v2.LookupLocationsResponse
-	10, // 18: standort.v2.Service.GetLookupAssets:output_type -> standort.v2.GetLookupAssetsResponse
-	16, // [16:19] is the sub-list for method output_type
-	13, // [13:16] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	12, // 6: standort.v2.LocationLookupResponse.locations:type_name -> standort.v2.LocationLookupResponse.ResolvedLocations
+	15, // 7: standort.v2.LocationLookupResponse.status:type_name -> google.rpc.Status
+	13, // 8: standort.v2.LookupLocationsResponse.meta:type_name -> standort.v2.LookupLocationsResponse.MetaEntry
+	6,  // 9: standort.v2.LookupLocationsResponse.lookups:type_name -> standort.v2.LocationLookupResponse
+	14, // 10: standort.v2.GetLookupAssetsResponse.meta:type_name -> standort.v2.GetLookupAssetsResponse.MetaEntry
+	9,  // 11: standort.v2.GetLookupAssetsResponse.assets:type_name -> standort.v2.LookupAsset
+	0,  // 12: standort.v2.LocationLookupResponse.ResolvedLocations.ip:type_name -> standort.v2.Location
+	0,  // 13: standort.v2.LocationLookupResponse.ResolvedLocations.geo:type_name -> standort.v2.Location
+	2,  // 14: standort.v2.Service.GetLocation:input_type -> standort.v2.GetLocationRequest
+	5,  // 15: standort.v2.Service.LookupLocations:input_type -> standort.v2.LookupLocationsRequest
+	8,  // 16: standort.v2.Service.GetLookupAssets:input_type -> standort.v2.GetLookupAssetsRequest
+	3,  // 17: standort.v2.Service.GetLocation:output_type -> standort.v2.GetLocationResponse
+	7,  // 18: standort.v2.Service.LookupLocations:output_type -> standort.v2.LookupLocationsResponse
+	10, // 19: standort.v2.Service.GetLookupAssets:output_type -> standort.v2.GetLookupAssetsResponse
+	17, // [17:20] is the sub-list for method output_type
+	14, // [14:17] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_standort_v2_service_proto_init() }
@@ -755,13 +839,17 @@ func file_standort_v2_service_proto_init() {
 	if File_standort_v2_service_proto != nil {
 		return
 	}
+	file_standort_v2_service_proto_msgTypes[6].OneofWrappers = []any{
+		(*LocationLookupResponse_Locations)(nil),
+		(*LocationLookupResponse_Status)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_standort_v2_service_proto_rawDesc), len(file_standort_v2_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

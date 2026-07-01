@@ -30,7 +30,7 @@ When('I lookup locations with HTTP:') do |table|
   opts = Standort.http_options(
     headers: {
       request_id: @request_id, user_agent: 'Standort-ruby-client/2.0 HTTP/1.0',
-      content_type: :json, accept: :json
+      content_type: 'application/pbjson', accept: 'application/pbjson'
     }
   )
 
@@ -111,21 +111,21 @@ Then('I should receive batch locations with HTTP:') do |table|
     lookup = resp.fetch('lookups').fetch(row['index'].to_i)
     location = case row['kind']
                when 'ip'
-                 expect(lookup['geo']).to be_nil
-                 lookup.fetch('ip')
+                 expect(lookup['status']).to be_nil
+                 expect(lookup.fetch('locations')['geo']).to be_nil
+                 lookup.fetch('locations').fetch('ip')
                when 'geo'
-                 expect(lookup['ip']).to be_nil
-                 lookup.fetch('geo')
+                 expect(lookup['status']).to be_nil
+                 expect(lookup.fetch('locations')['ip']).to be_nil
+                 lookup.fetch('locations').fetch('geo')
                when 'none'
-                 expect(lookup['ip']).to be_nil
-                 expect(lookup['geo']).to be_nil
+                 expect(lookup['locations']).to be_nil
                  expect(lookup.fetch('status').fetch('code')).to eq(row['code'].to_i)
                  next
                else
                  raise "unsupported location kind: #{row['kind']}"
                end
 
-    expect(lookup['status']).to be_nil
     expect(location['country']).to eq(row['country'])
     expect(location['continent']).to eq(row['continent'])
   end

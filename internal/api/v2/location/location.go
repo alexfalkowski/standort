@@ -44,8 +44,9 @@ func (l *Locator) Locate(ctx context.Context, req *v2.GetLocationRequest) (*v2.G
 // Lookup resolves a v2 batch request.
 //
 // Responses preserve request order. Each lookup entry is resolved independently;
+// entries that resolve at least one location receive a `locations` outcome, and
 // entries that do not resolve any location receive a per-entry `NotFound`
-// `google.rpc.Status` while the batch response still succeeds. The only
+// `google.rpc.Status` outcome while the batch response still succeeds. The only
 // request-level error currently returned by this method is `ErrTooManyLookups`
 // when the request contains more than 100 entries.
 func (l *Locator) Lookup(ctx context.Context, req *v2.LookupLocationsRequest) (*v2.LookupLocationsResponse, error) {
@@ -63,17 +64,23 @@ func (l *Locator) Lookup(ctx context.Context, req *v2.LookupLocationsRequest) (*
 		locations, err := l.locator.Locate(ctx, lookup.GetIp(), toPoint(lookup.GetPoint()))
 		if err != nil {
 			resp.Lookups = append(resp.Lookups, &v2.LocationLookupResponse{
-				Status: &status.Status{
-					Code:    int32(codes.NotFound),
-					Message: location.ErrNotFound.Error(),
+				Outcome: &v2.LocationLookupResponse_Status{
+					Status: &status.Status{
+						Code:    int32(codes.NotFound),
+						Message: location.ErrNotFound.Error(),
+					},
 				},
 			})
 			continue
 		}
 
 		resp.Lookups = append(resp.Lookups, &v2.LocationLookupResponse{
-			Ip:  toLocation(locations.IP),
-			Geo: toLocation(locations.GEO),
+			Outcome: &v2.LocationLookupResponse_Locations{
+				Locations: &v2.LocationLookupResponse_ResolvedLocations{
+					Ip:  toLocation(locations.IP),
+					Geo: toLocation(locations.GEO),
+				},
+			},
 		})
 	}
 
