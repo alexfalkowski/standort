@@ -68,8 +68,7 @@ jobs:
           key: standort-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}-{{ checksum ".source-key" }}
           paths:
             - ~/.cache/golangci-lint
-      # TODO: Re-enable after the intentional v2 batch response breaking change lands.
-      # - run: make proto-breaking
+      - run: make proto-breaking
       - run: make proto-stale
       - run: make sec
       - run: make features
