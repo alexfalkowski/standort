@@ -4,8 +4,6 @@ require 'securerandom'
 require 'yaml'
 require 'base64'
 
-require 'grpc/health/v1/health_services_pb'
-
 require 'standort/v1/http'
 require 'standort/v1/service_pb'
 require 'standort/v1/service_services_pb'
@@ -95,14 +93,12 @@ module Standort
     # The channel is created as insecure because this harness targets local
     # development endpoints.
     #
-    # @return [Grpc::Health::V1::Health::Stub]
+    # @param service [String] gRPC health service name.
+    # @return [Nonnative::GRPCHealth]
     #
-    def health_grpc
-      @health_grpc ||= Grpc::Health::V1::Health::Stub.new(
-        'localhost:12000',
-        :this_channel_is_insecure,
-        channel_args: Standort.user_agent
-      )
+    def health_grpc(service)
+      @health_grpc ||= {}
+      @health_grpc[service] ||= Nonnative.grpc_health(host: 'localhost', port: 12_000, service:)
     end
 
     ##
