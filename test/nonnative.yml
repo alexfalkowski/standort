@@ -18,5 +18,12 @@ processes:
       - 12000
     log: reports/server.log
     readiness:
-      port: 11000
-      path: /standort/readyz
+      - kind: http
+        port: 11000
+        path: /standort/readyz
+      - kind: grpc
+        port: 12000
+        service: standort.v1.Service
+      - kind: grpc
+        port: 12000
+        service: standort.v2.Service
