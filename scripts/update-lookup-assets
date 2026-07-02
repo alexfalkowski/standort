@@ -1,0 +1,244 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+# Download the latest lookup datasets, guard against obvious regressions, then
+# replace the embedded assets used at build time.
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+tmp_dir="$(mktemp -d)"
+geoip_next="$root/assets/.geoip2.mmdb.next"
+earth_next="$root/assets/.earth.geojson.next"
+sources_next="$root/assets/.SOURCES.md.next"
+
+cleanup() {
+	rm -rf "$tmp_dir"
+	rm -f "$geoip_next" "$earth_next" "$sources_next"
+}
+trap cleanup EXIT
+
+require_command() {
+	local command="$1"
+
+	if ! command -v "$command" >/dev/null 2>&1; then
+		printf 'missing required command: %s\n' "$command" >&2
+		exit 1
+	fi
+}
+
+require_env() {
+	local name="$1"
+
+	if [[ -z "${!name:-}" ]]; then
+		printf 'missing required environment variable: %s\n' "$name" >&2
+		exit 1
+	fi
+}
+
+download() {
+	local url="$1"
+	local output="$2"
+
+	curl --fail --location --silent --show-error --retry 3 --retry-delay 2 \
+		--output "$output" "$url"
+}
+
+download_maxmind() {
+	local url="$1"
+	local output="$2"
+	local netrc="$tmp_dir/maxmind.netrc"
+
+	(
+		umask 077
+		printf 'machine download.maxmind.com\nlogin %s\npassword %s\n' \
+			"$MAXMIND_ACCOUNT_ID" "$MAXMIND_LICENSE_KEY" >"$netrc"
+	)
+
+	curl --fail --location --silent --show-error --retry 3 --retry-delay 2 \
+		--netrc-file "$netrc" --output "$output" "$url"
+}
+
+sha256() {
+	shasum -a 256 "$1" | awk '{print $1}'
+}
+
+size_bytes() {
+	wc -c <"$1" | awk '{print $1}'
+}
+
+require_command awk
+require_command curl
+require_command grep
+require_command jq
+require_command shasum
+require_command tar
+require_command wc
+
+require_env MAXMIND_ACCOUNT_ID
+require_env MAXMIND_LICENSE_KEY
+
+maxmind_url="${MAXMIND_URL:-https://download.maxmind.com/geoip/databases/GeoLite2-Country/download?suffix=tar.gz}"
+earth_url="${EARTH_GEOJSON_URL:-https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson}"
+min_size_percent="${LOOKUP_ASSET_MIN_SIZE_PERCENT:-80}"
+max_size_percent="${LOOKUP_ASSET_MAX_SIZE_PERCENT:-400}"
+
+if ! [[ "$min_size_percent" =~ ^[0-9]+$ ]] || ((min_size_percent == 0 || min_size_percent > 100)); then
+	printf 'LOOKUP_ASSET_MIN_SIZE_PERCENT must be an integer from 1 to 100\n' >&2
+	exit 1
+fi
+if ! [[ "$max_size_percent" =~ ^[0-9]+$ ]] || ((max_size_percent < 100)); then
+	printf 'LOOKUP_ASSET_MAX_SIZE_PERCENT must be an integer of at least 100\n' >&2
+	exit 1
+fi
+
+maxmind_archive="$tmp_dir/geoip2.tar.gz"
+maxmind_extract="$tmp_dir/geoip2"
+earth_raw="$tmp_dir/earth.raw.geojson"
+earth_download="$tmp_dir/earth.geojson"
+
+mkdir -p "$maxmind_extract"
+
+guard_file() {
+	local current="$1"
+	local replacement="$2"
+	local name="$3"
+
+	if [[ ! -s "$replacement" ]]; then
+		printf '%s download is empty\n' "$name" >&2
+		exit 1
+	fi
+
+	local current_size
+	local replacement_size
+	local minimum_size
+	local maximum_size
+
+	current_size="$(size_bytes "$current")"
+	replacement_size="$(size_bytes "$replacement")"
+	minimum_size="$((current_size * min_size_percent / 100))"
+	maximum_size="$((current_size * max_size_percent / 100))"
+
+	if ((replacement_size < minimum_size)); then
+		printf '%s download is %s bytes, below %s%% of the current %s byte asset\n' \
+			"$name" "$replacement_size" "$min_size_percent" "$current_size" >&2
+		exit 1
+	fi
+	if ((replacement_size > maximum_size)); then
+		printf '%s download is %s bytes, above %s%% of the current %s byte asset\n' \
+			"$name" "$replacement_size" "$max_size_percent" "$current_size" >&2
+		exit 1
+	fi
+}
+
+guard_geoip() {
+	local replacement="$1"
+
+	guard_file "$root/assets/geoip2.mmdb" "$replacement" "geoip2.mmdb"
+
+	if ! grep -a -q 'GeoLite2-Country' "$replacement"; then
+		printf 'geoip2.mmdb download does not look like a GeoLite2 Country database\n' >&2
+		exit 1
+	fi
+}
+
+guard_earth() {
+	local replacement="$1"
+
+	guard_file "$root/assets/earth.geojson" "$replacement" "earth.geojson"
+
+	if ! grep -q '"FeatureCollection"' "$replacement" ||
+		! grep -q '"Polygon"' "$replacement" ||
+		! grep -q '"iso_a2"' "$replacement" ||
+		! grep -q '"continent"' "$replacement"; then
+		printf 'earth.geojson download does not look like the expected country FeatureCollection\n' >&2
+		exit 1
+	fi
+}
+
+normalize_earth() {
+	local input="$1"
+	local output="$2"
+
+	jq -c '
+def valid_code($code): ($code | type == "string") and ($code | length == 2);
+def supported_continent($continent):
+	["Africa", "Australia", "North America", "Oceania", "Asia", "Europe", "South America", "Antarctica"] | index($continent);
+
+.features |= map(
+	.properties as $properties
+	| ($properties.ISO_A2 // $properties.iso_a2) as $iso_a2
+	| ($properties.ISO_A2_EH // $properties.iso_a2_eh) as $iso_a2_eh
+	| ($properties.CONTINENT // $properties.continent) as $continent
+	| select((valid_code($iso_a2) or valid_code($iso_a2_eh)) and (supported_continent($continent) != null))
+	| .properties = (
+		if valid_code($iso_a2) then
+			{iso_a2: $iso_a2, continent: $continent}
+		else
+			{iso_a2_eh: $iso_a2_eh, continent: $continent}
+		end
+	)
+)
+' "$input" >"$output"
+}
+
+printf 'downloading GeoLite2 Country database...\n'
+download_maxmind "$maxmind_url" "$maxmind_archive"
+tar -xzf "$maxmind_archive" -C "$maxmind_extract"
+geoip_download="$(find "$maxmind_extract" -type f -name '*.mmdb' -print -quit)"
+if [[ -z "$geoip_download" ]]; then
+	printf 'downloaded MaxMind archive does not contain an .mmdb file\n' >&2
+	exit 1
+fi
+
+printf 'downloading Natural Earth country polygons...\n'
+download "$earth_url" "$earth_raw"
+normalize_earth "$earth_raw" "$earth_download"
+
+printf 'checking downloaded assets...\n'
+guard_geoip "$geoip_download"
+guard_earth "$earth_download"
+
+geoip_sha="$(sha256 "$geoip_download")"
+earth_sha="$(sha256 "$earth_download")"
+current_geoip_sha="$(sha256 "$root/assets/geoip2.mmdb")"
+current_earth_sha="$(sha256 "$root/assets/earth.geojson")"
+
+if [[ "$geoip_sha" == "$current_geoip_sha" && "$earth_sha" == "$current_earth_sha" ]]; then
+	printf 'lookup assets are already current\n'
+	exit 0
+fi
+
+geoip_size="$(size_bytes "$geoip_download")"
+earth_size="$(size_bytes "$earth_download")"
+updated_at="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+
+cp "$geoip_download" "$geoip_next"
+cp "$earth_download" "$earth_next"
+cat >"$sources_next" <<EOF
+# Lookup Asset Sources
+
+Generated by \`make update-lookup-assets\`.
+
+Updated: $updated_at
+
+## geoip2.mmdb
+
+- Source: MaxMind GeoLite2 Country
+- URL: $maxmind_url
+- SHA-256: $geoip_sha
+- Size: $geoip_size bytes
+
+## earth.geojson
+
+- Source: Natural Earth Admin-0 Countries GeoJSON
+- URL: $earth_url
+- Transform: minified, filtered to indexed country features, and trimmed to the lookup properties expected by standort
+- SHA-256: $earth_sha
+- Size: $earth_size bytes
+EOF
+
+mv "$geoip_next" "$root/assets/geoip2.mmdb"
+mv "$earth_next" "$root/assets/earth.geojson"
+mv "$sources_next" "$root/assets/SOURCES.md"
+
+printf 'updated assets/geoip2.mmdb, assets/earth.geojson, and assets/SOURCES.md\n'
+printf 'run make features to review lookup behavior changes.\n'

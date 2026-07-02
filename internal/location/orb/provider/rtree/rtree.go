@@ -7,7 +7,6 @@ import (
 	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/runtime"
 	"github.com/alexfalkowski/go-service/v2/strings"
-	"github.com/alexfalkowski/standort/v2/internal/location/continent"
 	"github.com/paulmach/orb/geojson"
 	"github.com/tidwall/rtree"
 )
@@ -34,7 +33,7 @@ func NewProvider(fs embed.FS) *Provider {
 //
 // The index is built from `earth.geojson`. Each node stores the geometry along
 // with ISO-3166 alpha-2 country codes and continent names as provided by the dataset.
-// Features that lack a supported country code or continent are not indexed.
+// The asset update script filters the dataset to features the provider can index.
 type Provider struct {
 	tree *rtree.Generic[*Node]
 }
@@ -75,11 +74,10 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string, 
 }
 
 // populateTree reads `earth.geojson` from the embedded filesystem and inserts
-// features that include a valid country code and supported continent.
+// each generated country feature into the R-tree.
 //
-// The inserted bounding boxes are derived from the feature geometry bounds.
-// Features are skipped unless they have a two-character `iso_a2` or `iso_a2_eh`
-// property and a `continent` value present in `continent.Codes`.
+// The asset update script filters features to the provider's supported shape and
+// trims properties to `iso_a2` or `iso_a2_eh` plus `continent`.
 func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
 	data, err := fs.ReadFile("earth.geojson")
 	runtime.Must(err)
@@ -88,20 +86,12 @@ func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
 	runtime.Must(err)
 
 	for _, f := range fc.Features {
-		country := countryCode(f.Properties)
-		if strings.IsEmpty(country) {
-			continue
-		}
-
-		cont, ok := f.Properties["continent"].(string)
-		if !ok || !supportedContinent(cont) {
-			continue
-		}
+		country, continent := featureLocation(f.Properties)
 
 		bound := f.Geometry.Bound()
 		data := &Node{
 			Country:   country,
-			Continent: cont,
+			Continent: continent,
 			Geometry:  f.Geometry,
 		}
 
@@ -109,24 +99,12 @@ func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
 	}
 }
 
-func countryCode(properties map[string]any) string {
-	if code := validCountryCode(properties["iso_a2"]); !strings.IsEmpty(code) {
-		return code
+func featureLocation(properties map[string]any) (country string, continent string) {
+	country, _ = properties["iso_a2"].(string)
+	if strings.IsEmpty(country) {
+		country, _ = properties["iso_a2_eh"].(string)
 	}
 
-	return validCountryCode(properties["iso_a2_eh"])
-}
-
-func supportedContinent(cont string) bool {
-	_, ok := continent.Codes[cont]
-	return ok
-}
-
-func validCountryCode(value any) string {
-	code, ok := value.(string)
-	if !ok || len(code) != 2 {
-		return strings.Empty
-	}
-
-	return code
+	continent, _ = properties["continent"].(string)
+	return country, continent
 }
