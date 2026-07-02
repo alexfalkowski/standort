@@ -41,6 +41,21 @@ When replacing embedded lookup data, keep the filenames and formats unchanged:
 
 Record the dataset source/provenance in the asset update change, then rebuild and run the feature harness so changed lookup results are visible in review.
 
+To refresh both committed lookup assets:
+
+```sh
+MAXMIND_ACCOUNT_ID=... MAXMIND_LICENSE_KEY=... make update-lookup-assets
+```
+
+The command checks the downloaded files before replacing `assets/geoip2.mmdb`
+and `assets/earth.geojson`: each replacement must be non-empty, match the
+expected dataset shape, and stay within size bounds relative to the current
+committed asset. It also writes the resolved source, checksum, and size metadata
+to `assets/SOURCES.md`. The Natural Earth GeoJSON is minified, filtered to
+features the service can index, and trimmed to the lookup properties expected by
+the service. If the downloaded assets match the current committed files, the
+command exits without rewriting the provenance timestamp.
+
 ---
 
 ## 🔌 API versions
