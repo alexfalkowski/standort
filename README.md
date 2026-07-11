@@ -99,6 +99,13 @@ location populate a per-entry `google.rpc.Status` instead of failing the whole
 batch. Requests with more than 100 lookup entries fail the whole call with gRPC
 `InvalidArgument`; the HTTP RPC mapping returns `400`.
 
+For a classified batch failure, `status.details` contains one
+`google.rpc.ErrorInfo` with reason `LOCATION_LOOKUP_FAILED` and domain
+`standort.v2`. Its metadata preserves the safe, code-only diagnostic keys used
+by terminal lookup failures (such as `location-ip-error: not_found`). Clients
+must ignore unknown diagnostic keys and codes; no raw request input or provider
+error is included.
+
 For the HTTP mapping of `LookupLocations`, set the `Content-Type` header to
 `application/pbjson` to receive protobuf JSON where each lookup entry has either
 `locations` or `status`.
