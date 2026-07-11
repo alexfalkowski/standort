@@ -3,6 +3,7 @@ package location
 import (
 	"fmt"
 	"math"
+	"net"
 
 	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/errors"
@@ -12,6 +13,9 @@ import (
 	ip "github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
 	orb "github.com/alexfalkowski/standort/v2/internal/location/orb/provider"
 )
+
+// ErrInvalidIP is returned when an IP address is not a valid IPv4 or IPv6 address.
+var ErrInvalidIP = errors.New("invalid ip")
 
 // ErrInvalidPoint is returned when latitude or longitude is non-finite or outside
 // the supported geographic coordinate range.
@@ -54,6 +58,10 @@ type Location struct {
 // It returns `(countryCode, continentCode, error)`. On error, both returned
 // strings are empty.
 func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, error) {
+	if net.ParseIP(ip) == nil {
+		return strings.Empty, strings.Empty, ErrInvalidIP
+	}
+
 	c, err := l.ipProvider.GetByIP(ctx, ip)
 	if err != nil {
 		return strings.Empty, strings.Empty, err

@@ -90,7 +90,7 @@ v2 response fields are independent:
 - both fields are populated when both inputs succeed.
 - on partial success, the successful field is returned without failed-side diagnostics.
 
-Terminal lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the same lookup miss as HTTP `404`. v2 transports may attach code-only diagnostics to the terminal error metadata, using `location-ip-error`, `location-lat-lng-error`, or `location-point-error`.
+Terminal lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the same lookup miss as HTTP `404`. v2 transports may attach code-only diagnostics to the terminal error metadata, using `location-ip-error`, `location-lat-lng-error`, or `location-point-error`. A malformed IP uses `location-ip-error: invalid_ip`; a syntactically valid address that has no dataset match uses `location-ip-error: not_found`.
 
 `LookupLocations` accepts up to 100 lookup entries and preserves request order
 in the response. Each entry returns one outcome: successful entries populate

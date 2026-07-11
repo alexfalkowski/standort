@@ -129,7 +129,7 @@ func (s *Locator) Locate(ctx context.Context, ip string, p *Point) (*Locations, 
 
 	if ip := s.ip(ctx, ip); !strings.IsEmpty(ip) {
 		if country, continent, err := s.location.GetByIP(ctx, ip); err != nil {
-			diag = diagnostics.IPError(diag, diagnostics.NotFound)
+			diag = diagnostics.IPError(diag, ipErrorCode(err))
 		} else {
 			locations.IP = &Location{Country: country, Continent: continent, Kind: IP}
 		}
@@ -177,6 +177,14 @@ func (s *Locator) point(ctx context.Context, p *Point) (*Point, error) {
 	}
 
 	return &Point{Lat: geo.Latitude, Lng: geo.Longitude}, nil
+}
+
+func ipErrorCode(err error) diagnostics.Code {
+	if errors.Is(err, location.ErrInvalidIP) {
+		return diagnostics.InvalidIP
+	}
+
+	return diagnostics.NotFound
 }
 
 func locationErrorCode(err error) diagnostics.Code {

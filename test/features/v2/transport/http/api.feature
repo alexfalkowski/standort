@@ -13,17 +13,17 @@ Feature: HTTP API
 
     Examples: With geoip2 parameters
       | source | method | kind | ip             | country | continent |
-      | geoip2 | params | ip   |  95.91.246.242 | DE      | EU        |
+      | geoip2 | params | ip   | 95.91.246.242  | DE      | EU        |
       | geoip2 | params | ip   | 45.128.199.236 | NL      | EU        |
-      | geoip2 | params | ip   |    154.6.22.65 | US      | NA        |
-      | geoip2 | params | ip   |       1.40.0.0 | AU      | OC        |
+      | geoip2 | params | ip   | 154.6.22.65    | US      | NA        |
+      | geoip2 | params | ip   | 1.40.0.0       | AU      | OC        |
 
     Examples: With geoip2 headers
       | source | method  | kind | ip             | country | continent |
-      | geoip2 | headers | ip   |  95.91.246.242 | DE      | EU        |
+      | geoip2 | headers | ip   | 95.91.246.242  | DE      | EU        |
       | geoip2 | headers | ip   | 45.128.199.236 | NL      | EU        |
-      | geoip2 | headers | ip   |    154.6.22.65 | US      | NA        |
-      | geoip2 | headers | ip   |       1.40.0.0 | AU      | OC        |
+      | geoip2 | headers | ip   | 154.6.22.65    | US      | NA        |
+      | geoip2 | headers | ip   | 1.40.0.0       | AU      | OC        |
 
   Scenario Outline: Get location by an bad IP address.
     When I request a location with HTTP:
@@ -34,20 +34,22 @@ Feature: HTTP API
       | code       | <code>       |
 
     Examples: With geoip2 parameters
-      | source | method | ip        | diagnostic        | code      |
-      | geoip2 | params | 0.0.0.0   | location-ip-error | not_found |
-      | geoip2 | params | test      | location-ip-error | not_found |
-      | geoip2 | params | <test>    | location-ip-error | not_found |
-      | geoip2 | params | 154.6     | location-ip-error | not_found |
-      | geoip2 | params | 192.0.2.1 | location-ip-error | not_found |
+      | source | method | ip           | diagnostic        | code       |
+      | geoip2 | params | 0.0.0.0      | location-ip-error | not_found  |
+      | geoip2 | params | test         | location-ip-error | invalid_ip |
+      | geoip2 | params | <test>       | location-ip-error | invalid_ip |
+      | geoip2 | params | 154.6        | location-ip-error | invalid_ip |
+      | geoip2 | params | 2001:db8::zz | location-ip-error | invalid_ip |
+      | geoip2 | params | 192.0.2.1    | location-ip-error | not_found  |
 
     Examples: With geoip2 headers
-      | source | method  | ip        | diagnostic        | code      |
-      | geoip2 | headers | 0.0.0.0   | location-ip-error | not_found |
-      | geoip2 | headers | test      | location-ip-error | not_found |
-      | geoip2 | headers | <test>    | location-ip-error | not_found |
-      | geoip2 | headers | 154.6     | location-ip-error | not_found |
-      | geoip2 | headers | 192.0.2.1 | location-ip-error | not_found |
+      | source | method  | ip           | diagnostic        | code       |
+      | geoip2 | headers | 0.0.0.0      | location-ip-error | not_found  |
+      | geoip2 | headers | test         | location-ip-error | invalid_ip |
+      | geoip2 | headers | <test>       | location-ip-error | invalid_ip |
+      | geoip2 | headers | 154.6        | location-ip-error | invalid_ip |
+      | geoip2 | headers | 2001:db8::zz | location-ip-error | invalid_ip |
+      | geoip2 | headers | 192.0.2.1    | location-ip-error | not_found  |
 
   Scenario Outline: Get location by a valid latitude and longitude.
     When I request a location with HTTP:
@@ -61,14 +63,14 @@ Feature: HTTP API
 
     Examples: With parameters
       | method | kind | latitude  | longitude  | country | continent |
-      | params | geo  | 52.520008 |  13.404954 | DE      | EU        |
-      | params | geo  | 52.377956 |   4.897070 | NL      | EU        |
+      | params | geo  | 52.520008 | 13.404954  | DE      | EU        |
+      | params | geo  | 52.377956 | 4.897070   | NL      | EU        |
       | params | geo  | 43.000000 | -75.000000 | US      | NA        |
 
     Examples: With headers
       | method  | kind | latitude  | longitude  | country | continent |
-      | headers | geo  | 52.520008 |  13.404954 | DE      | EU        |
-      | headers | geo  | 52.377956 |   4.897070 | NL      | EU        |
+      | headers | geo  | 52.520008 | 13.404954  | DE      | EU        |
+      | headers | geo  | 52.377956 | 4.897070   | NL      | EU        |
       | headers | geo  | 43.000000 | -75.000000 | US      | NA        |
 
   Scenario Outline: Get location by a valid IP address and latitude and longitude.
@@ -84,14 +86,14 @@ Feature: HTTP API
 
     Examples: With parameters
       | method | ip            | latitude  | longitude | ip_country | ip_continent | geo_country | geo_continent |
-      | params | 95.91.246.242 | 52.377956 |  4.897070 | DE         | EU           | NL          | EU            |
+      | params | 95.91.246.242 | 52.377956 | 4.897070  | DE         | EU           | NL          | EU            |
 
   Scenario: Lookup locations in a batch with HTTP.
     When I lookup locations with HTTP:
-      | lookup              | kind | ip            | latitude  | longitude |
-      | German IP address   | ip   | 95.91.246.242 |           |           |
-      | Netherlands point   | geo  |               | 52.377956 |  4.897070 |
-      | unknown IP address  | none | 192.0.2.1     |           |           |
+      | lookup             | kind | ip            | latitude  | longitude |
+      | German IP address  | ip   | 95.91.246.242 |           |           |
+      | Netherlands point  | geo  |               | 52.377956 | 4.897070  |
+      | unknown IP address | none | 192.0.2.1     |           |           |
     Then I should receive batch locations with HTTP:
       | lookup             | kind | country | continent | code |
       | German IP address  | ip   | DE      | EU        |      |
@@ -102,22 +104,22 @@ Feature: HTTP API
     When I lookup locations with HTTP:
       | lookup             | kind | ip        | latitude | longitude |
       | unknown IP address | none | 192.0.2.1 |          |           |
-      | invalid point      | none | 192.0.2.1 |       91 |        10 |
+      | invalid point      | none | 154.6     | 91       | 10        |
     Then I should receive batch diagnostics with HTTP:
       | lookup             | diagnostic             | code          |
       | unknown IP address | location-ip-error      | not_found     |
-      | invalid point      | location-ip-error      | not_found     |
+      | invalid point      | location-ip-error      | invalid_ip    |
       | invalid point      | location-lat-lng-error | invalid_point |
 
   Scenario: Lookup location metadata failure diagnostics in a batch with HTTP.
     When I lookup a location using metadata with HTTP:
       | lookup      | metadata lookup |
-      | ip          | 192.0.2.1    |
-      | geolocation | geo:test,180 |
+      | ip          | 192.0.2.1       |
+      | geolocation | geo:test,180    |
     Then I should receive batch diagnostics with HTTP:
-      | lookup           | diagnostic           | code            |
-      | metadata lookup  | location-ip-error    | not_found       |
-      | metadata lookup  | location-point-error | invalid_geo_uri |
+      | lookup          | diagnostic           | code            |
+      | metadata lookup | location-ip-error    | not_found       |
+      | metadata lookup | location-point-error | invalid_geo_uri |
 
   Scenario: Lookup too many locations with HTTP.
     When I lookup 101 locations with HTTP
@@ -143,12 +145,14 @@ Feature: HTTP API
 
     Examples: With parameters
       | method | kind | ip            | latitude  | longitude | country | continent |
-      | params | geo  |       0.0.0.0 | 52.377956 |  4.897070 | NL      | EU        |
-      | params | ip   | 95.91.246.242 |        91 |        10 | DE      | EU        |
+      | params | geo  | 0.0.0.0       | 52.377956 | 4.897070  | NL      | EU        |
+      | params | geo  | test          | 52.377956 | 4.897070  | NL      | EU        |
+      | params | ip   | 95.91.246.242 | 91        | 10        | DE      | EU        |
 
     Examples: With headers
-      | method  | kind | ip            | latitude | longitude | country | continent |
-      | headers | ip   | 95.91.246.242 | test     |       180 | DE      | EU        |
+      | method  | kind | ip            | latitude  | longitude | country | continent |
+      | headers | geo  | test          | 52.377956 | 4.897070  | NL      | EU        |
+      | headers | ip   | 95.91.246.242 | test      | 180       | DE      | EU        |
 
   Scenario Outline: Get location by a bad latitude and longitude.
     When I request a location with HTTP:
@@ -161,15 +165,15 @@ Feature: HTTP API
 
     Examples: With parameters
       | method | latitude | longitude | diagnostic             | code          |
-      | params |       91 |        10 | location-lat-lng-error | invalid_point |
-      | params |       10 |       181 | location-lat-lng-error | invalid_point |
+      | params | 91       | 10        | location-lat-lng-error | invalid_point |
+      | params | 10       | 181       | location-lat-lng-error | invalid_point |
 
     Examples: With headers
       | method  | latitude | longitude | diagnostic             | code            |
-      | headers |       91 |        10 | location-lat-lng-error | invalid_point   |
-      | headers |       10 |       181 | location-lat-lng-error | invalid_point   |
-      | headers | test     |       180 | location-point-error   | invalid_geo_uri |
-      | headers |       90 | test      | location-point-error   | invalid_geo_uri |
+      | headers | 91       | 10        | location-lat-lng-error | invalid_point   |
+      | headers | 10       | 181       | location-lat-lng-error | invalid_point   |
+      | headers | test     | 180       | location-point-error   | invalid_geo_uri |
+      | headers | 90       | test      | location-point-error   | invalid_geo_uri |
 
   Scenario Outline: Get location by a not found latitude and longitude.
     When I request a location with HTTP:
@@ -182,7 +186,7 @@ Feature: HTTP API
 
     Examples:
       | method  | latitude   | longitude | diagnostic             | code      |
-      | params  |         90 |       180 | location-lat-lng-error | not_found |
-      | headers |         90 |       180 | location-lat-lng-error | not_found |
+      | params  | 90         | 180       | location-lat-lng-error | not_found |
+      | headers | 90         | 180       | location-lat-lng-error | not_found |
       | params  | -49.303721 | 69.122136 | location-lat-lng-error | not_found |
       | headers | -49.303721 | 69.122136 | location-lat-lng-error | not_found |
