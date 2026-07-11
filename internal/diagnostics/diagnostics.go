@@ -18,6 +18,9 @@ type Code string
 // NotFound reports a lookup miss.
 const NotFound Code = "not_found"
 
+// InvalidIP reports an IP address that is not valid IPv4 or IPv6.
+const InvalidIP Code = "invalid_ip"
+
 // InvalidPoint reports latitude/longitude outside the supported coordinate range.
 const InvalidPoint Code = "invalid_point"
 

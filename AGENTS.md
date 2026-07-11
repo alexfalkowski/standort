@@ -24,6 +24,12 @@ This repository is a Go service called **standort** (location-based information)
   CircleCI workflow as a reliability gap unless there is concrete evidence that
   the infraops deployment path no longer controls the deployed state or can roll
   it back out of order.
+- v2 intentionally combines explicitly supplied lookup inputs with ambient
+  transport metadata for any omitted source. Its separate `ip` and `geo`
+  response fields identify those independent lookup results. Do not propose an
+  explicit-input-only switch or treat this metadata fallback as a feature,
+  reliability, or API-design gap unless evidence shows this contract has
+  changed.
 
 ## First steps
 
