@@ -34,7 +34,12 @@ When('I lookup locations with HTTP:') do |table|
     }
   )
 
-  lookups = table.hashes.map do |row|
+  @lookup_positions = {}
+  lookups = table.hashes.each_with_index.map do |row, lookup_position|
+    lookup_label = row.fetch('lookup')
+    raise "duplicate lookup label: #{lookup_label}" if @lookup_positions.key?(lookup_label)
+
+    @lookup_positions[lookup_label] = lookup_position
     params = {}
     params[:ip] = row['ip'] unless row['ip'].empty?
     params[:point] = [row['latitude'], row['longitude']] unless row['latitude'].empty? || row['longitude'].empty?
@@ -42,6 +47,21 @@ When('I lookup locations with HTTP:') do |table|
   end
 
   @response = Standort::V2.http.lookup_locations(lookups, opts)
+end
+
+When('I lookup a location using metadata with HTTP:') do |table|
+  @request_id = SecureRandom.uuid
+  rows = table.rows_hash
+  opts = Standort.http_options(
+    headers: {
+      request_id: @request_id, user_agent: 'Standort-ruby-client/2.0 HTTP/1.0',
+      content_type: 'application/pbjson', accept: 'application/pbjson',
+      'x-forwarded-for': rows['ip'], geolocation: rows['geolocation']
+    }
+  )
+
+  @lookup_positions = { rows.fetch('lookup') => 0 }
+  @response = Standort::V2.http.lookup_locations([{}], opts)
 end
 
 When('I lookup {int} locations with HTTP') do |count|
@@ -108,7 +128,7 @@ Then('I should receive batch locations with HTTP:') do |table|
   expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
 
   table.hashes.each do |row|
-    lookup = resp.fetch('lookups').fetch(row['index'].to_i)
+    lookup = resp.fetch('lookups').fetch(@lookup_positions.fetch(row['lookup']))
     location = case row['kind']
                when 'ip'
                  expect(lookup['status']).to be_nil
@@ -128,6 +148,30 @@ Then('I should receive batch locations with HTTP:') do |table|
 
     expect(location['country']).to eq(row['country'])
     expect(location['continent']).to eq(row['continent'])
+  end
+end
+
+Then('I should receive batch diagnostics with HTTP:') do |table|
+  expect(@response.code).to eq(200)
+
+  resp = JSON.parse(@response.body)
+
+  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+
+  table.hashes.group_by { |row| row['lookup'] }.each do |lookup_label, rows|
+    lookup = resp.fetch('lookups').fetch(@lookup_positions.fetch(lookup_label))
+    status = lookup.fetch('status')
+    detail = status.fetch('details').fetch(0)
+    expected_metadata = rows.to_h { |row| [row['diagnostic'], row['code']] }
+
+    expect(lookup['locations']).to be_nil
+    expect(status.fetch('code')).to eq(5)
+    expect(status.fetch('message')).to eq('not found')
+    expect(status.fetch('details').length).to eq(1)
+    expect(detail.fetch('@type')).to eq('type.googleapis.com/google.rpc.ErrorInfo')
+    expect(detail.fetch('reason')).to eq('LOCATION_LOOKUP_FAILED')
+    expect(detail.fetch('domain')).to eq('standort.v2')
+    expect(detail.fetch('metadata')).to eq(expected_metadata)
   end
 end
 

@@ -31,7 +31,12 @@ end
 When('I lookup locations with gRPC:') do |table|
   @request_id = SecureRandom.uuid
   metadata = { 'request-id' => @request_id }
-  lookups = table.hashes.map do |row|
+  @lookup_positions = {}
+  lookups = table.hashes.each_with_index.map do |row, lookup_position|
+    lookup_label = row.fetch('lookup')
+    raise "duplicate lookup label: #{lookup_label}" if @lookup_positions.key?(lookup_label)
+
+    @lookup_positions[lookup_label] = lookup_position
     params = {}
     params[:ip] = row['ip'] unless row['ip'].empty?
     if !row['latitude'].empty? && !row['longitude'].empty?
@@ -45,6 +50,22 @@ When('I lookup locations with gRPC:') do |table|
   end
 
   request = Standort::V2::LookupLocationsRequest.new(lookups:)
+  @response = Standort::V2.grpc.lookup_locations(request, Standort.grpc_options(metadata))
+rescue StandardError => e
+  @response = e
+end
+
+When('I lookup a location using metadata with gRPC:') do |table|
+  @request_id = SecureRandom.uuid
+  rows = table.rows_hash
+  metadata = {
+    'request-id' => @request_id,
+    'x-forwarded-for' => rows['ip'],
+    'geolocation' => rows['geolocation']
+  }
+  lookup = Standort::V2::LocationLookup.new
+  request = Standort::V2::LookupLocationsRequest.new(lookups: [lookup])
+  @lookup_positions = { rows.fetch('lookup') => 0 }
   @response = Standort::V2.grpc.lookup_locations(request, Standort.grpc_options(metadata))
 rescue StandardError => e
   @response = e
@@ -112,7 +133,7 @@ Then('I should receive batch locations with gRPC:') do |table|
   expect(@response.meta['requestId']).to eq(@request_id)
 
   table.hashes.each do |row|
-    lookup = @response.lookups.fetch(row['index'].to_i)
+    lookup = @response.lookups.fetch(@lookup_positions.fetch(row['lookup']))
     location = case row['kind']
                when 'ip'
                  expect(lookup.status).to be_nil
@@ -132,6 +153,27 @@ Then('I should receive batch locations with gRPC:') do |table|
 
     expect(location.country).to eq(row['country'])
     expect(location.continent).to eq(row['continent'])
+  end
+end
+
+Then('I should receive batch diagnostics with gRPC:') do |table|
+  expect(@response.meta['requestId']).to eq(@request_id)
+
+  table.hashes.group_by { |row| row['lookup'] }.each do |lookup_label, rows|
+    lookup = @response.lookups.fetch(@lookup_positions.fetch(lookup_label))
+    status = lookup.status
+    detail = status.details.fetch(0)
+    error_info = Google::Rpc::ErrorInfo.decode(detail.value)
+    expected_metadata = rows.to_h { |row| [row['diagnostic'], row['code']] }
+
+    expect(lookup.locations).to be_nil
+    expect(status.code).to eq(5)
+    expect(status.message).to eq('not found')
+    expect(status.details.length).to eq(1)
+    expect(detail.type_url).to eq('type.googleapis.com/google.rpc.ErrorInfo')
+    expect(error_info.reason).to eq('LOCATION_LOOKUP_FAILED')
+    expect(error_info.domain).to eq('standort.v2')
+    expect(error_info.metadata.to_h).to eq(expected_metadata)
   end
 end
 

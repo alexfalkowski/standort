@@ -1,6 +1,8 @@
 package location
 
 import (
+	"fmt"
+
 	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/errors"
 	"github.com/alexfalkowski/go-service/v2/meta"
@@ -8,10 +10,17 @@ import (
 	"github.com/alexfalkowski/go-service/v2/strings"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 	"github.com/alexfalkowski/standort/v2/internal/api/location"
+	"github.com/alexfalkowski/standort/v2/internal/diagnostics"
+	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
-const maxLookups = 100
+const (
+	maxLookups      = 100
+	errorInfoReason = "LOCATION_LOOKUP_FAILED"
+	errorInfoDomain = "standort.v2"
+)
 
 // ErrTooManyLookups is returned when a batch request contains more than 100
 // lookup entries.
@@ -63,12 +72,27 @@ func (l *Locator) Lookup(ctx context.Context, req *v2.LookupLocationsRequest) (*
 	for _, lookup := range lookups {
 		locations, err := l.locator.Locate(ctx, lookup.GetIp(), toPoint(lookup.GetPoint()))
 		if err != nil {
+			values := diagnostics.FromError(err)
+			entryStatus := &status.Status{
+				Code:    int32(codes.NotFound),
+				Message: location.ErrNotFound.Error(),
+			}
+			if len(values) > 0 {
+				detail, err := anypb.New(&errdetails.ErrorInfo{
+					Reason:   errorInfoReason,
+					Domain:   errorInfoDomain,
+					Metadata: values.Map(),
+				})
+				if err != nil {
+					return nil, fmt.Errorf("error info: %w", err)
+				}
+
+				entryStatus.Details = []*anypb.Any{detail}
+			}
+
 			resp.Lookups = append(resp.Lookups, &v2.LocationLookupResponse{
 				Outcome: &v2.LocationLookupResponse_Status{
-					Status: &status.Status{
-						Code:    int32(codes.NotFound),
-						Message: location.ErrNotFound.Error(),
-					},
+					Status: entryStatus,
 				},
 			})
 			continue

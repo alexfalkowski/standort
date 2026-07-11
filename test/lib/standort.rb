@@ -4,6 +4,8 @@ require 'securerandom'
 require 'yaml'
 require 'base64'
 
+require 'google/rpc/error_details_pb'
+
 require 'standort/v1/http'
 require 'standort/v1/service_pb'
 require 'standort/v1/service_services_pb'

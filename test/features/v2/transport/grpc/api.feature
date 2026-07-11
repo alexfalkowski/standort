@@ -88,15 +88,36 @@ Feature: gRPC API
 
   Scenario: Lookup locations in a batch with gRPC.
     When I lookup locations with gRPC:
-      | kind | ip            | latitude  | longitude |
-      | ip   | 95.91.246.242 |           |           |
-      | geo  |               | 52.377956 |  4.897070 |
-      | none | 192.0.2.1     |           |           |
+      | lookup              | kind | ip            | latitude  | longitude |
+      | German IP address   | ip   | 95.91.246.242 |           |           |
+      | Netherlands point   | geo  |               | 52.377956 |  4.897070 |
+      | unknown IP address  | none | 192.0.2.1     |           |           |
     Then I should receive batch locations with gRPC:
-      | index | kind | country | continent | code |
-      | 0     | ip   | DE      | EU        |      |
-      | 1     | geo  | NL      | EU        |      |
-      | 2     | none |         |           | 5    |
+      | lookup             | kind | country | continent | code |
+      | German IP address  | ip   | DE      | EU        |      |
+      | Netherlands point  | geo  | NL      | EU        |      |
+      | unknown IP address | none |         |           | 5    |
+
+  Scenario: Lookup location failure diagnostics in a batch with gRPC.
+    When I lookup locations with gRPC:
+      | lookup             | kind | ip        | latitude | longitude |
+      | unknown IP address | none | 192.0.2.1 |          |           |
+      | invalid point      | none | 192.0.2.1 |       91 |        10 |
+    Then I should receive batch diagnostics with gRPC:
+      | lookup             | diagnostic             | code          |
+      | unknown IP address | location-ip-error      | not_found     |
+      | invalid point      | location-ip-error      | not_found     |
+      | invalid point      | location-lat-lng-error | invalid_point |
+
+  Scenario: Lookup location metadata failure diagnostics in a batch with gRPC.
+    When I lookup a location using metadata with gRPC:
+      | lookup      | metadata lookup |
+      | ip          | 192.0.2.1    |
+      | geolocation | geo:test,180 |
+    Then I should receive batch diagnostics with gRPC:
+      | lookup           | diagnostic           | code            |
+      | metadata lookup  | location-ip-error    | not_found       |
+      | metadata lookup  | location-point-error | invalid_geo_uri |
 
   Scenario: Lookup too many locations with gRPC.
     When I lookup 101 locations with gRPC
