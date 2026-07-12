@@ -32,7 +32,14 @@ Lookups are performed using embedded assets:
 - `assets/earth.geojson`: lat/lng → country + continent name (GeoJSON polygons), indexed with an R-tree
 
 > [!CAUTION]
-> Location accuracy is only as current as the embedded datasets. Update the assets and rebuild the service when lookup freshness matters.
+> Freshness is only one accuracy limit. Standort provides coarse country/continent enrichment:
+>
+> - GeoLite Country results are estimates and must not be used to identify a specific household, individual, or street address.
+> - Natural Earth 1:110m polygons are generalized for schematic world maps and are not suitable for precise coastline, border, or disputed-boundary decisions.
+>
+> Update the assets and rebuild the service when lookup freshness matters. See [`assets/SOURCES.md`](assets/SOURCES.md) for dataset provenance and terms.
+
+The repository's MIT license covers repository-owned code. The embedded datasets retain their source terms and attribution requirements, recorded in [`assets/SOURCES.md`](assets/SOURCES.md).
 
 When replacing embedded lookup data, keep the filenames and formats unchanged:
 
@@ -46,6 +53,14 @@ To refresh both committed lookup assets:
 ```sh
 MAXMIND_ACCOUNT_ID=... MAXMIND_LICENSE_KEY=... make update-lookup-assets
 ```
+
+The refresh requires `curl`, `jq`, `shasum`, and `tar` in addition to common
+POSIX tools. `MAXMIND_URL` and `EARTH_GEOJSON_URL` may point to alternate
+locations of the same GeoLite2 Country and Natural Earth Admin-0 1:110m
+datasets; the generated provenance and terms assume those dataset identities.
+The size guards can be tuned with
+`LOOKUP_ASSET_MIN_SIZE_PERCENT` (default `80`, range `1`–`100`) and
+`LOOKUP_ASSET_MAX_SIZE_PERCENT` (default `400`, minimum `100`).
 
 The command checks the downloaded files before replacing `assets/geoip2.mmdb`
 and `assets/earth.geojson`: each replacement must be non-empty, match the
@@ -66,6 +81,9 @@ v1 has separate RPCs for IP-based lookup and lat/lng-based lookup.
 
 - `GetLocationByIP`
 - `GetLocationByLatLng`
+
+Both methods map invalid or unresolved lookups to gRPC `NotFound`; the HTTP
+mapping returns `404`.
 
 ### 2️⃣ v2
 
@@ -90,14 +108,21 @@ v2 response fields are independent:
 - both fields are populated when both inputs succeed.
 - on partial success, the successful field is returned without failed-side diagnostics.
 
-Terminal lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the same lookup miss as HTTP `404`. v2 transports may attach code-only diagnostics to the terminal error metadata, using `location-ip-error`, `location-lat-lng-error`, or `location-point-error`. A malformed IP uses `location-ip-error: invalid_ip`; a syntactically valid address that has no dataset match uses `location-ip-error: not_found`.
+Terminal lookup failures return gRPC `NotFound`; the HTTP RPC router exposes the same lookup miss as HTTP `404`. Code-only diagnostics are delivered in gRPC trailing metadata or HTTP response headers for terminal `GetLocation` failures, and in `google.rpc.ErrorInfo.metadata` for failed batch entries.
+
+| Diagnostic key | Meaning | Current codes |
+| --- | --- | --- |
+| `location-ip-error` | IP parsing or lookup failed | `invalid_ip`, `not_found` |
+| `location-lat-lng-error` | Point validation or lookup failed | `invalid_point`, `not_found` |
+| `location-point-error` | `Geolocation` metadata could not be parsed | `invalid_geo_uri` |
 
 `LookupLocations` accepts up to 100 lookup entries and preserves request order
 in the response. Each entry returns one outcome: successful entries populate
 `locations.ip`, `locations.geo`, or both, while entries that do not resolve any
-location populate a per-entry `google.rpc.Status` instead of failing the whole
-batch. Requests with more than 100 lookup entries fail the whole call with gRPC
-`InvalidArgument`; the HTTP RPC mapping returns `400`.
+location populate a per-entry `google.rpc.Status` with code `NOT_FOUND` (`5`)
+instead of failing the whole batch. Requests with more than 100 lookup entries
+fail the whole call with gRPC `InvalidArgument`; the HTTP RPC mapping returns
+`400`.
 
 For a classified batch failure, `status.details` contains one
 `google.rpc.ErrorInfo` with reason `LOCATION_LOOKUP_FAILED` and domain
@@ -188,7 +213,11 @@ health:
   timeout: 1s
 ```
 
-Both values must be positive durations. The rest of the file is the embedded go-service configuration, inlined at the top level, including transport addresses/timeouts, limiter settings, logger, metrics, tracer, and ID settings.
+`duration` is the interval between health check executions, while `timeout` is
+the maximum time allowed for one check. Both values must be positive durations.
+The rest of the file is the embedded go-service configuration, inlined at the
+top level, including transport addresses/timeouts, limiter settings, logger,
+metrics, tracer, and ID settings.
 
 ---
 
@@ -217,7 +246,9 @@ The gRPC health service registers these service names:
 
 ## 📡 API usage examples
 
-The service is gRPC-first; HTTP is wired by routing HTTP requests to the gRPC handlers through go-service RPC routing.
+The service is gRPC-first. Its HTTP transport uses go-service RPC routing to map
+generated gRPC full method names to transport-specific HTTP handlers; the HTTP
+and gRPC handlers share the same response-building locators.
 
 > [!TIP]
 > Use `-plaintext` with `grpcurl` for the local dev config unless you have configured TLS.

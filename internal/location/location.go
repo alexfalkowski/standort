@@ -56,7 +56,9 @@ type Location struct {
 //  3. Map the continent name to a two-letter continent code via `continent.Codes`.
 //
 // It returns `(countryCode, continentCode, error)`. On error, both returned
-// strings are empty.
+// strings are empty. An input that is not valid IPv4 or IPv6 returns
+// `ErrInvalidIP` before either provider is called; callers can classify that
+// condition with `errors.Is`.
 func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, error) {
 	if net.ParseIP(ip) == nil {
 		return strings.Empty, strings.Empty, ErrInvalidIP
@@ -81,8 +83,11 @@ func (l *Location) GetByIP(ctx context.Context, ip string) (string, string, erro
 // point-in-polygon). The returned continent name is mapped to a two-letter
 // continent code via `continent.Codes`.
 //
-// Errors from the provider are wrapped with the input coordinate for context.
-// On error, both returned strings are empty.
+// Non-finite values, latitudes outside [-90, 90], and longitudes outside
+// [-180, 180] return an error wrapping `ErrInvalidPoint` before the provider is
+// called. Provider errors are also wrapped with the input coordinate for
+// context. Callers can classify the validation error with `errors.Is`. On
+// error, both returned strings are empty.
 func (l *Location) GetByLatLng(ctx context.Context, lat, lng float64) (string, string, error) {
 	if !validPoint(lat, lng) {
 		return strings.Empty, strings.Empty, fmt.Errorf("%f/%f: %w", lat, lng, ErrInvalidPoint)
