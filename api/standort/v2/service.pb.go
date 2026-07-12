@@ -435,10 +435,11 @@ type LocationLookupResponse_Locations struct {
 }
 
 type LocationLookupResponse_Status struct {
-	// Status is populated when this lookup does not resolve any location. When
-	// a safe diagnostic is available, Details contains one google.rpc.ErrorInfo
-	// with reason LOCATION_LOOKUP_FAILED, domain standort.v2, and code-only
-	// diagnostic metadata.
+	// Status is populated when this lookup does not resolve any location, with
+	// the canonical google.rpc.Code NOT_FOUND (5). When a safe diagnostic is
+	// available, Details contains one google.rpc.ErrorInfo with reason
+	// LOCATION_LOOKUP_FAILED, domain standort.v2, and code-only diagnostic
+	// metadata.
 	Status *status.Status `protobuf:"bytes,2,opt,name=status,proto3,oneof"`
 }
 

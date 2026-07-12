@@ -17,10 +17,6 @@ import (
 var ErrNotFound = errors.New("not found")
 
 // Kind describes which input produced a `Location`.
-//
-// This is transport-facing (API) information and is primarily useful for
-// clients to understand whether a result came from IP-derived lookup or
-// geolocation-derived lookup.
 type Kind string
 
 // Location is a transport-facing representation of a resolved country and
