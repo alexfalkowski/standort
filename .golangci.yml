@@ -10,6 +10,7 @@ linters:
     - forcetypeassert
     - gochecknoglobals
     - goconst
+    - gomodguard
     - gomodguard_v2
     - ireturn
     - nlreturn
