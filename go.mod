@@ -9,7 +9,7 @@ require (
 	github.com/alexfalkowski/go-service/v2 v2.695.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.13.0
-	github.com/tidwall/rtree v1.10.0
+	github.com/tidwall/rtree v1.11.0
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260724162435-b2f20204f0df
 	google.golang.org/grpc v1.82.1
 	google.golang.org/protobuf v1.36.11
