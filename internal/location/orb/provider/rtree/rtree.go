@@ -23,7 +23,7 @@ var ErrNotFound = errors.New("not found")
 // Construction will terminate the process (via `runtime.Must`) if the GeoJSON
 // asset cannot be read or parsed.
 func NewProvider(fs embed.FS) *Provider {
-	tree := &rtree.Generic[*Node]{}
+	tree := &rtree.RTreeG[*Node]{}
 	populateTree(tree, fs)
 
 	return &Provider{tree: tree}
@@ -35,7 +35,7 @@ func NewProvider(fs embed.FS) *Provider {
 // with ISO-3166 alpha-2 country codes and continent names as provided by the dataset.
 // The asset update script filters the dataset to features the provider can index.
 type Provider struct {
-	tree *rtree.Generic[*Node]
+	tree *rtree.RTreeG[*Node]
 }
 
 // Search resolves a latitude/longitude coordinate to a country code and continent name.
@@ -78,7 +78,7 @@ func (p *Provider) Search(_ context.Context, lat, lng float64) (string, string, 
 //
 // The asset update script filters features to the provider's supported shape and
 // trims properties to `iso_a2` or `iso_a2_eh` plus `continent`.
-func populateTree(tree *rtree.Generic[*Node], fs embed.FS) {
+func populateTree(tree *rtree.RTreeG[*Node], fs embed.FS) {
 	data, err := fs.ReadFile("earth.geojson")
 	runtime.Must(err)
 
