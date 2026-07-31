@@ -178,7 +178,7 @@ make build
 
 ### 🖥️ Run locally (dev config)
 
-The repository includes a dev config at `test/.config/server.yml` with default addresses:
+The repository includes a dev config at `test/.config/server.yaml` with default addresses:
 
 - HTTP: `:11000`
 - gRPC: `:12000`
@@ -196,14 +196,14 @@ This runs `air` to rebuild and restart using the dev config.
 If you’ve built the binary (via `make build`), run:
 
 ```sh
-./standort server -config file:test/.config/server.yml
+./standort server -config file:test/.config/server.yaml
 ```
 
 ---
 
 ## 🔧 Configuration
 
-`standort server` reads a go-service configuration file from `-config` (or `-c`). The dev sample at `test/.config/server.yml` is the authoritative local example.
+`standort server` reads a go-service configuration file from `-config` (or `-c`). The dev sample at `test/.config/server.yaml` is the authoritative local example.
 
 Standort-owned configuration currently adds the required `health` section:
 
@@ -462,7 +462,7 @@ make features
 
 The Ruby harness is configured by `test/nonnative.yml` and writes logs, coverage, and report artifacts under `test/reports/`.
 
-The harness starts and stops `../standort server` itself with `-config file:.config/server.yml` relative to `test/`, so leave ports `11000` and `12000` free before running it. To rerun a focused slice, pass paths relative to `test/`:
+The harness starts and stops `../standort server` itself with `-config file:.config/server.yaml` relative to `test/`, so leave ports `11000` and `12000` free before running it. To rerun a focused slice, pass paths relative to `test/`:
 
 ```sh
 make features feature=features/v2/transport/grpc/api.feature tags=@grpc

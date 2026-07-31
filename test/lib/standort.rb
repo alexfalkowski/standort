@@ -27,7 +27,7 @@ require 'standort/v2/service_services_pb'
 # - HTTP: `http://localhost:11000`
 # - gRPC: `localhost:12000`
 #
-# These values match the dev config in `test/.config/server.yml`.
+# These values match the dev config in `test/.config/server.yaml`.
 #
 # @example Load configuration used by the harness
 #   Standort.config
@@ -45,12 +45,12 @@ module Standort
     # Loads and memoizes server configuration used by the Ruby harness.
     #
     # The underlying configuration loader is provided by `Nonnative` and reads
-    # the YAML config file at `.config/server.yml` *relative to the `test/` directory*.
+    # the YAML config file at `.config/server.yaml` *relative to the `test/` directory*.
     #
     # @return [Object] The configuration object returned by `Nonnative::ConfigurationFile.load`.
     #
     def config
-      @config ||= Nonnative::ConfigurationFile.load('.config/server.yml')
+      @config ||= Nonnative::ConfigurationFile.load('.config/server.yaml')
     end
 
     ##
