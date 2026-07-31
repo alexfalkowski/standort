@@ -85,7 +85,7 @@ make dev
 Observed from `bin/build/make/grpc.mak:216-218`:
 - Runs the shared live-reload workflow with the repo dev/test config.
 
-The dev config file `test/.config/server.yml` configures addresses:
+The dev config file `test/.config/server.yaml` configures addresses:
 - HTTP: `tcp://:11000`
 - gRPC: `tcp://:12000`
 
@@ -193,7 +193,7 @@ make trivy-image platform=amd64
   - `internal/api/location/`: transport-facing location logic (parses request metadata like Geolocation).
 - `assets/`: embedded data files (GeoJSON + GeoIP DB) via `embed.FS` (`assets/assets.go:7-13`).
 - `api/`: protobuf definitions + buf config.
-- `test/`: Ruby feature/benchmark harness and runtime config (`test/.config/server.yml`).
+- `test/`: Ruby feature/benchmark harness and runtime config (`test/.config/server.yaml`).
 - `vendor/`: vendored Go dependencies (used by many `make` recipes).
 ## Code patterns & conventions (observed)
 
