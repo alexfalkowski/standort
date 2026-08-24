@@ -17,18 +17,19 @@ import (
 // The HTTP server and route shapes are provided by `rpc.Route`; this function
 // only wires the routes to the v1 server.
 func Register(server *Server) {
-	rpc.Route(v1.Service_GetLocationByIP_FullMethodName, server.GetLocationByIP)
-	rpc.Route(v1.Service_GetLocationByLatLng_FullMethodName, server.GetLocationByLatLng)
+	server.Route(v1.Service_GetLocationByIP_FullMethodName, server.GetLocationByIP)
+	server.Route(v1.Service_GetLocationByLatLng_FullMethodName, server.GetLocationByLatLng)
 }
 
 // NewServer constructs a v1 HTTP `Server`.
 //
 // The returned server delegates response construction to the provided v1 locator.
-func NewServer(locator *location.Locator) *Server {
-	return &Server{locator: locator}
+func NewServer(server *rpc.Server, locator *location.Locator) *Server {
+	return &Server{locator: locator, Server: server}
 }
 
 // Server implements the v1 HTTP transport handlers.
 type Server struct {
 	locator *location.Locator
+	*rpc.Server
 }

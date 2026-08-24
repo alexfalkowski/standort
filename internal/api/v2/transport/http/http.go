@@ -2,7 +2,7 @@ package http
 
 import (
 	"github.com/alexfalkowski/go-service/v2/context"
-	httpmeta "github.com/alexfalkowski/go-service/v2/net/http/meta"
+	"github.com/alexfalkowski/go-service/v2/net/http/meta"
 	"github.com/alexfalkowski/go-service/v2/net/http/rpc"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 	"github.com/alexfalkowski/standort/v2/internal/api/v2/assets"
@@ -22,26 +22,27 @@ import (
 // The HTTP server and route shapes are provided by `rpc.Route`; this function only
 // wires the route to the v2 server.
 func Register(server *Server) {
-	rpc.Route(v2.Service_GetLocation_FullMethodName, server.GetLocation)
-	rpc.Route(v2.Service_LookupLocations_FullMethodName, server.LookupLocations)
-	rpc.Route(v2.Service_GetLookupAssets_FullMethodName, server.GetLookupAssets)
+	server.Route(v2.Service_GetLocation_FullMethodName, server.GetLocation)
+	server.Route(v2.Service_LookupLocations_FullMethodName, server.LookupLocations)
+	server.Route(v2.Service_GetLookupAssets_FullMethodName, server.GetLookupAssets)
 }
 
 // NewServer constructs a v2 HTTP `Server`.
 //
 // The returned server delegates response construction to the provided v2 locator.
-func NewServer(locator *location.Locator, assets *assets.Repository) *Server {
-	return &Server{locator: locator, assets: assets}
+func NewServer(server *rpc.Server, locator *location.Locator, assets *assets.Repository) *Server {
+	return &Server{locator: locator, assets: assets, Server: server}
 }
 
 // Server implements the v2 HTTP transport handlers.
 type Server struct {
 	locator *location.Locator
 	assets  *assets.Repository
+	*rpc.Server
 }
 
 func setFailureHeaders(ctx context.Context, values diagnostics.Values) {
-	headers := httpmeta.Response(ctx).Header()
+	headers := meta.Response(ctx).Header()
 	for key, value := range values {
 		headers.Set(key, value)
 	}
