@@ -93,7 +93,7 @@ rescue StandardError => e
 end
 
 Then('I should receive a valid locations with gRPC:') do |table|
-  expect(@response.meta['requestId']).to eq(@request_id)
+  expect(@response.meta['request_id']).to eq(@request_id)
 
   rows = table.rows_hash
   location = case rows['kind']
@@ -112,7 +112,7 @@ Then('I should receive a valid locations with gRPC:') do |table|
 end
 
 Then('I should receive valid locations with gRPC:') do |table|
-  expect(@response.meta['requestId']).to eq(@request_id)
+  expect(@response.meta['request_id']).to eq(@request_id)
 
   table.hashes.each do |row|
     location = case row['kind']
@@ -130,7 +130,7 @@ Then('I should receive valid locations with gRPC:') do |table|
 end
 
 Then('I should receive batch locations with gRPC:') do |table|
-  expect(@response.meta['requestId']).to eq(@request_id)
+  expect(@response.meta['request_id']).to eq(@request_id)
 
   table.hashes.each do |row|
     lookup = @response.lookups.fetch(@lookup_positions.fetch(row['lookup']))
@@ -157,7 +157,7 @@ Then('I should receive batch locations with gRPC:') do |table|
 end
 
 Then('I should receive batch diagnostics with gRPC:') do |table|
-  expect(@response.meta['requestId']).to eq(@request_id)
+  expect(@response.meta['request_id']).to eq(@request_id)
 
   table.hashes.group_by { |row| row['lookup'] }.each do |lookup_label, rows|
     lookup = @response.lookups.fetch(@lookup_positions.fetch(lookup_label))
@@ -182,7 +182,7 @@ Then('I should receive an invalid argument response with gRPC') do
 end
 
 Then('I should receive lookup assets with gRPC:') do |table|
-  expect(@response.meta['requestId']).to eq(@request_id)
+  expect(@response.meta['request_id']).to eq(@request_id)
 
   table.hashes.each do |row|
     asset = @response.assets.find { |lookup_asset| lookup_asset.name == row['name'] }
@@ -203,7 +203,7 @@ Then('I should receive a not found response with gRPC:') do |table|
 end
 
 Then('I should receive a partial location with gRPC:') do |table|
-  expect(@response.meta['requestId']).to eq(@request_id)
+  expect(@response.meta['request_id']).to eq(@request_id)
 
   rows = table.rows_hash
   location = case rows['kind']

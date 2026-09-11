@@ -12,7 +12,7 @@ import (
 // The handler delegates response construction to the v1 locator.
 //
 // Response semantics:
-//   - `resp.Meta` is populated from request metadata via `meta.CamelStrings(ctx, strings.Empty)`.
+//   - `resp.Meta` is populated from request metadata via `meta.Strings(ctx)`.
 //   - `resp.Location` contains the resolved country/continent codes when the lookup succeeds.
 //   - If the underlying lookup returns an error, no response body is returned and
 //     the error is mapped to a gRPC `codes.NotFound` status.
@@ -30,7 +30,7 @@ func (s *Server) GetLocationByIP(ctx context.Context, req *v1.GetLocationByIPReq
 // The handler delegates response construction to the v1 locator.
 //
 // Response semantics:
-//   - `resp.Meta` is populated from request metadata via `meta.CamelStrings(ctx, strings.Empty)`.
+//   - `resp.Meta` is populated from request metadata via `meta.Strings(ctx)`.
 //   - `resp.Location` contains the resolved country/continent codes when the lookup succeeds.
 //   - If the underlying lookup returns an error, no response body is returned and
 //     the error is mapped to a gRPC `codes.NotFound` status.

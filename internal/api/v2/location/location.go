@@ -7,7 +7,6 @@ import (
 	"github.com/alexfalkowski/go-service/v2/errors"
 	"github.com/alexfalkowski/go-service/v2/meta"
 	"github.com/alexfalkowski/go-service/v2/net/grpc/codes"
-	"github.com/alexfalkowski/go-service/v2/strings"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 	"github.com/alexfalkowski/standort/v2/internal/api/location"
 	"github.com/alexfalkowski/standort/v2/internal/diagnostics"
@@ -44,7 +43,7 @@ func (l *Locator) Locate(ctx context.Context, req *v2.GetLocationRequest) (*v2.G
 	}
 
 	return &v2.GetLocationResponse{
-		Meta: meta.CamelStrings(ctx, strings.Empty),
+		Meta: meta.Strings(ctx),
 		Ip:   toLocation(locations.IP),
 		Geo:  toLocation(locations.GEO),
 	}, nil
@@ -65,7 +64,7 @@ func (l *Locator) Lookup(ctx context.Context, req *v2.LookupLocationsRequest) (*
 	}
 
 	resp := &v2.LookupLocationsResponse{
-		Meta:    meta.CamelStrings(ctx, strings.Empty),
+		Meta:    meta.Strings(ctx),
 		Lookups: make([]*v2.LocationLookupResponse, 0, len(lookups)),
 	}
 

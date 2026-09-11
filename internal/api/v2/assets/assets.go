@@ -3,7 +3,6 @@ package assets
 import (
 	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/meta"
-	"github.com/alexfalkowski/go-service/v2/strings"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 	"github.com/alexfalkowski/standort/v2/internal/assets"
 )
@@ -31,7 +30,7 @@ func (r *Repository) Get(ctx context.Context) *v2.GetLookupAssetsResponse {
 	}
 
 	return &v2.GetLookupAssetsResponse{
-		Meta:   meta.CamelStrings(ctx, strings.Empty),
+		Meta:   meta.Strings(ctx),
 		Assets: files,
 	}
 }

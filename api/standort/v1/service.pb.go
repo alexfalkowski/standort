@@ -125,7 +125,7 @@ func (x *GetLocationByIPRequest) GetIp() string {
 // GetLocationByIPResponse for an IP address.
 type GetLocationByIPResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Meta contains request metadata returned to the caller, such as requestId.
+	// Meta contains request metadata returned to the caller, such as request_id.
 	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// Location resolved from the IP address.
 	Location      *Location `protobuf:"bytes,2,opt,name=location,proto3" json:"location,omitempty"`
@@ -235,7 +235,7 @@ func (x *GetLocationByLatLngRequest) GetLng() float64 {
 // GetLocationByLatLngResponse for a latitude and longitude.
 type GetLocationByLatLngResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Meta contains request metadata returned to the caller, such as requestId.
+	// Meta contains request metadata returned to the caller, such as request_id.
 	Meta map[string]string `protobuf:"bytes,2,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// Location resolved from the latitude/longitude point.
 	Location      *Location `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`

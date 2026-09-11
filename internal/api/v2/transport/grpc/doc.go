@@ -29,9 +29,8 @@
 //
 // # Response metadata
 //
-// Handlers populate `resp.Meta` from request metadata using
-// `meta.CamelStrings(ctx, strings.Empty)`. This propagates transport metadata to
-// clients in a stable, camel-cased key format. Single lookup diagnostics are not
-// written into response bodies; terminal lookup failures attach code-only
-// diagnostics as gRPC trailers.
+// Response locators populate `resp.Meta` from request metadata using
+// `meta.Strings(ctx)`, preserving the stored metadata keys. Single lookup
+// diagnostics are not written into response bodies; terminal lookup failures
+// attach code-only diagnostics as gRPC trailers.
 package grpc

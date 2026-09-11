@@ -16,7 +16,7 @@ When('I request a location with HTTP which performs in {int} ms') do |time|
   body = JSON.parse(response.body)
 
   expect(response.code).to eq(200)
-  expect(body.fetch('meta').fetch('requestId')).to eq(@request_id)
+  expect(body.fetch('meta').fetch('request_id')).to eq(@request_id)
   expect(body.fetch('ip').fetch('country')).to eq('DE')
   expect(body.fetch('ip').fetch('continent')).to eq('EU')
   expect(body['geo']).to be_nil

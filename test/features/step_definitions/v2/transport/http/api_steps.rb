@@ -93,7 +93,7 @@ Then('I should receive a valid locations with HTTP:') do |table|
 
   resp = JSON.parse(@response.body)
 
-  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+  expect(resp.fetch('meta').fetch('request_id')).to eq(@request_id)
 
   rows = table.rows_hash
   other = rows['kind'] == 'ip' ? 'geo' : 'ip'
@@ -110,7 +110,7 @@ Then('I should receive valid locations with HTTP:') do |table|
 
   resp = JSON.parse(@response.body)
 
-  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+  expect(resp.fetch('meta').fetch('request_id')).to eq(@request_id)
 
   table.hashes.each do |row|
     location = resp.fetch(row['kind'])
@@ -125,7 +125,7 @@ Then('I should receive batch locations with HTTP:') do |table|
 
   resp = JSON.parse(@response.body)
 
-  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+  expect(resp.fetch('meta').fetch('request_id')).to eq(@request_id)
 
   table.hashes.each do |row|
     lookup = resp.fetch('lookups').fetch(@lookup_positions.fetch(row['lookup']))
@@ -156,7 +156,7 @@ Then('I should receive batch diagnostics with HTTP:') do |table|
 
   resp = JSON.parse(@response.body)
 
-  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+  expect(resp.fetch('meta').fetch('request_id')).to eq(@request_id)
 
   table.hashes.group_by { |row| row['lookup'] }.each do |lookup_label, rows|
     lookup = resp.fetch('lookups').fetch(@lookup_positions.fetch(lookup_label))
@@ -184,7 +184,7 @@ Then('I should receive lookup assets with HTTP:') do |table|
 
   resp = JSON.parse(@response.body)
 
-  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+  expect(resp.fetch('meta').fetch('request_id')).to eq(@request_id)
 
   table.hashes.each do |row|
     asset = resp.fetch('assets').find { |lookup_asset| lookup_asset.fetch('name') == row['name'] }
@@ -213,7 +213,7 @@ Then('I should receive a partial location with HTTP:') do |table|
   location = resp.fetch(rows['kind'])
 
   expect(resp[other]).to be_nil
-  expect(resp.fetch('meta').fetch('requestId')).to eq(@request_id)
+  expect(resp.fetch('meta').fetch('request_id')).to eq(@request_id)
   expect(location['country']).to eq(rows['country'])
   expect(location['continent']).to eq(rows['continent'])
 end
