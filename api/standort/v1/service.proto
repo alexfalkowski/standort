@@ -22,7 +22,7 @@ message GetLocationByIPRequest {
 
 // GetLocationByIPResponse for an IP address.
 message GetLocationByIPResponse {
-  // Meta contains request metadata returned to the caller, such as requestId.
+  // Meta contains request metadata returned to the caller, such as request_id.
   map<string, string> meta = 1;
 
   // Location resolved from the IP address.
@@ -40,7 +40,7 @@ message GetLocationByLatLngRequest {
 
 // GetLocationByLatLngResponse for a latitude and longitude.
 message GetLocationByLatLngResponse {
-  // Meta contains request metadata returned to the caller, such as requestId.
+  // Meta contains request metadata returned to the caller, such as request_id.
   map<string, string> meta = 2;
 
   // Location resolved from the latitude/longitude point.

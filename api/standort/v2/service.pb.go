@@ -190,7 +190,7 @@ func (x *GetLocationRequest) GetPoint() *Point {
 // GetLocationResponse for getting the location.
 type GetLocationResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Meta contains request metadata returned to the caller, such as requestId.
+	// Meta contains request metadata returned to the caller, such as request_id.
 	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// IP is populated when the IP lookup succeeds.
 	Ip *Location `protobuf:"bytes,2,opt,name=ip,proto3" json:"ip,omitempty"`
@@ -450,7 +450,7 @@ func (*LocationLookupResponse_Status) isLocationLookupResponse_Outcome() {}
 // LookupLocationsResponse for batch location lookup.
 type LookupLocationsResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Meta contains request metadata returned to the caller, such as requestId.
+	// Meta contains request metadata returned to the caller, such as request_id.
 	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// Lookups contains one response for each request lookup, preserving order.
 	Lookups       []*LocationLookupResponse `protobuf:"bytes,2,rep,name=lookups,proto3" json:"lookups,omitempty"`
@@ -615,7 +615,7 @@ func (x *LookupAsset) GetChecksum() string {
 // GetLookupAssetsResponse for embedded lookup asset metadata.
 type GetLookupAssetsResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Meta contains request metadata returned to the caller, such as requestId.
+	// Meta contains request metadata returned to the caller, such as request_id.
 	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// Assets contains metadata for the embedded lookup assets.
 	Assets        []*LookupAsset `protobuf:"bytes,2,rep,name=assets,proto3" json:"assets,omitempty"`

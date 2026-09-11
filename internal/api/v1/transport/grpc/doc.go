@@ -24,7 +24,6 @@
 //
 // # Response metadata
 //
-// Handlers populate `resp.Meta` from request metadata using
-// `meta.CamelStrings(ctx, strings.Empty)`. This propagates transport metadata to
-// clients in a stable, camel-cased key format.
+// Response locators populate `resp.Meta` from request metadata using
+// `meta.Strings(ctx)`, preserving the stored metadata keys.
 package grpc

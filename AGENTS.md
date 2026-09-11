@@ -225,9 +225,10 @@ make trivy-image platform=amd64
   (for example, `location-ip-error`, `location-lat-lng-error`, or
   `location-point-error`) and only returns `ErrNotFound` if **both** IP and
   GEO lookups are missing.
-- Responses include request metadata via `meta.CamelStrings(ctx, "")` in the gRPC handlers:
-  - v1: `internal/api/v1/transport/grpc/location.go:10-30`
-  - v2: `internal/api/v2/transport/grpc/location.go:11-21`
+- Responses include request metadata via `meta.Strings(ctx)` in the response locators:
+  - v1: `internal/api/v1/location/location.go:25-44`
+  - v2 locations: `internal/api/v2/location/location.go:43-70`
+  - v2 lookup assets: `internal/api/v2/assets/assets.go:30-36`
 
 ### Location lookup implementation
 

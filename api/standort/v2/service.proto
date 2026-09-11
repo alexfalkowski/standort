@@ -36,7 +36,7 @@ message GetLocationRequest {
 
 // GetLocationResponse for getting the location.
 message GetLocationResponse {
-  // Meta contains request metadata returned to the caller, such as requestId.
+  // Meta contains request metadata returned to the caller, such as request_id.
   map<string, string> meta = 1;
 
   // IP is populated when the IP lookup succeeds.
@@ -92,7 +92,7 @@ message LocationLookupResponse {
 
 // LookupLocationsResponse for batch location lookup.
 message LookupLocationsResponse {
-  // Meta contains request metadata returned to the caller, such as requestId.
+  // Meta contains request metadata returned to the caller, such as request_id.
   map<string, string> meta = 1;
 
   // Lookups contains one response for each request lookup, preserving order.
@@ -119,7 +119,7 @@ message LookupAsset {
 
 // GetLookupAssetsResponse for embedded lookup asset metadata.
 message GetLookupAssetsResponse {
-  // Meta contains request metadata returned to the caller, such as requestId.
+  // Meta contains request metadata returned to the caller, such as request_id.
   map<string, string> meta = 1;
 
   // Assets contains metadata for the embedded lookup assets.

@@ -3,7 +3,6 @@ package location
 import (
 	"github.com/alexfalkowski/go-service/v2/context"
 	"github.com/alexfalkowski/go-service/v2/meta"
-	"github.com/alexfalkowski/go-service/v2/strings"
 	v1 "github.com/alexfalkowski/standort/v2/api/standort/v1"
 	"github.com/alexfalkowski/standort/v2/internal/location"
 )
@@ -26,7 +25,7 @@ func (l *Locator) LocateByIP(ctx context.Context, req *v1.GetLocationByIPRequest
 	}
 
 	return &v1.GetLocationByIPResponse{
-		Meta:     meta.CamelStrings(ctx, strings.Empty),
+		Meta:     meta.Strings(ctx),
 		Location: toLocation(country, continent),
 	}, nil
 }
@@ -39,7 +38,7 @@ func (l *Locator) LocateByLatLng(ctx context.Context, req *v1.GetLocationByLatLn
 	}
 
 	return &v1.GetLocationByLatLngResponse{
-		Meta:     meta.CamelStrings(ctx, strings.Empty),
+		Meta:     meta.Strings(ctx),
 		Location: toLocation(country, continent),
 	}, nil
 }
