@@ -98,6 +98,19 @@ jobs:
     working_directory: ~/standort
     steps:
       - checkout-submodules
+      - run: version
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - .
+    resource_class: arm.large
+  package:
+    executor: release
+    working_directory: ~/standort
+    steps:
+      - checkout-submodules
+      - attach_workspace:
+          at: /tmp/workspace
       - run: make source-key
       - restore_cache:
           name: restore go cache
@@ -109,11 +122,6 @@ jobs:
           keys:
             - standort-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
             - standort-go-build-cache-
-      - run: version
-      - persist_to_workspace:
-          root: /tmp/workspace
-          paths:
-            - .
       - run: package
     resource_class: arm.large
   wait-all:
@@ -219,6 +227,14 @@ workflows:
           filters:
             branches:
               only: master
+      - package:
+          context: gh
+          serial-group: << pipeline.project.slug >>/package
+          requires:
+            - version
+          filters:
+            branches:
+              only: master
       - release-docker-amd64:
           context: docker
           requires:
@@ -256,6 +272,7 @@ workflows:
             - test-docker-amd64
             - test-docker-arm64
             - version
+            - package
             - release-docker-amd64
             - release-docker-arm64
             - manifest-docker
