@@ -6,7 +6,7 @@ This file records the terms for third-party data embedded by Standort. The
 repository's MIT license applies to repository-owned code and does not replace
 these dataset terms.
 
-Updated: 2026-07-02T11:41:01Z
+Updated: 2026-11-04T07:35:22Z
 
 ## geoip2.mmdb
 
@@ -15,8 +15,8 @@ Updated: 2026-07-02T11:41:01Z
 - Terms: [GeoLite End User License Agreement](https://www.maxmind.com/en/geolite/eula), unless a separate commercial or custom agreement applies
 - Attribution: This product includes GeoLite Data created by MaxMind, available from https://www.maxmind.com.
 - Maintenance: The standard EULA includes database update and old-version retirement obligations; review the current terms when refreshing or redistributing the data.
-- SHA-256: 940fc6676c0538d0780d54ffbb4d96db334232906704bdfb544d5228923fd74b
-- Size: 8887093 bytes
+- SHA-256: 2c366a33fbdb4b41f162e22f72b0b9b416b13d55740b086be12c136b4cfc8f25
+- Size: 3389216 bytes
 
 ## earth.geojson
 

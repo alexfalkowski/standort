@@ -59,7 +59,7 @@ POSIX tools. `MAXMIND_URL` and `EARTH_GEOJSON_URL` may point to alternate
 locations of the same GeoLite2 Country and Natural Earth Admin-0 1:110m
 datasets; the generated provenance and terms assume those dataset identities.
 The size guards can be tuned with
-`LOOKUP_ASSET_MIN_SIZE_PERCENT` (default `80`, range `1`–`100`) and
+`LOOKUP_ASSET_MIN_SIZE_PERCENT` (default `35`, range `1`–`100`) and
 `LOOKUP_ASSET_MAX_SIZE_PERCENT` (default `400`, minimum `100`).
 
 The command checks the downloaded files before replacing `assets/geoip2.mmdb`
