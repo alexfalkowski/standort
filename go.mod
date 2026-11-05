@@ -8,7 +8,7 @@ require (
 	github.com/alexfalkowski/go-health/v2 v2.41.0
 	github.com/alexfalkowski/go-service/v2 v2.813.0
 	github.com/pariz/gountries v0.1.6
-	github.com/paulmach/orb v0.13.0
+	github.com/paulmach/orb v0.14.0
 	github.com/tidwall/rtree v1.11.1
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20261026165753-2ffab32bce7e
 	google.golang.org/grpc v1.85.0
