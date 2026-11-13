@@ -181,7 +181,7 @@ make trivy-image platform=amd64
 
 - `main.go`: CLI entrypoint; registers the `server` command via `go-service` CLI (`main.go:9-15`, `internal/cmd/server.go:8-13`).
 - `internal/cmd/`: DI wiring; composes modules into the server (`internal/cmd/module.go:15-23`).
-- `internal/config/`: service config composition; `Config` embeds `go-service/v2/config.Config` (`internal/config/config.go:8-12`).
+- `internal/config/`: service config composition; `Config` embeds `go-service/v3/config.Config` (`internal/config/config.go:8-12`).
 - `internal/health/`: health registrations/observers (`internal/health/health.go:14-44`).
 - `internal/location/`: location domain logic:
   - IP → country code provider (`internal/location/ip/...`).
@@ -189,7 +189,7 @@ make trivy-image platform=amd64
   - Lat/lng point-in-polygon provider based on an R-tree (`internal/location/orb/provider/rtree/...`).
 - `internal/api/`:
   - `v1/` and `v2/` modules and transports.
-  - HTTP transport maps gRPC methods to HTTP routes via `go-service/v2/net/http/rpc`.
+  - HTTP transport maps gRPC methods to HTTP routes via `go-service/v3/net/http/rpc`.
   - `internal/api/location/`: transport-facing location logic (parses request metadata like Geolocation).
 - `assets/`: embedded data files (GeoJSON + GeoIP DB) via `embed.FS` (`assets/assets.go:7-13`).
 - `api/`: protobuf definitions + buf config.
@@ -199,8 +199,8 @@ make trivy-image platform=amd64
 
 ### Dependency injection
 
-- Modules are composed via `di.Module(...)` (`internal/*/module.go`, `assets/module.go`).
-- Constructors are registered using `di.Constructor(...)` (e.g., `assets.NewFS`, `location.New`, `api/location.NewLocator`).
+- Modules are composed via `signal.Module(...)` from `go-signal/v2` (`internal/*/module.go`, `assets/module.go`).
+- Constructors are registered using `signal.Constructor(...)` (e.g., `assets.NewFS`, `location.New`, `api/location.NewLocator`).
 
 ### Transports
 

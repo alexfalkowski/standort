@@ -3,20 +3,20 @@ package ip
 import (
 	"embed"
 
-	"github.com/alexfalkowski/go-service/v2/di"
+	"github.com/alexfalkowski/go-signal/v2"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider/geoip2"
 )
 
 // ProviderParams are dependency-injection inputs for constructing an IP lookup provider.
 type ProviderParams struct {
-	di.In
+	signal.In
 
 	// Lifecycle is provided by the DI framework and can be used to hook provider
 	// startup/shutdown. It is currently unused by the default provider implementation,
 	// but is kept here to allow providers to manage resources (files, network clients, etc.)
 	// if needed.
-	Lifecycle di.Lifecycle
+	Lifecycle signal.Lifecycle
 
 	// FS is the embedded filesystem containing runtime assets.
 	//

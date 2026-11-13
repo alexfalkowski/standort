@@ -1,7 +1,7 @@
 package location
 
 import (
-	"github.com/alexfalkowski/go-service/v2/di"
+	"github.com/alexfalkowski/go-signal/v2"
 	"github.com/alexfalkowski/standort/v2/internal/api/location"
 )
 
@@ -9,7 +9,7 @@ import (
 //
 // It composes the lower-level transport-facing location module and registers the
 // v2 `Locator`, which builds generated v2 responses from lookup results.
-var Module = di.Module(
+var Module = signal.Module(
 	location.Module,
-	di.Constructor(NewLocator),
+	signal.Constructor(NewLocator),
 )

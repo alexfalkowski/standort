@@ -1,7 +1,7 @@
 package grpc
 
 import (
-	"github.com/alexfalkowski/go-service/v2/context"
+	"github.com/alexfalkowski/go-service/v3/context"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 )
 

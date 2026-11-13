@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/alexfalkowski/go-service/v2/di"
-	"github.com/alexfalkowski/go-service/v2/module"
+	"github.com/alexfalkowski/go-service/v3/module"
+	"github.com/alexfalkowski/go-signal/v2"
 	"github.com/alexfalkowski/standort/v2/assets"
 	v1 "github.com/alexfalkowski/standort/v2/internal/api/v1"
 	v2 "github.com/alexfalkowski/standort/v2/internal/api/v2"
@@ -20,7 +20,7 @@ import (
 //   - `location.Module`: domain location resolution (IP and point-in-polygon)
 //   - `v1.Module`: API v1 transports (gRPC + HTTP route registration)
 //   - `v2.Module`: API v2 transports (gRPC + HTTP route registration)
-var Module = di.Module(
+var Module = signal.Module(
 	module.Server,
 	config.Module,
 	health.Module,

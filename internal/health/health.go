@@ -3,9 +3,9 @@ package health
 import (
 	"github.com/alexfalkowski/go-health/v2/checker"
 	"github.com/alexfalkowski/go-health/v2/server"
-	"github.com/alexfalkowski/go-service/v2/env"
-	"github.com/alexfalkowski/go-service/v2/errors"
-	"github.com/alexfalkowski/go-service/v2/health"
+	"github.com/alexfalkowski/go-service/v3/env"
+	"github.com/alexfalkowski/go-service/v3/errors"
+	"github.com/alexfalkowski/go-service/v3/health"
 	v1 "github.com/alexfalkowski/standort/v2/api/standort/v1"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 )

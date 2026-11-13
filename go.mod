@@ -5,8 +5,9 @@ go 1.27.0
 require (
 	git.jlel.se/jlelse/go-geouri v0.0.0-20210525190615-a9c1d50f42d6
 	github.com/IncSW/geoip2 v0.1.4
-	github.com/alexfalkowski/go-health/v2 v2.42.0
-	github.com/alexfalkowski/go-service/v2 v2.819.0
+	github.com/alexfalkowski/go-health/v2 v2.43.0
+	github.com/alexfalkowski/go-service/v3 v3.0.0
+	github.com/alexfalkowski/go-signal/v2 v2.0.0
 	github.com/pariz/gountries v0.1.6
 	github.com/paulmach/orb v0.14.0
 	github.com/tidwall/rtree v1.11.1
@@ -24,7 +25,7 @@ require (
 	github.com/KimMachineGun/automemlimit v1.0.1 // indirect
 	github.com/XSAM/otelsql v0.44.0 // indirect
 	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1 // indirect
-	github.com/alexfalkowski/go-sync v1.37.0 // indirect
+	github.com/alexfalkowski/go-sync v1.39.0 // indirect
 	github.com/arl/statsviz v0.8.2 // indirect
 	github.com/avfs/avfs v0.35.0 // indirect
 	github.com/beevik/ntp v1.6.0 // indirect
@@ -130,7 +131,6 @@ require (
 	go.opentelemetry.io/proto/otlp v1.11.1 // indirect
 	go.uber.org/atomic v1.12.0 // indirect
 	go.uber.org/dig v1.19.0 // indirect
-	go.uber.org/fx v1.24.0 // indirect
 	go.uber.org/mock v0.6.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.28.0 // indirect

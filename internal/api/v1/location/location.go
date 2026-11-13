@@ -1,8 +1,8 @@
 package location
 
 import (
-	"github.com/alexfalkowski/go-service/v2/context"
-	"github.com/alexfalkowski/go-service/v2/meta"
+	"github.com/alexfalkowski/go-service/v3/context"
+	"github.com/alexfalkowski/go-service/v3/meta"
 	v1 "github.com/alexfalkowski/standort/v2/api/standort/v1"
 	"github.com/alexfalkowski/standort/v2/internal/location"
 )

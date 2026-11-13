@@ -1,6 +1,6 @@
 package health
 
-import "github.com/alexfalkowski/go-service/v2/di"
+import "github.com/alexfalkowski/go-signal/v2"
 
 // Module wires the health subsystem into the application's dependency injection graph.
 //
@@ -10,10 +10,10 @@ import "github.com/alexfalkowski/go-service/v2/di"
 //   - gRPC observers for the v1 and v2 Standort service descriptors.
 //
 // This module is intended to be composed into the top-level server module (see `internal/cmd.Module`).
-var Module = di.Module(
-	di.Register(register),
-	di.Register(httpHealthObserver),
-	di.Register(httpLivenessObserver),
-	di.Register(httpReadinessObserver),
-	di.Register(grpcObserver),
+var Module = signal.Module(
+	signal.Register(register),
+	signal.Register(httpHealthObserver),
+	signal.Register(httpLivenessObserver),
+	signal.Register(httpReadinessObserver),
+	signal.Register(grpcObserver),
 )

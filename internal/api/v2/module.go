@@ -1,7 +1,7 @@
 package v2
 
 import (
-	"github.com/alexfalkowski/go-service/v2/di"
+	"github.com/alexfalkowski/go-signal/v2"
 	"github.com/alexfalkowski/standort/v2/internal/api/v2/assets"
 	"github.com/alexfalkowski/standort/v2/internal/api/v2/location"
 	"github.com/alexfalkowski/standort/v2/internal/api/v2/transport/grpc"
@@ -18,11 +18,11 @@ import (
 //   - the v2 HTTP server implementation (`http.NewServer`) and its HTTP routing registration (`http.Register`)
 //
 // This module is intended to be included by the top-level server composition (see `internal/cmd.Module`).
-var Module = di.Module(
+var Module = signal.Module(
 	location.Module,
 	assets.Module,
-	di.Constructor(grpc.NewServer),
-	di.Register(grpc.Register),
-	di.Constructor(http.NewServer),
-	di.Register(http.Register),
+	signal.Constructor(grpc.NewServer),
+	signal.Register(grpc.Register),
+	signal.Constructor(http.NewServer),
+	signal.Register(http.Register),
 )

@@ -1,6 +1,6 @@
 package provider
 
-import "github.com/alexfalkowski/go-service/v2/context"
+import "github.com/alexfalkowski/go-service/v3/context"
 
 // Provider resolves country and continent information for a given ISO country code.
 //
