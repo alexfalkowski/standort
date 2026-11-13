@@ -3,12 +3,12 @@ package cmd
 import (
 	"github.com/alexfalkowski/go-service/v3/module"
 	"github.com/alexfalkowski/go-signal/v2"
-	"github.com/alexfalkowski/standort/v2/assets"
-	v1 "github.com/alexfalkowski/standort/v2/internal/api/v1"
-	v2 "github.com/alexfalkowski/standort/v2/internal/api/v2"
-	"github.com/alexfalkowski/standort/v2/internal/config"
-	"github.com/alexfalkowski/standort/v2/internal/health"
-	"github.com/alexfalkowski/standort/v2/internal/location"
+	"github.com/alexfalkowski/standort/v3/assets"
+	v1 "github.com/alexfalkowski/standort/v3/internal/api/v1"
+	v2 "github.com/alexfalkowski/standort/v3/internal/api/v2"
+	"github.com/alexfalkowski/standort/v3/internal/config"
+	"github.com/alexfalkowski/standort/v3/internal/health"
+	"github.com/alexfalkowski/standort/v3/internal/location"
 )
 
 // Module is the top-level dependency injection composition for the standort server.

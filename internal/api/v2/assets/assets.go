@@ -3,8 +3,8 @@ package assets
 import (
 	"github.com/alexfalkowski/go-service/v3/context"
 	"github.com/alexfalkowski/go-service/v3/meta"
-	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
-	"github.com/alexfalkowski/standort/v2/internal/assets"
+	v2 "github.com/alexfalkowski/standort/v3/api/standort/v2"
+	"github.com/alexfalkowski/standort/v3/internal/assets"
 )
 
 // NewRepository constructs a v2 embedded lookup asset repository.

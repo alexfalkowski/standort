@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/alexfalkowski/go-service/v3/config"
-	"github.com/alexfalkowski/standort/v2/internal/health"
+	"github.com/alexfalkowski/standort/v3/internal/health"
 )
 
 // Config is the top-level service configuration structure.

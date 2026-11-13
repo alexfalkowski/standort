@@ -5,8 +5,8 @@ import (
 
 	"github.com/alexfalkowski/go-service/v3/errors"
 	"github.com/alexfalkowski/go-signal/v2"
-	"github.com/alexfalkowski/standort/v2/internal/location/orb/provider"
-	"github.com/alexfalkowski/standort/v2/internal/location/orb/provider/rtree"
+	"github.com/alexfalkowski/standort/v3/internal/location/orb/provider"
+	"github.com/alexfalkowski/standort/v3/internal/location/orb/provider/rtree"
 )
 
 // ErrNoProvider indicates no orb (lat/lng) provider was configured.

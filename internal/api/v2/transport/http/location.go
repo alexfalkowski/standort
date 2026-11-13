@@ -4,8 +4,8 @@ import (
 	"github.com/alexfalkowski/go-service/v3/context"
 	"github.com/alexfalkowski/go-service/v3/net/http"
 	"github.com/alexfalkowski/go-service/v3/net/http/status"
-	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
-	"github.com/alexfalkowski/standort/v2/internal/diagnostics"
+	v2 "github.com/alexfalkowski/standort/v3/api/standort/v2"
+	"github.com/alexfalkowski/standort/v3/internal/diagnostics"
 )
 
 // GetLocation resolves a location from request inputs.

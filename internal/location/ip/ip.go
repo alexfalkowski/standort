@@ -4,8 +4,8 @@ import (
 	"embed"
 
 	"github.com/alexfalkowski/go-signal/v2"
-	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
-	"github.com/alexfalkowski/standort/v2/internal/location/ip/provider/geoip2"
+	"github.com/alexfalkowski/standort/v3/internal/location/ip/provider"
+	"github.com/alexfalkowski/standort/v3/internal/location/ip/provider/geoip2"
 )
 
 // ProviderParams are dependency-injection inputs for constructing an IP lookup provider.

@@ -3,8 +3,8 @@ package location
 import (
 	"github.com/alexfalkowski/go-service/v3/context"
 	"github.com/alexfalkowski/go-service/v3/meta"
-	v1 "github.com/alexfalkowski/standort/v2/api/standort/v1"
-	"github.com/alexfalkowski/standort/v2/internal/location"
+	v1 "github.com/alexfalkowski/standort/v3/api/standort/v1"
+	"github.com/alexfalkowski/standort/v3/internal/location"
 )
 
 // NewLocator constructs a v1 response locator.

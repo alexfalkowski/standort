@@ -1,8 +1,7 @@
 ![Gopher](assets/gopher.png)
 [![CircleCI](https://circleci.com/gh/alexfalkowski/standort.svg?style=shield)](https://circleci.com/gh/alexfalkowski/standort)
 [![codecov](https://codecov.io/gh/alexfalkowski/standort/graph/badge.svg?token=JJP65DPD1M)](https://codecov.io/gh/alexfalkowski/standort)
-[![Go Report Card](https://goreportcard.com/badge/github.com/alexfalkowski/standort/v2)](https://goreportcard.com/report/github.com/alexfalkowski/standort/v2)
-[![Go Reference](https://pkg.go.dev/badge/github.com/alexfalkowski/standort/v2.svg)](https://pkg.go.dev/github.com/alexfalkowski/standort/v2)
+[![Go Reference](https://pkg.go.dev/badge/github.com/alexfalkowski/standort/v3.svg)](https://pkg.go.dev/github.com/alexfalkowski/standort/v3)
 [![Stability: Active](https://masterminds.github.io/stability/active.svg)](https://masterminds.github.io/stability/active.html)
 
 # 📍 Standort
@@ -13,6 +12,10 @@ Standort is a Go service that provides location-based information (country + con
 - a **latitude/longitude point** (point-in-polygon lookup over embedded GeoJSON).
 
 It exposes **two API versions (v1 and v2)** over **gRPC** and **HTTP**. It is useful when an application needs a small service boundary for country/continent enrichment without calling an external provider at request time.
+
+The Go module is `github.com/alexfalkowski/standort/v3`. Go consumers migrating
+from `/v2` must update their imports to `/v3`. The protobuf packages and RPC
+routes retain their v1 and v2 versions.
 
 > [!NOTE]
 > Standort ships its lookup data as embedded assets, so runtime responses are determined by the GeoIP2 database and GeoJSON files committed under `assets/`.
@@ -494,14 +497,13 @@ make trivy-repo
 ### ✅ CI parity
 
 CircleCI initializes submodules, vendors dependencies, then runs linting,
-protobuf breaking and generated-output stale checks, security checks, feature
+protobuf generated-output stale checks, security checks, feature
 tests, benchmarks, analysis, coverage, and Codecov upload. To mirror the main
 validation sequence locally, use:
 
 ```sh
 make dep
 make lint
-make proto-breaking
 make proto-stale
 make sec
 make features
@@ -529,13 +531,13 @@ make proto-generate
 
 `buf generate` writes Go protobuf/gRPC files into this repository and Ruby protobuf/gRPC files under `test/lib`. It uses Buf remote plugins, so `make proto-generate` and `make proto-stale` may need network access on first run or when the plugin cache is empty. When a `.proto` file is renamed or deleted, remove any orphaned generated Go and Ruby outputs in the same change.
 
-Breaking-change check:
+Optional local breaking-change check:
 
 ```sh
 make proto-breaking
 ```
 
-`make proto-breaking` compares `api/` with the `master` branch on GitHub and requires network access to that remote baseline.
+`make proto-breaking` compares `api/` with the `master` branch on GitHub and requires network access to that remote baseline. It is not run in CI.
 
 Generated-output freshness check:
 

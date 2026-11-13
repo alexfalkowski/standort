@@ -1,8 +1,8 @@
 package country
 
 import (
-	"github.com/alexfalkowski/standort/v2/internal/location/country/provider"
-	"github.com/alexfalkowski/standort/v2/internal/location/country/provider/gountries"
+	"github.com/alexfalkowski/standort/v3/internal/location/country/provider"
+	"github.com/alexfalkowski/standort/v3/internal/location/country/provider/gountries"
 )
 
 // NewProvider constructs the default country lookup provider.

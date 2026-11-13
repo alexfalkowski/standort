@@ -2,8 +2,8 @@ package http
 
 import (
 	"github.com/alexfalkowski/go-service/v3/net/http/rpc"
-	v1 "github.com/alexfalkowski/standort/v2/api/standort/v1"
-	"github.com/alexfalkowski/standort/v2/internal/api/v1/location"
+	v1 "github.com/alexfalkowski/standort/v3/api/standort/v1"
+	"github.com/alexfalkowski/standort/v3/internal/api/v1/location"
 )
 
 // Register registers the v1 HTTP routes for the Standort API.

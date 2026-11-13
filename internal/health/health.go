@@ -6,8 +6,8 @@ import (
 	"github.com/alexfalkowski/go-service/v3/env"
 	"github.com/alexfalkowski/go-service/v3/errors"
 	"github.com/alexfalkowski/go-service/v3/health"
-	v1 "github.com/alexfalkowski/standort/v2/api/standort/v1"
-	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
+	v1 "github.com/alexfalkowski/standort/v3/api/standort/v1"
+	v2 "github.com/alexfalkowski/standort/v3/api/standort/v2"
 )
 
 func register(name env.Name, srv *server.Server, cfg *Config) {

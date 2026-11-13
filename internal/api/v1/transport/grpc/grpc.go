@@ -2,8 +2,8 @@ package grpc
 
 import (
 	"github.com/alexfalkowski/go-service/v3/net/grpc"
-	v1 "github.com/alexfalkowski/standort/v2/api/standort/v1"
-	"github.com/alexfalkowski/standort/v2/internal/api/v1/location"
+	v1 "github.com/alexfalkowski/standort/v3/api/standort/v1"
+	"github.com/alexfalkowski/standort/v3/internal/api/v1/location"
 )
 
 // Register registers the v1 Standort gRPC service implementation with the given registrar.

@@ -4,7 +4,7 @@ package standort.v2;
 
 import "google/rpc/status.proto";
 
-option go_package = "github.com/alexfalkowski/standort/v2/api/standort/v2";
+option go_package = "github.com/alexfalkowski/standort/v3/api/standort/v2";
 option ruby_package = "Standort::V2";
 
 // Location of the response.
