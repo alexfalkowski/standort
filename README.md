@@ -497,13 +497,14 @@ make trivy-repo
 ### ✅ CI parity
 
 CircleCI initializes submodules, vendors dependencies, then runs linting,
-protobuf generated-output stale checks, security checks, feature
+protobuf breaking and generated-output stale checks, security checks, feature
 tests, benchmarks, analysis, coverage, and Codecov upload. To mirror the main
 validation sequence locally, use:
 
 ```sh
 make dep
 make lint
+make proto-breaking
 make proto-stale
 make sec
 make features
@@ -531,13 +532,13 @@ make proto-generate
 
 `buf generate` writes Go protobuf/gRPC files into this repository and Ruby protobuf/gRPC files under `test/lib`. It uses Buf remote plugins, so `make proto-generate` and `make proto-stale` may need network access on first run or when the plugin cache is empty. When a `.proto` file is renamed or deleted, remove any orphaned generated Go and Ruby outputs in the same change.
 
-Optional local breaking-change check:
+Breaking-change check:
 
 ```sh
 make proto-breaking
 ```
 
-`make proto-breaking` compares `api/` with the `master` branch on GitHub and requires network access to that remote baseline. It is not run in CI.
+`make proto-breaking` compares `api/` with the `master` branch on GitHub and requires network access to that remote baseline.
 
 Generated-output freshness check:
 

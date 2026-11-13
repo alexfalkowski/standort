@@ -146,7 +146,7 @@ Observed:
   - Go protobuf + gRPC stubs into this repo (see `api/buf.gen.yaml:3-10`).
   - Ruby protobuf + gRPC stubs into `test/lib` (see `api/buf.gen.yaml:11-14`).
 
-Optional local breaking-change check (not run in CI):
+Breaking-change check:
 
 ```sh
 make proto-breaking
@@ -245,13 +245,14 @@ make trivy-image platform=amd64
 ## CI signals (CircleCI)
 
 CircleCI runs (see `.circleci/config.yml`):
-- `make dep`, `make lint`, `make proto-stale`, `make sec`, `make features`, `make benchmarks`, `make analyse`, `make coverage`, `make codecov-upload`.
+- `make dep`, `make lint`, `make proto-breaking`, `make proto-stale`, `make sec`, `make features`, `make benchmarks`, `make analyse`, `make coverage`, `make codecov-upload`.
 
 If you’re trying to match CI locally, use the same target sequence:
 
 ```sh
 make dep
 make lint
+make proto-breaking
 make proto-stale
 make sec
 make features
