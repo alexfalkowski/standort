@@ -5,7 +5,7 @@ import (
 	"embed"
 	"encoding/hex"
 
-	"github.com/alexfalkowski/go-service/v2/runtime"
+	"github.com/alexfalkowski/go-service/v3/runtime"
 )
 
 const checksumAlgorithm = "sha256"

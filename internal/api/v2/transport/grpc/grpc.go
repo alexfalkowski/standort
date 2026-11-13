@@ -1,9 +1,9 @@
 package grpc
 
 import (
-	"github.com/alexfalkowski/go-service/v2/context"
-	"github.com/alexfalkowski/go-service/v2/net/grpc"
-	"github.com/alexfalkowski/go-service/v2/net/grpc/meta"
+	"github.com/alexfalkowski/go-service/v3/context"
+	"github.com/alexfalkowski/go-service/v3/net/grpc"
+	"github.com/alexfalkowski/go-service/v3/net/grpc/meta"
 	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
 	"github.com/alexfalkowski/standort/v2/internal/api/v2/assets"
 	"github.com/alexfalkowski/standort/v2/internal/api/v2/location"

@@ -1,7 +1,7 @@
 package location
 
 import (
-	"github.com/alexfalkowski/go-service/v2/di"
+	"github.com/alexfalkowski/go-signal/v2"
 	"github.com/alexfalkowski/standort/v2/internal/location/country"
 	"github.com/alexfalkowski/standort/v2/internal/location/ip"
 	"github.com/alexfalkowski/standort/v2/internal/location/orb"
@@ -19,9 +19,9 @@ import (
 //
 // This module is intended to be composed into the top-level server module (see
 // `internal/cmd.Module`).
-var Module = di.Module(
-	di.Constructor(ip.NewProvider),
-	di.Constructor(country.NewProvider),
-	di.Constructor(New),
-	di.Constructor(orb.NewProvider),
+var Module = signal.Module(
+	signal.Constructor(ip.NewProvider),
+	signal.Constructor(country.NewProvider),
+	signal.Constructor(New),
+	signal.Constructor(orb.NewProvider),
 )

@@ -5,9 +5,9 @@ import (
 	"math"
 	"net"
 
-	"github.com/alexfalkowski/go-service/v2/context"
-	"github.com/alexfalkowski/go-service/v2/errors"
-	"github.com/alexfalkowski/go-service/v2/strings"
+	"github.com/alexfalkowski/go-service/v3/context"
+	"github.com/alexfalkowski/go-service/v3/errors"
+	"github.com/alexfalkowski/go-service/v3/strings"
 	"github.com/alexfalkowski/standort/v2/internal/location/continent"
 	country "github.com/alexfalkowski/standort/v2/internal/location/country/provider"
 	ip "github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
