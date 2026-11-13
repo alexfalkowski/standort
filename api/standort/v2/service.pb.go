@@ -777,7 +777,7 @@ const file_standort_v2_service_proto_rawDesc = "" +
 	"\aService\x12R\n" +
 	"\vGetLocation\x12\x1f.standort.v2.GetLocationRequest\x1a .standort.v2.GetLocationResponse\"\x00\x12^\n" +
 	"\x0fLookupLocations\x12#.standort.v2.LookupLocationsRequest\x1a$.standort.v2.LookupLocationsResponse\"\x00\x12^\n" +
-	"\x0fGetLookupAssets\x12#.standort.v2.GetLookupAssetsRequest\x1a$.standort.v2.GetLookupAssetsResponse\"\x00BEZ4github.com/alexfalkowski/standort/v2/api/standort/v2\xea\x02\fStandort::V2b\x06proto3"
+	"\x0fGetLookupAssets\x12#.standort.v2.GetLookupAssetsRequest\x1a$.standort.v2.GetLookupAssetsResponse\"\x00BEZ4github.com/alexfalkowski/standort/v3/api/standort/v2\xea\x02\fStandort::V2b\x06proto3"
 
 var (
 	file_standort_v2_service_proto_rawDescOnce sync.Once

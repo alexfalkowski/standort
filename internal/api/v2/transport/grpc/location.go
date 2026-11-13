@@ -4,8 +4,8 @@ import (
 	"github.com/alexfalkowski/go-service/v3/context"
 	"github.com/alexfalkowski/go-service/v3/net/grpc/codes"
 	"github.com/alexfalkowski/go-service/v3/net/grpc/status"
-	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
-	"github.com/alexfalkowski/standort/v2/internal/diagnostics"
+	v2 "github.com/alexfalkowski/standort/v3/api/standort/v2"
+	"github.com/alexfalkowski/standort/v3/internal/diagnostics"
 )
 
 // GetLocation resolves a location using any available inputs (IP address and/or geo point).

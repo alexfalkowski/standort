@@ -8,10 +8,10 @@ import (
 	"github.com/alexfalkowski/go-service/v3/context"
 	"github.com/alexfalkowski/go-service/v3/errors"
 	"github.com/alexfalkowski/go-service/v3/strings"
-	"github.com/alexfalkowski/standort/v2/internal/location/continent"
-	country "github.com/alexfalkowski/standort/v2/internal/location/country/provider"
-	ip "github.com/alexfalkowski/standort/v2/internal/location/ip/provider"
-	orb "github.com/alexfalkowski/standort/v2/internal/location/orb/provider"
+	"github.com/alexfalkowski/standort/v3/internal/location/continent"
+	country "github.com/alexfalkowski/standort/v3/internal/location/country/provider"
+	ip "github.com/alexfalkowski/standort/v3/internal/location/ip/provider"
+	orb "github.com/alexfalkowski/standort/v3/internal/location/orb/provider"
 )
 
 // ErrInvalidIP is returned when an IP address is not a valid IPv4 or IPv6 address.

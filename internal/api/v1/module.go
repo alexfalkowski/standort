@@ -2,9 +2,9 @@ package v1
 
 import (
 	"github.com/alexfalkowski/go-signal/v2"
-	"github.com/alexfalkowski/standort/v2/internal/api/v1/location"
-	"github.com/alexfalkowski/standort/v2/internal/api/v1/transport/grpc"
-	"github.com/alexfalkowski/standort/v2/internal/api/v1/transport/http"
+	"github.com/alexfalkowski/standort/v3/internal/api/v1/location"
+	"github.com/alexfalkowski/standort/v3/internal/api/v1/transport/grpc"
+	"github.com/alexfalkowski/standort/v3/internal/api/v1/transport/http"
 )
 
 // Module wires the v1 API into the application's dependency injection graph.

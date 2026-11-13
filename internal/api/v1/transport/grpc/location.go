@@ -4,7 +4,7 @@ import (
 	"github.com/alexfalkowski/go-service/v3/context"
 	"github.com/alexfalkowski/go-service/v3/net/grpc/codes"
 	"github.com/alexfalkowski/go-service/v3/net/grpc/status"
-	v1 "github.com/alexfalkowski/standort/v2/api/standort/v1"
+	v1 "github.com/alexfalkowski/standort/v3/api/standort/v1"
 )
 
 // GetLocationByIP resolves a location from an IP address.

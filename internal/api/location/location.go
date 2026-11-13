@@ -8,8 +8,8 @@ import (
 	"github.com/alexfalkowski/go-service/v3/errors"
 	"github.com/alexfalkowski/go-service/v3/meta"
 	"github.com/alexfalkowski/go-service/v3/strings"
-	"github.com/alexfalkowski/standort/v2/internal/diagnostics"
-	"github.com/alexfalkowski/standort/v2/internal/location"
+	"github.com/alexfalkowski/standort/v3/internal/diagnostics"
+	"github.com/alexfalkowski/standort/v3/internal/location"
 )
 
 // ErrNotFound is returned by `(*Locator).Locate` when no location could be

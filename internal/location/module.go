@@ -2,9 +2,9 @@ package location
 
 import (
 	"github.com/alexfalkowski/go-signal/v2"
-	"github.com/alexfalkowski/standort/v2/internal/location/country"
-	"github.com/alexfalkowski/standort/v2/internal/location/ip"
-	"github.com/alexfalkowski/standort/v2/internal/location/orb"
+	"github.com/alexfalkowski/standort/v3/internal/location/country"
+	"github.com/alexfalkowski/standort/v3/internal/location/ip"
+	"github.com/alexfalkowski/standort/v3/internal/location/orb"
 )
 
 // Module wires the domain `location` service into the application's dependency injection graph.

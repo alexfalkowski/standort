@@ -2,7 +2,7 @@ package location
 
 import (
 	"github.com/alexfalkowski/go-signal/v2"
-	"github.com/alexfalkowski/standort/v2/internal/api/location"
+	"github.com/alexfalkowski/standort/v3/internal/api/location"
 )
 
 // Module wires the v2 response locator into the application's dependency injection graph.

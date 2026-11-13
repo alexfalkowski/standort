@@ -4,10 +4,10 @@ import (
 	"github.com/alexfalkowski/go-service/v3/context"
 	"github.com/alexfalkowski/go-service/v3/net/grpc"
 	"github.com/alexfalkowski/go-service/v3/net/grpc/meta"
-	v2 "github.com/alexfalkowski/standort/v2/api/standort/v2"
-	"github.com/alexfalkowski/standort/v2/internal/api/v2/assets"
-	"github.com/alexfalkowski/standort/v2/internal/api/v2/location"
-	"github.com/alexfalkowski/standort/v2/internal/diagnostics"
+	v2 "github.com/alexfalkowski/standort/v3/api/standort/v2"
+	"github.com/alexfalkowski/standort/v3/internal/api/v2/assets"
+	"github.com/alexfalkowski/standort/v3/internal/api/v2/location"
+	"github.com/alexfalkowski/standort/v3/internal/diagnostics"
 )
 
 // Register registers the v2 Standort gRPC service implementation with the given registrar.

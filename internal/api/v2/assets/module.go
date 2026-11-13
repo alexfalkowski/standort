@@ -2,7 +2,7 @@ package assets
 
 import (
 	"github.com/alexfalkowski/go-signal/v2"
-	"github.com/alexfalkowski/standort/v2/internal/assets"
+	"github.com/alexfalkowski/standort/v3/internal/assets"
 )
 
 // Module wires the v2 embedded lookup asset repository.
