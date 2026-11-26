@@ -6,30 +6,18 @@ Use `bin/AGENTS.md` for shared skills and cross-repository defaults.
 
 This repository is a Go service called **standort** (location-based information) with two API versions (v1 and v2) exposed over **gRPC** and **HTTP**.
 
+## Accepted design
+
+Read the [accepted-design index](docs/agents/accepted-design.md) and the relevant
+area files before proposing a change or recording a finding or audit entry.
+Apply each decision to its documented scope and record owner-agreed choices in
+the owning area file.
+
 ## Recent repo notes (keep in sync)
 
 - README was updated to remove `make setup` (no such target) and to include accurate bootstrap/run steps and gRPC examples.
 - Package-level documentation is expected to live in `doc.go` files (a set of `doc.go` files were added across key packages).
 - If Go tooling fails with "inconsistent vendoring", run `make dep` to re-vendor (many targets use `-mod vendor`).
-- Embedded GeoIP/GeoJSON lookup assets are updated when freshness is needed. Do not report the absence of an automatic asset freshness guard as a reliability gap unless there is a concrete stale-data failure or a documented freshness requirement.
-- When protobuf files are deleted or renamed, the change author is responsible
-  for removing orphaned generated Go/Ruby outputs. Do not report the absence of
-  automatic generated-output cleanup in proto generation as a reliability gap
-  unless there is evidence that the repository workflow currently publishes or
-  validates stale generated API artifacts.
-- Deployment is owned by the version-controlled `alexfalkowski/infraops`
-  `area/apps` path. That path owns runtime artifact references,
-  startup/readiness probes, serialized update jobs, and targeted release
-  verification. Do not report missing deploy serialization in this repository's
-  CircleCI workflow as a reliability gap unless there is concrete evidence that
-  the infraops deployment path no longer controls the deployed state or can roll
-  it back out of order.
-- v2 intentionally combines explicitly supplied lookup inputs with ambient
-  transport metadata for any omitted source. Its separate `ip` and `geo`
-  response fields identify those independent lookup results. Do not propose an
-  explicit-input-only switch or treat this metadata fallback as a feature,
-  reliability, or API-design gap unless evidence shows this contract has
-  changed.
 
 ## First steps
 
